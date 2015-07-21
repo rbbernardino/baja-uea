@@ -1,0 +1,99 @@
+------------------------------------------------------------------------------
+Especificações:
+- Sensores
+   - Velocidade
+   - Aceleração
+   - Freio
+   - Temperatura do Motor
+   - RPM
+   - Combustível
+
+legenda:
+  (F/T) - Frontal + Traseiro
+  (i/f) - inicial + final
+
+- Parâmetros de uma corrida
+   - Carro
+      - Pressão do pneu: (F/T), ?(i/f)?
+      - Combustível: (i/f)
+      - Ângulo de (Caster | Camber | Sleep): (F/T), ?(i/f)?
+      - Distância entre eixos
+      - Bitola: (F/T)
+      - Relação de transmissão
+      - Piloto: (Nome | Peso | Altura)
+
+FALTA: escalas de cada parâmetro
+
+------------------------------------------------------------------------------
+0) Verificar questão da licensa aberta (GNU)
+
+------------------------------------------------------------------------------
+1) Comunicação sensores <-> C/C++
+   1.1) arduino --> XBee carro --> XBee box (enviar um int)
+   1.2) usar processo C/C++ (listener)
+      1.2.1) arduino ---> XBee(s) ---> printf() (continuamente / loop)
+
+   1.3) dados de 1 sensor (continuamente / loop)
+       1.3.1) sensor --COM--> printf()
+
+   1.4) dados de varios sensores (loop)
+       1.4.1) Definir protocolo de comunicação
+       1.4.2) Enviar dados
+           - INICIO
+           - sensor 1   --COM--> printf()
+           - sensor ... --COM--> printf()
+           - sensor 5   --COM--> printf()
+           - FIM
+
+------------------------------------------------------------------------------
+2) Conectar processo C/C++ com Navegador
+   2.1) Javascript data listener
+   2.2) imprimir dados dos sensores em uma caixa de texto dinâmica
+
+------------------------------------------------------------------------------
+3) Desenhar interface
+   3.1) gráfico dinâmico de um sensor
+   3.2) gráfico dinâmico de todos os sensores
+
+------------------------------------------------------------------------------
+4) Sensores --> Browser
+   4.1) testar envio constante de dados dos sensores até desenho dos gráficos
+   4.2) definir taxa de atualização
+   4.3) checar compatibilidade com outros browsers e plataformas
+   4.4) checar desempenho
+
+------------------------------------------------------------------------------
+5) Cliente + Persistência
+   - Projetar telas do cliente (+ maq. de estados para navegação)
+   - Modelar banco de dados
+
+   5.1) Modo 1: gravar dados de um treino/corrida
+      5.1.1) especificar se é treino ou corrida
+      5.1.2) especificar parâmetros (regulagem do carro + condições da pista)
+      5.1.3) conectar com XBee do carro
+      5.1.4) conectar com o banco de dados
+      5.1.5) desenhar gráficos e iniciar reprodução
+      5.1.6) gravar desempenho do carro no banco de dados
+             a) definir intervalos regulares para gravar no banco de dados
+             b) caixa de texto ao lado mostrando valor atual para cada gráfico
+      5.1.7) finalizar corrida
+             a) encerrar comunicação e gráficos
+             b) pedir parâmetros finais (combustível, etc.)
+
+   5.2) Modo 2: revisar treino/corrida passado
+      5.2.1) especificar se vai buscar por corrida ou treino
+      5.2.2) exibir lista de treinos/corridas
+             a) permitir filtro por semana/mês/ano
+      5.2.3) desenhar tela de exibição dos dados
+             a) gráficos interativos
+                  - avançar +/- no tempo
+                  - definir h/m/s (x) específico para consulta de valor (y)
+                  - regular +/- escala do tempo (x)
+                  - exibir valor (x, y) específico
+                       - selecionar com mouse/setas
+                       - caixa de texto separada ao lado do gráfico
+
+------------------------------------------------------------------------------
+6) Finalização
+- Realizar bateria de testes finais
+- Embelezar interface/design
