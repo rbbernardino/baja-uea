@@ -1,0 +1,16 @@
+Aplicativo: draw.io + Google Drive
+Como acessar:
+1. importe o documento (link) para o seu Google Drive
+2. abra https://drive.draw.io
+3. escolha "Open existing diagram"
+4. [se primeira vez] autorize o draw.io no seu Google Drive
+5. selecione o arquivo no seu Google Drive
+
+-------------------------------------------------------------------------------
+título: arq_telemetria
+descrição:
+  arquitetura geral do sistema de telemetria. Contém nomes dos módulos
+  e como eles interagem entre si, especificando a interface utilizada
+
+https://drive.google.com/file/d/0B1Ltj3v8SD2tMHpneTdpLWhLLW8/view?usp=sharing
+-------------------------------------------------------------------------------
