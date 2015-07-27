@@ -20,7 +20,12 @@ legenda:
       - Distância entre eixos
       - Bitola: (F/T)
       - Relação de transmissão
-      - Piloto: (Nome | Peso | Altura)
+   - Piloto: (Nome | Peso | Altura)
+   - Ambiente
+      - Temperatura (°C)
+      - Umidade (%)
+      - Tempo (chuva | nublado | ensolarado)
+      - Pista (molhada | seca)
 
 FALTA: escalas de cada parâmetro
 
@@ -96,4 +101,6 @@ FALTA: escalas de cada parâmetro
 ------------------------------------------------------------------------------
 6) Finalização
 - Realizar bateria de testes finais
+   - testar em situação adversa de tempo (nuvens)
+   - várias velocidades
 - Embelezar interface/design
