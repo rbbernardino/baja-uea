@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <meta charset="UTF-8">
+        <title></title>
+        
+        <script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="jquery.datatables.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+               var  table = $('#example').DataTable({
+	         "language":{
+	            "url": "https://cdn.datatables.net/plug-ins/1.10.7/i18n/Portuguese-Brasil.json"
+	          }
+	       });
+    $('#example tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    } );
+ 
+    $('#button').click( function () {
+        table.row('.selected').remove().draw( false );
+    } );
+              } );
+        </script>    
+        
+<link rel="stylesheet" type="text/css" href="index_1.css" media="all">
+</head>
+<body>
+        
+<div class="dataTables_wrapper" id="example_wrapper"><div id="example_length" class="dataTables_length"></div><div class="dataTables_filter" id="example_filter"></div><div class="dataTables_wrapper" id="example_wrapper"><div id="example_length" class="dataTables_length"><label><select class="" aria-controls="example" name="example_length"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> resultados por página</label></div><div class="dataTables_filter" id="example_filter"><label>Pesquisar<input aria-controls="example" placeholder="" class="" type="search"></label></div><table style="width: 100%;" aria-describedby="example_info" role="grid" id="example" class="display dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr role="row"><th aria-sort="ascending" aria-label="Data: Ordenar colunas de forma descendente" style="width: 213px;" colspan="1" rowspan="1" aria-controls="example" tabindex="0" class="sorting_asc">Data</th><th aria-label="Hora de Início: Ordenar colunas de forma ascendente" style="width: 190px;" colspan="1" rowspan="1" aria-controls="example" tabindex="0" class="sorting">Hora de Início</th><th aria-label="Motorista: Ordenar colunas de forma ascendente" style="width: 137px;" colspan="1" rowspan="1" aria-controls="example" tabindex="0" class="sorting">Motorista</th></tr>
+        </thead>
+ 
+        <tfoot>
+            <tr><th colspan="1" rowspan="1">Data</th><th colspan="1" rowspan="1">Hora de Início</th><th colspan="1" rowspan="1">Motorista</th></tr>
+        </tfoot>
+ 
+        <tbody>
+            
+            
+            
+            
+            
+        <tr class="odd" role="row">
+                <td class="sorting_1" data-order="1">Sex 1o Fevereiro 14</td>
+                <td data-order="11">17:30</td>
+                <td data-search="Joao Batista">João Batista</td>
+            </tr><tr class="even" role="row">
+                <td class="sorting_1" data-order="2">Sab 13 Agosto 14</td>
+                <td data-order="22">16:00</td>
+                <td data-search="Jose Almeida">José Almeida</td>
+            </tr><tr class="odd" role="row">
+                <td class="sorting_1" data-order="3">Seg 25 Janeiro 15</td>
+                <td data-order="33">15:43</td>
+                <td data-search="Joao Batista">João Batista</td>
+            </tr><tr class="even" role="row">
+                <td class="sorting_1" data-order="4">Ter 20 Abril 15</td>
+                <td data-order="44">15:45</td>
+                <td data-search="Joao Batista">João Batista</td>
+            </tr><tr class="odd" role="row">
+                <td class="sorting_1" data-order="5">Qua 15 Maio 15</td>
+                <td data-order="55">10:13</td>
+                <td data-search="Jose Almeida">José Almeida</td>
+            </tr></tbody>
+    </table></div><div aria-live="polite" role="status" id="example_info" class="dataTables_info">Mostrando de 1 até 5 de 5 registros</div><div id="example_paginate" class="dataTables_paginate paging_simple_numbers"><a id="example_previous" tabindex="0" data-dt-idx="0" aria-controls="example" class="paginate_button previous disabled">Anterior</a><span><a tabindex="0" data-dt-idx="1" aria-controls="example" class="paginate_button current">1</a></span><a id="example_next" tabindex="0" data-dt-idx="2" aria-controls="example" class="paginate_button next disabled">Próximo</a></div></div>
+    
+
+
+
+</body></html>

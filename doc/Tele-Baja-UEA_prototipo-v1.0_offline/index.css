@@ -1,0 +1,20 @@
+/* ::::: https://dg117jbyarqyn.cloudfront.net/sb-9.4/7300/resources/css.gz/viewer.css ::::: */
+
+html, body { margin: 0px; padding: 0px; }
+body { background: rgb(255, 255, 255) none repeat scroll 0% 0%; }
+iframe { border: 0px none; }
+* {  }
+#s9-body { position: relative; z-index: 0; }
+#s9-blank-msg, #s9-edit-blank-msg { position: relative; z-index: 1; top: 200px; height: 0px; text-align: center; cursor: default; pointer-events: none; }
+#s9-blank-msg { color: rgb(153, 153, 153); display: none; }
+#s9-notes { position: relative; z-index: 1; }
+.s9--clickable { cursor: pointer; }
+.s9--hide { visibility: hidden; transform: translate(-10000px, -10000px); }
+.s9-content { display: block; overflow: hidden; position: relative; box-sizing: border-box; word-wrap: break-word; }
+textarea.s9-content, button.s9-content, select.s9-content, input.s9-content { margin: 0px; }
+.s9-scrolling { overflow: auto; }
+body { font-family: verdana,helvetica,arial,sans-serif; font-size: 11px; line-height: 1.36; }
+table, tbody, tr, th, td, button, input, select, textarea, pre { font: inherit; }
+p, h1, h2, h3, h4, h5, h6, ul, ol { margin-top: 0px; margin-bottom: 0px; }
+h1 { font-size: 2em; }
+* { z-index: 0; }

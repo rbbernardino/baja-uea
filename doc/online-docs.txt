@@ -1,16 +1,67 @@
-Aplicativo: draw.io + Google Drive
+
+%%%%%%%%%%-----------------------APLICATIVOS-------------------------%%%%%%%%%%
+----------------------------
+Nome: draw.io + Google Drive
+-------------
+Função: diagramas (UML, arquitetura, etc.)
+Plataforma: qualquer navegador moderno
+
 Como acessar:
-1. importe o documento (link) para o seu Google Drive
+1. importe o documento (links abaixo) para o seu Google Drive
 2. abra https://drive.draw.io
 3. escolha "Open existing diagram"
-4. [se primeira vez] autorize o draw.io no seu Google Drive
+4. [se 1a vez] autorize o draw.io no seu Google Drive
 5. selecione o arquivo no seu Google Drive
+----------------------------
 
--------------------------------------------------------------------------------
-título: arq_telemetria
+-------------------------------
+Nome: photoshare + Google Drive (free version)
+----------------
+Função: prototipagem de telas
+Plataforma: Google Chrome
+
+Como acessar:
+[se 1a vez]
+  0.1. Abra o Google Chrome
+  0.2. Acesse a loja de apps ( https://goo.gl/o4plsP )
+  0.3. Instale o app "PhotoShare Mockups for Drive"
+  0.4. Abra chrome://apps
+       (abre automático após instalar o app)
+  0.5. Clique em "PhotoShare Mockups"
+  0.6 Autorize o uso da sua conta Google
+      (pode precisar fazer login com seu e-mail)
+
+[se 2a+ vez]
+  1. Importe o documento (links abaixo) para o seu Google Drive
+  2. Acessando o Google Drive, dê duplo clique no arquivo
+  3. Na parte inferior da mensagem, localize "Aplicativos conectados"
+  4. Selecione "PhotoShare Mockup dor Drive"
+-------------------------------
+
+%%%%%%%%%%-----------------------------------------------------------%%%%%%%%%%
+
+
+%%%%%%%%%%-----------------------ARQUIVOS-----------------------------%%%%%%%%%
+
+título: arq_telemetria.html
+aplicativo: draw.io
+
 descrição:
   arquitetura geral do sistema de telemetria. Contém nomes dos módulos
   e como eles interagem entre si, especificando a interface utilizada
 
+link:
 https://drive.google.com/file/d/0B1Ltj3v8SD2tMHpneTdpLWhLLW8/view?usp=sharing
+
 -------------------------------------------------------------------------------
+
+título: Tele-Baja-UEA.html
+aplicativo: PhotoShare Mockups for Drive (free version)
+
+descrição:
+  Protótipo interativo das telas do cliente
+
+link:
+https://drive.google.com/file/d/0B1Ltj3v8SD2tQ3RsWWNxb21wTEU/view?usp=sharing
+
+

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+               var  table = $('#example').DataTable({
+	         "language":{
+	            "url": "https://cdn.datatables.net/plug-ins/1.10.7/i18n/Portuguese-Brasil.json"
+	          }
+	       });
+    $('#example tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    } );
+ 
+    $('#button').click( function () {
+        table.row('.selected').remove().draw( false );
+    } );
+              } );
+        </script>    
+        <body>
+        
+<table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Hora de In&iacute;cio</th>
+                <th>Motorista</th>
+            </tr>
+        </thead>
+ 
+        <tfoot>
+            <tr>
+                <th>Data</th>
+                <th>Hora de In&iacute;cio</th>
+                <th>Motorista</th>
+            </tr>
+        </tfoot>
+ 
+        <tbody>
+            <tr>
+                <td data-order="1">Sex 1o Fevereiro 14</td>
+                <td data-order="11">17:30</td>
+                <td data-search="Joao Batista">Jo&atilde;o Batista</td>
+            </tr>
+            <tr>
+                <td data-order="2">Sab 13 Agosto 14</td>
+                <td data-order="22">16:00</td>
+                <td data-search="Jose Almeida">Jos&eacute; Almeida</td>
+            </tr>
+            <tr>
+                <td data-order="3">Seg 25 Janeiro 15</td>
+                <td data-order="33">15:43</td>
+                <td data-search="Joao Batista">Jo&atilde;o Batista</td>
+            </tr>
+            <tr>
+                <td data-order="4">Ter 20 Abril 15</td>
+                <td data-order="44">15:45</td>
+                <td data-search="Joao Batista">Jo&atilde;o Batista</td>
+            </tr>
+            <tr>
+                <td data-order="5">Qua 15 Maio 15</td>
+                <td data-order="55">10:13</td>
+                <td data-search="Jose Almeida">Jos&eacute; Almeida</td>
+            </tr>
+        </tbody>
+    </table>
+    </body>
+</html>
