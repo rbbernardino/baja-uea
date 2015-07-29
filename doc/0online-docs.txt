@@ -43,15 +43,35 @@ Como acessar:
 
 %%%%%%%%%%-----------------------ARQUIVOS-----------------------------%%%%%%%%%
 
-título: arq_telemetria.html
+título: TBU_arq_hardware.html
 aplicativo: draw.io
 
 descrição:
-  arquitetura geral do sistema de telemetria. Contém nomes dos módulos
-  e como eles interagem entre si, especificando a interface utilizada
+  Arquitetura geral do sistema de telemetria sob o ponto de vista do hardware.
 
 link:
-https://drive.google.com/file/d/0B1Ltj3v8SD2tMHpneTdpLWhLLW8/view?usp=sharing
+https://drive.google.com/open?id=0B1Ltj3v8SD2tMHpneTdpLWhLLW8
+
+-------------------------------------------------------------------------------
+
+título: TBU_arq_cliente.html
+aplicativo: draw.io
+
+descrição:
+ Arquitetura geral do software a ser executado no cliente.
+
+link:
+https://drive.google.com/open?id=0B1Ltj3v8SD2tMVAzNzFjaGdqdVU
+
+-------------------------------------------------------------------------------
+título: casos_de_uso.html
+aplicativo: draw.io
+
+descrição:
+  Casos de uso do cliente.
+
+link:
+https://drive.google.com/open?id=0B1Ltj3v8SD2tMVAzNzFjaGdqdVU
 
 -------------------------------------------------------------------------------
 
@@ -62,6 +82,6 @@ descrição:
   Protótipo interativo das telas do cliente
 
 link:
-https://drive.google.com/file/d/0B1Ltj3v8SD2tQ3RsWWNxb21wTEU/view?usp=sharing
+https://drive.google.com/open?id=0B1Ltj3v8SD2tQ3RsWWNxb21wTEU
 
 
