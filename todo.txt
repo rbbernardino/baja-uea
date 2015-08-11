@@ -2,7 +2,6 @@
 Especificações:
 - Sensores
    - Velocidade
-   - Aceleração
    - Freio
    - Temperatura do Motor
    - RPM
@@ -27,23 +26,86 @@ legenda:
       - Tempo (chuva | nublado | ensolarado)
       - Pista (molhada | seca)
 
-FALTA: escalas de cada parâmetro
+-  senha para entrar no programa (pedir ao abrir)
+    -  direto no cliente (usuário único)
+
+-------------------------------------------------------
+NOTAS:
+- x dos gráficos: metros (m) (a princípio tempo)
+- não fazer grafico da aceleração
+- grafico do freio binário (1/0) durante a corrida
+- nao gravar no banco de dados o comportamento da temperatura
+- cronometro com tempo da ultima volta
+- velcidade media do carro
+- pergunta: você tem certeza que a corrida encerrou?
+    - total padrão: 4h
+- full screen (17in?)
+- analisar:
+   - exibir graficos por volta
+- busca da corrida por setup
+   - salvar setup
+- menu principal
+   - exibir setups (imutáveis, alteração gera novo)
+- salvar [nome e ano] da competição (semelhante ao nome do piloto)
+   - pesquisar por competição/ano da compt.
+- calcular distância percorrida
+   - através da velocidade média e tempo total (aproximado)
+
+- Análise:
+   - selecionar várias corridas para gerar planilha do excel dos setups
+   - imprimir gráficos sendo analisados	
+- mostrar logos
+   - uea, cicari, baja uea
+   - tela splash
+-------------------------------------------------------
+
+
 
 ------------------------------------------------------------------------------
 0) Verificar questão da licensa aberta (GNU)
 
 ------------------------------------------------------------------------------
-1) Comunicação sensores <-> C/C++
-   1.1) arduino --> XBee carro --> XBee box (enviar um int)
-   1.2) usar processo C/C++ (listener)
-      1.2.1) arduino ---> XBee(s) ---> printf() (continuamente / loop)
+1) Simulador de processo data listener
+   1.1) gerar dados aleatórios para cada sensor
+   1.2) permitir alterar frequência de amostragem
 
-   1.3) dados de 1 sensor (continuamente / loop)
-       1.3.1) sensor --COM--> printf()
+------------------------------------------------------------------------------
+2) Desenhar interface Qt5 de teste
+   2.1) caixa de texto dentro de uma janela
 
-   1.4) dados de varios sensores (loop)
-       1.4.1) Definir protocolo de comunicação
-       1.4.2) Enviar dados
+------------------------------------------------------------------------------
+3) Conectar processo data listener com interface Qt5 de teste
+   3.1) Imprimir dados dos sensores na caixa de texto
+
+------------------------------------------------------------------------------
+4) Acrescentar gráficos à interface Qt5
+   4.1) Teste1: gráfico estático com "QCustomPlot"
+   4.2) Teste2: gráfico dinâmico com "QCustomPlot"
+   4.3) Um sensor: atualizar dinamicamente gráfico de um sensor
+   4.4) Todos os sensores: gráfico dinâmico de todos os sensores
+
+------------------------------------------------------------------------------
+5) Simular perda na conexão
+   5.2) Simular perda de conexão no data listener
+   5.3) Comunicar a perda à interface
+   5.4) Exibir mensagem de "reconectando" caso a conexão seja perdida
+   5.5) Continuar a exibição dos gráficos com partes em branco para o
+        tempo que foi perdido, com pontos (nulo) e gráfico quebrado
+   5.6) Pintar área de vermelho "transparente" para área com dados não
+        recebidos
+
+------------------------------------------------------------------------------
+6) Comunicação sensores <-> data listener
+   6.1) arduino --> XBee carro --> XBee box (enviar um int)
+   6.2) usar processo C/C++ (listener)
+      6.2.1) arduino ---> XBee(s) ---> printf() (continuamente / loop)
+
+   6.3) dados de 1 sensor (continuamente / loop)
+       6.3.1) sensor --COM--> printf()
+
+   6.4) dados de varios sensores (loop)
+       6.4.1) Definir protocolo de comunicação
+       6.4.2) Enviar dados
            - INICIO
            - sensor 1   --COM--> printf()
            - sensor ... --COM--> printf()
@@ -51,45 +113,28 @@ FALTA: escalas de cada parâmetro
            - FIM
 
 ------------------------------------------------------------------------------
-2) Conectar processo C/C++ com Navegador
-   2.1) Javascript data listener
-   2.2) imprimir dados dos sensores em uma caixa de texto dinâmica
+7) Fazer integração da comunicação com carro e interface
 
 ------------------------------------------------------------------------------
-3) Desenhar interface
-   3.1) gráfico dinâmico de um sensor
-   3.2) gráfico dinâmico de todos os sensores
-
-------------------------------------------------------------------------------
-4) Sensores --> Browser
-   4.1) testar envio constante de dados dos sensores até desenho dos gráficos
-   4.2) definir taxa de atualização
-   4.3) checar compatibilidade com outros browsers e plataformas
-   4.4) checar desempenho
-
-------------------------------------------------------------------------------
-5) Cliente + Persistência
-   - Projetar telas do cliente (+ maq. de estados para navegação)
-   - Modelar banco de dados
-
-   5.1) Modo 1: gravar dados de um treino/corrida
-      5.1.1) especificar se é treino ou corrida
-      5.1.2) especificar parâmetros (regulagem do carro + condições da pista)
-      5.1.3) conectar com XBee do carro
-      5.1.4) conectar com o banco de dados
-      5.1.5) desenhar gráficos e iniciar reprodução
-      5.1.6) gravar desempenho do carro no banco de dados
+8) Interface: Gravar condições da corrida + Análise + Persistência
+   8.1) Modo 1: gravar dados de um treino/corrida
+      8.1.1) especificar se é treino ou corrida
+      8.1.2) especificar parâmetros (regulagem do carro + condições da pista)
+      8.1.3) conectar com XBee do carro
+      8.1.4) conectar com o banco de dados
+      8.1.5) desenhar gráficos e iniciar reprodução
+      8.1.6) gravar desempenho do carro no banco de dados
              a) definir intervalos regulares para gravar no banco de dados
              b) caixa de texto ao lado mostrando valor atual para cada gráfico
-      5.1.7) finalizar corrida
+      8.1.7) finalizar corrida
              a) encerrar comunicação e gráficos
              b) pedir parâmetros finais (combustível, etc.)
 
-   5.2) Modo 2: revisar treino/corrida passado
-      5.2.1) especificar se vai buscar por corrida ou treino
-      5.2.2) exibir lista de treinos/corridas
+   8.2) Modo 2: revisar treino/corrida passado
+      8.2.1) especificar se vai buscar por corrida ou treino
+      8.2.2) exibir lista de treinos/corridas
              a) permitir filtro por semana/mês/ano
-      5.2.3) desenhar tela de exibição dos dados
+      8.2.3) desenhar tela de exibição dos dados
              a) gráficos interativos
                   - avançar +/- no tempo
                   - definir h/m/s (x) específico para consulta de valor (y)
@@ -99,7 +144,7 @@ FALTA: escalas de cada parâmetro
                        - caixa de texto separada ao lado do gráfico
 
 ------------------------------------------------------------------------------
-6) Finalização
+9) Finalização
 - Realizar bateria de testes finais
    - testar em situação adversa de tempo (nuvens)
    - várias velocidades
