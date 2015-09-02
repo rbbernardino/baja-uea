@@ -10,17 +10,11 @@ using System.Windows.Forms;
 
 namespace TeleBajaUEA_client
 {
-    public partial class MenuPrincipal : Form
+    public partial class Configuração : Form
     {
-        public MenuPrincipal()
+        public Configuração()
         {
             InitializeComponent();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Configuração conf = new Configuração();
-            conf.ShowDialog();
         }
     }
 }

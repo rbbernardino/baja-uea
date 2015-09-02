@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeleBajaUEA-client", "TeleBajaUEA-client\TeleBajaUEA-client.csproj", "{0C63CDD6-457F-41C3-9686-52024C43ACCB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeleBajaUEA-client", "..\..\..\..\..\Documents\Visual Studio 2015\Projects\MenuPrincipal\MenuPrincipal\TeleBajaUEA-client.csproj", "{782BC3EE-241E-4857-AD54-A6860D2DAFEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0C63CDD6-457F-41C3-9686-52024C43ACCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0C63CDD6-457F-41C3-9686-52024C43ACCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0C63CDD6-457F-41C3-9686-52024C43ACCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0C63CDD6-457F-41C3-9686-52024C43ACCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{782BC3EE-241E-4857-AD54-A6860D2DAFEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{782BC3EE-241E-4857-AD54-A6860D2DAFEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{782BC3EE-241E-4857-AD54-A6860D2DAFEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{782BC3EE-241E-4857-AD54-A6860D2DAFEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
