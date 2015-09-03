@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TeleBajaUEA_client.Properties
+namespace TeleBajaUEA.Properties
 {
 
 

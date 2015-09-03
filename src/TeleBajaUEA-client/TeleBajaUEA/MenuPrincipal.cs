@@ -5,10 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TeleBajaUEA_client
+namespace TeleBajaUEA
 {
     public partial class MenuPrincipal : Form
     {
@@ -17,9 +16,19 @@ namespace TeleBajaUEA_client
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void label1_Click(object sender, EventArgs e)
         {
-            Configuração conf = new Configuração();
+
+        }
+
+        private void MenuPrincipal2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btConfigurações_Click(object sender, EventArgs e)
+        {
+            Configurações conf = new Configurações();
             conf.ShowDialog();
         }
     }
