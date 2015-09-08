@@ -16,6 +16,7 @@ namespace TeleBajaUEA
             InitializeComponent();
         }
 
+
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -30,6 +31,39 @@ namespace TeleBajaUEA
         {
             Configurações conf = new Configurações();
             conf.ShowDialog();
+        }
+
+        private void btGravarCorrida_Click(object sender, EventArgs e)
+        {
+            Loading load = new Loading();
+            load.ShowDialog();
+        }
+
+        private void btSobre_Click(object sender, EventArgs e)
+        {
+            Sobre sobre = new Sobre();
+            sobre.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Setup setup = new Setup();
+            setup.ShowDialog();
+        }
+
+        private void btSair_Click(object sender, EventArgs e)
+        {
+            if (System.Windows.Forms.Application.MessageLoop)
+            {
+                // WinForms app
+                System.Windows.Forms.Application.Exit();
+            }
+            else
+            {
+                // Console app
+                System.Environment.Exit(1);
+            }
+
         }
     }
 }

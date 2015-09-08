@@ -35,6 +35,7 @@
             this.btSair = new System.Windows.Forms.Button();
             this.btSobre = new System.Windows.Forms.Button();
             this.btGravarCorrida = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1_Título
@@ -50,7 +51,7 @@
             // 
             // btAnalisarCorrida
             // 
-            this.btAnalisarCorrida.Location = new System.Drawing.Point(47, 128);
+            this.btAnalisarCorrida.Location = new System.Drawing.Point(137, 75);
             this.btAnalisarCorrida.Name = "btAnalisarCorrida";
             this.btAnalisarCorrida.Size = new System.Drawing.Size(95, 31);
             this.btAnalisarCorrida.TabIndex = 12;
@@ -59,7 +60,7 @@
             // 
             // btConfigurações
             // 
-            this.btConfigurações.Location = new System.Drawing.Point(213, 79);
+            this.btConfigurações.Location = new System.Drawing.Point(257, 75);
             this.btConfigurações.Name = "btConfigurações";
             this.btConfigurações.Size = new System.Drawing.Size(95, 31);
             this.btConfigurações.TabIndex = 11;
@@ -69,36 +70,50 @@
             // 
             // btSair
             // 
-            this.btSair.Location = new System.Drawing.Point(277, 188);
+            this.btSair.Location = new System.Drawing.Point(309, 188);
             this.btSair.Name = "btSair";
-            this.btSair.Size = new System.Drawing.Size(75, 31);
+            this.btSair.Size = new System.Drawing.Size(43, 31);
             this.btSair.TabIndex = 10;
             this.btSair.Text = "Sair";
             this.btSair.UseVisualStyleBackColor = true;
+            this.btSair.Click += new System.EventHandler(this.btSair_Click);
             // 
             // btSobre
             // 
-            this.btSobre.Location = new System.Drawing.Point(213, 128);
+            this.btSobre.Location = new System.Drawing.Point(193, 151);
             this.btSobre.Name = "btSobre";
             this.btSobre.Size = new System.Drawing.Size(95, 31);
             this.btSobre.TabIndex = 9;
             this.btSobre.Text = "Sobre";
             this.btSobre.UseVisualStyleBackColor = true;
+            this.btSobre.Click += new System.EventHandler(this.btSobre_Click);
             // 
             // btGravarCorrida
             // 
-            this.btGravarCorrida.Location = new System.Drawing.Point(47, 79);
+            this.btGravarCorrida.Location = new System.Drawing.Point(12, 75);
             this.btGravarCorrida.Name = "btGravarCorrida";
             this.btGravarCorrida.Size = new System.Drawing.Size(95, 31);
             this.btGravarCorrida.TabIndex = 8;
             this.btGravarCorrida.Text = "Gravar Corrida";
             this.btGravarCorrida.UseVisualStyleBackColor = true;
+            this.btGravarCorrida.Click += new System.EventHandler(this.btGravarCorrida_Click);
             // 
-            // MenuPrincipal2
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(64, 151);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(95, 31);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "Setup";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(364, 231);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btAnalisarCorrida);
             this.Controls.Add(this.btConfigurações);
             this.Controls.Add(this.btSair);
@@ -106,7 +121,8 @@
             this.Controls.Add(this.btGravarCorrida);
             this.Controls.Add(this.label1_Título);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "MenuPrincipal2";
+            this.Name = "MenuPrincipal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TeleBaja-UEA";
             this.Load += new System.EventHandler(this.MenuPrincipal2_Load);
             this.ResumeLayout(false);
@@ -122,5 +138,6 @@
         private System.Windows.Forms.Button btSair;
         private System.Windows.Forms.Button btSobre;
         private System.Windows.Forms.Button btGravarCorrida;
+        private System.Windows.Forms.Button button1;
     }
 }
