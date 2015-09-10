@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuscarCorrida.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BuscarCorrida.Designer.cs">
+      <DependentUpon>BuscarCorrida.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configurações.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +91,9 @@
     <Compile Include="Sobre.Designer.cs">
       <DependentUpon>Sobre.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BuscarCorrida.resx">
+      <DependentUpon>BuscarCorrida.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Configurações.resx">
       <DependentUpon>Configurações.cs</DependentUpon>
     </EmbeddedResource>

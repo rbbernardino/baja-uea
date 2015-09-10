@@ -35,7 +35,7 @@
             this.btSair = new System.Windows.Forms.Button();
             this.btSobre = new System.Windows.Forms.Button();
             this.btGravarCorrida = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btSetup = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1_Título
@@ -98,22 +98,22 @@
             this.btGravarCorrida.UseVisualStyleBackColor = true;
             this.btGravarCorrida.Click += new System.EventHandler(this.btGravarCorrida_Click);
             // 
-            // button1
+            // btSetup
             // 
-            this.button1.Location = new System.Drawing.Point(64, 151);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(95, 31);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Setup";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btSetup.Location = new System.Drawing.Point(64, 151);
+            this.btSetup.Name = "btSetup";
+            this.btSetup.Size = new System.Drawing.Size(95, 31);
+            this.btSetup.TabIndex = 13;
+            this.btSetup.Text = "Setup";
+            this.btSetup.UseVisualStyleBackColor = true;
+            this.btSetup.Click += new System.EventHandler(this.button1_Click);
             // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(364, 231);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btSetup);
             this.Controls.Add(this.btAnalisarCorrida);
             this.Controls.Add(this.btConfigurações);
             this.Controls.Add(this.btSair);
@@ -138,6 +138,6 @@
         private System.Windows.Forms.Button btSair;
         private System.Windows.Forms.Button btSobre;
         private System.Windows.Forms.Button btGravarCorrida;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btSetup;
     }
 }

@@ -29,62 +29,62 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Configurações));
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btSenha = new System.Windows.Forms.Button();
+            this.btXBee = new System.Windows.Forms.Button();
+            this.btBancoDeDados = new System.Windows.Forms.Button();
+            this.labelTítulo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // button3
+            // btSenha
             // 
-            this.button3.Location = new System.Drawing.Point(257, 112);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(95, 31);
-            this.button3.TabIndex = 13;
-            this.button3.Text = "Senha";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btSenha.Location = new System.Drawing.Point(257, 112);
+            this.btSenha.Name = "btSenha";
+            this.btSenha.Size = new System.Drawing.Size(95, 31);
+            this.btSenha.TabIndex = 13;
+            this.btSenha.Text = "Senha";
+            this.btSenha.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btXBee
             // 
-            this.button2.Location = new System.Drawing.Point(133, 112);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(95, 31);
-            this.button2.TabIndex = 12;
-            this.button2.Text = "XBee";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btXBee.Location = new System.Drawing.Point(133, 112);
+            this.btXBee.Name = "btXBee";
+            this.btXBee.Size = new System.Drawing.Size(95, 31);
+            this.btXBee.TabIndex = 12;
+            this.btXBee.Text = "XBee";
+            this.btXBee.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btBancoDeDados
             // 
-            this.button1.Location = new System.Drawing.Point(12, 112);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(95, 31);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Banco de Dados";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btBancoDeDados.Location = new System.Drawing.Point(12, 112);
+            this.btBancoDeDados.Name = "btBancoDeDados";
+            this.btBancoDeDados.Size = new System.Drawing.Size(95, 31);
+            this.btBancoDeDados.TabIndex = 11;
+            this.btBancoDeDados.Text = "Banco de Dados";
+            this.btBancoDeDados.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // labelTítulo
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(101, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(132, 24);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Configurações";
+            this.labelTítulo.AutoSize = true;
+            this.labelTítulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTítulo.Location = new System.Drawing.Point(101, 22);
+            this.labelTítulo.Name = "labelTítulo";
+            this.labelTítulo.Size = new System.Drawing.Size(132, 24);
+            this.labelTítulo.TabIndex = 10;
+            this.labelTítulo.Text = "Configurações";
             // 
             // Configurações
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(364, 231);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btSenha);
+            this.Controls.Add(this.btXBee);
+            this.Controls.Add(this.btBancoDeDados);
+            this.Controls.Add(this.labelTítulo);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Configurações";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "TeleBaja-UEA";
+            this.Text = "Configurações - TeleBaja UEA";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -92,9 +92,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btSenha;
+        private System.Windows.Forms.Button btXBee;
+        private System.Windows.Forms.Button btBancoDeDados;
+        private System.Windows.Forms.Label labelTítulo;
     }
 }
