@@ -47,11 +47,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalisarCorridaConexao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnalisarCorridaConexao.Designer.cs">
+      <DependentUpon>AnalisarCorridaConexao.cs</DependentUpon>
+    </Compile>
     <Compile Include="BuscarCorrida.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="BuscarCorrida.Designer.cs">
       <DependentUpon>BuscarCorrida.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AnalisarCorrida.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnalisarCorrida.Designer.cs">
+      <DependentUpon>AnalisarCorrida.cs</DependentUpon>
     </Compile>
     <Compile Include="Configurações.cs">
       <SubType>Form</SubType>
@@ -65,11 +77,11 @@
     <Compile Include="GravarCorrida.Designer.cs">
       <DependentUpon>GravarCorrida.cs</DependentUpon>
     </Compile>
-    <Compile Include="Loading.cs">
+    <Compile Include="GravarCorridaConexão.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Loading.Designer.cs">
-      <DependentUpon>Loading.cs</DependentUpon>
+    <Compile Include="GravarCorridaConexão.Designer.cs">
+      <DependentUpon>GravarCorridaConexão.cs</DependentUpon>
     </Compile>
     <Compile Include="MenuPrincipal.cs">
       <SubType>Form</SubType>
@@ -91,8 +103,14 @@
     <Compile Include="Sobre.Designer.cs">
       <DependentUpon>Sobre.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AnalisarCorridaConexao.resx">
+      <DependentUpon>AnalisarCorridaConexao.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BuscarCorrida.resx">
       <DependentUpon>BuscarCorrida.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnalisarCorrida.resx">
+      <DependentUpon>AnalisarCorrida.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Configurações.resx">
       <DependentUpon>Configurações.cs</DependentUpon>
@@ -100,8 +118,8 @@
     <EmbeddedResource Include="GravarCorrida.resx">
       <DependentUpon>GravarCorrida.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Loading.resx">
-      <DependentUpon>Loading.cs</DependentUpon>
+    <EmbeddedResource Include="GravarCorridaConexão.resx">
+      <DependentUpon>GravarCorridaConexão.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
@@ -132,6 +150,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\done.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

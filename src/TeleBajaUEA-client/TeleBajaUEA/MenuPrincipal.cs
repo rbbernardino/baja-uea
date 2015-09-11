@@ -16,7 +16,6 @@ namespace TeleBajaUEA
             InitializeComponent();
         }
 
-
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -35,8 +34,16 @@ namespace TeleBajaUEA
 
         private void btGravarCorrida_Click(object sender, EventArgs e)
         {
-            Loading load = new Loading();
-            load.ShowDialog();
+            GravarCorridaConexão load = new GravarCorridaConexão();
+            load.Show();
+            Hide();
+        }
+
+        private void btAnalisarCorrida_Click(object sender, EventArgs e)
+        {
+            AnalisarCorridaConexao loadForm = new AnalisarCorridaConexao();
+            loadForm.Show();
+            Hide();
         }
 
         private void btSobre_Click(object sender, EventArgs e)

@@ -5,20 +5,21 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TeleBajaUEA
 {
-    public partial class GravarCorrida : Form
+    public partial class AnalisarCorrida : Form
     {
         private bool appEnd = true;
 
-        public GravarCorrida()
+        public AnalisarCorrida()
         {
             InitializeComponent();
         }
 
-        private void GravarCorrida_FormClosed(object sender, FormClosedEventArgs e)
+        private void AnalisarCorrida_FormClosed_1(object sender, FormClosedEventArgs e)
         {
             if(appEnd)
                 Program.EncerrarPrograma();

@@ -15,5 +15,9 @@ namespace TeleBajaUEA
         {
             InitializeComponent();
         }
+
+        private void Configurações_FormClosed(object sender, FormClosedEventArgs e)
+        {
+        }
     }
 }

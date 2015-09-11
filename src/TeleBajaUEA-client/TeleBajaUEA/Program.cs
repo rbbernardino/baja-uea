@@ -7,6 +7,8 @@ namespace TeleBajaUEA
 {
     static class Program
     {
+        private static MenuPrincipal FormPrincipal;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -15,7 +17,19 @@ namespace TeleBajaUEA
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MenuPrincipal());
+
+            FormPrincipal = new MenuPrincipal();
+            Application.Run(FormPrincipal);
+        }
+
+        public static void ReabrirMenuPrincipal()
+        {
+            FormPrincipal.Show();
+        }
+
+        public static void EncerrarPrograma()
+        {
+            FormPrincipal.Close();
         }
     }
 }

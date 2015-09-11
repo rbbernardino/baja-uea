@@ -57,6 +57,7 @@
             this.btAnalisarCorrida.TabIndex = 12;
             this.btAnalisarCorrida.Text = "Analisar Corrida";
             this.btAnalisarCorrida.UseVisualStyleBackColor = true;
+            this.btAnalisarCorrida.Click += new System.EventHandler(this.btAnalisarCorrida_Click);
             // 
             // btConfigurações
             // 
