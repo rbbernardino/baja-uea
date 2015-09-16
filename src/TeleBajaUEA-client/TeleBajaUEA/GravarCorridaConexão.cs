@@ -21,13 +21,13 @@ namespace TeleBajaUEA
             InitializeComponent();
         }
 
-        public async Task CriarConexoes()
+        public async Task CreateConnections()
         {
-            await ConectarComBD();
+            await ConnectToDB();
             await ConnectToCar();
         }
 
-        private async Task ConectarComBD()
+        private async Task ConnectToDB()
         {
             // cria conexão com o BD
             if(await DBConnection.ConnectToDB())
@@ -37,8 +37,8 @@ namespace TeleBajaUEA
                 await Task.Delay(1000);
 
                 // feedback de que foi um sucesso
-                loadingIconBD.Image = (Image)(resources.GetObject("doneIcon.Image"));
-                labelConexaoBD.Text = "Conectado!";
+                loadingIconDB.Image = (Image)(resources.GetObject("doneIcon.Image"));
+                labelDBConnection.Text = "Conectado!";
             }
             else
             {
@@ -56,8 +56,8 @@ namespace TeleBajaUEA
                 await Task.Delay(1000);
 
                 // feedback de que foi um sucesso
-                loadingIconBaja.Image = (Image)(resources.GetObject("doneIcon.Image"));
-                labelConexaoBaja.Text = "Conectado!";
+                loadingIconCar.Image = (Image)(resources.GetObject("doneIcon.Image"));
+                labelCarConnection.Text = "Conectado!";
 
                 // dá um tempo para o usuário perceber que conectou
                 // (feedback prazeroso)

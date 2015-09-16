@@ -47,7 +47,6 @@
             this.label1_Título.Size = new System.Drawing.Size(139, 24);
             this.label1_Título.TabIndex = 0;
             this.label1_Título.Text = "TeleBaja - UEA";
-            this.label1_Título.Click += new System.EventHandler(this.label1_Click);
             // 
             // btAnalisarCorrida
             // 
@@ -125,7 +124,6 @@
             this.Name = "MenuPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TeleBaja-UEA";
-            this.Load += new System.EventHandler(this.MenuPrincipal2_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

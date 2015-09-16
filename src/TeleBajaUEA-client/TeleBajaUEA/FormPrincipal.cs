@@ -9,24 +9,28 @@ namespace TeleBajaUEA
 {
    public class FormPrincipal : System.Windows.Forms.Form
     {
-        public bool AppEnd { get; set; }
+        /// <summary>
+        /// flag para indicar se, ao fechar a janela (Alt + F4 ou botão X)
+        /// deve ou não encerrar o programa
+        /// </summary>
+        public bool ExitOnClose { get; set; }
 
         public FormPrincipal() : base()
         {
-            AppEnd = true;
+            ExitOnClose = true;
         }
 
         public void CloseOnlyThis()
         {
-            AppEnd = false;
+            ExitOnClose = false;
             Close();
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
             base.OnFormClosed(e);
-            if (AppEnd)
-                Program.EncerrarPrograma();
+            if (ExitOnClose)
+                Program.Exit();
         }
     }
 }

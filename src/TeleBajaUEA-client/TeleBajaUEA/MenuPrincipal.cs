@@ -17,16 +17,6 @@ namespace TeleBajaUEA
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MenuPrincipal2_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btConfigurações_Click(object sender, EventArgs e)
         {
             Configurações conf = new Configurações();
@@ -35,32 +25,32 @@ namespace TeleBajaUEA
 
         private async void btGravarCorrida_Click(object sender, EventArgs e)
         {
-            GravarCorridaConexão formLoadingGravarCorrida = new GravarCorridaConexão();
-            formLoadingGravarCorrida.Show();
+            GravarCorridaConexão formGravarCorridaConexao = new GravarCorridaConexão();
+            formGravarCorridaConexao.Show();
             Hide();
-            await formLoadingGravarCorrida.CriarConexoes();
+            await formGravarCorridaConexao.CreateConnections();
 
             // cria janela de gravar corrida
             GravarCorrida formGravarCorrida = new GravarCorrida();
 
             // fecha janela de loading evitando que programa encerre
-            formLoadingGravarCorrida.CloseOnlyThis();
+            formGravarCorridaConexao.CloseOnlyThis();
             formGravarCorrida.Show();
         }
 
         private async void btAnalisarCorrida_Click(object sender, EventArgs e)
         {
-            AnalisarCorridaConexao formLoadingAnalisarCorrida = new AnalisarCorridaConexao();
-            formLoadingAnalisarCorrida.Show();
+            AnalisarCorridaConexao formAnalisarCorridaConexao = new AnalisarCorridaConexao();
+            formAnalisarCorridaConexao.Show();
             Hide();
 
-            await formLoadingAnalisarCorrida.CriarConexao();
+            await formAnalisarCorridaConexao.CreateConnection();
 
             AnalisarCorrida formAnalisarCorrida = new AnalisarCorrida();
 
             // abre janela de buscar corrida e remove a atual
             BuscarCorrida formBuscarCorrida = new BuscarCorrida();
-            formLoadingAnalisarCorrida.CloseOnlyThis();
+            formAnalisarCorridaConexao.CloseOnlyThis();
             formBuscarCorrida.Show();
         }
 

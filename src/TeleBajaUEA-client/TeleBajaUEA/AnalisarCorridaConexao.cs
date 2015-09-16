@@ -20,12 +20,12 @@ namespace TeleBajaUEA
             InitializeComponent();
         }
 
-        public async Task CriarConexao()
+        public async Task CreateConnection()
         {
-            await ConectarComBD();
+            await ConnectToDB();
         }
 
-        private async Task ConectarComBD()
+        private async Task ConnectToDB()
         {
             // cria conexão com o BD
             if (await DBConnection.ConnectToDB())

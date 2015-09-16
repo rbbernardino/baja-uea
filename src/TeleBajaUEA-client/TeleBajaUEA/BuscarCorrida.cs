@@ -20,8 +20,8 @@ namespace TeleBajaUEA
         private void btOK_Click(object sender, EventArgs e)
         {
             // abre janela de analisar corrida
-            AnalisarCorrida formGravarCorrida = new AnalisarCorrida();
-            formGravarCorrida.Show();
+            AnalisarCorrida formAnalisarCorrida = new AnalisarCorrida();
+            formAnalisarCorrida.Show();
 
             // fecha janela atual evitando que programa encerre
             CloseOnlyThis();
@@ -30,7 +30,7 @@ namespace TeleBajaUEA
         private void btCancelar_Click(object sender, EventArgs e)
         {
             // reabre janela de menu principal
-            Program.ReabrirMenuPrincipal();
+            Program.ShowMenuPrincipal();
 
             // fecha janela atual evitando que programa encerre
             CloseOnlyThis();
