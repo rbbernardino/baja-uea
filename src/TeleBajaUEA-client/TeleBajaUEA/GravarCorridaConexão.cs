@@ -29,41 +29,44 @@ namespace TeleBajaUEA
 
         private async Task ConectarComBD()
         {
-            await Task.Run(() =>
+            // cria conexão com o BD
+            if(await DBConnection.ConnectToDB())
             {
-                // cria conexão com o BD
-                // Program.ConectarBD();
-
                 // mesmo que seja instantâneo, deve esperar 1 segundo
                 // pois feedback de [carregando -->-->-->-- carregado] é prazerozo!
-                Thread.Sleep(1000);
+                await Task.Delay(1000);
 
                 // feedback de que foi um sucesso
                 loadingIconBD.Image = (Image)(resources.GetObject("doneIcon.Image"));
                 labelConexaoBD.Text = "Conectado!";
-            });
+            }
+            else
+            {
+                // trata erro aqui?
+            }
         }
 
         private async Task ConnectToCar()
         {
-            // cria conexão com o carro
-            await Task.Run(() =>
+            // cria conexão com o BD
+            if (await DBConnection.ConnectToDB())
             {
-                // cria conexão com o Carro
-                // Program.ConectarCarro();
-
                 // mesmo que seja instantâneo, deve esperar 1 segundo
                 // pois feedback de [carregando -->-->-->-- carregado] é prazerozo!
-                Thread.Sleep(1000);
+                await Task.Delay(1000);
 
-                // indica que foi um sucesso
+                // feedback de que foi um sucesso
                 loadingIconBaja.Image = (Image)(resources.GetObject("doneIcon.Image"));
                 labelConexaoBaja.Text = "Conectado!";
 
                 // dá um tempo para o usuário perceber que conectou
                 // (feedback prazeroso)
-                Thread.Sleep(1000);
-            });
+                await Task.Delay(1000);
+            }
+            else
+            {
+                // trata erro aqui?
+            }
         }
     }
 }

@@ -18,30 +18,30 @@ namespace TeleBajaUEA
         {
             this.resources = new ComponentResourceManager(typeof(AnalisarCorridaConexao));
             InitializeComponent();
-            ConectarComBanco();
         }
 
-        private void GravarCorrida_FormClosed(object sender, FormClosedEventArgs e)
+        public async Task CriarConexao()
         {
-            Program.EncerrarPrograma();
+            await ConectarComBD();
         }
 
-        private async void ConectarComBanco()
+        private async Task ConectarComBD()
         {
             // cria conexão com o BD
-            await Task.Delay(1000);
+            if (await DBConnection.ConnectToDB())
+            {
+                // mesmo que seja instantâneo, deve esperar 1 segundo
+                // pois feedback de [carregando -->-->-->-- carregado] é prazerozo!
+                await Task.Delay(1000);
 
-            // indica que foi um sucesso
-            loadingIconBD.Image = (Image)(resources.GetObject("doneIcon.Image"));
-            labelConexaoBD.Text = "Conectado!";
-
-            // dá um tempo para o usuário perceber que conectou
-            await Task.Delay(1000);
-
-            // abre janela de gravar corrida e remove a atual
-            BuscarCorrida formBuscarCorrida = new BuscarCorrida();
-            formBuscarCorrida.Show();
-            CloseOnlyThis();
+                // feedback de que foi um sucesso
+                loadingIconBD.Image = (Image)(resources.GetObject("doneIcon.Image"));
+                labelConexaoBD.Text = "Conectado!";
+            }
+            else
+            {
+                // trata erro aqui?
+            }
         }
     }
 }
