@@ -10,19 +10,11 @@ using System.Windows.Forms;
 
 namespace TeleBajaUEA
 {
-    public partial class AnalisarCorrida : Form
+    public partial class AnalisarCorrida : FormExtendido
     {
-        private bool appEnd = true;
-
         public AnalisarCorrida()
         {
             InitializeComponent();
-        }
-
-        private void AnalisarCorrida_FormClosed_1(object sender, FormClosedEventArgs e)
-        {
-            if(appEnd)
-                Program.EncerrarPrograma();
         }
     }
 }

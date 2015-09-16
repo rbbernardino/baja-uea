@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace TeleBajaUEA
@@ -32,11 +33,19 @@ namespace TeleBajaUEA
             conf.ShowDialog();
         }
 
-        private void btGravarCorrida_Click(object sender, EventArgs e)
+        private async void btGravarCorrida_Click(object sender, EventArgs e)
         {
-            GravarCorridaConexão load = new GravarCorridaConexão();
-            load.Show();
+            GravarCorridaConexão formLoadingGravarCorrida = new GravarCorridaConexão();
+            formLoadingGravarCorrida.Show();
             Hide();
+            await formLoadingGravarCorrida.CriarConexoes();
+
+            // cria janela de gravar corrida
+            GravarCorrida formGravarCorrida = new GravarCorrida();
+
+            // fecha janela de loading evitando que programa encerre
+            formLoadingGravarCorrida.CloseOnlyThis();
+            formGravarCorrida.Show();
         }
 
         private void btAnalisarCorrida_Click(object sender, EventArgs e)

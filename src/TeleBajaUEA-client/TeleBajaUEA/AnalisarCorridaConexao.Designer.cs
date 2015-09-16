@@ -65,7 +65,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AnalisarCorridaConexao";
             this.Text = "Analisar Corrida - TeleBaja UEA";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AnalisarCorridaConexao_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.loadingIconBD)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

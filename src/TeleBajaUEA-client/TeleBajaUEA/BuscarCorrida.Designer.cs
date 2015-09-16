@@ -58,7 +58,6 @@
             this.labelTítulo.Size = new System.Drawing.Size(300, 29);
             this.labelTítulo.TabIndex = 1;
             this.labelTítulo.Text = "Analisar Corrida Passada";
-            this.labelTítulo.Click += new System.EventHandler(this.label2_Click);
             // 
             // btOK
             // 
@@ -122,7 +121,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BuscarCorrida";
             this.Text = "Analisar Corrida - TeleBaja UEA";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BuscarCorrida_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -85,7 +85,6 @@
             this.Name = "Configurações";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Configurações - TeleBaja UEA";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Configurações_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

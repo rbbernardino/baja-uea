@@ -9,19 +9,11 @@ using System.Windows.Forms;
 
 namespace TeleBajaUEA
 {
-    public partial class GravarCorrida : Form
+    public partial class GravarCorrida : FormExtendido
     {
-        private bool appEnd = true;
-
         public GravarCorrida()
         {
             InitializeComponent();
-        }
-
-        private void GravarCorrida_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if(appEnd)
-                Program.EncerrarPrograma();
         }
     }
 }

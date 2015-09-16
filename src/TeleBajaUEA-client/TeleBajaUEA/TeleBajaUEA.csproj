@@ -65,6 +65,9 @@
     <Compile Include="AnalisarCorrida.Designer.cs">
       <DependentUpon>AnalisarCorrida.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormExtendido.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Configurações.cs">
       <SubType>Form</SubType>
     </Compile>

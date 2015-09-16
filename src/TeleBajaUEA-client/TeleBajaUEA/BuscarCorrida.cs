@@ -10,24 +10,11 @@ using System.Windows.Forms;
 
 namespace TeleBajaUEA
 {
-    public partial class BuscarCorrida : Form
+    public partial class BuscarCorrida : FormExtendido
     {
-        private bool appEnd = true;
-
         public BuscarCorrida()
         {
             InitializeComponent();
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void BuscarCorrida_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if(appEnd)
-                Program.EncerrarPrograma();
         }
 
         private void btOK_Click(object sender, EventArgs e)
@@ -37,8 +24,7 @@ namespace TeleBajaUEA
             formGravarCorrida.Show();
 
             // fecha janela atual evitando que programa encerre
-            appEnd = false;
-            Close();
+            CloseOnlyThis();
         }
 
         private void btCancelar_Click(object sender, EventArgs e)
@@ -47,8 +33,7 @@ namespace TeleBajaUEA
             Program.ReabrirMenuPrincipal();
 
             // fecha janela atual evitando que programa encerre
-            appEnd = false;
-            Close();
+            CloseOnlyThis();
         }
     }
 }

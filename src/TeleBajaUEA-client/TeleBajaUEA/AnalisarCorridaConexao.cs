@@ -10,9 +10,8 @@ using System.Windows.Forms;
 
 namespace TeleBajaUEA
 {
-    public partial class AnalisarCorridaConexao : Form
+    public partial class AnalisarCorridaConexao : FormExtendido
     {
-        private bool appEnd = true;
         private ComponentResourceManager resources;
 
         public AnalisarCorridaConexao()
@@ -42,14 +41,7 @@ namespace TeleBajaUEA
             // abre janela de gravar corrida e remove a atual
             BuscarCorrida formBuscarCorrida = new BuscarCorrida();
             formBuscarCorrida.Show();
-            appEnd = false;
-            Close();
-        }
-
-        private void AnalisarCorridaConexao_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if(appEnd)
-                Program.EncerrarPrograma();
+            CloseOnlyThis();
         }
     }
 }

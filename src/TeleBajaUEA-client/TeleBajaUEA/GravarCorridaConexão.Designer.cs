@@ -92,7 +92,6 @@
             this.Name = "GravarCorridaConexão";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gravar Corrida - TeleBaja UEA";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GravarCorridaConexão_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.loadingIconBD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.loadingIconBaja)).EndInit();
             this.ResumeLayout(false);

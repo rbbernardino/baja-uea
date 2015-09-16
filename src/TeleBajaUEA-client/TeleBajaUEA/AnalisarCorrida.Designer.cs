@@ -39,7 +39,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AnalisarCorrida";
             this.Text = "Analisar Corrida - TeleBaja UEA";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AnalisarCorrida_FormClosed_1);
             this.ResumeLayout(false);
 
         }

@@ -5,62 +5,65 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TeleBajaUEA
 {
-    public partial class GravarCorridaConexão : Form
+    public partial class GravarCorridaConexão : FormExtendido
     {
-        private bool appEnd = true;
         private ComponentResourceManager resources;
 
         public GravarCorridaConexão()
         {
             this.resources = new ComponentResourceManager(typeof(GravarCorridaConexão));
             InitializeComponent();
-            ConectarComBD();
         }
 
-        private async void ConectarComBD()
+        public async Task CriarConexoes()
         {
-            // cria conexão com o BD
-            await Task.Delay(1000);
-
-            // indica que foi um sucesso
-            loadingIconBD.Image = (Image)(resources.GetObject("doneIcon.Image"));
-            labelConexaoBD.Text = "Conectado!";
-
-            ConnectToCar();
+            await ConectarComBD();
+            await ConnectToCar();
         }
 
-        private async void ConnectToCar()
+        private async Task ConectarComBD()
         {
+            await Task.Run(() =>
+            {
+                // cria conexão com o BD
+                // Program.ConectarBD();
 
+                // mesmo que seja instantâneo, deve esperar 1 segundo
+                // pois feedback de [carregando -->-->-->-- carregado] é prazerozo!
+                Thread.Sleep(1000);
+
+                // feedback de que foi um sucesso
+                loadingIconBD.Image = (Image)(resources.GetObject("doneIcon.Image"));
+                labelConexaoBD.Text = "Conectado!";
+            });
+        }
+
+        private async Task ConnectToCar()
+        {
             // cria conexão com o carro
-            await Task.Delay(1000);
+            await Task.Run(() =>
+            {
+                // cria conexão com o Carro
+                // Program.ConectarCarro();
 
-            // indica que foi um sucesso
-            loadingIconBaja.Image = (Image)(resources.GetObject("doneIcon.Image"));
-            labelConexaoBaja.Text = "Conectado!";
+                // mesmo que seja instantâneo, deve esperar 1 segundo
+                // pois feedback de [carregando -->-->-->-- carregado] é prazerozo!
+                Thread.Sleep(1000);
 
-            // dá um tempo para o usuário perceber que conectou
-            await Task.Delay(1000);
+                // indica que foi um sucesso
+                loadingIconBaja.Image = (Image)(resources.GetObject("doneIcon.Image"));
+                labelConexaoBaja.Text = "Conectado!";
 
-            // abre janela de gravar corrida e remove a atual
-            GravarCorrida formGravarCorrida = new GravarCorrida();
-            formGravarCorrida.Show();
-
-            // fecha janela evitando que programa encerre
-            appEnd = false;
-            Close();
-        }
-
-        private void GravarCorridaConexão_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            // se fechar janela no botão do canto superior direito da tela, encerra o programa
-            if(appEnd)
-                Program.EncerrarPrograma();
+                // dá um tempo para o usuário perceber que conectou
+                // (feedback prazeroso)
+                Thread.Sleep(1000);
+            });
         }
     }
 }
