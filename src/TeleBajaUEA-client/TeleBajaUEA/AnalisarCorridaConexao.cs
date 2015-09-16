@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace TeleBajaUEA
 {
-    public partial class AnalisarCorridaConexao : FormExtendido
+    public partial class AnalisarCorridaConexao : FormPrincipal
     {
         private ComponentResourceManager resources;
 

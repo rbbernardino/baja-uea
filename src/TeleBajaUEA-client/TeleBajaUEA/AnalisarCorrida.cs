@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace TeleBajaUEA
 {
-    public partial class AnalisarCorrida : FormExtendido
+    public partial class AnalisarCorrida : FormPrincipal
     {
         public AnalisarCorrida()
         {

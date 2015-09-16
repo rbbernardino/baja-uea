@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace TeleBajaUEA
 {
-    public partial class BuscarCorrida : FormExtendido
+    public partial class BuscarCorrida : FormPrincipal
     {
         public BuscarCorrida()
         {

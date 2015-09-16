@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace TeleBajaUEA
 {
-    public partial class GravarCorridaConexão : FormExtendido
+    public partial class GravarCorridaConexão : FormPrincipal
     {
         private ComponentResourceManager resources;
 

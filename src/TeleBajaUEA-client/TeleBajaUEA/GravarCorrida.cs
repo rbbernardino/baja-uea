@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace TeleBajaUEA
 {
-    public partial class GravarCorrida : FormExtendido
+    public partial class GravarCorrida : FormPrincipal
     {
         public GravarCorrida()
         {
