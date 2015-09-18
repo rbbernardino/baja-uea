@@ -35,7 +35,21 @@ namespace TeleBajaUEA
 
             // fecha janela de loading evitando que programa encerre
             formGravarCorridaConexao.CloseOnlyThis();
+
+            // Informa CarConnection aonde deve enviar as info
+            CarConnection.FormGravarCorrida = formGravarCorrida;
+
+            // abre janela de gravar corrida
             formGravarCorrida.Show();
+
+            // inicia recebimento de dados dos sensores
+            CarConnection.StartListen();
+
+            // simula medições do carro
+            CarConnection.StartDataGenerator();
+
+            // inicia atualização dos gráficos na tela de gravação de corrida
+            formGravarCorrida.StartUpdateGraph();
         }
 
         private async void btAnalisarCorrida_Click(object sender, EventArgs e)

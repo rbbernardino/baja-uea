@@ -49,7 +49,7 @@ namespace TeleBajaUEA
         private async Task ConnectToCar()
         {
             // cria conexão com o BD
-            if (await DBConnection.ConnectToDB())
+            if (await CarConnection.ConnectToCar())
             {
                 // mesmo que seja instantâneo, deve esperar 1 segundo
                 // pois feedback de [carregando -->-->-->-- carregado] é prazerozo!
