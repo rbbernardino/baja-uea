@@ -28,6 +28,10 @@ namespace TeleBajaUEA
             // temporário para testar envio de mensagem
             formTesteMQSQ = new TESTEJanelaSensores();
             formTesteMQSQ.Show();
+
+            // temporário para testar atualização de gráficos
+            chartDinamic.Legends.Clear();
+            chartDinamic.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Range;
         }
 
         public void StartUpdateGraph()
@@ -55,6 +59,34 @@ namespace TeleBajaUEA
         public void AddData(SensorsData data)
         {
             CarMessageQueue.Enqueue(data);
+        }
+
+        // --------------------- temporario para atualização de gráficos ----------------------------- //
+        int x = 2000;
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                chartDinamic.ChartAreas[0].Area3DStyle.Enable3D = true;
+            }
+            else
+            {
+                chartDinamic.ChartAreas[0].Area3DStyle.Enable3D = false;
+
+            }
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            //   timer1 = new System.Threading.Timer(_ => OnCallBack(), null, 0, 1000 * 10); //every 10 seconds
+
+            if (chartDinamic.Series[0].Points.Count > 5)
+            {
+                chartDinamic.Series[0].Points.RemoveAt(0);
+            }
+
+            chartDinamic.Series[0].Points.AddXY(x++, new Random().NextDouble());
         }
     }
 }
