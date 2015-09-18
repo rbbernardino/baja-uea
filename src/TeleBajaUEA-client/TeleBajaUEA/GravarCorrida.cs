@@ -20,6 +20,8 @@ namespace TeleBajaUEA
         private TESTEJanelaSensores formTesteMQSQ;
         private static SensorsData newData;
 
+        private int xAxis;
+
         public GravarCorrida()
         {
             InitializeComponent();
@@ -36,6 +38,7 @@ namespace TeleBajaUEA
 
         public void StartUpdateGraph()
         {
+            xAxis = 0;
             timerCheckIncomeData =
                 new System.Threading.Timer(TickCheckIncomeData, null,
                                                 UPDATE_RATE, Timeout.Infinite);
@@ -52,8 +55,14 @@ namespace TeleBajaUEA
             await Task.Run(() =>
             {
                 if (CarMessageQueue.TryDequeue(out newData))
-                    formTesteMQSQ.SetData(newData);
+                    UpdateGraph(newData);
             });
+        }
+
+        private void UpdateGraph(SensorsData newData)
+        {
+            formTesteMQSQ.SetData(newData);
+            chartDinamic.Series[0].Points.AddXY(xAxis++, newData.Speed);
         }
 
         public void AddData(SensorsData data)
@@ -61,8 +70,6 @@ namespace TeleBajaUEA
             CarMessageQueue.Enqueue(data);
         }
 
-        // --------------------- temporario para atualização de gráficos ----------------------------- //
-        int x = 2000;
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -75,18 +82,6 @@ namespace TeleBajaUEA
                 chartDinamic.ChartAreas[0].Area3DStyle.Enable3D = false;
 
             }
-        }
-
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            //   timer1 = new System.Threading.Timer(_ => OnCallBack(), null, 0, 1000 * 10); //every 10 seconds
-
-            if (chartDinamic.Series[0].Points.Count > 5)
-            {
-                chartDinamic.Series[0].Points.RemoveAt(0);
-            }
-
-            chartDinamic.Series[0].Points.AddXY(x++, new Random().NextDouble());
         }
     }
 }

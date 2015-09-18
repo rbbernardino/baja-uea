@@ -36,7 +36,6 @@
             this.labelTitulo = new System.Windows.Forms.Label();
             this.chartDinamic = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.chartDinamic)).BeginInit();
             this.SuspendLayout();
             // 
@@ -81,12 +80,6 @@
             this.checkBox1.UseVisualStyleBackColor = false;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // timer
-            // 
-            this.timer.Enabled = true;
-            this.timer.Interval = 1000;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
             // GravarCorrida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -110,6 +103,5 @@
         private System.Windows.Forms.Label labelTitulo;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartDinamic;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Timer timer;
     }
 }
