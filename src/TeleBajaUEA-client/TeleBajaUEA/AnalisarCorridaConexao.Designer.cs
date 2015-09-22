@@ -40,9 +40,9 @@
             this.labelConexaoBD.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelConexaoBD.Location = new System.Drawing.Point(167, 136);
             this.labelConexaoBD.Name = "labelConexaoBD";
-            this.labelConexaoBD.Size = new System.Drawing.Size(278, 20);
+            this.labelConexaoBD.Size = new System.Drawing.Size(198, 20);
             this.labelConexaoBD.TabIndex = 6;
-            this.labelConexaoBD.Text = "Conectando com o Banco de Dados...";
+            this.labelConexaoBD.Text = "Connecting to Database ...";
             // 
             // loadingIconBD
             // 

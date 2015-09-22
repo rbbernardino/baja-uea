@@ -19,7 +19,9 @@ namespace TeleBajaUEA
 
         public void SetData(SensorsData Data)
         {
-            labelData.Text =
+
+            
+             labelData.Text =
                 "Tempo: " + FormatTimestamp(Data.TimeStamp) + "\n" +
                 "Velocidade: " + Data.Speed + "\n" +
                 "Temp do Motor: " + Data.EngineTemperature + "°C\n" +

@@ -13,7 +13,16 @@ namespace TeleBajaUEA
     {
         public Setup()
         {
-            InitializeComponent();
+                InitializeComponent();
+
+        
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Hide();
+            MenuPrincipal aux = new MenuPrincipal();
+            aux.Show();
         }
     }
 }

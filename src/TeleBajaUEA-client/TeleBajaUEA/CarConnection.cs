@@ -8,8 +8,8 @@ using System.Collections.Concurrent;
 
 namespace TeleBajaUEA
 {
-    // Essa classe é um Singleton para manter a conexão com o Carro
-    // Também encapsula a tradução entre Formato bytes XBee ---> Objeto do C#
+    // Essa classe � um Singleton para manter a conex�o com o Carro
+    // Tamb�m encapsula a tradu��o entre Formato bytes XBee ---> Objeto do C#
     public sealed class CarConnection
     {
         public static GravarCorrida FormGravarCorrida { get; set; }
@@ -19,7 +19,7 @@ namespace TeleBajaUEA
         private static ConcurrentQueue<SensorsData> CarDataQueue;
         private static SensorsData newData;
 
-        // ----------------------- Temporário para Teste --------------------//
+        // ----------------------- Tempor�rio para Teste --------------------//
         private static CarDataGenerator DataGenerator;
         // ------------------------------------------------------------------//
 
@@ -33,7 +33,7 @@ namespace TeleBajaUEA
             await Task.Delay(500);
 
             // se obteve sucesso, cria queue
-            CarDataQueue = new ConcurrentQueue<SensorsData>();
+         CarDataQueue = new ConcurrentQueue<SensorsData>();
 
             return true;
         }
@@ -43,12 +43,12 @@ namespace TeleBajaUEA
              timerCheckIncomeData = new Timer(TickCheckNewMessage,
                                         null, CHECK_RATE, Timeout.Infinite);
 
-            // --------------------- Temporário para Teste ------------------//
+            // --------------------- Tempor�rio para Teste ------------------//
             DataGenerator = new CarDataGenerator(CarDataQueue);
             // --------------------------------------------------------------//
         }
 
-        // ----------------------- Temporário para Teste --------------------//
+        // ----------------------- Tempor�rio para Teste --------------------//
         public static void StartDataGenerator()
         {
             DataGenerator.StartGenerateData();
@@ -65,7 +65,7 @@ namespace TeleBajaUEA
         {
             if (CarDataQueue.TryDequeue(out newData))
                 FormGravarCorrida.AddData(newData);
-            // else não faz nada, espera próximo tick
+            // else n�o faz nada, espera pr�ximo tick
         }
     }
 }

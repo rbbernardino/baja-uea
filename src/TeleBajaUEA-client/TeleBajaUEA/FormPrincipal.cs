@@ -32,5 +32,9 @@ namespace TeleBajaUEA
             if (ExitOnClose)
                 Program.Exit();
         }
+
+
+
     }
+
 }

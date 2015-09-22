@@ -37,43 +37,43 @@
             ((System.ComponentModel.ISupportInitialize)(this.loadingIconCar)).BeginInit();
             this.SuspendLayout();
             // 
-            // loadingIconBD
+            // loadingIconDB
             // 
             this.loadingIconDB.Cursor = System.Windows.Forms.Cursors.AppStarting;
-            this.loadingIconDB.Image = ((System.Drawing.Image)(resources.GetObject("loadingIconBD.Image")));
+            this.loadingIconDB.Image = ((System.Drawing.Image)(resources.GetObject("loadingIconDB.Image")));
             this.loadingIconDB.Location = new System.Drawing.Point(58, 59);
-            this.loadingIconDB.Name = "loadingIconBD";
+            this.loadingIconDB.Name = "loadingIconDB";
             this.loadingIconDB.Size = new System.Drawing.Size(30, 30);
             this.loadingIconDB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.loadingIconDB.TabIndex = 0;
             this.loadingIconDB.TabStop = false;
             // 
-            // labelConexaoBD
+            // labelDBConnection
             // 
             this.labelDBConnection.AutoSize = true;
             this.labelDBConnection.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelDBConnection.Location = new System.Drawing.Point(100, 65);
-            this.labelDBConnection.Name = "labelConexaoBD";
-            this.labelDBConnection.Size = new System.Drawing.Size(278, 20);
+            this.labelDBConnection.Name = "labelDBConnection";
+            this.labelDBConnection.Size = new System.Drawing.Size(194, 20);
             this.labelDBConnection.TabIndex = 2;
-            this.labelDBConnection.Text = "Conectando com o Banco de Dados...";
+            this.labelDBConnection.Text = "Connecting to Database...";
             // 
-            // labelConexaoBaja
+            // labelCarConnection
             // 
             this.labelCarConnection.AutoSize = true;
             this.labelCarConnection.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelCarConnection.Location = new System.Drawing.Point(100, 122);
-            this.labelCarConnection.Name = "labelConexaoBaja";
-            this.labelCarConnection.Size = new System.Drawing.Size(234, 20);
+            this.labelCarConnection.Name = "labelCarConnection";
+            this.labelCarConnection.Size = new System.Drawing.Size(223, 20);
             this.labelCarConnection.TabIndex = 4;
-            this.labelCarConnection.Text = "Conectando com o Carro Baja...";
+            this.labelCarConnection.Text = "Connecting with the car Baja...";
             // 
-            // loadingIconBaja
+            // loadingIconCar
             // 
             this.loadingIconCar.Cursor = System.Windows.Forms.Cursors.AppStarting;
-            this.loadingIconCar.Image = ((System.Drawing.Image)(resources.GetObject("loadingIconBaja.Image")));
+            this.loadingIconCar.Image = ((System.Drawing.Image)(resources.GetObject("loadingIconCar.Image")));
             this.loadingIconCar.Location = new System.Drawing.Point(58, 116);
-            this.loadingIconCar.Name = "loadingIconBaja";
+            this.loadingIconCar.Name = "loadingIconCar";
             this.loadingIconCar.Size = new System.Drawing.Size(30, 30);
             this.loadingIconCar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.loadingIconCar.TabIndex = 3;

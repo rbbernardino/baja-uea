@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Collections.Concurrent;
 using System.Threading;
 
+
 namespace TeleBajaUEA
 {
     public partial class GravarCorrida : FormPrincipal
@@ -22,18 +23,27 @@ namespace TeleBajaUEA
 
         private int xAxis;
 
+
         public GravarCorrida()
         {
+
             InitializeComponent();
             CarMessageQueue = new ConcurrentQueue<SensorsData>();
 
-            // temporário para testar envio de mensagem
-            formTesteMQSQ = new TESTEJanelaSensores();
+
+        // temporário para testar envio de mensagem
+        formTesteMQSQ = new TESTEJanelaSensores();
             formTesteMQSQ.Show();
 
             // temporário para testar atualização de gráficos
-            chartDinamic.Legends.Clear();
-            chartDinamic.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Range;
+            
+            chartDinamic.Legends[0].Title= "Parameters";
+
+            chartDinamic.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
+            chartDinamic.Series[0].Color = Color.Red;
+            chartDinamic.Series[0].BorderWidth=5;
+            chartDinamic.Series[0].Name = "Speed";
+           
         }
 
         public void StartUpdateGraph()
@@ -62,7 +72,20 @@ namespace TeleBajaUEA
         private void UpdateGraph(SensorsData newData)
         {
             formTesteMQSQ.SetData(newData);
-            chartDinamic.Series[0].Points.AddXY(xAxis++, newData.Speed);
+
+            if (chartDinamic.Series[0].Points.Count > 9)
+            {
+                chartDinamic.Series[0].Points.RemoveAt(0);
+                chartDinamic.Update();
+            }
+
+            else
+            {
+                chartDinamic.Series[0].Points.AddXY(xAxis++, newData.Speed);
+
+            }
+
+
         }
 
         public void AddData(SensorsData data)
@@ -83,5 +106,12 @@ namespace TeleBajaUEA
 
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Hide();
+            MenuPrincipal aux = new MenuPrincipal();           
+            aux.Show();
+           }
     }
 }

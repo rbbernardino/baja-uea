@@ -36,6 +36,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,9 +46,9 @@
             this.labelSubTítulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this.labelSubTítulo.Location = new System.Drawing.Point(308, 72);
             this.labelSubTítulo.Name = "labelSubTítulo";
-            this.labelSubTítulo.Size = new System.Drawing.Size(134, 24);
+            this.labelSubTítulo.Size = new System.Drawing.Size(119, 24);
             this.labelSubTítulo.TabIndex = 0;
-            this.labelSubTítulo.Text = "Buscar Corrida";
+            this.labelSubTítulo.Text = "Search Race";
             // 
             // labelTítulo
             // 
@@ -55,9 +56,9 @@
             this.labelTítulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F);
             this.labelTítulo.Location = new System.Drawing.Point(233, 26);
             this.labelTítulo.Name = "labelTítulo";
-            this.labelTítulo.Size = new System.Drawing.Size(300, 29);
+            this.labelTítulo.Size = new System.Drawing.Size(225, 29);
             this.labelTítulo.TabIndex = 1;
-            this.labelTítulo.Text = "Analisar Corrida Passada";
+            this.labelTítulo.Text = "Analyze Last Race";
             // 
             // btOK
             // 
@@ -102,15 +103,29 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
             this.label2.Location = new System.Drawing.Point(449, 126);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 20);
+            this.label2.Size = new System.Drawing.Size(81, 20);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Pesquisar";
+            this.label2.Text = "Research";
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.button1.Location = new System.Drawing.Point(12, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(24, 27);
+            this.button1.TabIndex = 15;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // BuscarCorrida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(766, 513);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.dataGridView1);
@@ -136,5 +151,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button1;
     }
 }

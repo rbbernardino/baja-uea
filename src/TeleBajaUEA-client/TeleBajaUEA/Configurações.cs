@@ -9,11 +9,25 @@ using System.Windows.Forms;
 
 namespace TeleBajaUEA
 {
-    public partial class Configurações : Form
+    public partial class Configurações : FormPrincipal
     {
         public Configurações()
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Hide();
+            MenuPrincipal aux = new MenuPrincipal();
+            aux.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            CloseOnlyThis();
+        }
+
+        
     }
 }

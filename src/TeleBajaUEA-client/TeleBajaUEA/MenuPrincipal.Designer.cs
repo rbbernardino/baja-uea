@@ -54,7 +54,7 @@
             this.btAnalisarCorrida.Name = "btAnalisarCorrida";
             this.btAnalisarCorrida.Size = new System.Drawing.Size(95, 31);
             this.btAnalisarCorrida.TabIndex = 12;
-            this.btAnalisarCorrida.Text = "Analisar Corrida";
+            this.btAnalisarCorrida.Text = "Analyze Race";
             this.btAnalisarCorrida.UseVisualStyleBackColor = true;
             this.btAnalisarCorrida.Click += new System.EventHandler(this.btAnalisarCorrida_Click);
             // 
@@ -64,7 +64,7 @@
             this.btConfigurações.Name = "btConfigurações";
             this.btConfigurações.Size = new System.Drawing.Size(95, 31);
             this.btConfigurações.TabIndex = 11;
-            this.btConfigurações.Text = "Configurações";
+            this.btConfigurações.Text = "Settings";
             this.btConfigurações.UseVisualStyleBackColor = true;
             this.btConfigurações.Click += new System.EventHandler(this.btConfigurações_Click);
             // 
@@ -74,7 +74,7 @@
             this.btSair.Name = "btSair";
             this.btSair.Size = new System.Drawing.Size(43, 31);
             this.btSair.TabIndex = 10;
-            this.btSair.Text = "Sair";
+            this.btSair.Text = "Exit";
             this.btSair.UseVisualStyleBackColor = true;
             this.btSair.Click += new System.EventHandler(this.btSair_Click);
             // 
@@ -84,7 +84,7 @@
             this.btSobre.Name = "btSobre";
             this.btSobre.Size = new System.Drawing.Size(95, 31);
             this.btSobre.TabIndex = 9;
-            this.btSobre.Text = "Sobre";
+            this.btSobre.Text = "About";
             this.btSobre.UseVisualStyleBackColor = true;
             this.btSobre.Click += new System.EventHandler(this.btSobre_Click);
             // 
@@ -94,7 +94,7 @@
             this.btGravarCorrida.Name = "btGravarCorrida";
             this.btGravarCorrida.Size = new System.Drawing.Size(95, 31);
             this.btGravarCorrida.TabIndex = 8;
-            this.btGravarCorrida.Text = "Gravar Corrida";
+            this.btGravarCorrida.Text = "Record Race";
             this.btGravarCorrida.UseVisualStyleBackColor = true;
             this.btGravarCorrida.Click += new System.EventHandler(this.btGravarCorrida_Click);
             // 

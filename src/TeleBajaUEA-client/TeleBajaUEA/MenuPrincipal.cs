@@ -28,11 +28,12 @@ namespace TeleBajaUEA
             GravarCorridaConexão formGravarCorridaConexao = new GravarCorridaConexão();
             formGravarCorridaConexao.Show();
             Hide();
+
             await formGravarCorridaConexao.CreateConnections();
 
             // cria janela de gravar corrida
             GravarCorrida formGravarCorrida = new GravarCorrida();
-
+            
             // fecha janela de loading evitando que programa encerre
             formGravarCorridaConexao.CloseOnlyThis();
 

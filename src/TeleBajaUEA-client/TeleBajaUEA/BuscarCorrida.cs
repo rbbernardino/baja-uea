@@ -35,5 +35,12 @@ namespace TeleBajaUEA
             // fecha janela atual evitando que programa encerre
             CloseOnlyThis();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Hide();
+            MenuPrincipal aux = new MenuPrincipal();
+            aux.Show();
+        }
     }
 }

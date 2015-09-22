@@ -9,11 +9,16 @@ using System.Windows.Forms;
 
 namespace TeleBajaUEA
 {
-    public partial class Sobre : Form
+    public partial class Sobre : FormPrincipal
     {
         public Sobre()
         {
             InitializeComponent();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            CloseOnlyThis();
         }
     }
 }
