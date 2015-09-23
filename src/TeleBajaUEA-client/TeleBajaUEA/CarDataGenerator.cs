@@ -28,7 +28,9 @@ namespace TeleBajaUEA
         private float deltaSpeed;
         private float deltaTemp;
 
-        private readonly long UPDATE_RATE = 1000;
+        private readonly long UPDATE_RATE = 100;
+
+        private readonly long MAX_SPEED = 60;
 
         private Random rdnGenerator;
         private int tmpRandomNum;
@@ -69,6 +71,7 @@ namespace TeleBajaUEA
             currentBreakState = RndBreakState(); 
             currentTime++;
 
+            if (currentSpeed > MAX_SPEED) currentSpeed = MAX_SPEED;
             if (currentSpeed < 0) currentSpeed = 0;
             if (currentTemperature < 0) currentTemperature = 0;
 

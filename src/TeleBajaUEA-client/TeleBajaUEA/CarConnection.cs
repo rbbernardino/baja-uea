@@ -14,7 +14,7 @@ namespace TeleBajaUEA
     {
         public static GravarCorrida FormGravarCorrida { get; set; }
 
-        private readonly static long CHECK_RATE = 500;
+        private readonly static long CHECK_RATE = 50;
         private static Timer timerCheckIncomeData;
         private static ConcurrentQueue<SensorsData> CarDataQueue;
         private static SensorsData newData;

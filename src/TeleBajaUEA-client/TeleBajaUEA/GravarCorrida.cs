@@ -17,11 +17,13 @@ namespace TeleBajaUEA
     {
         private ConcurrentQueue<SensorsData> CarMessageQueue;
         private System.Threading.Timer timerCheckIncomeData;
-        private readonly static long UPDATE_RATE = 1000;
         private TESTEJanelaSensores formTesteMQSQ;
         private static SensorsData newData;
 
-        private int xAxis;
+        private readonly static long UPDATE_RATE = 100;
+        private double X_AXIS_INTERVAL = 10;
+
+        private int currentXValue;
 
 
         public GravarCorrida()
@@ -38,17 +40,38 @@ namespace TeleBajaUEA
             // temporário para testar atualização de gráficos
             
             chartDinamic.Legends[0].Title= "Parameters";
+            chartDinamic.ChartAreas["ChartArea1"].BackColor = Color.Black;
+
+            // ---------------- Configurando o Y ----------------
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.Minimum = 0;
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.Maximum = 60;
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.Interval = 10;
+
+            // linhas de trás/apoio
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.MajorGrid.Interval = 10;
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = System.Drawing.ColorTranslator.FromHtml("#686868");
+            // --------------------------------------------------
+
+            // ---------------- Configurando o X ---------------- 
+            chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum = 0;
+            chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum = 50;
+            chartDinamic.ChartAreas["ChartArea1"].AxisX.Interval = X_AXIS_INTERVAL;
+
+            // linhas de trás/apoio
+            chartDinamic.ChartAreas["ChartArea1"].AxisX.MajorGrid.Interval = X_AXIS_INTERVAL;
+            chartDinamic.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = System.Drawing.ColorTranslator.FromHtml("#686868");
+            // --------------------------------------------------
 
             chartDinamic.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
             chartDinamic.Series[0].Color = Color.Red;
-            chartDinamic.Series[0].BorderWidth=5;
+            chartDinamic.Series[0].BorderWidth = 1;
             chartDinamic.Series[0].Name = "Speed";
            
         }
 
         public void StartUpdateGraph()
         {
-            xAxis = 0;
+            currentXValue = 0;
             timerCheckIncomeData =
                 new System.Threading.Timer(TickCheckIncomeData, null,
                                                 UPDATE_RATE, Timeout.Infinite);
@@ -73,19 +96,23 @@ namespace TeleBajaUEA
         {
             formTesteMQSQ.SetData(newData);
 
-            if (chartDinamic.Series[0].Points.Count > 9)
+            //double lastX = chartDinamic.Series[0].Points.Last().XValue;
+            double lastX = currentXValue;
+
+            if (lastX == chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum + 1)
             {
-                chartDinamic.Series[0].Points.RemoveAt(0);
+                //chartDinamic.Series[0].Points.RemoveAt(0);
+                double currentMinimum = chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum;
+                double currentMaximum = chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum;
+                double interval = chartDinamic.ChartAreas["ChartArea1"].AxisX.Interval;
+
+                chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum = currentMinimum + 1;//interval;
+                chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum = currentMaximum + 1;//interval;
+
                 chartDinamic.Update();
             }
 
-            else
-            {
-                chartDinamic.Series[0].Points.AddXY(xAxis++, newData.Speed);
-
-            }
-
-
+            chartDinamic.Series[0].Points.AddXY(currentXValue++, newData.Speed);
         }
 
         public void AddData(SensorsData data)
