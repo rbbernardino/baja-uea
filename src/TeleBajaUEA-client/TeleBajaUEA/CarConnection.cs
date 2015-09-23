@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Threading;
 using System.Collections.Concurrent;
+using System.Timers;
 
 namespace TeleBajaUEA
 {
@@ -14,10 +14,8 @@ namespace TeleBajaUEA
     {
         public static GravarCorrida FormGravarCorrida { get; set; }
 
-        private readonly static long CHECK_RATE = 50;
-        private static Timer timerCheckIncomeData;
-        private static ConcurrentQueue<SensorsData> CarDataQueue;
-        private static SensorsData newData;
+        private static event NewDataHandler NewDataArrived;
+        private delegate void NewDataHandler(object source, SensorsData newData);
 
         // ----------------------- Tempor�rio para Teste --------------------//
         private static CarDataGenerator DataGenerator;
@@ -32,40 +30,30 @@ namespace TeleBajaUEA
             // tempo para conectar com o carro
             await Task.Delay(500);
 
-            // se obteve sucesso, cria queue
-         CarDataQueue = new ConcurrentQueue<SensorsData>();
-
             return true;
         }
 
         public static void StartListen()
         {
-             timerCheckIncomeData = new Timer(TickCheckNewMessage,
-                                        null, CHECK_RATE, Timeout.Infinite);
-
-            // --------------------- Tempor�rio para Teste ------------------//
-            DataGenerator = new CarDataGenerator(CarDataQueue);
-            // --------------------------------------------------------------//
+            NewDataArrived += new NewDataHandler(NewDataEventHandler);
         }
 
         // ----------------------- Tempor�rio para Teste --------------------//
         public static void StartDataGenerator()
         {
+            DataGenerator = new CarDataGenerator();
             DataGenerator.StartGenerateData();
         }
         // ------------------------------------------------------------------//
 
-        private static void TickCheckNewMessage(Object state)
+        public static void Send(object source, SensorsData newData)
         {
-            timerCheckIncomeData.Change(CHECK_RATE, Timeout.Infinite);
-            CheckNewMessage();
+            NewDataArrived(source, newData);
         }
 
-        private static void CheckNewMessage()
+        private static void NewDataEventHandler(object _source, SensorsData newData)
         {
-            if (CarDataQueue.TryDequeue(out newData))
-                FormGravarCorrida.AddData(newData);
-            // else n�o faz nada, espera pr�ximo tick
+            FormGravarCorrida.AddData(newData);
         }
     }
 }

@@ -8,19 +8,17 @@ using System.Threading.Tasks;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections.Concurrent;
-using System.Threading;
-
 
 namespace TeleBajaUEA
 {
     public partial class GravarCorrida : FormPrincipal
     {
         private ConcurrentQueue<SensorsData> CarDataQueue;
-        private System.Threading.Timer timerCheckIncomeData;
+        private Timer timerCheckIncomeData;
         private TESTEJanelaSensores formTesteMQSQ;
         private static SensorsData newData;
 
-        private readonly static long UPDATE_RATE = 100;
+        private readonly static int UPDATE_RATE = 100;
         private double X_AXIS_INTERVAL = 10;
 
         private int currentXValue;
@@ -32,8 +30,8 @@ namespace TeleBajaUEA
             CarDataQueue = new ConcurrentQueue<SensorsData>();
 
 
-        // temporário para testar envio de mensagem
-        formTesteMQSQ = new TESTEJanelaSensores();
+            // temporário para testar envio de mensagem
+            formTesteMQSQ = new TESTEJanelaSensores();
             formTesteMQSQ.Show();
 
             // temporário para testar atualização de gráficos
@@ -70,14 +68,15 @@ namespace TeleBajaUEA
         public void StartUpdateGraph()
         {
             currentXValue = 0;
-            timerCheckIncomeData =
-                new System.Threading.Timer(TickCheckIncomeData, null,
-                                                UPDATE_RATE, Timeout.Infinite);
+
+            timerCheckIncomeData = new Timer();
+            timerCheckIncomeData.Interval = UPDATE_RATE;
+            timerCheckIncomeData.Tick += new EventHandler(TickCheckIncomeData);
+            timerCheckIncomeData.Enabled = true;
         }
 
-        private async void TickCheckIncomeData(Object state)
+        private async void TickCheckIncomeData(object source, EventArgs e)
         {
-            timerCheckIncomeData.Change(UPDATE_RATE, Timeout.Infinite);
             await CheckNewData();
         }
 
@@ -187,13 +186,14 @@ namespace TeleBajaUEA
         private void GravarCorrida_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Stop timer
-            timerCheckIncomeData.Change(Timeout.Infinite, Timeout.Infinite);
-            timerCheckIncomeData.Dispose();
-            timerCheckIncomeData = null;
+            timerCheckIncomeData.Stop();
+            timerCheckIncomeData.Tick -= new EventHandler(TickCheckIncomeData);
         }
 
         private void GravarCorrida_FormClosed(object sender, FormClosedEventArgs e)
         {
+            timerCheckIncomeData.Dispose();
+            timerCheckIncomeData = null;
         }
     }
 }

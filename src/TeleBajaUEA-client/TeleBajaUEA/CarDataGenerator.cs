@@ -3,8 +3,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace TeleBajaUEA
 {
@@ -15,8 +15,6 @@ namespace TeleBajaUEA
 
     public sealed class CarDataGenerator
     {
-        private ConcurrentQueue<SensorsData> CarDataQueue;
-
         private Timer timerGenerateData;
 
         private int currentTime;
@@ -28,18 +26,12 @@ namespace TeleBajaUEA
         private float deltaSpeed;
         private float deltaTemp;
 
-        private readonly long UPDATE_RATE = 100;
-
+        private readonly int GENERATE_RATE = 100;
         private readonly long MAX_SPEED = 60;
 
         private Random rdnGenerator;
         private int tmpRandomNum;
         private int tmpSignal;
-
-        public CarDataGenerator(ConcurrentQueue<SensorsData> pCarDataQueue)
-        {
-            CarDataQueue = pCarDataQueue;
-        }
 
         public void StartGenerateData()
         {
@@ -51,13 +43,15 @@ namespace TeleBajaUEA
             //--------------------
 
             rdnGenerator = new Random();
-            timerGenerateData = new Timer(TickNewData, null, 1000, Timeout.Infinite);
+
+            timerGenerateData = new Timer();
+            timerGenerateData.Interval = GENERATE_RATE;
+            timerGenerateData.Elapsed += new ElapsedEventHandler(TickNewData);
+            timerGenerateData.Enabled = true;
         }
 
-        private void TickNewData(Object _state)
+        private void TickNewData(object _source, ElapsedEventArgs _e)
         {
-            timerGenerateData.Change(UPDATE_RATE, Timeout.Infinite);
-
             GenerateNewData();
         }
 
@@ -76,7 +70,8 @@ namespace TeleBajaUEA
             if (currentTemperature < 0) currentTemperature = 0;
 
             SensorsData newDataTemp = new SensorsData(currentTime, currentSpeed, currentTemperature, currentBreakState);
-            CarDataQueue.Enqueue(newDataTemp);
+
+            CarConnection.Send(this, newDataTemp);
         }
 
         private bool RndBreakState()
