@@ -15,7 +15,7 @@ namespace TeleBajaUEA
 {
     public partial class GravarCorrida : FormPrincipal
     {
-        private ConcurrentQueue<SensorsData> CarMessageQueue;
+        private ConcurrentQueue<SensorsData> CarDataQueue;
         private System.Threading.Timer timerCheckIncomeData;
         private TESTEJanelaSensores formTesteMQSQ;
         private static SensorsData newData;
@@ -25,12 +25,11 @@ namespace TeleBajaUEA
 
         private int currentXValue;
 
-
         public GravarCorrida()
         {
 
             InitializeComponent();
-            CarMessageQueue = new ConcurrentQueue<SensorsData>();
+            CarDataQueue = new ConcurrentQueue<SensorsData>();
 
 
         // temporário para testar envio de mensagem
@@ -66,7 +65,6 @@ namespace TeleBajaUEA
             chartDinamic.Series[0].Color = Color.Red;
             chartDinamic.Series[0].BorderWidth = 1;
             chartDinamic.Series[0].Name = "Speed";
-           
         }
 
         public void StartUpdateGraph()
@@ -87,37 +85,82 @@ namespace TeleBajaUEA
         {
             await Task.Run(() =>
             {
-                if (CarMessageQueue.TryDequeue(out newData))
+                if (CarDataQueue.TryDequeue(out newData))
                     UpdateGraph(newData);
             });
         }
 
         private void UpdateGraph(SensorsData newData)
         {
-            formTesteMQSQ.SetData(newData);
+            UpdateTESTEform(newData);
 
             //double lastX = chartDinamic.Series[0].Points.Last().XValue;
             double lastX = currentXValue;
 
-            if (lastX == chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum + 1)
+            //chartDinamic.Series[0].Points.RemoveAt(0);
+            double currentMinimum = chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum;
+            double currentMaximumX = chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum;
+            double interval = chartDinamic.ChartAreas["ChartArea1"].AxisX.Interval;
+
+            if (lastX == currentMaximumX + 1)
             {
-                //chartDinamic.Series[0].Points.RemoveAt(0);
-                double currentMinimum = chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum;
-                double currentMaximum = chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum;
-                double interval = chartDinamic.ChartAreas["ChartArea1"].AxisX.Interval;
-
-                chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum = currentMinimum + 1;//interval;
-                chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum = currentMaximum + 1;//interval;
-
-                chartDinamic.Update();
+                UpdateGraphLimits(currentMinimum, currentMaximumX, interval);
             }
 
-            chartDinamic.Series[0].Points.AddXY(currentXValue++, newData.Speed);
+            UpdateGraphPoints(newData);
+        }
+
+        private void UpdateGraphPoints(SensorsData newData)
+        {
+            if (this.InvokeRequired)
+                Invoke(new MethodInvoker(() =>
+                {
+                    chartDinamic.Series[0].Points.AddXY(currentXValue++, newData.Speed);
+                }));
+            else
+                chartDinamic.Series[0].Points.AddXY(currentXValue++, newData.Speed);
+        }
+
+        private void UpdateGraphLimits(double currentMinimum,
+                                        double currentMaximumX, double _interval)
+        {
+            if (this.InvokeRequired)
+            {
+                Invoke(new MethodInvoker(() =>
+                {
+                    chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum = currentMinimum + 1;//interval;
+                    chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum = currentMaximumX + 1;//interval;
+                    chartDinamic.Update();
+                }));
+            }
+            else
+            {
+                chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum = currentMinimum + 1;//interval;
+                chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum = currentMaximumX + 1;//interval;
+                chartDinamic.Update();
+            }
+        }
+
+        // Usando invoker para tratar cross-thread method call e atualizar
+        // o gráfico de forma "thread-safe"
+        private void UpdateTESTEform(SensorsData newData)
+        {
+            if (this.InvokeRequired)
+            {
+                Invoke(new MethodInvoker(() =>
+                {
+                    formTesteMQSQ.SetData(newData);
+                }));
+            }
+            else
+            {
+                formTesteMQSQ.SetData(newData);
+            }
         }
 
         public void AddData(SensorsData data)
         {
-            CarMessageQueue.Enqueue(data);
+            CarDataQueue.Enqueue(data);
         }
 
 
@@ -139,6 +182,18 @@ namespace TeleBajaUEA
             Hide();
             MenuPrincipal aux = new MenuPrincipal();           
             aux.Show();
-           }
+        }
+
+        private void GravarCorrida_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Stop timer
+            timerCheckIncomeData.Change(Timeout.Infinite, Timeout.Infinite);
+            timerCheckIncomeData.Dispose();
+            timerCheckIncomeData = null;
+        }
+
+        private void GravarCorrida_FormClosed(object sender, FormClosedEventArgs e)
+        {
+        }
     }
 }
