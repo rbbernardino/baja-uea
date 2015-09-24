@@ -33,7 +33,15 @@ namespace TeleBajaUEA
 
             // cria janela de gravar corrida
             GravarCorrida formGravarCorrida = new GravarCorrida();
-            
+            await formGravarCorrida.ConfigureCharts();
+
+            // TODO temporario para teste
+            //------------- temporário para testar -----------------//
+            formGravarCorrida.formTesteMQSQ = new TESTEJanelaSensores();
+            formGravarCorrida.formTesteMQSQ.Show();
+            //------------------------------------------------------//
+
+
             // fecha janela de loading evitando que programa encerre
             formGravarCorridaConexao.CloseOnlyThis();
 
@@ -46,11 +54,13 @@ namespace TeleBajaUEA
             // inicia recebimento de dados dos sensores
             CarConnection.StartListen();
 
-            // simula medições do carro
+            // TODO temporario para teste
+            // ------------------ Teste: simula medições do carro --------------
             CarConnection.StartDataGenerator();
 
             // inicia atualização dos gráficos na tela de gravação de corrida
-            formGravarCorrida.StartUpdateGraph();
+            formGravarCorrida.StartUpdateCharts();
+            formGravarCorrida.formTesteMQSQ.StartCountTime();
         }
 
         private async void btAnalisarCorrida_Click(object sender, EventArgs e)

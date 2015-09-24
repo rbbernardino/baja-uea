@@ -41,14 +41,16 @@
             this.labelData.TabIndex = 0;
             this.labelData.Text = "Iniciando...";
             // 
-            // TesteMQSQ
+            // TESTEJanelaSensores
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(413, 334);
+            this.ClientSize = new System.Drawing.Size(438, 334);
             this.Controls.Add(this.labelData);
-            this.Name = "TesteMQSQ";
+            this.Name = "TESTEJanelaSensores";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TESTEJanelaSensores_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TESTEJanelaSensores_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

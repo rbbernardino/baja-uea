@@ -8,22 +8,22 @@ namespace TeleBajaUEA
 {
     public struct SensorsData
     {
-        public long TimeStamp { get { return timestamp; } }
         public float Speed { get { return speed; } }
         public float EngineTemperature { get { return engineTemperature; } }
         public bool BreakState { get { return breakOn; } }//BreakState_ToString(); } }
+        public long DataCount { get { return dataCount; } }
 
-        private readonly long timestamp;
         private readonly float speed;
         private readonly float engineTemperature;
         private readonly bool breakOn;
+        private readonly long dataCount;
 
-        public SensorsData(long pTimestamp, float pSpeed, float pEngineTemp, bool pBreakON)
+        public SensorsData(long pDataCount, float pSpeed, float pEngineTemp, bool pBreakON)
         {
-            timestamp = pTimestamp;
             speed = pSpeed;
             engineTemperature = pEngineTemp;
             breakOn = pBreakON;
+            dataCount = pDataCount;
         }
         /*
         public string BreakState_ToString()

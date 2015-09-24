@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GravarCorrida));
             this.labelTitulo = new System.Windows.Forms.Label();
             this.chartDinamic = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -53,18 +53,18 @@
             // chartDinamic
             // 
             this.chartDinamic.BorderlineWidth = 3;
-            chartArea2.Name = "ChartArea1";
-            this.chartDinamic.ChartAreas.Add(chartArea2);
+            chartArea1.Name = "ChartArea1";
+            this.chartDinamic.ChartAreas.Add(chartArea1);
             this.chartDinamic.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.chartDinamic.Legends.Add(legend2);
+            legend1.Name = "Legend1";
+            this.chartDinamic.Legends.Add(legend1);
             this.chartDinamic.Location = new System.Drawing.Point(0, 17);
             this.chartDinamic.Name = "chartDinamic";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartDinamic.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series1.Legend = "Legend1";
+            series1.Name = "Speed";
+            this.chartDinamic.Series.Add(series1);
             this.chartDinamic.Size = new System.Drawing.Size(728, 474);
             this.chartDinamic.TabIndex = 1;
             this.chartDinamic.Text = "chart1";

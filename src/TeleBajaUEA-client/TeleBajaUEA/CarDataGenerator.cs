@@ -17,7 +17,7 @@ namespace TeleBajaUEA
     {
         private Timer timerGenerateData;
 
-        private int currentTime;
+        private long dataCount;
 
         private float currentSpeed;
         private float currentTemperature;
@@ -26,17 +26,17 @@ namespace TeleBajaUEA
         private float deltaSpeed;
         private float deltaTemp;
 
-        private readonly int GENERATE_RATE = 100;
+        private readonly int GENERATE_RATE = 50;
         private readonly long MAX_SPEED = 60;
 
         private Random rdnGenerator;
         private int tmpRandomNum;
         private int tmpSignal;
 
-        public void StartGenerateData()
+        public void Start()
         {
             // valores iniciais
-            currentTime = 0;
+            dataCount = 0;
             currentSpeed = 30;
             currentTemperature = 80;
             currentBreakState = false;
@@ -48,6 +48,15 @@ namespace TeleBajaUEA
             timerGenerateData.Interval = GENERATE_RATE;
             timerGenerateData.Elapsed += new ElapsedEventHandler(TickNewData);
             timerGenerateData.Enabled = true;
+        }
+
+        public void Stop()
+        {
+            timerGenerateData.Stop();
+            timerGenerateData.Elapsed -= new ElapsedEventHandler(TickNewData);
+            timerGenerateData.Enabled = false;
+            timerGenerateData.Dispose();
+            timerGenerateData = null;
         }
 
         private void TickNewData(object _source, ElapsedEventArgs _e)
@@ -62,22 +71,25 @@ namespace TeleBajaUEA
 
             currentSpeed       += deltaSpeed;
             currentTemperature += deltaTemp;
-            currentBreakState = RndBreakState(); 
-            currentTime++;
+            currentBreakState = RndBreakState();
+
+            // se dataCount for múltiplo de 1000 (milisegundos)
+            // passou-se um segundo, logo incrementa tempo
+            dataCount++;
 
             if (currentSpeed > MAX_SPEED) currentSpeed = MAX_SPEED;
             if (currentSpeed < 0) currentSpeed = 0;
             if (currentTemperature < 0) currentTemperature = 0;
 
-            SensorsData newDataTemp = new SensorsData(currentTime, currentSpeed, currentTemperature, currentBreakState);
+            SensorsData newDataTemp = new SensorsData(dataCount, currentSpeed, currentTemperature, currentBreakState);
 
             CarConnection.Send(this, newDataTemp);
         }
 
         private bool RndBreakState()
         {
-            // 30% de chance de freiar
-            if (rdnGenerator.Next(0, 10) < 4)
+            // 10% de chance de freiar
+            if (rdnGenerator.Next(0, 10) < 1)
                 return true;
             else
                 return false;

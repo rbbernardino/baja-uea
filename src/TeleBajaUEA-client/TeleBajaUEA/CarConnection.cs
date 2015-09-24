@@ -38,11 +38,19 @@ namespace TeleBajaUEA
             NewDataArrived += new NewDataHandler(NewDataEventHandler);
         }
 
+        public static void CloseConnection()
+        {
+            // TODO timers ficam mais lentos ao reabrir janela de gravar corrida
+            DataGenerator.Stop();
+            DataGenerator = null;
+        }
+
+        // TODO temporario para teste
         // ----------------------- Tempor�rio para Teste --------------------//
         public static void StartDataGenerator()
         {
             DataGenerator = new CarDataGenerator();
-            DataGenerator.StartGenerateData();
+            DataGenerator.Start();
         }
         // ------------------------------------------------------------------//
 

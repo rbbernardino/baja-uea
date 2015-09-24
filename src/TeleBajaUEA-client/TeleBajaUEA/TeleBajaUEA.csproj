@@ -91,6 +91,9 @@
     </Compile>
     <Compile Include="CarConnection.cs" />
     <Compile Include="CarDataGenerator.cs" />
+    <Compile Include="GravarCorrida.ChartSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="SensorsData.cs" />
     <Compile Include="DBConnection.cs" />
     <Compile Include="TESTEJanelaSensores.cs">
