@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections.Concurrent;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace TeleBajaUEA
 {
@@ -16,11 +17,15 @@ namespace TeleBajaUEA
         private readonly static int UPDATE_RATE = 50;
 
         // -------------------- Configurações do eixo X ---------------------//
+        // valores em segundos
+        // sugestão de config.:
+        //     máximo como múltiplo de 30    (60, 90, 120...)
+        //     intervalo como múltiplo de 10 (10, 20, 30...)
         private readonly double X_AXIS_MINIMUM = 0;
-        private readonly double X_AXIS_MAXIMUM = 50;
-        private readonly double X_AXIS_INTERVAL = 10;
+        private readonly double X_AXIS_MAXIMUM = 120;
 
-        private readonly double X_AXIS_GRID_INTERVAL = 10;
+        private readonly double X_AXIS_INTERVAL = 30;
+        private readonly double X_AXIS_GRID_INTERVAL = 30;
 
         // -------------------- Configurações do eixo Y ---------------------//
         private readonly double Y_AXIS_MINIMUM = 0;
@@ -66,10 +71,49 @@ namespace TeleBajaUEA
                 chartDinamic.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = GRID_COLOR;
 
                 // Configurando a plotagem da velocidade
-                chartDinamic.Series["Speed"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
+                chartDinamic.Series["Speed"].ChartType = SeriesChartType.StepLine;
                 chartDinamic.Series["Speed"].Color = SPEED_COLOR;
                 chartDinamic.Series["Speed"].BorderWidth = SPEED_LINE_WIDTH;
+
+                UpdateLabels();
             });
+        }
+
+        private void UpdateLabels()
+        {
+            long currentMinX = (long) chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum;
+            long currentMaxX = (long) chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum;
+
+            long fromPosition, toPosition;
+            string text;
+            for (long currentXLabel = currentMinX;
+                currentXLabel <= currentMaxX; currentXLabel += (long) X_AXIS_INTERVAL)
+            {
+                fromPosition = currentXLabel - 5*((long) X_AXIS_INTERVAL /10);
+                toPosition = currentXLabel + 5*((long) X_AXIS_INTERVAL/10);
+                text = SecondsToTime(currentXLabel);
+
+                chartDinamic.ChartAreas["ChartArea1"].AxisX.CustomLabels.Add(fromPosition, toPosition, text);
+            }
+        }
+
+        private string SecondsToTime(long totalSeconds)
+        {
+            long seconds = totalSeconds % 60;
+            string secondsStr = seconds.ToString();
+
+            long totalMinutes = totalSeconds / 60;
+            long minutes = totalMinutes % 60;
+            string minutesStr = minutes.ToString();
+
+            long hours = totalMinutes / 60;
+            string hoursStr = hours.ToString();
+
+            if (hours < 10) hoursStr = "0" + hours;
+            if (minutes < 10) minutesStr = "0" + minutes;
+            if (seconds < 10) secondsStr = "0" + seconds;
+
+            return hoursStr + ":" + minutesStr + ":" + secondsStr;
         }
     }
 }

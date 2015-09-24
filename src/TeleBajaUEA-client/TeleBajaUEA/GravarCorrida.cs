@@ -85,14 +85,16 @@ namespace TeleBajaUEA
         private void UpdateGraphPoints(SensorsData newData)
         {
             currentXValue += ((float) UPDATE_RATE) / 1000;
-            
+
             if (this.InvokeRequired)
                 Invoke(new MethodInvoker(() =>
                 {
                     chartDinamic.Series[0].Points.AddXY(currentXValue, newData.Speed);
                 }));
             else
+            {
                 chartDinamic.Series[0].Points.AddXY(currentXValue, newData.Speed);
+            }
         }
 
         private void UpdateGraphLimits(double currentMinimum,
@@ -104,6 +106,7 @@ namespace TeleBajaUEA
                 {
                     chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum = currentMinimum + UPDATE_LIMITS_INTERVAL;
                     chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum = currentMaximumX + UPDATE_LIMITS_INTERVAL;
+                    UpdateLabels();
                     chartDinamic.Update();
                 }));
             }
@@ -111,6 +114,7 @@ namespace TeleBajaUEA
             {
                 chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum = currentMinimum + UPDATE_LIMITS_INTERVAL;
                 chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum = currentMaximumX + UPDATE_LIMITS_INTERVAL;
+                UpdateLabels();
                 chartDinamic.Update();
             }
         }
