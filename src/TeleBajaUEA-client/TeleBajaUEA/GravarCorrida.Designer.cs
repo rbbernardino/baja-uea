@@ -31,6 +31,8 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GravarCorrida));
             this.labelTitulo = new System.Windows.Forms.Label();
             this.chartDinamic = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -64,8 +66,18 @@
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
             series1.Legend = "Legend1";
             series1.Name = "Speed";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series2.Legend = "Legend1";
+            series2.Name = "RPM";
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series3.Legend = "Legend1";
+            series3.Name = "Brake";
             this.chartDinamic.Series.Add(series1);
-            this.chartDinamic.Size = new System.Drawing.Size(728, 474);
+            this.chartDinamic.Series.Add(series2);
+            this.chartDinamic.Series.Add(series3);
+            this.chartDinamic.Size = new System.Drawing.Size(841, 474);
             this.chartDinamic.TabIndex = 1;
             this.chartDinamic.Text = "chart1";
             // 
@@ -77,7 +89,7 @@
             this.checkBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.checkBox1.Location = new System.Drawing.Point(0, 0);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(728, 17);
+            this.checkBox1.Size = new System.Drawing.Size(841, 17);
             this.checkBox1.TabIndex = 2;
             this.checkBox1.Text = "Actived";
             this.checkBox1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -101,7 +113,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(728, 491);
+            this.ClientSize = new System.Drawing.Size(841, 491);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.labelTitulo);
             this.Controls.Add(this.chartDinamic);

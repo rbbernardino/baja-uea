@@ -79,21 +79,34 @@ namespace TeleBajaUEA
                 UpdateGraphLimits(currentMinimum, currentMaximumX, interval);
             }
 
-            UpdateGraphPoints(newData);
+            AddNewData(newData);
         }
 
-        private void UpdateGraphPoints(SensorsData newData)
+        private void AddNewData(SensorsData newData)
         {
             currentXValue += ((float) UPDATE_RATE) / 1000;
+
+            // ajusta valor do RPM para ficar proporcional à altura do gráfico
+            double newRPMData = newData.RPM / (RPM_MAXIMUM / Y_AXIS_MAXIMUM);
+
+            double brakePosition;
+            if (newData.BreakState)
+                brakePosition = (Y_AXIS_MAXIMUM / 2) + Y_AXIS_INTERVAL;
+            else
+                brakePosition = (Y_AXIS_MAXIMUM / 2) - Y_AXIS_INTERVAL;
 
             if (this.InvokeRequired)
                 Invoke(new MethodInvoker(() =>
                 {
-                    chartDinamic.Series[0].Points.AddXY(currentXValue, newData.Speed);
+                    chartDinamic.Series["Speed"].Points.AddXY(currentXValue, newData.Speed);
+                    chartDinamic.Series["RPM"].Points.AddXY(currentXValue, newRPMData);
+                    chartDinamic.Series["Brake"].Points.AddXY(currentXValue, brakePosition);
                 }));
             else
             {
-                chartDinamic.Series[0].Points.AddXY(currentXValue, newData.Speed);
+                chartDinamic.Series["Speed"].Points.AddXY(currentXValue, newData.Speed);
+                chartDinamic.Series["RPM"].Points.AddXY(currentXValue, newRPMData);
+                chartDinamic.Series["Brake"].Points.AddXY(currentXValue, brakePosition);
             }
         }
 
