@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Text;
 using System.Windows.Forms;
 using System.Collections.Concurrent;
 
@@ -47,18 +40,15 @@ namespace TeleBajaUEA
             timerCheckIncomeData.Enabled = true;
         }
 
-        private async void TickCheckIncomeData(object source, EventArgs e)
+        private void TickCheckIncomeData(object source, EventArgs e)
         {
-            await CheckNewData();
+            CheckNewData();
         }
 
-        private async Task CheckNewData()
+        private void CheckNewData()
         {
-            await Task.Run(() =>
-            {
                 if (CarDataQueue.TryDequeue(out newData))
                     UpdateGraph(newData);
-            });
         }
 
         private void UpdateGraph(SensorsData newData)
@@ -69,7 +59,8 @@ namespace TeleBajaUEA
             //double lastX = chartDinamic.Series[0].Points.Last().XValue;
             double lastX = currentXValue;
 
-            // TODO chartDinamic.Series[0].Points.RemoveAt(0);
+            // TODO verificar necessidade de remover pontos não mais mostrados
+            // acho que NÃO precisa... chartDinamic.Series[0].Points.RemoveAt(0);
             double currentMinimum = chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum;
             double currentMaximumX = chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum;
             double interval = chartDinamic.ChartAreas["ChartArea1"].AxisX.Interval;
@@ -95,58 +86,25 @@ namespace TeleBajaUEA
             else
                 brakePosition = (Y_AXIS_MAXIMUM / 2) - Y_AXIS_INTERVAL;
 
-            if (this.InvokeRequired)
-                Invoke(new MethodInvoker(() =>
-                {
-                    chartDinamic.Series["Speed"].Points.AddXY(currentXValue, newData.Speed);
-                    chartDinamic.Series["RPM"].Points.AddXY(currentXValue, newRPMData);
-                    chartDinamic.Series["Brake"].Points.AddXY(currentXValue, brakePosition);
-                }));
-            else
-            {
-                chartDinamic.Series["Speed"].Points.AddXY(currentXValue, newData.Speed);
-                chartDinamic.Series["RPM"].Points.AddXY(currentXValue, newRPMData);
-                chartDinamic.Series["Brake"].Points.AddXY(currentXValue, brakePosition);
-            }
+            chartDinamic.Series["Speed"].Points.AddXY(currentXValue, newData.Speed);
+            chartDinamic.Series["RPM"].Points.AddXY(currentXValue, newRPMData);
+            chartDinamic.Series["Brake"].Points.AddXY(currentXValue, brakePosition);
         }
 
         private void UpdateGraphLimits(double currentMinimum,
                                         double currentMaximumX, double _interval)
         {
-            if (this.InvokeRequired)
-            {
-                Invoke(new MethodInvoker(() =>
-                {
-                    chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum = currentMinimum + UPDATE_LIMITS_INTERVAL;
-                    chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum = currentMaximumX + UPDATE_LIMITS_INTERVAL;
-                    UpdateLabels();
-                    chartDinamic.Update();
-                }));
-            }
-            else
-            {
-                chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum = currentMinimum + UPDATE_LIMITS_INTERVAL;
-                chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum = currentMaximumX + UPDATE_LIMITS_INTERVAL;
-                UpdateLabels();
-                chartDinamic.Update();
-            }
+            chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum =
+                currentMinimum + UPDATE_LIMITS_INTERVAL;
+            chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum =
+                currentMaximumX + UPDATE_LIMITS_INTERVAL;
+            UpdateLabels();
+            chartDinamic.Update();
         }
 
-        // Usando invoker para tratar cross-thread method call e atualizar
-        // o gráfico de forma "thread-safe"
         private void UpdateTESTEform(SensorsData newData)
         {
-            if (this.InvokeRequired)
-            {
-                Invoke(new MethodInvoker(() =>
-                {
-                    formTesteMQSQ.SetData(newData);
-                }));
-            }
-            else
-            {
-                formTesteMQSQ.SetData(newData);
-            }
+            formTesteMQSQ.SetData(this, newData);
         }
 
         public void AddData(SensorsData data)

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 
 namespace TeleBajaUEA
@@ -85,13 +80,13 @@ namespace TeleBajaUEA
             dataCount++;
 
             if (currentSpeed > MAX_SPEED) currentSpeed = MAX_SPEED;
-            if (currentSpeed <= 0) currentSpeed = 1;
+            if (currentSpeed <= 0) currentSpeed = 0.1f;
 
             if (currentTemperature > MAX_TEMP) currentTemperature = MAX_TEMP;
-            if (currentTemperature <= 0) currentTemperature = 1;
+            if (currentTemperature <= 0) currentTemperature = 0.1f;
 
             if (currentRPM > MAX_RPM) currentRPM = MAX_RPM;
-            if (currentRPM <= 0) currentRPM = 100;
+            if (currentRPM <= 0) currentRPM = 10;
 
             SensorsData newDataTemp = new SensorsData(dataCount, currentSpeed, currentTemperature, currentRPM, currentBreakState);
 

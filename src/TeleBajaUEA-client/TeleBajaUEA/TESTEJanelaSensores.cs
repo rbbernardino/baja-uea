@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TeleBajaUEA
@@ -14,6 +7,9 @@ namespace TeleBajaUEA
     public partial class TESTEJanelaSensores : Form
     {
         private long timeStamp = 0;
+
+        private event DataShowHandler NewDataArrived;
+        private delegate void DataShowHandler(object source, SensorsData data);
 
         private Timer timer;
 
@@ -24,6 +20,8 @@ namespace TeleBajaUEA
             timer = new Timer();
             timer.Interval = 1000;
             timer.Tick += new EventHandler(TickTimer);
+
+            NewDataArrived += new DataShowHandler(ShowDataHandler_NewData);
         }
 
         public void StartCountTime()
@@ -37,7 +35,14 @@ namespace TeleBajaUEA
             timeStamp++;
         }
 
-        public void SetData(SensorsData Data)
+        public void SetData(object source, SensorsData data)
+        {
+            NewDataArrived(source, data);
+        }
+
+        // atualização de dados implementada com eventos para evitar problemas
+        // de cross-thread call, logo essas chamadas são thread-safe!
+        private void ShowDataHandler_NewData(object _source, SensorsData Data)
         {
              labelData.Text =
                 "Qtd. de Pontos: " + Data.DataCount + "\n" +

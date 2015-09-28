@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.Concurrent;
-using System.Timers;
 
 namespace TeleBajaUEA
 {
@@ -35,7 +33,7 @@ namespace TeleBajaUEA
 
         public static void StartListen()
         {
-            NewDataArrived += new NewDataHandler(NewDataEventHandler);
+            NewDataArrived += new NewDataHandler(NewDataHandler_Arrived);
         }
 
         public static void CloseConnection()
@@ -59,7 +57,7 @@ namespace TeleBajaUEA
             NewDataArrived(source, newData);
         }
 
-        private static void NewDataEventHandler(object _source, SensorsData newData)
+        private static void NewDataHandler_Arrived(object _source, SensorsData newData)
         {
             FormGravarCorrida.AddData(newData);
         }
