@@ -22,19 +22,19 @@ namespace TeleBajaUEA
         private float deltaTemp;
         private float deltaRPM;
 
-        private readonly float UPDATE_RATE = 100;
+        private readonly float UPDATE_RATE = 50;
 
         private readonly long MAX_SPEED = 60;
         private readonly long MAX_TEMP = 180;
-        private readonly long MAX_RPM = 3000;
+        private readonly long MAX_RPM = 2800;
 
         public async void Start()
         {
             // valores iniciais
             dataCount = 0;
-            currentSpeed = 30;
+            currentSpeed = 0;
             currentTemperature = 80;
-            currentRPM = 1000;
+            currentRPM = 0;
             currentBreakState = false;
             //--------------------
 
@@ -75,6 +75,15 @@ namespace TeleBajaUEA
                 MoveNext(Action.REACH_MAX_SPEED);
             }
 
+            if (currentRPM >= MAX_RPM) currentRPM = MAX_RPM;
+            if (currentRPM <= 0) currentRPM = 0;
+
+            if(currentSpeed <= 0 && CurrentState == CarState.Free)
+            {
+                currentSpeed = 0;
+                MoveNext(Action.REACH_ZERO_SPEED);
+            }
+
             SensorsData newDataTemp = new SensorsData(dataCount, currentSpeed, currentTemperature, currentRPM, currentBreakState);
 
             CarConnection.Send(this, newDataTemp);
@@ -84,27 +93,48 @@ namespace TeleBajaUEA
         {
             switch (state)
             {
-                // aceleracao de 10km/h a cada 1.5 segundos
+                case CarState.Stopped:
+                    deltaSpeed = deltaRPM = 0;
+                    break;
+
+                // aceleracao de 12km/h a cada 1.5 segundos
+                // RPM aumenta 300 a cada 1.5s
                 // 1.5 s                --- 10km/h 
                 // UPDATE_RATE / 1000ms --- x
                 case CarState.Accelerating:
-                    deltaSpeed = +((10f * UPDATE_RATE/1000f) / 1.5f);
+                    deltaSpeed = +((12f * UPDATE_RATE/1000f) / 1.5f);
+                    deltaRPM = +((1100f * UPDATE_RATE/1000f) / 1.5f);
                     break;
                 
                 case CarState.MaxSpeed:
                     deltaSpeed = 0;
+                    deltaRPM = 0;
                     break;
                 
-                // desaceleracao LIVRE de 5km/h a cada 1.5 segundos
+                // desaceleracao LIVRE de 3km/h a cada 1.5 segundos
+                // RPM diminue 50 a cada 1.5s
                 case CarState.Free:
                     currentBreakState = false;
-                    deltaSpeed = -((5f * UPDATE_RATE/1000f) / 1.5f);
+                    if (currentSpeed > 0)
+                    {
+                        deltaSpeed = -((3f * UPDATE_RATE / 1000f) / 1.5f);
+                        deltaRPM = -((300f * UPDATE_RATE / 1000f) / 1.5f);
+                    }
+                    else
+                        deltaSpeed = deltaRPM = 0;
                     break;
 
-                // desaceleracao FREIANDO de 15km/h a cada 1.5 segundos
+                // desaceleracao FREIANDO de 17km/h a cada 1.5 segundos
+                // RPM diminue 450 a cada 1.5s
                 case CarState.Braking:
-                    deltaSpeed = -((15f * UPDATE_RATE / 1000f) / 1.5f);
                     currentBreakState = true;
+                    if (currentSpeed > 0)
+                    {
+                        deltaSpeed = -((15f * UPDATE_RATE / 1000f) / 1.5f);
+                        deltaRPM = -((1300f * UPDATE_RATE / 1000f) / 1.5f);
+                    }
+                    else
+                        deltaSpeed = deltaRPM = 0;
                     break;
             }
         }
@@ -137,7 +167,16 @@ namespace TeleBajaUEA
             MoveNext(Action.ACC_OFF);
             await Task.Delay(3000);
 
-            // volta a acelerar
+            // volta a acelerar, mantém por 4s e freia por 4s (até parar?)
+            MoveNext(Action.ACC_ON);
+            await Task.Delay(4000);
+            MoveNext(Action.ACC_OFF);
+            MoveNext(Action.BRK_ON);
+            await Task.Delay(4000);
+
+            // solta freio e espera 5s até acelerar novamente
+            MoveNext(Action.BRK_OFF);
+            await Task.Delay(5000);
             MoveNext(Action.ACC_ON);
 
             // TODO continuar...

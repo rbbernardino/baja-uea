@@ -14,7 +14,7 @@ namespace TeleBajaUEA
 {
     public partial class GravarCorrida
     {
-        private readonly static int UPDATE_RATE = 100;
+        private readonly static int UPDATE_RATE = 50;
 
         // -------------------- Configurações do eixo X ---------------------//
         // valores em segundos
@@ -30,7 +30,7 @@ namespace TeleBajaUEA
         // -------------------- Configurações do eixo Y ---------------------//
         private readonly double Y_AXIS_MINIMUM = 0;
         private readonly double Y_AXIS_MAXIMUM = 60; // velocidade máxima
-        private readonly double RPM_MAXIMUM = 3000; // RPM máximo
+        private readonly double RPM_MAXIMUM = 2800; // RPM máximo
         private readonly double Y_AXIS_INTERVAL = 10;
 
         private readonly double Y_AXIS_GRID_INTERVAL = 10;
@@ -40,7 +40,7 @@ namespace TeleBajaUEA
         private readonly Color GRID_COLOR = ColorTranslator.FromHtml("#686868");
 
         // -------------------- Configurações de Linha ------------------//
-        private readonly int LINE_WIDTH = 2;
+        private readonly int LINE_WIDTH = 1;
         private readonly int BRAKE_LINE_WIDTH = 2;
         private readonly Color SPEED_COLOR = Color.Red;
         private readonly Color RPM_COLOR = Color.Yellow;
@@ -116,13 +116,13 @@ namespace TeleBajaUEA
             // TODO automatizar (generalizar) configuração de labels do Y axis
             //      usar as constantes!
             chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(-5, 5, "0rpm - 0km/h", 0, LabelMarkStyle.None);
-            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(25, 35, "1500rpm - 30km/h", 0, LabelMarkStyle.None);
-            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(65, 55, "3000rpm - 60km/h", 0, LabelMarkStyle.None);
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(25, 35, RPM_MAXIMUM/2 + "rpm - 30km/h", 0, LabelMarkStyle.None);
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(65, 55, RPM_MAXIMUM + "rpm - 60km/h", 0, LabelMarkStyle.None);
             chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(35, 45, "Break ON", 0, LabelMarkStyle.None);
             chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(15, 25, "Break OFF", 0, LabelMarkStyle.None);
            
             //TODO melhorar exibição de labels do Y --->------>---------->-------->-----ROW---V
-            //   chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(65, 55, "3000", 2, LabelMarkStyle.None);
+            //   chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(65, 55, RPM_MAXIMUM + "", 2, LabelMarkStyle.None);
         }
 
         private string SecondsToTime(long totalSeconds)

@@ -22,7 +22,7 @@ namespace TeleBajaUEA
         BRK_ON,        // BRK (OFF -> ON)
         BRK_OFF,       // BRK (ON  -> OFF)
         REACH_MAX_SPEED,  // SPD (... -> MAX_SPEED)
-        CAR_STOPPED    // SPD (... -> ZERO)
+        REACH_ZERO_SPEED    // SPD (... -> ZERO)
     }
 
     // maquina de estados obtida aqui: http://stackoverflow.com/a/5924053
@@ -38,12 +38,20 @@ namespace TeleBajaUEA
             transitions = new Dictionary<Transition, CarState>
             {
                 {new Transition(CarState.Stopped, Action.ACC_ON), CarState.Accelerating},
+                {new Transition(CarState.Stopped, Action.BRK_ON), CarState.Stopped},
+                {new Transition(CarState.Stopped, Action.BRK_OFF), CarState.Stopped},
+
                 {new Transition(CarState.Accelerating, Action.REACH_MAX_SPEED), CarState.MaxSpeed},
                 {new Transition(CarState.Accelerating, Action.ACC_OFF), CarState.Free},
+
                 {new Transition(CarState.MaxSpeed, Action.ACC_OFF), CarState.Free},
+
                 {new Transition(CarState.Free, Action.BRK_ON), CarState.Braking},
                 {new Transition(CarState.Free, Action.ACC_ON), CarState.Accelerating},
-                {new Transition(CarState.Braking, Action.BRK_OFF), CarState.Free}
+                {new Transition(CarState.Free, Action.REACH_ZERO_SPEED), CarState.Stopped},
+
+                {new Transition(CarState.Braking, Action.BRK_OFF), CarState.Free},
+                {new Transition(CarState.Braking, Action.REACH_ZERO_SPEED), CarState.Braking}
             };
         }
 
