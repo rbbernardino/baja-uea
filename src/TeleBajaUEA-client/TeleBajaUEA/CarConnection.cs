@@ -16,7 +16,8 @@ namespace TeleBajaUEA
         private delegate void NewDataHandler(object source, SensorsData newData);
 
         // ----------------------- Tempor�rio para Teste --------------------//
-        private static CarDataGenerator DataGenerator;
+        //private static RandomDataGenerator DataGenerator;
+        private static DataGenMachine DataGenerator;
         // ------------------------------------------------------------------//
 
         // private static USBConnection USBConnection;
@@ -47,7 +48,7 @@ namespace TeleBajaUEA
         // ----------------------- Tempor�rio para Teste --------------------//
         public static void StartDataGenerator()
         {
-            DataGenerator = new CarDataGenerator();
+            DataGenerator = new DataGenMachine();
             DataGenerator.Start();
         }
         // ------------------------------------------------------------------//

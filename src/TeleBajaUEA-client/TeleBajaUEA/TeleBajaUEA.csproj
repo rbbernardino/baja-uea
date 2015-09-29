@@ -90,7 +90,10 @@
       <DependentUpon>AnalisarCorrida.cs</DependentUpon>
     </Compile>
     <Compile Include="CarConnection.cs" />
-    <Compile Include="CarDataGenerator.cs" />
+    <Compile Include="DataGenMachine.Generator.cs" />
+    <Compile Include="RandomDataGenerator.cs" />
+    <Compile Include="DataGenMachine.cs" />
+    <Compile Include="DataGenMachine.Transition.cs" />
     <Compile Include="GravarCorrida.ChartSettings.cs">
       <SubType>Form</SubType>
     </Compile>

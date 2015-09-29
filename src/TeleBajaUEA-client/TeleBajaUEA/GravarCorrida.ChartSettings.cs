@@ -40,7 +40,7 @@ namespace TeleBajaUEA
         private readonly Color GRID_COLOR = ColorTranslator.FromHtml("#686868");
 
         // -------------------- Configurações de Linha ------------------//
-        private readonly int LINE_WIDTH = 1;
+        private readonly int LINE_WIDTH = 2;
         private readonly int BRAKE_LINE_WIDTH = 2;
         private readonly Color SPEED_COLOR = Color.Red;
         private readonly Color RPM_COLOR = Color.Yellow;

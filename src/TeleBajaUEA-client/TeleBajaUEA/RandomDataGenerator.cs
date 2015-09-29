@@ -8,7 +8,7 @@ namespace TeleBajaUEA
     /// Função de teste de recebimento de mensagem a cada 1 segundo
     /// 
 
-    public sealed class CarDataGenerator
+    public sealed class RandomDataGenerator
     {
         private Timer timerGenerateData;
 
