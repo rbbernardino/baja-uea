@@ -13,11 +13,8 @@ namespace TeleBajaUEA
 {
     public partial class GravarCorridaConexão : FormPrincipal
     {
-        private ComponentResourceManager resources;
-
         public GravarCorridaConexão()
         {
-            this.resources = new ComponentResourceManager(typeof(GravarCorridaConexão));
             InitializeComponent();
         }
 
@@ -37,7 +34,7 @@ namespace TeleBajaUEA
                 await Task.Delay(1000);
 
                 // feedback de que foi um sucesso
-                loadingIconDB.Image = (Image)(resources.GetObject("doneIcon.Image"));
+                loadingIconDB.Image = Properties.Resources.done;
                 labelDBConnection.Text = "Conectado!";
             }
             else
@@ -56,7 +53,7 @@ namespace TeleBajaUEA
                 await Task.Delay(1000);
 
                 // feedback de que foi um sucesso
-                loadingIconCar.Image = (Image)(resources.GetObject("doneIcon.Image"));
+                loadingIconCar.Image = Properties.Resources.done;
                 labelCarConnection.Text = "Conectado!";
 
                 // dá um tempo para o usuário perceber que conectou

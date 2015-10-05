@@ -47,7 +47,7 @@
             // loadingIconBD
             // 
             this.loadingIconBD.Cursor = System.Windows.Forms.Cursors.AppStarting;
-            this.loadingIconBD.Image = ((System.Drawing.Image)(resources.GetObject("loadingIconBD.Image")));
+            this.loadingIconBD.Image = global::TeleBajaUEA.Properties.Resources.spinner;
             this.loadingIconBD.Location = new System.Drawing.Point(125, 130);
             this.loadingIconBD.Name = "loadingIconBD";
             this.loadingIconBD.Size = new System.Drawing.Size(30, 30);

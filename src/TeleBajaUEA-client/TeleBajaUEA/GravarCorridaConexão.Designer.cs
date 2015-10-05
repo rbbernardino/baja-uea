@@ -29,24 +29,13 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GravarCorridaConexão));
-            this.loadingIconDB = new System.Windows.Forms.PictureBox();
             this.labelDBConnection = new System.Windows.Forms.Label();
             this.labelCarConnection = new System.Windows.Forms.Label();
             this.loadingIconCar = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.loadingIconDB)).BeginInit();
+            this.loadingIconDB = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.loadingIconCar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loadingIconDB)).BeginInit();
             this.SuspendLayout();
-            // 
-            // loadingIconDB
-            // 
-            this.loadingIconDB.Cursor = System.Windows.Forms.Cursors.AppStarting;
-            this.loadingIconDB.Image = ((System.Drawing.Image)(resources.GetObject("loadingIconDB.Image")));
-            this.loadingIconDB.Location = new System.Drawing.Point(58, 59);
-            this.loadingIconDB.Name = "loadingIconDB";
-            this.loadingIconDB.Size = new System.Drawing.Size(30, 30);
-            this.loadingIconDB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.loadingIconDB.TabIndex = 0;
-            this.loadingIconDB.TabStop = false;
             // 
             // labelDBConnection
             // 
@@ -71,13 +60,24 @@
             // loadingIconCar
             // 
             this.loadingIconCar.Cursor = System.Windows.Forms.Cursors.AppStarting;
-            this.loadingIconCar.Image = ((System.Drawing.Image)(resources.GetObject("loadingIconCar.Image")));
+            this.loadingIconCar.Image = global::TeleBajaUEA.Properties.Resources.spinner;
             this.loadingIconCar.Location = new System.Drawing.Point(58, 116);
             this.loadingIconCar.Name = "loadingIconCar";
             this.loadingIconCar.Size = new System.Drawing.Size(30, 30);
             this.loadingIconCar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.loadingIconCar.TabIndex = 3;
             this.loadingIconCar.TabStop = false;
+            // 
+            // loadingIconDB
+            // 
+            this.loadingIconDB.Cursor = System.Windows.Forms.Cursors.AppStarting;
+            this.loadingIconDB.Image = global::TeleBajaUEA.Properties.Resources.spinner;
+            this.loadingIconDB.Location = new System.Drawing.Point(58, 59);
+            this.loadingIconDB.Name = "loadingIconDB";
+            this.loadingIconDB.Size = new System.Drawing.Size(30, 30);
+            this.loadingIconDB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.loadingIconDB.TabIndex = 0;
+            this.loadingIconDB.TabStop = false;
             // 
             // GravarCorridaConexão
             // 
@@ -92,8 +92,8 @@
             this.Name = "GravarCorridaConexão";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gravar Corrida - TeleBaja UEA";
-            ((System.ComponentModel.ISupportInitialize)(this.loadingIconDB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.loadingIconCar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loadingIconDB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

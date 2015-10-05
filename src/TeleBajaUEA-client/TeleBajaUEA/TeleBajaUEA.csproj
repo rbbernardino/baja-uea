@@ -89,29 +89,29 @@
     <Compile Include="AnalisarCorrida.Designer.cs">
       <DependentUpon>AnalisarCorrida.cs</DependentUpon>
     </Compile>
-    <Compile Include="CarConnection.cs" />
-    <Compile Include="DataGenMachine.Generator.cs" />
-    <Compile Include="RandomDataGenerator.cs" />
-    <Compile Include="DataGenMachine.cs" />
-    <Compile Include="DataGenMachine.Transition.cs" />
+    <Compile Include="ClassesAuxiliares\CarConnection.cs" />
+    <Compile Include="ClassesAuxiliares\DataGenMachine.Generator.cs" />
+    <Compile Include="ClassesAuxiliares\RandomDataGenerator.cs" />
+    <Compile Include="ClassesAuxiliares\DataGenMachine.cs" />
+    <Compile Include="ClassesAuxiliares\DataGenMachine.Transition.cs" />
     <Compile Include="GravarCorrida.ChartSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SensorsData.cs" />
-    <Compile Include="DBConnection.cs" />
-    <Compile Include="TESTEJanelaSensores.cs">
+    <Compile Include="ClassesAuxiliares\SensorsData.cs" />
+    <Compile Include="ClassesAuxiliares\DBConnection.cs" />
+    <Compile Include="JanelasSecundarias\TESTEJanelaSensores.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TESTEJanelaSensores.Designer.cs">
+    <Compile Include="JanelasSecundarias\TESTEJanelaSensores.Designer.cs">
       <DependentUpon>TESTEJanelaSensores.cs</DependentUpon>
     </Compile>
     <Compile Include="FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Configurações.cs">
+    <Compile Include="JanelasSecundarias\Configurações.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Configurações.Designer.cs">
+    <Compile Include="JanelasSecundarias\Configurações.Designer.cs">
       <DependentUpon>Configurações.cs</DependentUpon>
     </Compile>
     <Compile Include="GravarCorrida.cs">
@@ -140,10 +140,10 @@
     <Compile Include="Setup.Designer.cs">
       <DependentUpon>Setup.cs</DependentUpon>
     </Compile>
-    <Compile Include="Sobre.cs">
+    <Compile Include="JanelasSecundarias\Sobre.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Sobre.Designer.cs">
+    <Compile Include="JanelasSecundarias\Sobre.Designer.cs">
       <DependentUpon>Sobre.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AnalisarCorridaConexao.resx">
@@ -156,7 +156,7 @@
     <EmbeddedResource Include="AnalisarCorrida.resx">
       <DependentUpon>AnalisarCorrida.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Configurações.resx">
+    <EmbeddedResource Include="JanelasSecundarias\Configurações.resx">
       <DependentUpon>Configurações.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GravarCorrida.resx">
@@ -182,10 +182,10 @@
     <EmbeddedResource Include="Setup.resx">
       <DependentUpon>Setup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Sobre.resx">
+    <EmbeddedResource Include="JanelasSecundarias\Sobre.resx">
       <DependentUpon>Sobre.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TESTEJanelaSensores.resx">
+    <EmbeddedResource Include="JanelasSecundarias\TESTEJanelaSensores.resx">
       <DependentUpon>TESTEJanelaSensores.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
@@ -200,10 +200,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\done.png" />
+    <None Include="Resources\done.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <None Include="Resources\spinner.gif" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6">

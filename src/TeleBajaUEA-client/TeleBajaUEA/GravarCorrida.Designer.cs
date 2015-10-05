@@ -98,10 +98,9 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
+            this.button1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.button1.BackgroundImage = global::TeleBajaUEA.Properties.Resources.seta;
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.button1.Location = new System.Drawing.Point(0, 0);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(24, 27);

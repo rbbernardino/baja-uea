@@ -12,18 +12,15 @@ namespace TeleBajaUEA
 {
     public partial class AnalisarCorridaConexao : FormPrincipal
     {
-        private ComponentResourceManager resources;
-
         public AnalisarCorridaConexao()
         {
-            this.resources = new ComponentResourceManager(typeof(AnalisarCorridaConexao));
             InitializeComponent();
         }
 
         public async Task CreateConnection()
         {
             await ConnectToDB();
-        }
+        }   
 
         private async Task ConnectToDB()
         {
@@ -35,8 +32,9 @@ namespace TeleBajaUEA
                 await Task.Delay(1000);
 
                 // feedback de que foi um sucesso
-                loadingIconBD.Image = (Image)(resources.GetObject("doneIcon.Image"));
+                loadingIconBD.Image = Properties.Resources.done;
                 labelConexaoBD.Text = "Conectado!";
+                await Task.Delay(1000); // tempo para notar que carregou
             }
             else
             {

@@ -46,7 +46,7 @@
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.button1);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.tabControl1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(526, 336);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(526, 311);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
@@ -56,8 +56,8 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
+            this.button1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.button1.BackgroundImage = global::TeleBajaUEA.Properties.Resources.seta;
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.button1.Location = new System.Drawing.Point(0, 0);
