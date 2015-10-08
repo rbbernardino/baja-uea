@@ -23,44 +23,11 @@ namespace TeleBajaUEA
             conf.ShowDialog();
         }
 
-        private async void btGravarCorrida_Click(object sender, EventArgs e)
+        private void btGravarCorrida_Click(object sender, EventArgs e)
         {
-            GravarCorridaConexão formGravarCorridaConexao = new GravarCorridaConexão();
-            formGravarCorridaConexao.Show();
+            Setup formSetup = new Setup();
             Hide();
-
-            await formGravarCorridaConexao.CreateConnections();
-
-            // cria janela de gravar corrida
-            GravarCorrida formGravarCorrida = new GravarCorrida();
-            await formGravarCorrida.ConfigureCharts();
-
-            // TODO temporario para teste
-            //------------- temporário para testar -----------------//
-            formGravarCorrida.formTesteMQSQ = new TESTEJanelaSensores();
-            formGravarCorrida.formTesteMQSQ.Show();
-            //------------------------------------------------------//
-
-
-            // fecha janela de loading evitando que programa encerre
-            formGravarCorridaConexao.CloseOnlyThis();
-
-            // Informa CarConnection aonde deve enviar as info
-            CarConnection.FormGravarCorrida = formGravarCorrida;
-
-            // abre janela de gravar corrida
-            formGravarCorrida.Show();
-
-            // inicia recebimento de dados dos sensores
-            CarConnection.StartListen();
-
-            // TODO temporario para teste
-            // ------------------ Teste: simula medições do carro --------------
-            CarConnection.StartDataGenerator();
-
-            // inicia atualização dos gráficos na tela de gravação de corrida
-            formGravarCorrida.StartUpdateCharts();
-            formGravarCorrida.formTesteMQSQ.StartCountTime();
+            formSetup.Show();
         }
 
         private async void btAnalisarCorrida_Click(object sender, EventArgs e)
@@ -83,12 +50,6 @@ namespace TeleBajaUEA
         {
             Sobre sobre = new Sobre();
             sobre.ShowDialog();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Setup setup = new Setup();
-            setup.ShowDialog();
         }
 
         private void btSair_Click(object sender, EventArgs e)

@@ -30,10 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Setup));
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btCancelar = new System.Windows.Forms.Button();
+            this.btIniciar = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabDriver = new System.Windows.Forms.TabPage();
+            this.tabWeather = new System.Windows.Forms.TabPage();
+            this.tabCar = new System.Windows.Forms.TabPage();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -44,7 +46,8 @@
             // 
             // toolStripContainer1.ContentPanel
             // 
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.button1);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.btCancelar);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.btIniciar);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.tabControl1);
             this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1064, 536);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -54,48 +57,67 @@
             this.toolStripContainer1.TabIndex = 0;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
-            // button1
+            // btCancelar
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.button1.BackgroundImage = global::TeleBajaUEA.Properties.Resources.seta;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(24, 27);
-            this.button1.TabIndex = 4;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.btCancelar.Location = new System.Drawing.Point(500, 464);
+            this.btCancelar.Name = "btCancelar";
+            this.btCancelar.Size = new System.Drawing.Size(135, 51);
+            this.btCancelar.TabIndex = 5;
+            this.btCancelar.Text = "Cancelar";
+            this.btCancelar.UseVisualStyleBackColor = true;
+            this.btCancelar.Click += new System.EventHandler(this.btCancelar_Click);
+            // 
+            // btIniciar
+            // 
+            this.btIniciar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.btIniciar.Location = new System.Drawing.Point(286, 464);
+            this.btIniciar.Name = "btIniciar";
+            this.btIniciar.Size = new System.Drawing.Size(135, 51);
+            this.btIniciar.TabIndex = 5;
+            this.btIniciar.Text = "Iniciar Corrida";
+            this.btIniciar.UseVisualStyleBackColor = true;
+            this.btIniciar.Click += new System.EventHandler(this.btIniciar_Click);
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabDriver);
+            this.tabControl1.Controls.Add(this.tabWeather);
+            this.tabControl1.Controls.Add(this.tabCar);
             this.tabControl1.Location = new System.Drawing.Point(23, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(951, 455);
             this.tabControl1.TabIndex = 0;
             // 
-            // tabPage1
+            // tabDriver
             // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(943, 429);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Car";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabDriver.Location = new System.Drawing.Point(4, 22);
+            this.tabDriver.Name = "tabDriver";
+            this.tabDriver.Size = new System.Drawing.Size(943, 429);
+            this.tabDriver.TabIndex = 2;
+            this.tabDriver.Text = "Motorista";
+            this.tabDriver.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // tabWeather
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(943, 429);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Weather";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabWeather.Location = new System.Drawing.Point(4, 22);
+            this.tabWeather.Name = "tabWeather";
+            this.tabWeather.Padding = new System.Windows.Forms.Padding(3);
+            this.tabWeather.Size = new System.Drawing.Size(943, 429);
+            this.tabWeather.TabIndex = 1;
+            this.tabWeather.Text = "Clima e Pista";
+            this.tabWeather.UseVisualStyleBackColor = true;
+            // 
+            // tabCar
+            // 
+            this.tabCar.Location = new System.Drawing.Point(4, 22);
+            this.tabCar.Name = "tabCar";
+            this.tabCar.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCar.Size = new System.Drawing.Size(943, 429);
+            this.tabCar.TabIndex = 0;
+            this.tabCar.Text = "Carro";
+            this.tabCar.UseVisualStyleBackColor = true;
             // 
             // Setup
             // 
@@ -118,9 +140,11 @@
         #endregion
 
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabCar;
+        private System.Windows.Forms.TabPage tabWeather;
+        private System.Windows.Forms.TabPage tabDriver;
+        private System.Windows.Forms.Button btIniciar;
+        private System.Windows.Forms.Button btCancelar;
     }
 }
