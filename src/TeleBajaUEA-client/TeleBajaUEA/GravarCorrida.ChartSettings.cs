@@ -88,10 +88,35 @@ namespace TeleBajaUEA
                 chartDinamic.Series["Brake"].ChartType = SeriesChartType.FastLine;
                 chartDinamic.Series["Brake"].Color = BRAKE_COLOR;
                 chartDinamic.Series["Brake"].BorderWidth = BRAKE_LINE_WIDTH;
-                
+
                 // define labels do X e Y iniciais
                 UpdateLabels();
+
+                // Configura labels dos gauges
+                SetGaugesLabels();
             });
+        }
+
+        private void SetGaugesLabels()
+        {
+            aGaugeFuel.ScaleNumbersFormatter = FormatFuelNumbers;
+        }
+
+        private string FormatFuelNumbers(float number)
+        {
+            switch ((int)number)
+            {
+                case 0:
+                    return ""; // fica no CapsText
+                case 25:
+                    return "";
+                case 50:
+                    return "1/2";
+                case 75:
+                    return "";
+                default:
+                    return "F";
+            }
         }
 
         private void UpdateLabels()

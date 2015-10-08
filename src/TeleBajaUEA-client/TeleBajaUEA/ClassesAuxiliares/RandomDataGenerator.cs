@@ -17,15 +17,17 @@ namespace TeleBajaUEA
         private float currentSpeed;
         private float currentTemperature;
         private float currentRPM;
+        private float currentFuel;
         private bool currentBreakState;
 
         private float deltaSpeed;
         private float deltaTemp;
         private float deltaRPM;
+        private float deltaFuel;
 
         private readonly int GENERATE_RATE = 100;
         private readonly long MAX_SPEED = 60;
-        private readonly long MAX_TEMP = 180;
+        private readonly long MAX_TEMP = 300;
         private readonly long MAX_RPM = 3000;
 
         private Random rndGenerator;
@@ -39,6 +41,7 @@ namespace TeleBajaUEA
             currentSpeed = 30;
             currentTemperature = 80;
             currentRPM = 1000;
+            currentFuel = 100;
             currentBreakState = false;
             //--------------------
 
@@ -69,10 +72,12 @@ namespace TeleBajaUEA
             deltaSpeed = RndDeltaSpeed();
             deltaTemp = RndDeltaTemp();
             deltaRPM = RndDeltaRPM();
+            deltaFuel = -0.1f;
 
             currentSpeed       += deltaSpeed;
             currentTemperature += deltaTemp;
             currentRPM         += deltaRPM;
+            currentFuel        += deltaFuel;
 
             if(RndBreakChange())
                 currentBreakState = RndBreakState();
@@ -88,7 +93,7 @@ namespace TeleBajaUEA
             if (currentRPM > MAX_RPM) currentRPM = MAX_RPM;
             if (currentRPM <= 0) currentRPM = 10;
 
-            SensorsData newDataTemp = new SensorsData(dataCount, currentSpeed, currentTemperature, currentRPM, currentBreakState);
+            SensorsData newDataTemp = new SensorsData(dataCount, currentSpeed, currentTemperature, currentRPM, currentFuel, currentBreakState);
 
             CarConnection.Send(this, newDataTemp);
         }

@@ -47,11 +47,11 @@ namespace TeleBajaUEA
 
         private void CheckNewData()
         {
-                if (CarDataQueue.TryDequeue(out newData))
-                    UpdateGraph(newData);
+            if (CarDataQueue.TryDequeue(out newData))
+                UpdateData(newData);
         }
 
-        private void UpdateGraph(SensorsData newData)
+        private void UpdateData(SensorsData newData)
         {
             UpdateTESTEform(newData);
 
@@ -70,10 +70,17 @@ namespace TeleBajaUEA
                 UpdateGraphLimits(currentMinimum, currentMaximumX, interval);
             }
 
-            AddNewData(newData);
+            AddNewDataToGraph(newData);
+            UpdateGauges(newData);
         }
 
-        private void AddNewData(SensorsData newData)
+        private void UpdateGauges(SensorsData newData)
+        {
+            aGaugeTemperature.Value = newData.EngineTemperature;
+            aGaugeFuel.Value = newData.Fuel;
+        }
+
+        private void AddNewDataToGraph(SensorsData newData)
         {
             currentXValue += ((float) UPDATE_RATE) / 1000;
 

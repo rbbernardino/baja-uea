@@ -46,11 +46,11 @@
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.button1);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.tabControl1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(526, 311);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1064, 536);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(526, 336);
+            this.toolStripContainer1.Size = new System.Drawing.Size(1064, 561);
             this.toolStripContainer1.TabIndex = 0;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -74,7 +74,7 @@
             this.tabControl1.Location = new System.Drawing.Point(23, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(500, 296);
+            this.tabControl1.Size = new System.Drawing.Size(951, 455);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -82,7 +82,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(492, 270);
+            this.tabPage1.Size = new System.Drawing.Size(943, 429);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Car";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -92,16 +92,16 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(492, 270);
+            this.tabPage2.Size = new System.Drawing.Size(943, 429);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Climate";
+            this.tabPage2.Text = "Weather";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // Setup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(526, 336);
+            this.ClientSize = new System.Drawing.Size(1064, 561);
             this.Controls.Add(this.toolStripContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Setup";

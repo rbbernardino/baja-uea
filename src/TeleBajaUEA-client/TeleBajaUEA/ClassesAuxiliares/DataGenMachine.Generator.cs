@@ -16,16 +16,18 @@ namespace TeleBajaUEA
         private float currentSpeed;
         private float currentTemperature;
         private float currentRPM;
+        private float currentFuel;
         private bool currentBreakState;
 
         private float deltaSpeed;
         private float deltaTemp;
         private float deltaRPM;
+        private float deltaFuel;
 
         private readonly float UPDATE_RATE = 50;
 
         private readonly long MAX_SPEED = 60;
-        private readonly long MAX_TEMP = 180;
+        private readonly long MAX_TEMP = 300;
         private readonly long MAX_RPM = 2800;
 
         public async void Start()
@@ -35,6 +37,7 @@ namespace TeleBajaUEA
             currentSpeed = 0;
             currentTemperature = 80;
             currentRPM = 0;
+            currentFuel = 100;
             currentBreakState = false;
             //--------------------
 
@@ -66,6 +69,7 @@ namespace TeleBajaUEA
             currentSpeed += deltaSpeed;
             currentTemperature += deltaTemp;
             currentRPM += deltaRPM;
+            currentFuel += -0.1f;
 
             dataCount++;
 
@@ -84,7 +88,9 @@ namespace TeleBajaUEA
                 MoveNext(Action.REACH_ZERO_SPEED);
             }
 
-            SensorsData newDataTemp = new SensorsData(dataCount, currentSpeed, currentTemperature, currentRPM, currentBreakState);
+            SensorsData newDataTemp =
+                new SensorsData(dataCount, currentSpeed, currentTemperature,
+                                    currentRPM, currentFuel, currentBreakState);
 
             CarConnection.Send(this, newDataTemp);
         }
@@ -148,8 +154,14 @@ namespace TeleBajaUEA
             // estado de velocidade maxima
             MoveNext(Action.ACC_ON);
 
+            // inicia aquecimento do motor
+            deltaTemp = 1;
+
             // permanece acelerando por 8 segundos
             await Task.Delay(8000);
+
+            // mantém temperatura do motor
+            deltaTemp = 0;
 
             // freia rapidamente
             MoveNext(Action.ACC_OFF);

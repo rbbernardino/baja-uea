@@ -11,6 +11,8 @@ namespace TeleBajaUEA
         private event DataShowHandler NewDataArrived;
         private delegate void DataShowHandler(object source, SensorsData data);
 
+        private DataShowHandler teste;
+
         private Timer timer;
 
         public TESTEJanelaSensores()
@@ -21,7 +23,8 @@ namespace TeleBajaUEA
             timer.Interval = 1000;
             timer.Tick += new EventHandler(TickTimer);
 
-            NewDataArrived += new DataShowHandler(ShowDataHandler_NewData);
+            teste = new DataShowHandler(ShowDataHandler_NewData);
+            NewDataArrived += teste;
         }
 
         public void StartCountTime()
@@ -47,9 +50,10 @@ namespace TeleBajaUEA
              labelData.Text =
                 "Qtd. de Pontos: " + Data.DataCount + "\n" +
                 "Tempo: " + FormatTimestamp(timeStamp) + "\n" +
-                "Velocidade: " + Data.Speed + "\n" +
+                "Velocidade: " + (int) Data.Speed + "\n" +
                 "Temp do Motor: " + Data.EngineTemperature + "°C\n" +
-                "RPM: " + Data.RPM + "\n" +
+                "Combustível: " + (int) Data.Fuel + "%\n" +
+                "RPM: " + (int) Data.RPM + "\n" +
                 "Freio: " + FormatBreakState(Data.BreakState);
         }
 
