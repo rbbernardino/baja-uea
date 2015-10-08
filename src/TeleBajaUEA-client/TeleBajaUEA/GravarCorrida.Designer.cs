@@ -34,25 +34,12 @@
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GravarCorrida));
-            this.labelTitulo = new System.Windows.Forms.Label();
             this.chartDinamic = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.aGaugeTemperature = new TeleBajaUEA.AGauge();
             this.aGaugeFuel = new TeleBajaUEA.AGauge();
+            this.btEncerrar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chartDinamic)).BeginInit();
             this.SuspendLayout();
-            // 
-            // labelTitulo
-            // 
-            this.labelTitulo.AutoSize = true;
-            this.labelTitulo.BackColor = System.Drawing.Color.Transparent;
-            this.labelTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTitulo.Location = new System.Drawing.Point(313, 9);
-            this.labelTitulo.Name = "labelTitulo";
-            this.labelTitulo.Size = new System.Drawing.Size(85, 24);
-            this.labelTitulo.TabIndex = 0;
-            this.labelTitulo.Text = "Graphics";
             // 
             // chartDinamic
             // 
@@ -60,10 +47,10 @@
             this.chartDinamic.BorderlineWidth = 3;
             chartArea1.Name = "ChartArea1";
             this.chartDinamic.ChartAreas.Add(chartArea1);
-            this.chartDinamic.Dock = System.Windows.Forms.DockStyle.Left;
+            this.chartDinamic.Dock = System.Windows.Forms.DockStyle.Top;
             legend1.Name = "Legend1";
             this.chartDinamic.Legends.Add(legend1);
-            this.chartDinamic.Location = new System.Drawing.Point(0, 17);
+            this.chartDinamic.Location = new System.Drawing.Point(0, 0);
             this.chartDinamic.Name = "chartDinamic";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
@@ -80,36 +67,9 @@
             this.chartDinamic.Series.Add(series1);
             this.chartDinamic.Series.Add(series2);
             this.chartDinamic.Series.Add(series3);
-            this.chartDinamic.Size = new System.Drawing.Size(1052, 544);
+            this.chartDinamic.Size = new System.Drawing.Size(1064, 475);
             this.chartDinamic.TabIndex = 1;
             this.chartDinamic.Text = "chart1";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.BackColor = System.Drawing.Color.Transparent;
-            this.checkBox1.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.checkBox1.Location = new System.Drawing.Point(0, 0);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(1064, 17);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "Actived";
-            this.checkBox1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBox1.UseVisualStyleBackColor = false;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.button1.BackgroundImage = global::TeleBajaUEA.Properties.Resources.seta;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(24, 27);
-            this.button1.TabIndex = 3;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // aGaugeTemperature
             // 
@@ -329,36 +289,40 @@
             this.aGaugeFuel.Text = "aGaugeFuel";
             this.aGaugeFuel.Value = 0F;
             // 
+            // btEncerrar
+            // 
+            this.btEncerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.btEncerrar.Location = new System.Drawing.Point(417, 481);
+            this.btEncerrar.Name = "btEncerrar";
+            this.btEncerrar.Size = new System.Drawing.Size(135, 51);
+            this.btEncerrar.TabIndex = 18;
+            this.btEncerrar.Text = "Encerrar";
+            this.btEncerrar.UseVisualStyleBackColor = true;
+            this.btEncerrar.Click += new System.EventHandler(this.btEncerrar_Click);
+            // 
             // GravarCorrida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1064, 561);
+            this.Controls.Add(this.btEncerrar);
             this.Controls.Add(this.aGaugeTemperature);
             this.Controls.Add(this.aGaugeFuel);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.labelTitulo);
             this.Controls.Add(this.chartDinamic);
-            this.Controls.Add(this.checkBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GravarCorrida";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gravar Corrida - TeleBaja  UEA";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GravarCorrida_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GravarCorrida_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.chartDinamic)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label labelTitulo;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartDinamic;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button button1;
         private TeleBajaUEA.AGauge aGaugeTemperature;
         private TeleBajaUEA.AGauge aGaugeFuel;
+        private System.Windows.Forms.Button btEncerrar;
     }
 }

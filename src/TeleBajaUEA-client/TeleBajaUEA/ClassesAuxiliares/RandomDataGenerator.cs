@@ -12,7 +12,7 @@ namespace TeleBajaUEA
     {
         private Timer timerGenerateData;
 
-        private long dataCount;
+        //private long dataCount;
 
         private float currentSpeed;
         private float currentTemperature;
@@ -37,7 +37,7 @@ namespace TeleBajaUEA
         public void Start()
         {
             // valores iniciais
-            dataCount = 0;
+            //dataCount = 0;
             currentSpeed = 30;
             currentTemperature = 80;
             currentRPM = 1000;
@@ -82,7 +82,7 @@ namespace TeleBajaUEA
             if(RndBreakChange())
                 currentBreakState = RndBreakState();
 
-            dataCount++;
+            //dataCount++;
 
             if (currentSpeed > MAX_SPEED) currentSpeed = MAX_SPEED;
             if (currentSpeed <= 0) currentSpeed = 0.1f;
@@ -93,7 +93,7 @@ namespace TeleBajaUEA
             if (currentRPM > MAX_RPM) currentRPM = MAX_RPM;
             if (currentRPM <= 0) currentRPM = 10;
 
-            SensorsData newDataTemp = new SensorsData(dataCount, currentSpeed, currentTemperature, currentRPM, currentFuel, currentBreakState);
+            SensorsData newDataTemp = new SensorsData(currentSpeed, currentTemperature, currentRPM, currentFuel, currentBreakState);
 
             CarConnection.Send(this, newDataTemp);
         }

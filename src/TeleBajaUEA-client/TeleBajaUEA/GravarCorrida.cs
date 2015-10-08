@@ -119,20 +119,6 @@ namespace TeleBajaUEA
             CarDataQueue.Enqueue(data);
         }
 
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked)
-            {
-                chartDinamic.ChartAreas[0].Area3DStyle.Enable3D = true;
-            }
-            else
-            {
-                chartDinamic.ChartAreas[0].Area3DStyle.Enable3D = false;
-
-            }
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             CloseOnlyThis();
@@ -157,6 +143,12 @@ namespace TeleBajaUEA
         {
             timerCheckIncomeData.Dispose();
             timerCheckIncomeData = null;
+        }
+
+        private void btEncerrar_Click(object sender, EventArgs e)
+        {
+            CloseOnlyThis();
+            Program.ShowMenuPrincipal();
         }
     }
 }

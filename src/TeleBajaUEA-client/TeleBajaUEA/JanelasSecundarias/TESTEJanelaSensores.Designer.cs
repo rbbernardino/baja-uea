@@ -34,10 +34,10 @@
             // labelData
             // 
             this.labelData.AutoSize = true;
-            this.labelData.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F);
+            this.labelData.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.labelData.Location = new System.Drawing.Point(27, 21);
             this.labelData.Name = "labelData";
-            this.labelData.Size = new System.Drawing.Size(182, 39);
+            this.labelData.Size = new System.Drawing.Size(147, 31);
             this.labelData.TabIndex = 0;
             this.labelData.Text = "Iniciando...";
             // 
@@ -45,7 +45,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(438, 334);
+            this.ClientSize = new System.Drawing.Size(322, 334);
             this.Controls.Add(this.labelData);
             this.Name = "TESTEJanelaSensores";
             this.Text = "Form1";

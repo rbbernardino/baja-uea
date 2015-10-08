@@ -1,6 +1,6 @@
 ﻿namespace TeleBajaUEA
 {
-    partial class Setup
+    partial class GravarCorridaSetup
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Setup));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GravarCorridaSetup));
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.btCancelar = new System.Windows.Forms.Button();
             this.btIniciar = new System.Windows.Forms.Button();
@@ -49,18 +49,19 @@
             this.toolStripContainer1.ContentPanel.Controls.Add(this.btCancelar);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.btIniciar);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.tabControl1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1064, 536);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(830, 479);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(1064, 561);
+            this.toolStripContainer1.Size = new System.Drawing.Size(830, 504);
             this.toolStripContainer1.TabIndex = 0;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
             // btCancelar
             // 
+            this.btCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.btCancelar.Location = new System.Drawing.Point(500, 464);
+            this.btCancelar.Location = new System.Drawing.Point(421, 394);
             this.btCancelar.Name = "btCancelar";
             this.btCancelar.Size = new System.Drawing.Size(135, 51);
             this.btCancelar.TabIndex = 5;
@@ -71,7 +72,7 @@
             // btIniciar
             // 
             this.btIniciar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.btIniciar.Location = new System.Drawing.Point(286, 464);
+            this.btIniciar.Location = new System.Drawing.Point(152, 394);
             this.btIniciar.Name = "btIniciar";
             this.btIniciar.Size = new System.Drawing.Size(135, 51);
             this.btIniciar.TabIndex = 5;
@@ -87,14 +88,14 @@
             this.tabControl1.Location = new System.Drawing.Point(23, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(951, 455);
+            this.tabControl1.Size = new System.Drawing.Size(746, 360);
             this.tabControl1.TabIndex = 0;
             // 
             // tabDriver
             // 
             this.tabDriver.Location = new System.Drawing.Point(4, 22);
             this.tabDriver.Name = "tabDriver";
-            this.tabDriver.Size = new System.Drawing.Size(943, 429);
+            this.tabDriver.Size = new System.Drawing.Size(738, 334);
             this.tabDriver.TabIndex = 2;
             this.tabDriver.Text = "Motorista";
             this.tabDriver.UseVisualStyleBackColor = true;
@@ -104,7 +105,7 @@
             this.tabWeather.Location = new System.Drawing.Point(4, 22);
             this.tabWeather.Name = "tabWeather";
             this.tabWeather.Padding = new System.Windows.Forms.Padding(3);
-            this.tabWeather.Size = new System.Drawing.Size(943, 429);
+            this.tabWeather.Size = new System.Drawing.Size(738, 334);
             this.tabWeather.TabIndex = 1;
             this.tabWeather.Text = "Clima e Pista";
             this.tabWeather.UseVisualStyleBackColor = true;
@@ -114,20 +115,21 @@
             this.tabCar.Location = new System.Drawing.Point(4, 22);
             this.tabCar.Name = "tabCar";
             this.tabCar.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCar.Size = new System.Drawing.Size(943, 429);
+            this.tabCar.Size = new System.Drawing.Size(738, 334);
             this.tabCar.TabIndex = 0;
             this.tabCar.Text = "Carro";
             this.tabCar.UseVisualStyleBackColor = true;
             // 
-            // Setup
+            // GravarCorridaSetup
             // 
+            this.AcceptButton = this.btIniciar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1064, 561);
+            this.CancelButton = this.btCancelar;
+            this.ClientSize = new System.Drawing.Size(830, 504);
             this.Controls.Add(this.toolStripContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Setup";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Name = "GravarCorridaSetup";
             this.Text = "Setup - TeleBaja UEA";
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.ResumeLayout(false);

@@ -13,23 +13,23 @@ namespace TeleBajaUEA
         public float RPM { get { return rpm; } }
         public float Fuel { get { return fuel; } }
         public bool BreakState { get { return breakOn; } }// TODO BreakState_ToString(); } }
-        public long DataCount { get { return dataCount; } }
+        //public long DataCount { get { return dataCount; } }
 
         private readonly float speed;
         private readonly float engineTemperature;
         private readonly float rpm;
         private readonly float fuel;
         private readonly bool breakOn;
-        private readonly long dataCount;
+        //private readonly long dataCount;
 
-        public SensorsData(long pDataCount, float pSpeed, float pEngineTemp, float pRPM, float pFuel, bool pBreakON)
+        public SensorsData(float pSpeed, float pEngineTemp, float pRPM, float pFuel, bool pBreakON)
         {
             speed = pSpeed;
             engineTemperature = pEngineTemp;
             rpm = pRPM;
             fuel = pFuel;
             breakOn = pBreakON;
-            dataCount = pDataCount;
+            // TODO remover definitivamente dataCount = pDataCount; ??
         }
         /*
         public string BreakState_ToString()

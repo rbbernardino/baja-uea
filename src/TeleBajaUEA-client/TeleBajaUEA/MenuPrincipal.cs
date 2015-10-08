@@ -25,7 +25,7 @@ namespace TeleBajaUEA
 
         private void btGravarCorrida_Click(object sender, EventArgs e)
         {
-            Setup formSetup = new Setup();
+            GravarCorridaSetup formSetup = new GravarCorridaSetup();
             Hide();
             formSetup.Show();
         }

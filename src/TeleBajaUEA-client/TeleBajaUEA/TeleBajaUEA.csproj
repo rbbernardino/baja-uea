@@ -140,11 +140,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Setup.cs">
+    <Compile Include="GravarCorridaSetup.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Setup.Designer.cs">
-      <DependentUpon>Setup.cs</DependentUpon>
+    <Compile Include="GravarCorridaSetup.Designer.cs">
+      <DependentUpon>GravarCorridaSetup.cs</DependentUpon>
     </Compile>
     <Compile Include="JanelasSecundarias\Sobre.cs">
       <SubType>Form</SubType>
@@ -185,8 +185,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Setup.resx">
-      <DependentUpon>Setup.cs</DependentUpon>
+    <EmbeddedResource Include="GravarCorridaSetup.resx">
+      <DependentUpon>GravarCorridaSetup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="JanelasSecundarias\Sobre.resx">
       <DependentUpon>Sobre.cs</DependentUpon>

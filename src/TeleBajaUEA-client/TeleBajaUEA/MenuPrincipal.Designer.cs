@@ -41,7 +41,7 @@
             // 
             this.label1_Título.AutoSize = true;
             this.label1_Título.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1_Título.Location = new System.Drawing.Point(112, 21);
+            this.label1_Título.Location = new System.Drawing.Point(96, 20);
             this.label1_Título.Name = "label1_Título";
             this.label1_Título.Size = new System.Drawing.Size(139, 24);
             this.label1_Título.TabIndex = 0;
@@ -49,7 +49,7 @@
             // 
             // btAnalisarCorrida
             // 
-            this.btAnalisarCorrida.Location = new System.Drawing.Point(137, 75);
+            this.btAnalisarCorrida.Location = new System.Drawing.Point(112, 111);
             this.btAnalisarCorrida.Name = "btAnalisarCorrida";
             this.btAnalisarCorrida.Size = new System.Drawing.Size(95, 31);
             this.btAnalisarCorrida.TabIndex = 12;
@@ -59,7 +59,7 @@
             // 
             // btConfigurações
             // 
-            this.btConfigurações.Location = new System.Drawing.Point(257, 75);
+            this.btConfigurações.Location = new System.Drawing.Point(112, 148);
             this.btConfigurações.Name = "btConfigurações";
             this.btConfigurações.Size = new System.Drawing.Size(95, 31);
             this.btConfigurações.TabIndex = 11;
@@ -69,9 +69,9 @@
             // 
             // btSair
             // 
-            this.btSair.Location = new System.Drawing.Point(309, 188);
+            this.btSair.Location = new System.Drawing.Point(174, 199);
             this.btSair.Name = "btSair";
-            this.btSair.Size = new System.Drawing.Size(43, 31);
+            this.btSair.Size = new System.Drawing.Size(95, 31);
             this.btSair.TabIndex = 10;
             this.btSair.Text = "Exit";
             this.btSair.UseVisualStyleBackColor = true;
@@ -79,7 +79,7 @@
             // 
             // btSobre
             // 
-            this.btSobre.Location = new System.Drawing.Point(116, 151);
+            this.btSobre.Location = new System.Drawing.Point(52, 199);
             this.btSobre.Name = "btSobre";
             this.btSobre.Size = new System.Drawing.Size(95, 31);
             this.btSobre.TabIndex = 9;
@@ -89,7 +89,7 @@
             // 
             // btGravarCorrida
             // 
-            this.btGravarCorrida.Location = new System.Drawing.Point(12, 75);
+            this.btGravarCorrida.Location = new System.Drawing.Point(112, 74);
             this.btGravarCorrida.Name = "btGravarCorrida";
             this.btGravarCorrida.Size = new System.Drawing.Size(95, 31);
             this.btGravarCorrida.TabIndex = 8;
@@ -101,7 +101,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(364, 231);
+            this.ClientSize = new System.Drawing.Size(339, 271);
             this.Controls.Add(this.btAnalisarCorrida);
             this.Controls.Add(this.btConfigurações);
             this.Controls.Add(this.btSair);

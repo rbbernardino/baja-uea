@@ -18,6 +18,7 @@ namespace TeleBajaUEA
         public FormPrincipal() : base()
         {
             ExitOnClose = true;
+            StartPosition = FormStartPosition.CenterScreen;
         }
 
         public void CloseOnlyThis()

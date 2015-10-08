@@ -23,5 +23,12 @@ namespace TeleBajaUEA
             MenuPrincipal aux = new MenuPrincipal();
             aux.Show();
         }
+
+        private void btVoltar_Click(object sender, EventArgs e)
+        {
+            BuscarCorrida formBuscarCorrida = new BuscarCorrida();
+            CloseOnlyThis();
+            formBuscarCorrida.Show();
+        }
     }
 }

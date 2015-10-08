@@ -48,7 +48,7 @@ namespace TeleBajaUEA
         private void ShowDataHandler_NewData(object _source, SensorsData Data)
         {
              labelData.Text =
-                "Qtd. de Pontos: " + Data.DataCount + "\n" +
+                //"Qtd. de Pontos: " + Data.DataCount + "\n" +
                 "Tempo: " + FormatTimestamp(timeStamp) + "\n" +
                 "Velocidade: " + (int) Data.Speed + "\n" +
                 "Temp do Motor: " + Data.EngineTemperature + "°C\n" +

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace TeleBajaUEA
 {
-    public partial class Setup : FormPrincipal
+    public partial class GravarCorridaSetup : FormPrincipal
     {
-        public Setup()
+        public GravarCorridaSetup()
         {
             InitializeComponent();
         }
@@ -44,9 +44,7 @@ namespace TeleBajaUEA
             // TODO temporario para teste
             //------------- temporário para testar -----------------//
             formGravarCorrida.formTesteMQSQ = new TESTEJanelaSensores();
-            formGravarCorrida.formTesteMQSQ.Show();
             //------------------------------------------------------//
-
 
             // fecha janela de loading evitando que programa encerre
             formGravarCorridaConexao.CloseOnlyThis();
@@ -67,6 +65,14 @@ namespace TeleBajaUEA
             // inicia atualização dos gráficos na tela de gravação de corrida
             formGravarCorrida.StartUpdateCharts();
             formGravarCorrida.formTesteMQSQ.StartCountTime();
+
+            // TODO temporario para teste
+            //------------- temporário para testar -----------------//
+            formGravarCorrida.formTesteMQSQ.StartPosition = FormStartPosition.Manual;
+            Point parentLoc = formGravarCorrida.Location;
+            formGravarCorrida.formTesteMQSQ.Location = new Point(0, parentLoc.Y);
+            formGravarCorrida.formTesteMQSQ.Show();
+            //------------------------------------------------------//
         }
     }
 }
