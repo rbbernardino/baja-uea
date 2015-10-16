@@ -23,11 +23,16 @@ namespace TeleBajaUEA
             aux.Show();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void btOK_Click(object sender, EventArgs e)
         {
+            // TODO salvar configurações
+            // SaveSettings();
             CloseOnlyThis();
         }
 
-        
+        private void btCancelar_Click(object sender, EventArgs e)
+        {
+            CloseOnlyThis();
+        }
     }
 }

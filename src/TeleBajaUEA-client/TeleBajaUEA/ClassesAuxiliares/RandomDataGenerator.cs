@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Timers;
+using TeleBajaUEA.RaceDataStructs;
 
 namespace TeleBajaUEA
 {

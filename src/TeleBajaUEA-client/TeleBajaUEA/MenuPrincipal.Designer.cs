@@ -41,7 +41,7 @@
             // 
             this.label1_Título.AutoSize = true;
             this.label1_Título.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1_Título.Location = new System.Drawing.Point(96, 20);
+            this.label1_Título.Location = new System.Drawing.Point(108, 21);
             this.label1_Título.Name = "label1_Título";
             this.label1_Título.Size = new System.Drawing.Size(139, 24);
             this.label1_Título.TabIndex = 0;
@@ -49,51 +49,56 @@
             // 
             // btAnalisarCorrida
             // 
-            this.btAnalisarCorrida.Location = new System.Drawing.Point(112, 111);
+            this.btAnalisarCorrida.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btAnalisarCorrida.Location = new System.Drawing.Point(112, 115);
             this.btAnalisarCorrida.Name = "btAnalisarCorrida";
-            this.btAnalisarCorrida.Size = new System.Drawing.Size(95, 31);
-            this.btAnalisarCorrida.TabIndex = 12;
-            this.btAnalisarCorrida.Text = "Analyze Race";
+            this.btAnalisarCorrida.Size = new System.Drawing.Size(123, 35);
+            this.btAnalisarCorrida.TabIndex = 2;
+            this.btAnalisarCorrida.Text = "Analisar Corrida";
             this.btAnalisarCorrida.UseVisualStyleBackColor = true;
             this.btAnalisarCorrida.Click += new System.EventHandler(this.btAnalisarCorrida_Click);
             // 
             // btConfigurações
             // 
-            this.btConfigurações.Location = new System.Drawing.Point(112, 148);
+            this.btConfigurações.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btConfigurações.Location = new System.Drawing.Point(112, 162);
             this.btConfigurações.Name = "btConfigurações";
-            this.btConfigurações.Size = new System.Drawing.Size(95, 31);
-            this.btConfigurações.TabIndex = 11;
-            this.btConfigurações.Text = "Settings";
+            this.btConfigurações.Size = new System.Drawing.Size(123, 35);
+            this.btConfigurações.TabIndex = 3;
+            this.btConfigurações.Text = "Configurações";
             this.btConfigurações.UseVisualStyleBackColor = true;
             this.btConfigurações.Click += new System.EventHandler(this.btConfigurações_Click);
             // 
             // btSair
             // 
-            this.btSair.Location = new System.Drawing.Point(174, 199);
+            this.btSair.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btSair.Location = new System.Drawing.Point(202, 217);
             this.btSair.Name = "btSair";
-            this.btSair.Size = new System.Drawing.Size(95, 31);
-            this.btSair.TabIndex = 10;
-            this.btSair.Text = "Exit";
+            this.btSair.Size = new System.Drawing.Size(95, 35);
+            this.btSair.TabIndex = 5;
+            this.btSair.Text = "Sair";
             this.btSair.UseVisualStyleBackColor = true;
             this.btSair.Click += new System.EventHandler(this.btSair_Click);
             // 
             // btSobre
             // 
-            this.btSobre.Location = new System.Drawing.Point(52, 199);
+            this.btSobre.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btSobre.Location = new System.Drawing.Point(50, 217);
             this.btSobre.Name = "btSobre";
-            this.btSobre.Size = new System.Drawing.Size(95, 31);
-            this.btSobre.TabIndex = 9;
-            this.btSobre.Text = "About";
+            this.btSobre.Size = new System.Drawing.Size(95, 35);
+            this.btSobre.TabIndex = 4;
+            this.btSobre.Text = "Sobre";
             this.btSobre.UseVisualStyleBackColor = true;
             this.btSobre.Click += new System.EventHandler(this.btSobre_Click);
             // 
             // btGravarCorrida
             // 
+            this.btGravarCorrida.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.btGravarCorrida.Location = new System.Drawing.Point(112, 74);
             this.btGravarCorrida.Name = "btGravarCorrida";
-            this.btGravarCorrida.Size = new System.Drawing.Size(95, 31);
-            this.btGravarCorrida.TabIndex = 8;
-            this.btGravarCorrida.Text = "Record Race";
+            this.btGravarCorrida.Size = new System.Drawing.Size(123, 35);
+            this.btGravarCorrida.TabIndex = 1;
+            this.btGravarCorrida.Text = "Gravar Corrida";
             this.btGravarCorrida.UseVisualStyleBackColor = true;
             this.btGravarCorrida.Click += new System.EventHandler(this.btGravarCorrida_Click);
             // 

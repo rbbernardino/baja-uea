@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TeleBajaUEA.RaceDataStructs;
 
 namespace TeleBajaUEA
 {
     public partial class GravarCorridaSetup : FormPrincipal
     {
+        private RaceParameters parameters;
+
         public GravarCorridaSetup()
         {
             InitializeComponent();
@@ -38,7 +41,7 @@ namespace TeleBajaUEA
             await formGravarCorridaConexao.CreateConnections();
 
             // cria janela de gravar corrida
-            GravarCorrida formGravarCorrida = new GravarCorrida();
+            GravarCorrida formGravarCorrida = new GravarCorrida(parameters);
             await formGravarCorrida.ConfigureCharts();
 
             // TODO temporario para teste

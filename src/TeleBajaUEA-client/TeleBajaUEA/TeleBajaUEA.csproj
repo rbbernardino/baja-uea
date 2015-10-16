@@ -71,12 +71,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalisarCorridaConexao.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AnalisarCorridaConexao.Designer.cs">
-      <DependentUpon>AnalisarCorridaConexao.cs</DependentUpon>
-    </Compile>
     <Compile Include="BuscarCorrida.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,14 +91,17 @@
     </Compile>
     <Compile Include="ClassesAuxiliares\CarConnection.cs" />
     <Compile Include="ClassesAuxiliares\DataGenMachine.Generator.cs" />
+    <Compile Include="RaceDataStructs\FileSensorsData.cs" />
+    <Compile Include="RaceDataStructs\RaceData.cs" />
+    <Compile Include="RaceDataStructs\RaceParameters.cs" />
     <Compile Include="ClassesAuxiliares\RandomDataGenerator.cs" />
     <Compile Include="ClassesAuxiliares\DataGenMachine.cs" />
     <Compile Include="ClassesAuxiliares\DataGenMachine.Transition.cs" />
     <Compile Include="GravarCorrida.ChartSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ClassesAuxiliares\SensorsData.cs" />
-    <Compile Include="ClassesAuxiliares\DBConnection.cs" />
+    <Compile Include="RaceDataStructs\SensorsData.cs" />
+    <Compile Include="ClassesAuxiliares\RaceFile.cs" />
     <Compile Include="JanelasSecundarias\TESTEJanelaSensores.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,10 +149,6 @@
     <Compile Include="JanelasSecundarias\Sobre.Designer.cs">
       <DependentUpon>Sobre.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AnalisarCorridaConexao.resx">
-      <DependentUpon>AnalisarCorridaConexao.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="BuscarCorrida.resx">
       <DependentUpon>BuscarCorrida.cs</DependentUpon>
     </EmbeddedResource>

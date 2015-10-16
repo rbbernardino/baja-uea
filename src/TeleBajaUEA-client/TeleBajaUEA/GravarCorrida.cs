@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Collections.Concurrent;
+using TeleBajaUEA.RaceDataStructs;
+using System.Collections.Generic;
 
 namespace TeleBajaUEA
 {
@@ -9,7 +11,12 @@ namespace TeleBajaUEA
     {
         private ConcurrentQueue<SensorsData> CarDataQueue;
         private Timer timerCheckIncomeData;
-        private static SensorsData newData;
+        private SensorsData newData;
+        private List<FileSensorsData> dataList;
+        private RaceParameters parameters;
+
+        // TODO criar timer para a cada 5min salvar os dados no arquivo temporario
+        private Timer timerBackupData;
 
         // define quantos pontos mover para a direita quando pontos plotados
         // atingirem o limite de plotagem (na direita)
@@ -22,9 +29,12 @@ namespace TeleBajaUEA
 
         private float currentXValue;
 
-        public GravarCorrida()
+        public GravarCorrida(RaceParameters pParameters)
         {
             InitializeComponent();
+
+            parameters = pParameters;
+            dataList = new List<FileSensorsData>();
 
             // Prepara timer que vai atualizar o gráfico a cada UPDATE_RATE ms
             timerCheckIncomeData = new Timer();
@@ -96,6 +106,15 @@ namespace TeleBajaUEA
             chartDinamic.Series["Speed"].Points.AddXY(currentXValue, newData.Speed);
             chartDinamic.Series["RPM"].Points.AddXY(currentXValue, newRPMData);
             chartDinamic.Series["Brake"].Points.AddXY(currentXValue, brakePosition);
+
+            FileSensorsData fileNewData = new FileSensorsData
+            {
+                xValue = currentXValue,
+                speed = newData.Speed,
+                rpm = newData.RPM,
+                breakState = newData.BreakState,
+            };
+            dataList.Add(fileNewData);
         }
 
         private void UpdateGraphLimits(double currentMinimum,
@@ -145,8 +164,19 @@ namespace TeleBajaUEA
             timerCheckIncomeData = null;
         }
 
-        private void btEncerrar_Click(object sender, EventArgs e)
+        private async void btEncerrar_Click(object sender, EventArgs e)
         {
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.Filter = "Arquivos TeleBajaUEA (*.tbu)|*.tbu|Todos os Arquivos (*.*)|*.*";
+            saveDialog.FilterIndex = 2;
+            saveDialog.RestoreDirectory = true;
+
+            if(saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                // TODO verificar real necessidade de ser async...
+                await RaceFile.SaveToFile(saveDialog.FileName, new RaceData(dataList, parameters));
+            }
+
             CloseOnlyThis();
             Program.ShowMenuPrincipal();
         }

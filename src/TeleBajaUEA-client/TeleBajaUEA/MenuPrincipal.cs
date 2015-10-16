@@ -30,19 +30,14 @@ namespace TeleBajaUEA
             formSetup.Show();
         }
 
-        private async void btAnalisarCorrida_Click(object sender, EventArgs e)
+        private void btAnalisarCorrida_Click(object sender, EventArgs e)
         {
-            AnalisarCorridaConexao formAnalisarCorridaConexao = new AnalisarCorridaConexao();
-            formAnalisarCorridaConexao.Show();
             Hide();
-
-            await formAnalisarCorridaConexao.CreateConnection();
 
             AnalisarCorrida formAnalisarCorrida = new AnalisarCorrida();
 
             // abre janela de buscar corrida e remove a atual
             BuscarCorrida formBuscarCorrida = new BuscarCorrida();
-            formAnalisarCorridaConexao.CloseOnlyThis();
             formBuscarCorrida.Show();
         }
 

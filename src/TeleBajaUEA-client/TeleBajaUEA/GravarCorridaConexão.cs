@@ -20,27 +20,8 @@ namespace TeleBajaUEA
 
         public async Task CreateConnections()
         {
-            await ConnectToDB();
             await ConnectToCar();
-        }
-
-        private async Task ConnectToDB()
-        {
-            // cria conexão com o BD
-            if(await DBConnection.ConnectToDB())
-            {
-                // mesmo que seja instantâneo, deve esperar 1 segundo
-                // pois feedback de [carregando -->-->-->-- carregado] é prazerozo!
-                await Task.Delay(1000);
-
-                // feedback de que foi um sucesso
-                loadingIconDB.Image = Properties.Resources.done;
-                labelDBConnection.Text = "Conectado!";
-            }
-            else
-            {
-                // trata erro aqui?
-            }
+            await RaceFile.CreateTempFile();
         }
 
         private async Task ConnectToCar()
