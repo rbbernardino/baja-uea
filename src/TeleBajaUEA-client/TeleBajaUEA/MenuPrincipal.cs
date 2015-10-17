@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using TeleBajaUEA.RaceDataStructs;
 
 namespace TeleBajaUEA
 {
@@ -32,13 +33,20 @@ namespace TeleBajaUEA
 
         private void btAnalisarCorrida_Click(object sender, EventArgs e)
         {
-            Hide();
+            OpenFileDialog openDialog = new OpenFileDialog();
+            openDialog.Filter = "Arquivos TeleBajaUEA (*.tbu)|*.tbu|Todos os Arquivos (*.*)|*.*";
+            openDialog.FilterIndex = 1;
+            openDialog.RestoreDirectory = true;
 
-            AnalisarCorrida formAnalisarCorrida = new AnalisarCorrida();
+            if(openDialog.ShowDialog() == DialogResult.OK)
+            {
+                RaceData raceData = RaceFile.LoadFromFile(openDialog.FileName);
+                    
+                AnalisarCorrida formAnalisarCorrida = new AnalisarCorrida(raceData);
 
-            // abre janela de buscar corrida e remove a atual
-            BuscarCorrida formBuscarCorrida = new BuscarCorrida();
-            formBuscarCorrida.Show();
+                Hide();
+                formAnalisarCorrida.Show();
+            }
         }
 
         private void btSobre_Click(object sender, EventArgs e)

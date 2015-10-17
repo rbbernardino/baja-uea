@@ -168,7 +168,7 @@ namespace TeleBajaUEA
         {
             SaveFileDialog saveDialog = new SaveFileDialog();
             saveDialog.Filter = "Arquivos TeleBajaUEA (*.tbu)|*.tbu|Todos os Arquivos (*.*)|*.*";
-            saveDialog.FilterIndex = 2;
+            saveDialog.FilterIndex = 1;
             saveDialog.RestoreDirectory = true;
 
             if(saveDialog.ShowDialog() == DialogResult.OK)

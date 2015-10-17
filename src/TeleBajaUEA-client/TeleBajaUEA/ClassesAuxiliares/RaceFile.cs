@@ -28,11 +28,15 @@ namespace TeleBajaUEA
             return true;
         }
 
-        public async static Task<RaceData> LoadFromFile(string FilePath)
+        public static RaceData LoadFromFile(string FilePath)
         {
             // TODO abre arquivo e deserializa
-            await Task.Delay(500);
-            return new RaceData();
+            Stream stream = File.Open(FilePath, FileMode.Open);
+            BinaryFormatter bFormatter = new BinaryFormatter();
+            RaceData data = (RaceData)bFormatter.Deserialize(stream);
+            stream.Close();
+
+            return data;
         }
 
         // durante a gravação, a cada 5 minutos, um arquivo temporário é atualizado

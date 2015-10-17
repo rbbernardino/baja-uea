@@ -91,10 +91,24 @@ namespace TeleBajaUEA
 
                 // define labels do X e Y iniciais
                 UpdateLabels();
+                SetYLabels();
 
                 // Configura labels dos gauges
                 SetGaugesLabels();
             });
+        }
+
+        private void SetYLabels()
+        {
+            // TODO automatiza posicionamento das labels com as constantes V V
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(-5, 5, "0rpm - 0km/h", 0, LabelMarkStyle.None);
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(25, 35, RPM_MAXIMUM / 2 + "rpm - " + Y_AXIS_MAXIMUM / 2 + " km/h", 0, LabelMarkStyle.None);
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(65, 55, RPM_MAXIMUM + "rpm - " + Y_AXIS_MAXIMUM + "km/h", 0, LabelMarkStyle.None);
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(35, 45, "Break ON", 0, LabelMarkStyle.None);
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(15, 25, "Break OFF", 0, LabelMarkStyle.None);
+
+            //TODO melhorar exibição de labels do Y --->------>---------->-------->-----ROW---V
+            //   chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(65, 55, RPM_MAXIMUM + "", 2, LabelMarkStyle.None);
         }
 
         private void SetGaugesLabels()
@@ -137,17 +151,6 @@ namespace TeleBajaUEA
 
                 chartDinamic.ChartAreas["ChartArea1"].AxisX.CustomLabels.Add(fromPosition, toPosition, text);
             }
-
-            // TODO automatizar (generalizar) configuração de labels do Y axis
-            //      usar as constantes!
-            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(-5, 5, "0rpm - 0km/h", 0, LabelMarkStyle.None);
-            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(25, 35, RPM_MAXIMUM/2 + "rpm - 30km/h", 0, LabelMarkStyle.None);
-            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(65, 55, RPM_MAXIMUM + "rpm - 60km/h", 0, LabelMarkStyle.None);
-            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(35, 45, "Break ON", 0, LabelMarkStyle.None);
-            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(15, 25, "Break OFF", 0, LabelMarkStyle.None);
-           
-            //TODO melhorar exibição de labels do Y --->------>---------->-------->-----ROW---V
-            //   chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(65, 55, RPM_MAXIMUM + "", 2, LabelMarkStyle.None);
         }
 
         private string SecondsToTime(long totalSeconds)
