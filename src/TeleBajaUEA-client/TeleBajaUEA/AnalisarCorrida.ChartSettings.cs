@@ -10,8 +10,6 @@ namespace TeleBajaUEA
 {
     public partial class AnalisarCorrida
     {
-        private readonly static int UPDATE_RATE = 50;
-
         // -------------------- Configurações do eixo X ---------------------//
         // valores em segundos
         // sugestão de config.:
@@ -47,75 +45,68 @@ namespace TeleBajaUEA
         /// </summary>
         public async Task ConfigureCharts()
         {
-            List<Chart> allCharts = new List<Chart>
-            {
-                chartSpeed,
-                chartRPM,
-                chartBrake,
-            };
-
             await Task.Run(() =>
             {
-                foreach(Chart chart in allCharts)
+                foreach (ChartArea chartArea in chartsNew.ChartAreas)
                 {
-                    chart.ChartAreas["ChartArea"].BackColor = Color.Black;
+                    chartArea.BackColor = Color.Black;
 
                     // Configurando o Y
-                    chart.ChartAreas["ChartArea"].AxisY.Minimum = Y_AXIS_MINIMUM;
-                    chart.ChartAreas["ChartArea"].AxisY.Maximum = Y_AXIS_MAXIMUM;
-                    chart.ChartAreas["ChartArea"].AxisY.Interval = Y_AXIS_INTERVAL;
+                    chartArea.AxisY.Minimum = Y_AXIS_MINIMUM;
+                    chartArea.AxisY.Maximum = Y_AXIS_MAXIMUM;
+                    chartArea.AxisY.Interval = Y_AXIS_INTERVAL;
 
                     // linhas de trás/apoio (grid)
-                    chart.ChartAreas["ChartArea"].AxisY.MajorGrid.Interval = Y_AXIS_GRID_INTERVAL;
-                    chart.ChartAreas["ChartArea"].AxisY.MajorGrid.LineColor = GRID_COLOR;
+                    chartArea.AxisY.MajorGrid.Interval = Y_AXIS_GRID_INTERVAL;
+                    chartArea.AxisY.MajorGrid.LineColor = GRID_COLOR;
 
                     // Configurando o X
-                    chart.ChartAreas["ChartArea"].AxisX.Minimum = X_AXIS_MINIMUM;
-                    chart.ChartAreas["ChartArea"].AxisX.Maximum = X_AXIS_MAXIMUM;
-                    chart.ChartAreas["ChartArea"].AxisX.Interval = X_AXIS_INTERVAL;
+                    chartArea.AxisX.Minimum = X_AXIS_MINIMUM;
+                    chartArea.AxisX.Maximum = X_AXIS_MAXIMUM;
+                    chartArea.AxisX.Interval = X_AXIS_INTERVAL;
 
                     // linhas de trás/apoio/fundo
-                    chart.ChartAreas["ChartArea"].AxisX.MajorGrid.Interval = X_AXIS_GRID_INTERVAL;
-                    chart.ChartAreas["ChartArea"].AxisX.MajorGrid.LineColor = GRID_COLOR;
+                    chartArea.AxisX.MajorGrid.Interval = X_AXIS_GRID_INTERVAL;
+                    chartArea.AxisX.MajorGrid.LineColor = GRID_COLOR;
+
+                    // Configurando a plotagem da velocidade
+                    chartsNew.Series["Speed"].ChartType = SeriesChartType.FastLine;
+                    chartsNew.Series["Speed"].Color = SPEED_COLOR;
+                    chartsNew.Series["Speed"].BorderWidth = LINE_WIDTH;
+
+                    // Configurando a plotagem do RPM
+                    chartsNew.Series["RPM"].ChartType = SeriesChartType.FastLine;
+                    chartsNew.Series["RPM"].Color = RPM_COLOR;
+                    chartsNew.Series["RPM"].BorderWidth = LINE_WIDTH;
+
+                    // Configurando a plotagem do RPM
+                    chartsNew.Series["Brake"].ChartType = SeriesChartType.FastLine;
+                    chartsNew.Series["Brake"].Color = BRAKE_COLOR;
+                    chartsNew.Series["Brake"].BorderWidth = BRAKE_LINE_WIDTH;
+
+                    // define labels do X iniciais
+                    UpdateXLabels();
+
+                    // configura labels do eixo Y
+                    SetYLabels();
                 }
-
-                // Configurando a plotagem da velocidade
-                chartSpeed.Series["Speed"].ChartType = SeriesChartType.FastLine;
-                chartSpeed.Series["Speed"].Color = SPEED_COLOR;
-                chartSpeed.Series["Speed"].BorderWidth = LINE_WIDTH;
-
-                // Configurando a plotagem do RPM
-                chartRPM.Series["RPM"].ChartType = SeriesChartType.FastLine;
-                chartRPM.Series["RPM"].Color = RPM_COLOR;
-                chartRPM.Series["RPM"].BorderWidth = LINE_WIDTH;
-
-                // Configurando a plotagem do RPM
-                chartBrake.Series["Brake"].ChartType = SeriesChartType.FastLine;
-                chartBrake.Series["Brake"].Color = BRAKE_COLOR;
-                chartBrake.Series["Brake"].BorderWidth = BRAKE_LINE_WIDTH;
-
-                // define labels do X iniciais
-                UpdateXLabels();
-
-                // configura labels do eixo Y
-                SetYLabels();
             });
         }
 
         private void SetYLabels()
         {
-            // TODO automatiza posicionamento das labels com as ctes   V  V
-            chartSpeed.ChartAreas["ChartArea"].AxisY.CustomLabels.Add(-5, 5, "0 km/h", 0, LabelMarkStyle.None);
-            chartRPM.ChartAreas["ChartArea"].AxisY.CustomLabels.Add(-5, 5, "0 rpm", 0, LabelMarkStyle.None);
+            // TODO automatizar posicionamento das labels com as ctes   V  V
+            chartsNew.ChartAreas["Speed"].AxisY.CustomLabels.Add(-5, 5, "0 km/h", 0, LabelMarkStyle.None);
+            chartsNew.ChartAreas["RPM"].AxisY.CustomLabels.Add(-5, 5, "0 rpm", 0, LabelMarkStyle.None);
 
-            chartSpeed.ChartAreas["ChartArea"].AxisY.CustomLabels.Add(25, 35, Y_AXIS_MAXIMUM / 2 + " km/h", 0, LabelMarkStyle.None);
-            chartRPM.ChartAreas["ChartArea"].AxisY.CustomLabels.Add(25, 35, RPM_MAXIMUM / 2 + " rpm", 0, LabelMarkStyle.None);
+            chartsNew.ChartAreas["Speed"].AxisY.CustomLabels.Add(25, 35, Y_AXIS_MAXIMUM / 2 + " km/h", 0, LabelMarkStyle.None);
+            chartsNew.ChartAreas["RPM"].AxisY.CustomLabels.Add(25, 35, RPM_MAXIMUM / 2 + " rpm", 0, LabelMarkStyle.None);
 
-            chartSpeed.ChartAreas["ChartArea"].AxisY.CustomLabels.Add(65, 55, Y_AXIS_MAXIMUM + " km/h", 0, LabelMarkStyle.None);
-            chartRPM.ChartAreas["ChartArea"].AxisY.CustomLabels.Add(25, 35, RPM_MAXIMUM + " rpm", 0, LabelMarkStyle.None);
+            chartsNew.ChartAreas["Speed"].AxisY.CustomLabels.Add(65, 55, Y_AXIS_MAXIMUM + " km/h", 0, LabelMarkStyle.None);
+            chartsNew.ChartAreas["RPM"].AxisY.CustomLabels.Add(25, 35, RPM_MAXIMUM + " rpm", 0, LabelMarkStyle.None);
 
-            chartBrake.ChartAreas["ChartArea"].AxisY.CustomLabels.Add(35, 45, "Break ON", 0, LabelMarkStyle.None);
-            chartBrake.ChartAreas["ChartArea"].AxisY.CustomLabels.Add(15, 25, "Break OFF", 0, LabelMarkStyle.None);
+            chartsNew.ChartAreas["Brake"].AxisY.CustomLabels.Add(35, 45, "Break ON", 0, LabelMarkStyle.None);
+            chartsNew.ChartAreas["Brake"].AxisY.CustomLabels.Add(15, 25, "Break OFF", 0, LabelMarkStyle.None);
 
             //TODO melhorar exibição de labels do Y --->------>---------->-------->-----ROW---V
             //   chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(65, 55, RPM_MAXIMUM + "", 2, LabelMarkStyle.None);
