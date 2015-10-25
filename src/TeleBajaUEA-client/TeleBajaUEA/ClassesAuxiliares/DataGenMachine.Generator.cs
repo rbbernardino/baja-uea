@@ -31,13 +31,15 @@ namespace TeleBajaUEA
         private readonly long MAX_TEMP = 300;
         private readonly long MAX_RPM = 2800;
 
+        private readonly long MIN_RPM = 1000;
+
         public async void Start()
         {
             // valores iniciais
             //dataCount = 0;
             currentSpeed = 0;
             currentTemperature = 80;
-            currentRPM = 0;
+            currentRPM = MIN_RPM;
             currentFuel = 100;
             currentBreakState = false;
             //--------------------
@@ -81,7 +83,7 @@ namespace TeleBajaUEA
             }
 
             if (currentRPM >= MAX_RPM) currentRPM = MAX_RPM;
-            if (currentRPM <= 0) currentRPM = 0;
+            if (currentRPM <= MIN_RPM) currentRPM = MIN_RPM;
 
             if (currentFuel <= 0) currentFuel = 0;
 

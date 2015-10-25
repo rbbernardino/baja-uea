@@ -18,10 +18,6 @@ namespace TeleBajaUEA
         // TODO criar timer para a cada 5min salvar os dados no arquivo temporario
         private Timer timerBackupData;
 
-        // define quantos pontos mover para a direita quando pontos plotados
-        // atingirem o limite de plotagem (na direita)
-        private readonly double UPDATE_LIMITS_INTERVAL = 10;
-
         // TODO apenas para teste
         // ------------- temporário para testar -------------------//
         public TESTEJanelaSensores formTesteMQSQ;
@@ -120,10 +116,12 @@ namespace TeleBajaUEA
         private void UpdateGraphLimits(double currentMinimum,
                                         double currentMaximumX, double _interval)
         {
-            chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum =
-                currentMinimum + UPDATE_LIMITS_INTERVAL;
-            chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum =
-                currentMaximumX + UPDATE_LIMITS_INTERVAL;
+            minX += (long) UPDATE_LIMITS_INTERVAL;
+            maxX += (long) UPDATE_LIMITS_INTERVAL;
+
+            chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum = minX;
+            chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum = maxX;
+            
             UpdateLabels();
             chartDinamic.Update();
         }

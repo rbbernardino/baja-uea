@@ -17,10 +17,12 @@ namespace TeleBajaUEA
         //     máximo como múltiplo de 30    (60, 90, 120...)
         //     intervalo como múltiplo de 10 (10, 20, 30...)
         private readonly double X_AXIS_MINIMUM = 0;
-        private readonly double X_AXIS_MAXIMUM = 60;
+        private readonly double X_AXIS_MAXIMUM = 300; // 300 = 5min
+        private readonly double INCREASE_LIMITS_INTERVAL = 300;
 
-        private readonly double X_AXIS_INTERVAL = 10;
-        private readonly double X_AXIS_GRID_INTERVAL = 10;
+        private readonly double X_AXIS_INTERVAL = 50;
+        private readonly double X_AXIS_GRID_INTERVAL = 50;
+
 
         // -------------------- Configurações do eixo Y ---------------------//
         private readonly double SPEED_MINIMUM = 0;
@@ -35,6 +37,9 @@ namespace TeleBajaUEA
         private readonly double BRAKE_MAXIMUM = 100; // BRAKE máximo
         private readonly double BRAKE_Y_INTERVAL = 25;
 
+        // Define qual ChartArea exibirá o eixo Y
+        private readonly string XLabelChartArea = "Brake";
+
         // -------------------- Configurações de Cor do fundo ---------------------//
         private readonly Color BACKGROUND_COLOR = Color.Black;
         private readonly Color GRID_COLOR = ColorTranslator.FromHtml("#686868");
@@ -47,8 +52,6 @@ namespace TeleBajaUEA
         private readonly Color BRAKE_COLOR = Color.Green;
 
         // ------------------ Variáveis de controle interno ----------------//
-        // Define qual ChartArea exibirá o eixo Y
-        private readonly string XLabelChartArea = "Brake";
         private long minX;
         private long maxX;
 

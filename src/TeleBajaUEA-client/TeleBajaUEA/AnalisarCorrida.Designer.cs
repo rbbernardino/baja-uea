@@ -63,6 +63,7 @@
             this.btPlus.TabIndex = 11;
             this.btPlus.Text = "+ 5 min";
             this.btPlus.UseVisualStyleBackColor = true;
+            this.btPlus.Click += new System.EventHandler(this.btPlus_Click);
             // 
             // btMinus
             // 
@@ -73,6 +74,7 @@
             this.btMinus.TabIndex = 12;
             this.btMinus.Text = "- 5 min";
             this.btMinus.UseVisualStyleBackColor = true;
+            this.btMinus.Click += new System.EventHandler(this.btMinus_Click);
             // 
             // chartsNew
             // 

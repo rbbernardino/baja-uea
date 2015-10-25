@@ -38,17 +38,17 @@
             // 
             this.labelCarConnection.AutoSize = true;
             this.labelCarConnection.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCarConnection.Location = new System.Drawing.Point(100, 122);
+            this.labelCarConnection.Location = new System.Drawing.Point(97, 94);
             this.labelCarConnection.Name = "labelCarConnection";
-            this.labelCarConnection.Size = new System.Drawing.Size(223, 20);
+            this.labelCarConnection.Size = new System.Drawing.Size(219, 20);
             this.labelCarConnection.TabIndex = 4;
-            this.labelCarConnection.Text = "Connecting with the car Baja...";
+            this.labelCarConnection.Text = "Conectando com o carro Baja";
             // 
             // loadingIconCar
             // 
             this.loadingIconCar.Cursor = System.Windows.Forms.Cursors.AppStarting;
             this.loadingIconCar.Image = global::TeleBajaUEA.Properties.Resources.spinner;
-            this.loadingIconCar.Location = new System.Drawing.Point(58, 116);
+            this.loadingIconCar.Location = new System.Drawing.Point(55, 88);
             this.loadingIconCar.Name = "loadingIconCar";
             this.loadingIconCar.Size = new System.Drawing.Size(30, 30);
             this.loadingIconCar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;

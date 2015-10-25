@@ -22,15 +22,19 @@ namespace TeleBajaUEA
         //     máximo como múltiplo de 30    (60, 90, 120...)
         //     intervalo como múltiplo de 10 (10, 20, 30...)
         private readonly double X_AXIS_MINIMUM = 0;
-        private readonly double X_AXIS_MAXIMUM = 60;
+        private readonly double X_AXIS_MAXIMUM = 300; // 300 = 5min
 
-        private readonly double X_AXIS_INTERVAL = 10;
-        private readonly double X_AXIS_GRID_INTERVAL = 10;
+        private readonly double X_AXIS_INTERVAL = 50;
+        private readonly double X_AXIS_GRID_INTERVAL = 50;
+
+        // define quantos pontos mover para a direita quando pontos plotados
+        // atingirem o limite de plotagem (na direita)
+        private readonly double UPDATE_LIMITS_INTERVAL = 300; // 300 = 5min
 
         // -------------------- Configurações do eixo Y ---------------------//
         private readonly double Y_AXIS_MINIMUM = 0;
-        private readonly double Y_AXIS_MAXIMUM = 60; // velocidade máxima
-        private readonly double RPM_MAXIMUM = 2800; // RPM máximo
+        private readonly double Y_AXIS_MAXIMUM = 80; // velocidade máxima
+        private readonly double RPM_MAXIMUM = 3000; // RPM máximo
         private readonly double Y_AXIS_INTERVAL = 10;
 
         private readonly double Y_AXIS_GRID_INTERVAL = 10;
@@ -46,6 +50,10 @@ namespace TeleBajaUEA
         private readonly Color RPM_COLOR = Color.Yellow;
         private readonly Color BRAKE_COLOR = Color.Green;
 
+        // ------------------ Variáveis de controle interno ----------------//
+        private long minX;
+        private long maxX;
+
         /// <summary>
         /// Encapsula configuração dos gráficos
         /// </summary>
@@ -53,6 +61,9 @@ namespace TeleBajaUEA
         {
             await Task.Run(() =>
             {
+                minX = (long)X_AXIS_MINIMUM;
+                maxX = (long)X_AXIS_MAXIMUM;
+
                 chartDinamic.Legends["Legend1"].Title = "Legend";
                 chartDinamic.ChartAreas["ChartArea1"].BackColor = Color.Black;
 
@@ -135,15 +146,12 @@ namespace TeleBajaUEA
 
         private void UpdateLabels()
         {
-            long currentMinX = (long) chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum;
-            long currentMaxX = (long) chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum;
-
             chartDinamic.ChartAreas["ChartArea1"].AxisX.CustomLabels.Clear();
 
             long fromPosition, toPosition;
             string text;
-            for (long currentXLabel = currentMinX;
-                currentXLabel <= currentMaxX; currentXLabel += (long) X_AXIS_INTERVAL)
+            for (long currentXLabel = minX;
+                currentXLabel <= maxX; currentXLabel += (long) X_AXIS_INTERVAL)
             {
                 fromPosition = currentXLabel - 5*((long) X_AXIS_INTERVAL /10);
                 toPosition = currentXLabel + 5*((long) X_AXIS_INTERVAL/10);
