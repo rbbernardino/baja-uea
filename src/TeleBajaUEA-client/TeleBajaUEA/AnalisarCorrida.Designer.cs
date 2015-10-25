@@ -86,7 +86,6 @@
             chartArea2.AxisY.LabelStyle.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             chartArea2.Name = "RPM";
             chartArea3.AlignWithChartArea = "Speed";
-            chartArea3.AxisX.LabelStyle.Enabled = false;
             chartArea3.AxisY.LabelStyle.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             chartArea3.Name = "Brake";
             this.chartsNew.ChartAreas.Add(chartArea1);

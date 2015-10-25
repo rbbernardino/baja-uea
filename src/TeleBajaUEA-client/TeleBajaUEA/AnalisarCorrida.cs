@@ -31,9 +31,9 @@ namespace TeleBajaUEA
                 chartsNew.Series["RPM"].Points.AddXY(pointData.xValue, pointData.rpm);
 
                 if (pointData.breakState)
-                    brakePosition = (Y_AXIS_MAXIMUM / 2) + Y_AXIS_INTERVAL;
+                    brakePosition = (SPEED_MAXIMUM / 2) + SPEED_Y_INTERVAL;
                 else
-                    brakePosition = (Y_AXIS_MAXIMUM / 2) - Y_AXIS_INTERVAL;
+                    brakePosition = (SPEED_MAXIMUM / 2) - SPEED_Y_INTERVAL;
 
                 chartsNew.Series["Brake"].Points.AddXY(pointData.xValue, brakePosition);
             }
