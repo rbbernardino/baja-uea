@@ -113,10 +113,14 @@ namespace TeleBajaUEA
         {
             // TODO automatiza posicionamento das labels com as constantes V V
             chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(-5, 5, "0rpm - 0km/h", 0, LabelMarkStyle.None);
-            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(25, 35, RPM_MAXIMUM / 2 + "rpm - " + Y_AXIS_MAXIMUM / 2 + " km/h", 0, LabelMarkStyle.None);
-            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(65, 55, RPM_MAXIMUM + "rpm - " + Y_AXIS_MAXIMUM + "km/h", 0, LabelMarkStyle.None);
-            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(35, 45, "Break ON", 0, LabelMarkStyle.None);
-            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(15, 25, "Break OFF", 0, LabelMarkStyle.None);
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(35, 45, RPM_MAXIMUM / 2 + "rpm - " + Y_AXIS_MAXIMUM / 2 + "km/h", 0, LabelMarkStyle.None);
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(75, 85, RPM_MAXIMUM + "rpm - " + Y_AXIS_MAXIMUM + "km/h", 0, LabelMarkStyle.None);
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(45, 55, "Break ON", 0, LabelMarkStyle.None);
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(25, 35, "Break OFF", 0, LabelMarkStyle.None);
+
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(15, 25,  "750rpm - " + "20km/h", 0, LabelMarkStyle.None);
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(55, 65, "2200rpm - " + "60km/h", 0, LabelMarkStyle.None);
+
 
             //TODO melhorar exibição de labels do Y --->------>---------->-------->-----ROW---V
             //   chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(65, 55, RPM_MAXIMUM + "", 2, LabelMarkStyle.None);

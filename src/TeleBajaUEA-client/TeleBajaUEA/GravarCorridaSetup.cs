@@ -77,5 +77,10 @@ namespace TeleBajaUEA
             formGravarCorrida.formTesteMQSQ.Show();
             //------------------------------------------------------//
         }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
