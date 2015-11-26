@@ -18,8 +18,10 @@ namespace TeleBajaUEA
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            formMenuPrincipal = new MenuPrincipal();
-            Application.Run(formMenuPrincipal);
+            //formMenuPrincipal = new MenuPrincipal();
+            //Application.Run(formMenuPrincipal);
+            SerialTest formSerialTest = new SerialTest();
+            Application.Run(formSerialTest);
         }
 
         public static void ShowMenuPrincipal()

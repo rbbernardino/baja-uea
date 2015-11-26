@@ -1,0 +1,8 @@
+ANALÓGICO
+A8  - (Freio) resistor pull up
+A9  - (comb.) sensor de nível
+A10 - (Temp.) resistor NTC
+A11 - (RPM)   conversor FT
+
+DIGITAL
+LCD: (51, 49, 43, 41, 39, 37)

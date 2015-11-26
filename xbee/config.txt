@@ -1,0 +1,34 @@
+XBee WiFi (S6B) - Configuração no XCTU
+
+Para ser possível utilizar no modo AdHoc o firmware deve ser da versão 2021 para cima. No projeto utilizou-se a versão 2026.
+
+---------------------------------------------------------
+GERAL
+
+(CH) Channel             : 6
+(ID) SSID                : TeleBaja-UEA
+(CE) Infrastructure Mode : 1 - Soft AP
+(IP) IP Protocol         : 1 - TCP
+(MA) IP Addressing Mode  : 1 - Static (não suporta DHCP no AdHoc Mode)
+(C0), (DE) Port          : 2616
+(EE) Security            : 0 - no security (não suporta senha no AdHoc Mode)
+(GW) IP Address of gateway: 192.168.0.1
+(MK) IP Address Mask     : 255.255.255.0
+
+---------------------------------------------------------
+CARRO (MAC 000000409D5E0D10) - (antena c/ fio exposto)
+
+Arduino Shield jumpers: RX: "<< + 2" e TX:">> + 3"
+ "O jumper nesta posição, liga os pinos de comunicação serial do módulo Xbee nos pinos digitais 2 e 3 do Arduino. Isto permite que seja usado uma comunicação serial gerada via software (utilizando a biblioteca SoftwareSerial) para fazer a comunicação sem precisar utilizar as portas 0 e 1 do Arduino (serial via hardware)" by Robocore
+
+Network type (AH): 0 - IBSS Joiner
+Source addr (MY): 192.168.0.10
+Destination addr (DL): 192.168.0.20
+
+---------------------------------------------------------
+PC (MAC 000000409D5E0E06)
+
+Network type (AH): 1 - IBSS Creator
+Source addr (MY): 192.168.0.20
+Destination addr (DL): 192.168.0.10
+

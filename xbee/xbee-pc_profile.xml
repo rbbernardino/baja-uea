@@ -5,8 +5,8 @@
     <description_file>XB2B-WF-2026.xml</description_file>
     <settings>
       <setting command="PL">4</setting>
-      <setting command="AH">2</setting>
-      <setting command="CE">2</setting>
+      <setting command="AH">0</setting>
+      <setting command="CE">1</setting>
       <setting command="ID">TeleBaja-UEA</setting>
       <setting command="EE">0</setting>
       <setting command="PK"></setting>
@@ -17,16 +17,16 @@
       <setting command="DO">3</setting>
       <setting command="EQ">devicecloud.digi.com</setting>
       <setting command="NS">208.67.222.222</setting>
-      <setting command="DL">192.168.0.20</setting>
+      <setting command="DL">192.168.0.1</setting>
       <setting command="NI">0x20</setting>
       <setting command="KP">0x20</setting>
       <setting command="KC">0x20</setting>
       <setting command="KL">0x20</setting>
       <setting command="C0">2616</setting>
       <setting command="DE">2616</setting>
-      <setting command="GW">192.168.0.1</setting>
+      <setting command="GW">0.0.0.0</setting>
       <setting command="MK">255.255.255.0</setting>
-      <setting command="MY">192.168.0.10</setting>
+      <setting command="MY">192.168.1.10</setting>
       <setting command="BD">3</setting>
       <setting command="NB">0</setting>
       <setting command="SB">0</setting>
