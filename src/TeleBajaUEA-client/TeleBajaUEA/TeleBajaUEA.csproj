@@ -88,6 +88,7 @@
     </Compile>
     <Compile Include="ClassesAuxiliares\CarConnection.cs" />
     <Compile Include="ClassesAuxiliares\DataGenMachine.Generator.cs" />
+    <Compile Include="ClassesAuxiliares\ProgramSettings.cs" />
     <Compile Include="ClassesAuxiliares\SerialPortExt.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -149,10 +150,10 @@
     <Compile Include="JanelasSecundarias\Sobre.Designer.cs">
       <DependentUpon>Sobre.cs</DependentUpon>
     </Compile>
-    <Compile Include="SerialTest.cs">
+    <Compile Include="JanelasSecundarias\SerialTest.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SerialTest.Designer.cs">
+    <Compile Include="JanelasSecundarias\SerialTest.Designer.cs">
       <DependentUpon>SerialTest.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AnalisarCorrida.resx">
@@ -190,7 +191,7 @@
     <EmbeddedResource Include="JanelasSecundarias\TESTEJanelaSensores.resx">
       <DependentUpon>TESTEJanelaSensores.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SerialTest.resx">
+    <EmbeddedResource Include="JanelasSecundarias\SerialTest.resx">
       <DependentUpon>SerialTest.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />

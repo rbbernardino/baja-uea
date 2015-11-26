@@ -4,7 +4,7 @@ using TeleBajaUEA.RaceDataStructs;
 
 namespace TeleBajaUEA
 {
-    // TODO apenas para teste
+    // apenas para teste
     public partial class TESTEJanelaSensores : Form
     {
         private long timeStamp = 0;

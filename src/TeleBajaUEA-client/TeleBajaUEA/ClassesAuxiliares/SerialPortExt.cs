@@ -7,6 +7,13 @@ namespace TeleBajaUEA.ClassesAuxiliares
     {
         private byte[] intBuffer = new byte[2];
 
+        public SerialPortExt() : base() { }
+
+        public SerialPortExt(string pPortName) : base()
+        {
+            PortName = pPortName;
+        }
+
         public int ReadInt16()
         {
             intBuffer[0] = (byte)ReadByte(); // ler o lowByte, a direita

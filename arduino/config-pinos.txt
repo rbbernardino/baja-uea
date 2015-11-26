@@ -6,3 +6,5 @@ A11 - (RPM)   conversor FT
 
 DIGITAL
 LCD: (51, 49, 43, 41, 39, 37)
+LED-conectado: 22
+XBSerial: (52, 53) (shield RX, TX)

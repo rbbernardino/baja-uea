@@ -44,9 +44,8 @@ namespace TeleBajaUEA
             GravarCorrida formGravarCorrida = new GravarCorrida(parameters);
             await formGravarCorrida.ConfigureCharts();
 
-            // TODO temporario para teste
             //------------- temporário para testar -----------------//
-            formGravarCorrida.formTesteMQSQ = new TESTEJanelaSensores();
+            //formGravarCorrida.formTesteMQSQ = new TESTEJanelaSensores();
             //------------------------------------------------------//
 
             // fecha janela de loading evitando que programa encerre
@@ -61,26 +60,21 @@ namespace TeleBajaUEA
             // inicia recebimento de dados dos sensores
             CarConnection.StartListen();
 
-            // TODO temporario para teste
             // ------------------ Teste: simula medições do carro --------------
-            CarConnection.StartDataGenerator();
+            //CarConnection.StartDataGenerator();
 
             // inicia atualização dos gráficos na tela de gravação de corrida
             formGravarCorrida.StartUpdateCharts();
-            formGravarCorrida.formTesteMQSQ.StartCountTime();
+            
+            //----------------- teste -----------------------
+            //formGravarCorrida.formTesteMQSQ.StartCountTime();
 
-            // TODO temporario para teste
             //------------- temporário para testar -----------------//
-            formGravarCorrida.formTesteMQSQ.StartPosition = FormStartPosition.Manual;
-            Point parentLoc = formGravarCorrida.Location;
-            formGravarCorrida.formTesteMQSQ.Location = new Point(0, parentLoc.Y);
-            formGravarCorrida.formTesteMQSQ.Show();
+            //formGravarCorrida.formTesteMQSQ.StartPosition = FormStartPosition.Manual;
+            //Point parentLoc = formGravarCorrida.Location;
+            //formGravarCorrida.formTesteMQSQ.Location = new Point(0, parentLoc.Y);
+            //formGravarCorrida.formTesteMQSQ.Show();
             //------------------------------------------------------//
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

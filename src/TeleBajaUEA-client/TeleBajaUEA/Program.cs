@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using TeleBajaUEA.ClassesAuxiliares;
 
 namespace TeleBajaUEA
 {
@@ -18,10 +19,12 @@ namespace TeleBajaUEA
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //formMenuPrincipal = new MenuPrincipal();
-            //Application.Run(formMenuPrincipal);
-            SerialTest formSerialTest = new SerialTest();
-            Application.Run(formSerialTest);
+            ProgramSettings.LoadFromFile();
+
+            formMenuPrincipal = new MenuPrincipal();
+            Application.Run(formMenuPrincipal);
+            //SerialTest formSerialTest = new SerialTest();
+            //Application.Run(formSerialTest);
         }
 
         public static void ShowMenuPrincipal()

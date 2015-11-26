@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TeleBajaUEA.ClassesAuxiliares;
 
 namespace TeleBajaUEA
 {
@@ -14,19 +16,21 @@ namespace TeleBajaUEA
         public Configurações()
         {
             InitializeComponent();
-        }
+            string[] portList = SerialPort.GetPortNames();
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Hide();
-            MenuPrincipal aux = new MenuPrincipal();
-            aux.Show();
+            // TODO tratar caso de não haver nenhuma porta disponível
+            foreach (string portName in portList)
+                comboUSB.Items.Add(portName);
+
+            // TODO seleção automática de configuração salva da porta USB
+            //if (ProgramSettings.PortXBee != null &&
+            //    comboUSB.Items.Contains(ProgramSettings.PortXBee))
+            //    comboUSB.Items.
         }
 
         private void btOK_Click(object sender, EventArgs e)
         {
-            // TODO salvar configurações
-            // SaveSettings();
+            ProgramSettings.SaveXBeePort((string) comboUSB.SelectedItem);
             CloseOnlyThis();
         }
 

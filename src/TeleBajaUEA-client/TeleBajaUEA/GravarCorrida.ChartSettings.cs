@@ -14,7 +14,7 @@ namespace TeleBajaUEA
 {
     public partial class GravarCorrida
     {
-        private readonly static int UPDATE_RATE = 50;
+        private readonly static int UPDATE_RATE = 150; // TODO acrescentar valor do ping?
 
         // -------------------- Configurações do eixo X ---------------------//
         // valores em segundos

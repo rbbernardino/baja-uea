@@ -8,7 +8,9 @@ const int leitorTensao0 = 8;      //Pino analógico que o resistor pull up está c
 float valorLeitorTensao0 = 0;     //Freio=="0". Ou seja, toda variável que tem "0" está relacionada ao acionamento do freio
 float Voltagem0=0;
 char estado[]="ind";
-char Ativado = 'F'; // 'F' - False e 'T' - True
+// (L)ow - desativado
+// (H)igh - ativado
+char Ativado = 'L';
 
 
 const int leitorTensao1 = 9;          //Pino analógico que o sensor de nível de combustível está conectado.
@@ -102,14 +104,14 @@ void loop()
      estado[1]='o';
      estado[2]='f';
      estado[3]='f';
-     Ativado = 'T';
+     Ativado = 'H';
    }
    else
    {
      estado[1]='o';
      estado[2]='n';
      estado[3]=' ';
-     Ativado = 'F';
+     Ativado = 'L';
    }
 
 //__________________________________________________________________________________  
@@ -168,8 +170,8 @@ void loop()
   lcd.print(estado[1]);
   lcd.print(estado[2]);
   lcd.print(estado[3]);
-  Ativado = 'T'; // TODO: remover, apenas teste!
-  XBSerial.print(Ativado); // envia para XBee o character 'F' (false) ou 'T' (true)
+  Ativado = 'H'; // TODO: remover, apenas teste!
+  XBSerial.print(Ativado); // envia para XBee o character
   
   lcd.print(" N:");     //impressao do valor de nivel de combustivel 
   lcd.print(Vnivel);  

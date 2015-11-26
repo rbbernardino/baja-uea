@@ -26,12 +26,12 @@ namespace TeleBajaUEA
 
         private async Task ConnectToCar()
         {
-            // cria conexão com o BD
+            // cria conexão com o carro
             if (await CarConnection.ConnectToCar())
             {
-                // mesmo que seja instantâneo, deve esperar 1 segundo
+                // mesmo que seja instantâneo, deve esperar 1/2 segundo
                 // pois feedback de [carregando -->-->-->-- carregado] é prazerozo!
-                await Task.Delay(1000);
+                await Task.Delay(500);
 
                 // feedback de que foi um sucesso
                 loadingIconCar.Image = Properties.Resources.done;
@@ -39,11 +39,12 @@ namespace TeleBajaUEA
 
                 // dá um tempo para o usuário perceber que conectou
                 // (feedback prazeroso)
-                await Task.Delay(1000);
+                await Task.Delay(500);
             }
             else
             {
-                // trata erro aqui?
+                // TODO exibir mensagem de erro mais detalhada
+                MessageBox.Show("ERRO ao se conectar com o carro...");
             }
         }
     }

@@ -18,9 +18,8 @@ namespace TeleBajaUEA
         // TODO criar timer para a cada 5min salvar os dados no arquivo temporario
         private Timer timerBackupData;
 
-        // TODO apenas para teste
         // ------------- temporário para testar -------------------//
-        public TESTEJanelaSensores formTesteMQSQ;
+        //public TESTEJanelaSensores formTesteMQSQ;
         //--------------------------------------------------------//
 
         private float currentXValue;
@@ -59,7 +58,8 @@ namespace TeleBajaUEA
 
         private void UpdateData(SensorsData newData)
         {
-            UpdateTESTEform(newData);
+            // --------------------- teste ---------------------
+            //UpdateTESTEform(newData);
 
             // TODO capturar último X impresso no gráfico real
             //double lastX = chartDinamic.Series[0].Points.Last().XValue;
@@ -126,10 +126,11 @@ namespace TeleBajaUEA
             chartDinamic.Update();
         }
 
-        private void UpdateTESTEform(SensorsData newData)
-        {
-            formTesteMQSQ.SetData(this, newData);
-        }
+        // --------------- teste ------------------
+        //private void UpdateTESTEform(SensorsData newData)
+        //{
+        //    formTesteMQSQ.SetData(this, newData);
+        //}
 
         public void AddData(SensorsData data)
         {
@@ -151,9 +152,8 @@ namespace TeleBajaUEA
             // Encerra conexões
             CarConnection.CloseConnection();
 
-            // TODO apenas para teste
             //---------- temporário para teste ---------------------- //
-            formTesteMQSQ.Close();
+            //formTesteMQSQ.Close();
         }
 
         private void GravarCorrida_FormClosed(object sender, FormClosedEventArgs e)
