@@ -8,8 +8,6 @@ namespace TeleBajaUEA
     // Tamb�m encapsula a tradu��o entre Formato bytes XBee ---> Objeto do C#
     public sealed class CarConnection
     {
-        public static GravarCorrida FormGravarCorrida { get; set; }
-
         private static event NewDataHandler NewDataArrived;
         private delegate void NewDataHandler(object source, SensorsData newData);
 
@@ -33,19 +31,23 @@ namespace TeleBajaUEA
             return await portXBee.TryHandshake();
         }
 
-
-
         public static void StartListen()
         {
             portXBee.StartReceiveData();
         }
 
+        // TODO implentar encerrar conexão
         public static void CloseConnection()
         {
             // TODO timers ficam mais lentos ao reabrir janela de gravar corrida
             
             //DataGenerator.Stop();
             //DataGenerator = null;
+        }
+
+        public async static Task<SensorsData> GetNextData()
+        {
+            return await portXBee.GetNextPacket();
         }
 
         // ----------------------- Tempor�rio para Teste --------------------//
@@ -55,16 +57,5 @@ namespace TeleBajaUEA
         //    DataGenerator.Start();
         //}
         // ------------------------------------------------------------------//
-
-        // recebe dados da conexão (porta) e envia para os data handlers (form GravarCorrida)
-        public static void SendToUI(object source, SensorsData newData)
-        {
-            NewDataArrived(source, newData);
-        }
-
-        private static void NewDataHandler_Arrived(object _source, SensorsData newData)
-        {
-            FormGravarCorrida.AddData(newData);
-        }
     }
 }

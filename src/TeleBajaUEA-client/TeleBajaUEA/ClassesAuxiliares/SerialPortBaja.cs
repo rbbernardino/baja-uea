@@ -3,6 +3,8 @@ using System.Collections.Concurrent;
 using System.IO.Ports;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using TeleBajaUEA.RaceDataStructs;
 
 namespace TeleBajaUEA.ClassesAuxiliares
 {
@@ -43,7 +45,7 @@ namespace TeleBajaUEA.ClassesAuxiliares
 
         #region Temporary received data buffer / Queue
         private byte[] intBuffer = new byte[4];
-        private ConcurrentQueue<byte> receivedData = new ConcurrentQueue<byte>();
+        private ConcurrentQueue<byte> receivedDataQueue = new ConcurrentQueue<byte>();
         #endregion
 
         public SerialPortBaja() : base()
@@ -61,7 +63,7 @@ namespace TeleBajaUEA.ClassesAuxiliares
         {
             byte[] data = new byte[BytesToRead];
             Read(data, 0, data.Length);
-            data.ToList().ForEach(b => receivedData.Enqueue(b));
+            data.ToList().ForEach(b => receivedDataQueue.Enqueue(b));
         }
 
         // tenta trocar mensagens com o XBee do carro para checar conexão
@@ -76,16 +78,16 @@ namespace TeleBajaUEA.ClassesAuxiliares
             //await canReceiveDataSignal.WaitAsync();
 
             // quando sair do await é porque conectou ou deu falha...
-            char msg = await GetNextChar();
+            char msg = await NextChar();
             if (msg == (char)SerialMsg.CONNECT)
             {
                 WriteChar((char)SerialMsg.OK);
 
                 // TODO colocar timeout...
                 // ignora todas as mensagens até receber READY (haverá vários (C)onnect)
-                msg = await GetNextChar();
+                msg = await NextChar();
                 while (msg != (char)SerialMsg.READY)
-                    msg = await GetNextChar();
+                    msg = await NextChar();
 
                 return true;
             }
@@ -95,69 +97,74 @@ namespace TeleBajaUEA.ClassesAuxiliares
 
         public void StartReceiveData()
         {
-            //WriteChar((char)SerialMsg.START);
-
-            //DataReceived += portXBee_NewDataArrived;
-            //NewDataArrived += new NewDataHandler(NewDataHandler_Arrived);
+            WriteChar((char)SerialMsg.START);
         }
 
         // TODO implementar GetNextPacket (total de 10 bytes excluindo o 'B'
         // lê os dados, armazena em variáveis temporárias e gera um novo objeto SensorsData (newData)
-        private static void GetNextPacket()
+        public async Task<SensorsData> GetNextPacket()
         {
-            //// flag BEGIN usada para garantir que dados estarão sincronizados
-            //if (portXBee.ReadCharCasted() == (char)SerialMsg.BEGIN)
-            //{
-            //    tmpMillis = portXBee.ReadUInt32();
-            //    tmpBreakState = portXBee.ReadCharCasted();
-            //    tmpFuel = portXBee.ReadInt8();
-            //    tmpTemperature = portXBee.ReadInt16();
-            //    tmpRpm = portXBee.ReadInt16();
+            char msg = await NextChar();
 
-            //    SendToUI(sender, new SensorsData(
-            //                        tmpMillis, tmpSpeed, tmpTemperature,
-            //                        tmpRpm, tmpFuel, tmpBreakState));
-            //}
-            //else
-            //{
-            //    // TODO tratar melhor esse erro
-            //    //MessageBox.Show("ERRO! Esperava BEGIN ('B'), mas recebeu: " + aaa);
-            //}
+            // flag BEGIN usada para garantir que dados estarão sincronizados
+            if (msg == (char)SerialMsg.BEGIN)
+            {
+                tmpMillis = await NextUInt32();
+                tmpBreakState = await NextChar();
+                tmpFuel = await NextInt8();
+                tmpTemperature = await NextInt16();
+                tmpRpm = await NextInt16();
+
+                return new SensorsData(tmpMillis, tmpSpeed, tmpTemperature,
+                                        tmpRpm, tmpFuel, tmpBreakState);
+            }
+            else
+            {
+                // TODO tratar melhor esse erro
+                MessageBox.Show("ERRO! Esperava BEGIN ('B'), mas recebeu '" + msg + "'");
+                return new SensorsData();
+            }
         }
 
-        public async Task<char> GetNextChar()
+        private async Task<byte> NextByte()
         {
             byte rcvByte;
+            while (!receivedDataQueue.TryDequeue(out rcvByte)) { await Task.Delay(300); }
+            return rcvByte;
 
-            // esperar até prox byte está disponível
-            while (!receivedData.TryDequeue(out rcvByte)) { await Task.Delay(300); }
-
-            return (char)rcvByte;
         }
 
-        public uint ReadUInt32()
+        // TODO acrescentar timeout -> retorna falso ou throw exceção
+        private async Task<char> NextChar()
+        {
+            return (char) (await NextByte());
+        }
+
+        private async Task<uint> NextUInt32()
         {
             intBuffer[0] = intBuffer[1] = intBuffer[2] = intBuffer[3] = 0;
 
-            intBuffer[0] = (byte)ReadByte();
-            intBuffer[1] = (byte)ReadByte();
-            intBuffer[2] = (byte)ReadByte();
-            intBuffer[3] = (byte)ReadByte();
+            intBuffer[0] = await NextByte();
+            intBuffer[1] = await NextByte();
+            intBuffer[2] = await NextByte();
+            intBuffer[3] = await NextByte();
+
             return BitConverter.ToUInt32(intBuffer, 0);
         }
 
-        public int ReadInt16()
+        public async Task<int> NextInt16()
         {
             intBuffer[0] = intBuffer[1] = intBuffer[2] = intBuffer[3] = 0;
 
-            intBuffer[0] = (byte)ReadByte(); // ler o lowByte, a direita
-            intBuffer[1] = (byte)ReadByte(); // ler o highByte, a esquerda
+            intBuffer[0] = await NextByte(); // ler o lowByte, a direita
+            intBuffer[1] = await NextByte(); // ler o highByte, a esquerda
+
             return BitConverter.ToInt16(intBuffer, 0);
         }
 
-        public int ReadInt8()
+        public async Task<int> NextInt8()
         {
-            return base.ReadChar();
+            return await NextByte();
         }
 
         public void WriteChar(char c)

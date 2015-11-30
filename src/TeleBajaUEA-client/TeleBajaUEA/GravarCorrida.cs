@@ -3,15 +3,14 @@ using System.Windows.Forms;
 using System.Collections.Concurrent;
 using TeleBajaUEA.RaceDataStructs;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace TeleBajaUEA
 {
     // Configuração de gráficos na na partial class ChartSettings
     public partial class GravarCorrida : FormPrincipal
     {
-        private ConcurrentQueue<SensorsData> CarDataQueue;
         private Timer timerCheckIncomeData;
-        private SensorsData data;
         private List<FileSensorsData> dataList;
         private RaceParameters parameters;
 
@@ -24,8 +23,6 @@ namespace TeleBajaUEA
 
         // o primeiro Millis será usado como referência (zero) do gráfico no eixo X
         private uint zeroMillis;
-        private bool gotZeroMillis; // após receber primeiro dado vai usá-lo como referência
-        private Timer timerWaitZeroMillis;
 
         public GravarCorrida(RaceParameters pParameters)
         {
@@ -38,77 +35,56 @@ namespace TeleBajaUEA
             timerCheckIncomeData = new Timer();
             timerCheckIncomeData.Interval = UPDATE_RATE;
             timerCheckIncomeData.Tick += new EventHandler(TickCheckIncomeData);
-
-            // Prepara timer que vai esperar pelo primeiro dado
-            timerWaitZeroMillis = new Timer();
-            timerWaitZeroMillis.Interval = 100;
-            timerWaitZeroMillis.Tick += new EventHandler(TickWaitZeroMillis);
-
-            CarDataQueue = new ConcurrentQueue<SensorsData>();
         }
 
-        public void StartUpdateCharts()
+        public async void StartUpdateCharts()
         {
-            gotZeroMillis = false;
-            timerWaitZeroMillis.Enabled = true;
+            SensorsData firstData;
+            firstData = await CarConnection.GetNextData();
+            zeroMillis = firstData.Millis;
+            await UpdateData(firstData);
+
+            timerCheckIncomeData.Enabled = true;
         }
 
-        private void TickWaitZeroMillis(object source, EventArgs e)
+        private async void TickCheckIncomeData(object source, EventArgs e)
         {
-            if (!gotZeroMillis && CarDataQueue.TryDequeue(out data))
+            timerCheckIncomeData.Tick -= TickCheckIncomeData;
+            SensorsData newData = await CarConnection.GetNextData();
+            await UpdateData(newData);
+            //UpdateTESTEformMillis(data.Millis - zeroMillis);
+            timerCheckIncomeData.Tick += TickCheckIncomeData;
+        }
+
+        private async Task UpdateData(SensorsData pNewData)
+        {
+            await Task.Run(() =>
             {
-                // TODO simplificar / eliminar redundância ao parar o timer
-                //      (flag booleana, enabled, stop, dispose e null....)
-                gotZeroMillis = true;
-                timerWaitZeroMillis.Enabled = false;
-                timerWaitZeroMillis.Stop();
-                timerWaitZeroMillis.Dispose();
-                timerWaitZeroMillis = null;
+                // necessário por chamada se originar de um evento (timer)
+                // esse invoke foi modificado (extensão WindowsFormsInvokingExtensions)
+                // facilita a chamada de funções de modo "thread-safe"
+                this.Invoke(() =>
+                {
 
-                // salva millis de referência e inicia recepção dos dados seguintes
-                zeroMillis = data.Millis;
-                UpdateData(data);
-                timerCheckIncomeData.Enabled = true;
-            }
-        }
+                    // TODO verificar necessidade de remover pontos não mais mostrados
+                    // acho que NÃO precisa... chartDinamic.Series[0].Points.RemoveAt(0);
+                    double currentMinimum = chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum;
+                    double currentMaximumX = chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum;
+                    double interval = chartDinamic.ChartAreas["ChartArea1"].AxisX.Interval;
 
-        private void TickCheckIncomeData(object source, EventArgs e)
-        {
-            CheckNewData();
-        }
+                    // TODO capturar último X impresso no gráfico real
+                    //double lastX = chartDinamic.Series[0].Points.Last().XValue;
+                    //double lastX = previousMillis;
+                    //if (lastX >= currentMaximumX)
+                    if (pNewData.Millis >= currentMaximumX)
+                    {
+                        // TODO corrigir atualizar limites UpdateGraphLimits(currentMinimum, currentMaximumX, interval);
+                    }
 
-        private void CheckNewData()
-        {
-            while(CarDataQueue.TryDequeue(out data))
-            {
-                UpdateData(data);
-                UpdateTESTEformMillis(data.Millis - zeroMillis);
-            }
-        }
-
-        private void UpdateData(SensorsData pNewData)
-        {
-            // --------------------- teste ---------------------
-            //UpdateTESTEformMillis(newData.Millis);
-
-
-            // TODO verificar necessidade de remover pontos não mais mostrados
-            // acho que NÃO precisa... chartDinamic.Series[0].Points.RemoveAt(0);
-            double currentMinimum = chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum;
-            double currentMaximumX = chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum;
-            double interval = chartDinamic.ChartAreas["ChartArea1"].AxisX.Interval;
-
-            // TODO capturar último X impresso no gráfico real
-            //double lastX = chartDinamic.Series[0].Points.Last().XValue;
-            //double lastX = previousMillis;
-            //if (lastX >= currentMaximumX)
-            if (pNewData.Millis >= currentMaximumX)
-            {
-                // TODO corrigir atualizar limites UpdateGraphLimits(currentMinimum, currentMaximumX, interval);
-            }
-
-            AddNewDataToGraph(pNewData);
-            UpdateGauges(pNewData);
+                    AddNewDataToGraph(pNewData);
+                    UpdateGauges(pNewData);
+                });
+            });
         }
 
         private void UpdateGauges(SensorsData pNewData)
@@ -164,12 +140,7 @@ namespace TeleBajaUEA
         //}
         private void UpdateTESTEformMillis(uint millis)
         {
-            formTesteMQSQ.SetMillis(this, millis, CarDataQueue.Count);
-        }
-
-        public void AddData(SensorsData data)
-        {
-            CarDataQueue.Enqueue(data);
+            formTesteMQSQ.SetMillis(this, millis);
         }
 
         private void button1_Click(object sender, EventArgs e)

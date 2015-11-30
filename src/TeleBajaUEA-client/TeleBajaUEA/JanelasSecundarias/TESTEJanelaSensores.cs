@@ -16,11 +16,7 @@ namespace TeleBajaUEA
         private event ShowMillisHandler ShowMillis;
         private delegate void ShowMillisHandler(object source, uint millis);
 
-        private DataShowHandler teste;
-
         private Timer timer;
-
-        private int count;
 
         public TESTEJanelaSensores()
         {
@@ -45,17 +41,15 @@ namespace TeleBajaUEA
             timeStamp++;
         }
 
-        public void SetMillis(object source, uint millis, int pCount)
+        public void SetMillis(object source, uint millis)
         {
-            count = pCount;
             ShowMillis(source, millis); // dispara evento de mostar millis
         }
         
         private void UpdateMillis_NewMillis(object _source, uint millis)
         {
             labelData.Text = "Current Millis\n" +
-                                millis + "\n\n" +
-                                "count: " + count;
+                                millis;
         }
 
 

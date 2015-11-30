@@ -192,8 +192,7 @@ void loop()
   
   // envia tempo da medicao
   current_millis = millis();
-  LongToBytes(current_millis, current_millisByte);
-  XBSerial.write((char*)current_millisByte);
+  writeLong(XBSerial, current_millis);
 
   //Exibindo valor das variaveis monitoradas no display.
   lcd.clear();           //limpa o display do LCD.
@@ -241,6 +240,12 @@ void writeInt16(SoftwareSerial pSerial, int num)
 {
 	pSerial.write(lowByte(num)); // envia 1 byte (menos significativo apenas)
 	pSerial.write(highByte(num)); // envia 1 byte (mais significativo apenas)
+}
+
+void writeLong(SoftwareSerial pSerial, unsigned long num)
+{
+	LongToBytes(current_millis, current_millisByte);
+	XBSerial.write((char*)current_millisByte, 4);
 }
 
 void LongToBytes(long val, byte b[4])

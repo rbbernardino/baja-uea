@@ -51,9 +51,6 @@ namespace TeleBajaUEA
             // fecha janela de loading evitando que programa encerre
             formGravarCorridaConexao.CloseOnlyThis();
 
-            // Informa CarConnection aonde deve enviar as info
-            CarConnection.FormGravarCorrida = formGravarCorrida;
-
             // abre janela de gravar corrida
             formGravarCorrida.Show();
 
