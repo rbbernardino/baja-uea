@@ -13,7 +13,7 @@ namespace TeleBajaUEA.RaceDataStructs
         public float RPM { get { return rpm; } }
         public float Fuel { get { return fuel; } }
         public bool BreakState { get { return BreakState_ToBool(breakOn); } }
-        //public long DataCount { get { return dataCount; } }
+        public uint Millis { get { return millis; } }
 
         private readonly float speed;
         private readonly float engineTemperature;
@@ -21,10 +21,15 @@ namespace TeleBajaUEA.RaceDataStructs
         private readonly float fuel;
         // TODO: transformar 'H' e 'L' em enums?? talvez no SeiralMsg??
         private readonly char breakOn; // (H)igh - freiando, (L)ow - não freiando
-        //private readonly long dataCount;
+        private uint millis;
 
+        // Esse contrutor é usado nas antigas simulações. Como o tempo Millis
+        // do arduino não é considerado aqui, os simuladores não vão mais funcionar
+        //
+        // possível solução: long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
         public SensorsData(float pSpeed, float pEngineTemp, float pRPM, float pFuel, bool pBreakON)
         {
+            millis = 0;
             speed = pSpeed;
             engineTemperature = pEngineTemp;
             rpm = pRPM;
@@ -36,8 +41,9 @@ namespace TeleBajaUEA.RaceDataStructs
                 breakOn = 'L';
         }
 
-        public SensorsData(float pSpeed, float pEngineTemp, float pRPM, float pFuel, char pBreakON)
+        public SensorsData(uint pMillis, float pSpeed, float pEngineTemp, float pRPM, float pFuel, char pBreakON)
         {
+            millis = pMillis;
             speed = pSpeed;
             engineTemperature = pEngineTemp;
             rpm = pRPM;

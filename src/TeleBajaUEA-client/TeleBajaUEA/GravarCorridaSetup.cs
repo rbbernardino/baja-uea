@@ -45,7 +45,7 @@ namespace TeleBajaUEA
             await formGravarCorrida.ConfigureCharts();
 
             //------------- temporário para testar -----------------//
-            //formGravarCorrida.formTesteMQSQ = new TESTEJanelaSensores();
+            formGravarCorrida.formTesteMQSQ = new TESTEJanelaSensores();
             //------------------------------------------------------//
 
             // fecha janela de loading evitando que programa encerre
@@ -65,16 +65,16 @@ namespace TeleBajaUEA
 
             // inicia atualização dos gráficos na tela de gravação de corrida
             formGravarCorrida.StartUpdateCharts();
-            
-            //----------------- teste -----------------------
-            //formGravarCorrida.formTesteMQSQ.StartCountTime();
 
-            //------------- temporário para testar -----------------//
-            //formGravarCorrida.formTesteMQSQ.StartPosition = FormStartPosition.Manual;
-            //Point parentLoc = formGravarCorrida.Location;
-            //formGravarCorrida.formTesteMQSQ.Location = new Point(0, parentLoc.Y);
-            //formGravarCorrida.formTesteMQSQ.Show();
-            //------------------------------------------------------//
+            //--------------------------- teste ----------------------------//
+            formGravarCorrida.formTesteMQSQ.StartCountTime();
+            
+            // seta posição melhor
+            formGravarCorrida.formTesteMQSQ.StartPosition = FormStartPosition.Manual;
+            Point parentLoc = formGravarCorrida.Location;
+            formGravarCorrida.formTesteMQSQ.Location = new Point(parentLoc.X-100, parentLoc.Y);
+            formGravarCorrida.formTesteMQSQ.Show();
+            //--------------------------------------------------------------//
         }
     }
 }

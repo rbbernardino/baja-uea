@@ -11,7 +11,7 @@ namespace TeleBajaUEA
     {
         private ConcurrentQueue<SensorsData> CarDataQueue;
         private Timer timerCheckIncomeData;
-        private SensorsData newData;
+        private SensorsData data;
         private List<FileSensorsData> dataList;
         private RaceParameters parameters;
 
@@ -19,10 +19,13 @@ namespace TeleBajaUEA
         private Timer timerBackupData;
 
         // ------------- temporário para testar -------------------//
-        //public TESTEJanelaSensores formTesteMQSQ;
+        public TESTEJanelaSensores formTesteMQSQ;
         //--------------------------------------------------------//
 
-        private float currentXValue;
+        // o primeiro Millis será usado como referência (zero) do gráfico no eixo X
+        private uint zeroMillis;
+        private bool gotZeroMillis; // após receber primeiro dado vai usá-lo como referência
+        private Timer timerWaitZeroMillis;
 
         public GravarCorrida(RaceParameters pParameters)
         {
@@ -36,13 +39,37 @@ namespace TeleBajaUEA
             timerCheckIncomeData.Interval = UPDATE_RATE;
             timerCheckIncomeData.Tick += new EventHandler(TickCheckIncomeData);
 
+            // Prepara timer que vai esperar pelo primeiro dado
+            timerWaitZeroMillis = new Timer();
+            timerWaitZeroMillis.Interval = 100;
+            timerWaitZeroMillis.Tick += new EventHandler(TickWaitZeroMillis);
+
             CarDataQueue = new ConcurrentQueue<SensorsData>();
         }
 
         public void StartUpdateCharts()
         {
-            currentXValue = 0;
-            timerCheckIncomeData.Enabled = true;
+            gotZeroMillis = false;
+            timerWaitZeroMillis.Enabled = true;
+        }
+
+        private void TickWaitZeroMillis(object source, EventArgs e)
+        {
+            if (!gotZeroMillis && CarDataQueue.TryDequeue(out data))
+            {
+                // TODO simplificar / eliminar redundância ao parar o timer
+                //      (flag booleana, enabled, stop, dispose e null....)
+                gotZeroMillis = true;
+                timerWaitZeroMillis.Enabled = false;
+                timerWaitZeroMillis.Stop();
+                timerWaitZeroMillis.Dispose();
+                timerWaitZeroMillis = null;
+
+                // salva millis de referência e inicia recepção dos dados seguintes
+                zeroMillis = data.Millis;
+                UpdateData(data);
+                timerCheckIncomeData.Enabled = true;
+            }
         }
 
         private void TickCheckIncomeData(object source, EventArgs e)
@@ -52,18 +79,18 @@ namespace TeleBajaUEA
 
         private void CheckNewData()
         {
-            if (CarDataQueue.TryDequeue(out newData))
-                UpdateData(newData);
+            while(CarDataQueue.TryDequeue(out data))
+            {
+                UpdateData(data);
+                UpdateTESTEformMillis(data.Millis - zeroMillis);
+            }
         }
 
-        private void UpdateData(SensorsData newData)
+        private void UpdateData(SensorsData pNewData)
         {
             // --------------------- teste ---------------------
-            //UpdateTESTEform(newData);
+            //UpdateTESTEformMillis(newData.Millis);
 
-            // TODO capturar último X impresso no gráfico real
-            //double lastX = chartDinamic.Series[0].Points.Last().XValue;
-            double lastX = currentXValue;
 
             // TODO verificar necessidade de remover pontos não mais mostrados
             // acho que NÃO precisa... chartDinamic.Series[0].Points.RemoveAt(0);
@@ -71,44 +98,48 @@ namespace TeleBajaUEA
             double currentMaximumX = chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum;
             double interval = chartDinamic.ChartAreas["ChartArea1"].AxisX.Interval;
 
-            if (lastX >= currentMaximumX)
+            // TODO capturar último X impresso no gráfico real
+            //double lastX = chartDinamic.Series[0].Points.Last().XValue;
+            //double lastX = previousMillis;
+            //if (lastX >= currentMaximumX)
+            if (pNewData.Millis >= currentMaximumX)
             {
-                UpdateGraphLimits(currentMinimum, currentMaximumX, interval);
+                // TODO corrigir atualizar limites UpdateGraphLimits(currentMinimum, currentMaximumX, interval);
             }
 
-            AddNewDataToGraph(newData);
-            UpdateGauges(newData);
+            AddNewDataToGraph(pNewData);
+            UpdateGauges(pNewData);
         }
 
-        private void UpdateGauges(SensorsData newData)
+        private void UpdateGauges(SensorsData pNewData)
         {
-            aGaugeTemperature.Value = newData.EngineTemperature;
-            aGaugeFuel.Value = newData.Fuel;
+            aGaugeTemperature.Value = pNewData.EngineTemperature;
+            aGaugeFuel.Value = pNewData.Fuel;
         }
 
-        private void AddNewDataToGraph(SensorsData newData)
+        private void AddNewDataToGraph(SensorsData pNewData)
         {
-            currentXValue += ((float) UPDATE_RATE) / 1000;
-
+            uint currentXValue = pNewData.Millis - zeroMillis;
+            
             // ajusta valor do RPM para ficar proporcional à altura do gráfico
-            double newRPMData = newData.RPM / (RPM_MAXIMUM / Y_AXIS_MAXIMUM);
+            double newRPMData = pNewData.RPM / (RPM_MAXIMUM / Y_AXIS_MAXIMUM);
 
             double brakePosition;
-            if (newData.BreakState)
+            if (pNewData.BreakState)
                 brakePosition = (Y_AXIS_MAXIMUM / 2) + Y_AXIS_INTERVAL;
             else
                 brakePosition = (Y_AXIS_MAXIMUM / 2) - Y_AXIS_INTERVAL;
 
-            chartDinamic.Series["Speed"].Points.AddXY(currentXValue, newData.Speed);
+            chartDinamic.Series["Speed"].Points.AddXY(currentXValue, pNewData.Speed);
             chartDinamic.Series["RPM"].Points.AddXY(currentXValue, newRPMData);
             chartDinamic.Series["Brake"].Points.AddXY(currentXValue, brakePosition);
 
             FileSensorsData fileNewData = new FileSensorsData
             {
                 xValue = currentXValue,
-                speed = newData.Speed,
-                rpm = newData.RPM,
-                breakState = newData.BreakState,
+                speed = pNewData.Speed,
+                rpm = pNewData.RPM,
+                breakState = pNewData.BreakState,
             };
             dataList.Add(fileNewData);
         }
@@ -122,7 +153,7 @@ namespace TeleBajaUEA
             chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum = minX;
             chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum = maxX;
             
-            UpdateLabels();
+            UpdateXLabels();
             chartDinamic.Update();
         }
 
@@ -131,6 +162,10 @@ namespace TeleBajaUEA
         //{
         //    formTesteMQSQ.SetData(this, newData);
         //}
+        private void UpdateTESTEformMillis(uint millis)
+        {
+            formTesteMQSQ.SetMillis(this, millis, CarDataQueue.Count);
+        }
 
         public void AddData(SensorsData data)
         {

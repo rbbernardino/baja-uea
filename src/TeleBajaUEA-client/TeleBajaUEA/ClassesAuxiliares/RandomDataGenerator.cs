@@ -96,7 +96,7 @@ namespace TeleBajaUEA
 
             SensorsData newDataTemp = new SensorsData(currentSpeed, currentTemperature, currentRPM, currentFuel, currentBreakState);
 
-            CarConnection.Send(this, newDataTemp);
+            CarConnection.SendToUI(this, newDataTemp);
         }
 
         private bool RndBreakState()

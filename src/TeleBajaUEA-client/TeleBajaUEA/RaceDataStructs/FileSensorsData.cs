@@ -9,7 +9,7 @@ namespace TeleBajaUEA.RaceDataStructs
     [Serializable()]
     public struct FileSensorsData
     {
-        public float xValue;
+        public uint xValue;
         public float speed;
         public float rpm;
         public bool breakState;

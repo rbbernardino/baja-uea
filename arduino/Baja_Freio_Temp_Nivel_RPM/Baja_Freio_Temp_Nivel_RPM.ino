@@ -37,8 +37,10 @@ int rpm3=0;
 LiquidCrystal lcd(51, 49, 43, 41, 39, 37);
 
 // os valores dessas const devem estar exatamente igual aos da aplicação C#
-const char SND_START = 'S'; // ENVIA 'S' para PC, dizendo que já pode começar
+const char SND_CONNECT = 'C'; // ENVIA 'C' para PC, pedindo para se conectar
 const char RCV_OK = 'K'; // RECEBE do PC indiciando que pode começar o envio
+const char SND_READY = 'R'; // ENVIA 'R' para PC, avisando que está pronto para enviar
+const char RCV_START = 'S'; // RECEBE 'S' para iniciar envio de dados (loop)
 
 const char SND_BEGIN = 'B'; // vai começar envio de dados dos sensores (1 pacote)
 const char SND_END = 'E'; // finalizou envio (1 pacote)
@@ -46,6 +48,9 @@ const char SND_END = 'E'; // finalizou envio (1 pacote)
 const int CONN_LED = 22; // led que indica se está conectado com o pc
 
 SoftwareSerial XBSerial(52, 53); // RX (shield: 2), TX (shield: 3)
+
+unsigned long current_millis;
+byte current_millisByte[4];
 
 void setup() 
 {
@@ -58,28 +63,45 @@ void setup()
 
   XBSerial.begin(9600);
   connectToPC();
+  waitStart();
 }
 
 void connectToPC()
 {
-	XBSerial.print(SND_START);
+	XBSerial.print(SND_CONNECT);
 
-	// re-envia START até receber algo
+	// re-envia CONNECT até receber algo (handshake)
 	while (XBSerial.available() < 1)
 	{
-		XBSerial.print(SND_START);
+		XBSerial.print(SND_CONNECT);
 		delay(500);
 	}
 
-	// espera pelo OK do PC para iniciar envio de dados (loop)
-	char msg = receive_sync();
-	while (msg != RCV_OK)
+	// espera pelo OK do PC para concluir conexao (hanshake)
+	char received_msg = receive_sync();
+	while (received_msg != RCV_OK)
 	{
-		msg = receive_sync();
+		received_msg = receive_sync();
 	}
 
-	// ao sair do while inicia loop(), enviando os dados dos sensores
+	// ao sair do while envia sinal de que está pronto, esperando START para entrar no loop()
+	XBSerial.print(SND_READY);
+
+	// LED indica que está conectado
 	digitalWrite(CONN_LED, HIGH);
+}
+
+void waitStart()
+{
+	char received_msg = receive_sync();
+	while (received_msg != RCV_START)
+	{
+		received_msg = receive_sync();
+	}
+
+	// se sair do while significa que recebeu START, logo inicia loop de envio de dados
+	// para tal apenas encerra o waitStart(), que volta ao setup() e retornará
+
 }
 
 char receive_sync()
@@ -90,6 +112,10 @@ char receive_sync()
 	// ao sair do while terá dado para ler
 	return XBSerial.read();
 }
+
+// <editor-fold desc="Description">
+int a = 1;
+// </editor-fold>
 
 void loop() 
 { 
@@ -163,6 +189,11 @@ void loop()
   
   // flag (B)egin para cliente saber que iniciou o envio de um pacote de dados
   XBSerial.print(SND_BEGIN);
+  
+  // envia tempo da medicao
+  current_millis = millis();
+  LongToBytes(current_millis, current_millisByte);
+  XBSerial.write((char*)current_millisByte);
 
   //Exibindo valor das variaveis monitoradas no display.
   lcd.clear();           //limpa o display do LCD.
@@ -192,8 +223,9 @@ void loop()
   rpm3 = 3000; // TODO: remover, apenas teste!
   writeInt16(XBSerial, rpm3);
   
+  // TODO: trocar o BEGIN pelo END
   // flag (E)nd para cliente saber que encerrou o envio de um pacote de dados
-  XBSerial.write(SND_END);
+  //XBSerial.write(SND_END);
 
   delay(150);
 }
@@ -209,4 +241,12 @@ void writeInt16(SoftwareSerial pSerial, int num)
 {
 	pSerial.write(lowByte(num)); // envia 1 byte (menos significativo apenas)
 	pSerial.write(highByte(num)); // envia 1 byte (mais significativo apenas)
+}
+
+void LongToBytes(long val, byte b[4])
+{
+	b[3] = (byte)((val >> 24) & 0xff);
+	b[2] = (byte)((val >> 16) & 0xff);
+	b[1] = (byte)((val >> 8) & 0xff);
+	b[0] = (byte)((val)& 0xff);
 }

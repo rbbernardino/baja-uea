@@ -97,7 +97,7 @@ namespace TeleBajaUEA
                 new SensorsData(currentSpeed, currentTemperature,
                                     currentRPM, currentFuel, currentBreakState);
 
-            CarConnection.Send(this, newDataTemp);
+            CarConnection.SendToUI(this, newDataTemp);
         }
 
         private void UpdateGenerator(CarState state)

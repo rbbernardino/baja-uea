@@ -12,9 +12,15 @@ namespace TeleBajaUEA
         private event DataShowHandler NewDataArrived;
         private delegate void DataShowHandler(object source, SensorsData data);
 
+        // apenas millis
+        private event ShowMillisHandler ShowMillis;
+        private delegate void ShowMillisHandler(object source, uint millis);
+
         private DataShowHandler teste;
 
         private Timer timer;
+
+        private int count;
 
         public TESTEJanelaSensores()
         {
@@ -24,8 +30,8 @@ namespace TeleBajaUEA
             timer.Interval = 1000;
             timer.Tick += new EventHandler(TickTimer);
 
-            teste = new DataShowHandler(ShowDataHandler_NewData);
-            NewDataArrived += teste;
+            //NewDataArrived += new DataShowHandler(ShowDataHandler_NewData);
+            ShowMillis += new ShowMillisHandler(UpdateMillis_NewMillis);
         }
 
         public void StartCountTime()
@@ -38,6 +44,20 @@ namespace TeleBajaUEA
         {
             timeStamp++;
         }
+
+        public void SetMillis(object source, uint millis, int pCount)
+        {
+            count = pCount;
+            ShowMillis(source, millis); // dispara evento de mostar millis
+        }
+        
+        private void UpdateMillis_NewMillis(object _source, uint millis)
+        {
+            labelData.Text = "Current Millis\n" +
+                                millis + "\n\n" +
+                                "count: " + count;
+        }
+
 
         public void SetData(object source, SensorsData data)
         {
