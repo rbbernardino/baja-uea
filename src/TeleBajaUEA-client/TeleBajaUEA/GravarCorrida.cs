@@ -18,7 +18,7 @@ namespace TeleBajaUEA
         private Timer timerBackupData;
 
         // ------------- temporário para testar -------------------//
-        public TESTEJanelaSensores formTesteMQSQ;
+        //public TESTEJanelaSensores formTesteMQSQ;
         //--------------------------------------------------------//
 
         // o primeiro Millis será usado como referência (zero) do gráfico no eixo X
@@ -138,10 +138,10 @@ namespace TeleBajaUEA
         //{
         //    formTesteMQSQ.SetData(this, newData);
         //}
-        private void UpdateTESTEformMillis(uint millis)
-        {
-            formTesteMQSQ.SetMillis(this, millis);
-        }
+        //private void UpdateTESTEformMillis(uint millis)
+        //{
+        //    formTesteMQSQ.SetMillis(this, millis);
+        //}
 
         private void button1_Click(object sender, EventArgs e)
         {

@@ -97,6 +97,7 @@ namespace TeleBajaUEA.ClassesAuxiliares
 
         public void StartReceiveData()
         {
+            // avisa arduino no carro que pode iniciar envio de mensagens de dados
             WriteChar((char)SerialMsg.START);
         }
 
@@ -114,6 +115,7 @@ namespace TeleBajaUEA.ClassesAuxiliares
                 tmpFuel = await NextInt8();
                 tmpTemperature = await NextInt16();
                 tmpRpm = await NextInt16();
+                tmpSpeed = await NextInt8();
 
                 return new SensorsData(tmpMillis, tmpSpeed, tmpTemperature,
                                         tmpRpm, tmpFuel, tmpBreakState);
