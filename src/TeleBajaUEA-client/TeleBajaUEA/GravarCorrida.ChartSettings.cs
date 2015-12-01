@@ -22,14 +22,14 @@ namespace TeleBajaUEA
         //     máximo como múltiplo de 30    (60, 90, 120...)
         //     intervalo como múltiplo de 10 (10, 20, 30...)
         private readonly double X_AXIS_MINIMUM = 0;
-        private readonly double X_AXIS_MAXIMUM = 300 *1000; // 300 = 5min
+        private readonly double X_AXIS_MAXIMUM = 10 *1000; // 300 = 5min
 
-        private readonly double X_AXIS_INTERVAL = 50 *1000;
-        private readonly double X_AXIS_GRID_INTERVAL = 50 *1000;
+        private readonly double X_AXIS_INTERVAL = 2 *1000;
+        private readonly double X_AXIS_GRID_INTERVAL = 2 *1000;
 
         // define quantos pontos mover para a direita quando pontos plotados
         // atingirem o limite de plotagem (na direita)
-        private readonly double UPDATE_LIMITS_INTERVAL = 300 *1000; // 300 = 5min
+        private readonly double UPDATE_LIMITS_INTERVAL = 10 *1000; // 300 = 5min
 
         // -------------------- Configurações do eixo Y ---------------------//
         private readonly double Y_AXIS_MINIMUM = 0;
@@ -51,8 +51,8 @@ namespace TeleBajaUEA
         private readonly Color BRAKE_COLOR = Color.Green;
 
         // ------------------ Variáveis de controle interno ----------------//
-        private long minX;
-        private long maxX;
+        private double minX;
+        private double maxX;
 
         /// <summary>
         /// Encapsula configuração dos gráficos
@@ -61,8 +61,8 @@ namespace TeleBajaUEA
         {
             await Task.Run(() =>
             {
-                minX = (long)X_AXIS_MINIMUM;
-                maxX = (long)X_AXIS_MAXIMUM;
+                minX = X_AXIS_MINIMUM;
+                maxX = X_AXIS_MAXIMUM;
 
                 chartDinamic.Legends["Legend1"].Title = "Legend";
                 chartDinamic.ChartAreas["ChartArea1"].BackColor = Color.Black;
@@ -152,16 +152,16 @@ namespace TeleBajaUEA
         {
             chartDinamic.ChartAreas["ChartArea1"].AxisX.CustomLabels.Clear();
 
-            long fromPosition, toPosition;
+            double fromPosition, toPosition;
             string text;
-            for (long currentXLabel = minX;
-                currentXLabel <= maxX; currentXLabel += (long) X_AXIS_INTERVAL)
+            for (double currentXLabel = minX;
+                currentXLabel <= maxX; currentXLabel += X_AXIS_INTERVAL)
             {
-                fromPosition = currentXLabel - 5*((long) X_AXIS_INTERVAL /10);
-                toPosition = currentXLabel + 5*((long) X_AXIS_INTERVAL/10);
+                fromPosition = currentXLabel - 5*(X_AXIS_INTERVAL /10);
+                toPosition = currentXLabel + 5*(X_AXIS_INTERVAL/10);
                 
                 // contagem é feita em milisegundos
-                text = SecondsToTime(currentXLabel/1000);
+                text = SecondsToTime((long) currentXLabel/1000);
 
                 chartDinamic.ChartAreas["ChartArea1"].AxisX.CustomLabels.Add(fromPosition, toPosition, text);
             }

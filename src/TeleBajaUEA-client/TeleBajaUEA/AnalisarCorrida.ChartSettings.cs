@@ -17,11 +17,11 @@ namespace TeleBajaUEA
         //     máximo como múltiplo de 30    (60, 90, 120...)
         //     intervalo como múltiplo de 10 (10, 20, 30...)
         private readonly double X_AXIS_MINIMUM = 0;
-        private readonly double X_AXIS_MAXIMUM = 300; // 300 = 5min
-        private readonly double INCREASE_LIMITS_INTERVAL = 300;
+        private readonly double X_AXIS_MAXIMUM = 300 * 1000; // 300 = 5min
+        private readonly double INCREASE_LIMITS_INTERVAL = 300 * 1000;
 
-        private readonly double X_AXIS_INTERVAL = 50;
-        private readonly double X_AXIS_GRID_INTERVAL = 50;
+        private readonly double X_AXIS_INTERVAL = 50 * 1000;
+        private readonly double X_AXIS_GRID_INTERVAL = 50 * 1000;
 
 
         // -------------------- Configurações do eixo Y ---------------------//
@@ -172,7 +172,9 @@ namespace TeleBajaUEA
             {
                 fromPosition = currentXLabel - 5 * ((long)X_AXIS_INTERVAL / 10); // TODO trocar de 10 para UPDATE_RATE...
                 toPosition = currentXLabel + 5 * ((long)X_AXIS_INTERVAL / 10);
-                text = SecondsToTime(currentXLabel);
+                
+                // contagem é feita em milisegundos
+                text = SecondsToTime(currentXLabel/1000);
 
                 chartsNew.ChartAreas[XLabelChartArea].AxisX.CustomLabels.Add(fromPosition, toPosition, text);
             }

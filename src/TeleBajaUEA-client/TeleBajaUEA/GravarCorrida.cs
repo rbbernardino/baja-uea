@@ -68,17 +68,15 @@ namespace TeleBajaUEA
 
                     // TODO verificar necessidade de remover pontos não mais mostrados
                     // acho que NÃO precisa... chartDinamic.Series[0].Points.RemoveAt(0);
-                    double currentMinimum = chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum;
-                    double currentMaximumX = chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum;
                     double interval = chartDinamic.ChartAreas["ChartArea1"].AxisX.Interval;
 
                     // TODO capturar último X impresso no gráfico real
                     //double lastX = chartDinamic.Series[0].Points.Last().XValue;
                     //double lastX = previousMillis;
                     //if (lastX >= currentMaximumX)
-                    if (pNewData.Millis >= currentMaximumX)
+                    if ((pNewData.Millis -zeroMillis) >= maxX)
                     {
-                        // TODO corrigir atualizar limites UpdateGraphLimits(currentMinimum, currentMaximumX, interval);
+                        UpdateGraphLimits();
                     }
 
                     AddNewDataToGraph(pNewData);
@@ -120,11 +118,10 @@ namespace TeleBajaUEA
             dataList.Add(fileNewData);
         }
 
-        private void UpdateGraphLimits(double currentMinimum,
-                                        double currentMaximumX, double _interval)
+        private void UpdateGraphLimits()
         {
-            minX += (long) UPDATE_LIMITS_INTERVAL;
-            maxX += (long) UPDATE_LIMITS_INTERVAL;
+            minX += UPDATE_LIMITS_INTERVAL;
+            maxX += UPDATE_LIMITS_INTERVAL;
 
             chartDinamic.ChartAreas["ChartArea1"].AxisX.Minimum = minX;
             chartDinamic.ChartAreas["ChartArea1"].AxisX.Maximum = maxX;
