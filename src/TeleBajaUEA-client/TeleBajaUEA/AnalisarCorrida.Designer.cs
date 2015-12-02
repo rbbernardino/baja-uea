@@ -39,6 +39,7 @@
             this.btPlus = new System.Windows.Forms.Button();
             this.btMinus = new System.Windows.Forms.Button();
             this.chartsNew = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.btVerSetup = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chartsNew)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,7 +69,7 @@
             // btMinus
             // 
             this.btMinus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.btMinus.Location = new System.Drawing.Point(84, 670);
+            this.btMinus.Location = new System.Drawing.Point(836, 663);
             this.btMinus.Name = "btMinus";
             this.btMinus.Size = new System.Drawing.Size(75, 36);
             this.btMinus.TabIndex = 12;
@@ -111,11 +112,24 @@
             this.chartsNew.TabIndex = 13;
             this.chartsNew.Text = "chart1";
             // 
+            // btVerSetup
+            // 
+            this.btVerSetup.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btVerSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.btVerSetup.Location = new System.Drawing.Point(86, 663);
+            this.btVerSetup.Name = "btVerSetup";
+            this.btVerSetup.Size = new System.Drawing.Size(135, 51);
+            this.btVerSetup.TabIndex = 14;
+            this.btVerSetup.Text = "Ver Setup";
+            this.btVerSetup.UseVisualStyleBackColor = true;
+            this.btVerSetup.Click += new System.EventHandler(this.btVerSetup_Click);
+            // 
             // AnalisarCorrida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1064, 741);
+            this.Controls.Add(this.btVerSetup);
             this.Controls.Add(this.chartsNew);
             this.Controls.Add(this.btMinus);
             this.Controls.Add(this.btPlus);
@@ -134,5 +148,6 @@
         private System.Windows.Forms.Button btPlus;
         private System.Windows.Forms.Button btMinus;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartsNew;
+        private System.Windows.Forms.Button btVerSetup;
     }
 }

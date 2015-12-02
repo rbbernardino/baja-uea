@@ -1,6 +1,6 @@
 ﻿namespace TeleBajaUEA
 {
-    partial class GravarCorridaSetup
+    partial class AnalisarCorridaSetup
     {
         /// <summary>
         /// Required designer variable.
@@ -28,11 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GravarCorridaSetup));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AnalisarCorridaSetup));
+            this.btFechar = new System.Windows.Forms.Button();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.labelTítulo = new System.Windows.Forms.Label();
-            this.btCancelar = new System.Windows.Forms.Button();
-            this.btIniciar = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabDriver = new System.Windows.Forms.TabPage();
             this.label4 = new System.Windows.Forms.Label();
@@ -93,9 +92,6 @@
             this.label45 = new System.Windows.Forms.Label();
             this.textCarRoll = new System.Windows.Forms.TextBox();
             this.label46 = new System.Windows.Forms.Label();
-            this.label44 = new System.Windows.Forms.Label();
-            this.comboCarAmort2 = new System.Windows.Forms.ComboBox();
-            this.comboCarAmort = new System.Windows.Forms.ComboBox();
             this.label43 = new System.Windows.Forms.Label();
             this.label42 = new System.Windows.Forms.Label();
             this.textCarMola = new System.Windows.Forms.TextBox();
@@ -144,13 +140,14 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.comboPneuBand = new System.Windows.Forms.ComboBox();
             this.textCarPneuAro = new System.Windows.Forms.TextBox();
             this.textCarPneuDiaExt = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.textCarPeso = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.textPneuBand = new System.Windows.Forms.TextBox();
+            this.textCargAmortecedor = new System.Windows.Forms.TextBox();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -161,6 +158,18 @@
             this.tabCar.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // btFechar
+            // 
+            this.btFechar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btFechar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.btFechar.Location = new System.Drawing.Point(432, 601);
+            this.btFechar.Name = "btFechar";
+            this.btFechar.Size = new System.Drawing.Size(135, 51);
+            this.btFechar.TabIndex = 5;
+            this.btFechar.Text = "Fechar";
+            this.btFechar.UseVisualStyleBackColor = true;
+            this.btFechar.Click += new System.EventHandler(this.btFechar_Click);
             // 
             // toolStripContainer1
             // 
@@ -173,8 +182,7 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.labelTítulo);
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.btCancelar);
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.btIniciar);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.btFechar);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.tabControl1);
             this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1076, 652);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -183,6 +191,10 @@
             this.toolStripContainer1.Size = new System.Drawing.Size(1076, 677);
             this.toolStripContainer1.TabIndex = 0;
             this.toolStripContainer1.Text = "toolStripContainer1";
+            // 
+            // toolStripContainer1.TopToolStripPanel
+            // 
+            this.toolStripContainer1.TopToolStripPanel.Enabled = false;
             // 
             // labelTítulo
             // 
@@ -193,29 +205,6 @@
             this.labelTítulo.Size = new System.Drawing.Size(232, 26);
             this.labelTítulo.TabIndex = 11;
             this.labelTítulo.Text = "Parâmetros da Corrida";
-            // 
-            // btCancelar
-            // 
-            this.btCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.btCancelar.Location = new System.Drawing.Point(594, 601);
-            this.btCancelar.Name = "btCancelar";
-            this.btCancelar.Size = new System.Drawing.Size(135, 51);
-            this.btCancelar.TabIndex = 5;
-            this.btCancelar.Text = "Cancelar";
-            this.btCancelar.UseVisualStyleBackColor = true;
-            this.btCancelar.Click += new System.EventHandler(this.btCancelar_Click);
-            // 
-            // btIniciar
-            // 
-            this.btIniciar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.btIniciar.Location = new System.Drawing.Point(335, 601);
-            this.btIniciar.Name = "btIniciar";
-            this.btIniciar.Size = new System.Drawing.Size(135, 51);
-            this.btIniciar.TabIndex = 5;
-            this.btIniciar.Text = "Iniciar Corrida";
-            this.btIniciar.UseVisualStyleBackColor = true;
-            this.btIniciar.Click += new System.EventHandler(this.btIniciar_Click);
             // 
             // tabControl1
             // 
@@ -261,6 +250,7 @@
             this.txtPilAltura.Location = new System.Drawing.Point(73, 117);
             this.txtPilAltura.MaxLength = 4;
             this.txtPilAltura.Name = "txtPilAltura";
+            this.txtPilAltura.ReadOnly = true;
             this.txtPilAltura.Size = new System.Drawing.Size(48, 26);
             this.txtPilAltura.TabIndex = 6;
             // 
@@ -289,6 +279,7 @@
             this.txtPilPeso.Location = new System.Drawing.Point(73, 73);
             this.txtPilPeso.MaxLength = 6;
             this.txtPilPeso.Name = "txtPilPeso";
+            this.txtPilPeso.ReadOnly = true;
             this.txtPilPeso.Size = new System.Drawing.Size(48, 26);
             this.txtPilPeso.TabIndex = 3;
             // 
@@ -307,6 +298,7 @@
             this.txtPilNome.Location = new System.Drawing.Point(73, 26);
             this.txtPilNome.MaxLength = 50;
             this.txtPilNome.Name = "txtPilNome";
+            this.txtPilNome.ReadOnly = true;
             this.txtPilNome.Size = new System.Drawing.Size(160, 26);
             this.txtPilNome.TabIndex = 1;
             // 
@@ -406,7 +398,6 @@
             this.radioClimChuvoso.Tag = "C";
             this.radioClimChuvoso.Text = "Chuvoso";
             this.radioClimChuvoso.UseVisualStyleBackColor = true;
-            this.radioClimChuvoso.CheckedChanged += new System.EventHandler(this.radioClima_CheckChanged);
             // 
             // radioClimNublado
             // 
@@ -419,7 +410,6 @@
             this.radioClimNublado.Tag = "N";
             this.radioClimNublado.Text = "Nublado";
             this.radioClimNublado.UseVisualStyleBackColor = true;
-            this.radioClimNublado.CheckedChanged += new System.EventHandler(this.radioClima_CheckChanged);
             // 
             // radioClimEnsolarado
             // 
@@ -432,7 +422,6 @@
             this.radioClimEnsolarado.Tag = "E";
             this.radioClimEnsolarado.Text = "Ensolarado";
             this.radioClimEnsolarado.UseVisualStyleBackColor = true;
-            this.radioClimEnsolarado.CheckedChanged += new System.EventHandler(this.radioClima_CheckChanged);
             // 
             // label7
             // 
@@ -449,6 +438,7 @@
             this.txtClimTemp.Location = new System.Drawing.Point(126, 18);
             this.txtClimTemp.MaxLength = 2;
             this.txtClimTemp.Name = "txtClimTemp";
+            this.txtClimTemp.ReadOnly = true;
             this.txtClimTemp.Size = new System.Drawing.Size(48, 26);
             this.txtClimTemp.TabIndex = 8;
             // 
@@ -464,6 +454,7 @@
             // 
             // tabCar
             // 
+            this.tabCar.Controls.Add(this.textCargAmortecedor);
             this.tabCar.Controls.Add(this.label69);
             this.tabCar.Controls.Add(this.textAckermann);
             this.tabCar.Controls.Add(this.label70);
@@ -501,9 +492,6 @@
             this.tabCar.Controls.Add(this.label45);
             this.tabCar.Controls.Add(this.textCarRoll);
             this.tabCar.Controls.Add(this.label46);
-            this.tabCar.Controls.Add(this.label44);
-            this.tabCar.Controls.Add(this.comboCarAmort2);
-            this.tabCar.Controls.Add(this.comboCarAmort);
             this.tabCar.Controls.Add(this.label43);
             this.tabCar.Controls.Add(this.label42);
             this.tabCar.Controls.Add(this.textCarMola);
@@ -567,6 +555,7 @@
             this.textAckermann.Location = new System.Drawing.Point(589, 485);
             this.textAckermann.MaxLength = 5;
             this.textAckermann.Name = "textAckermann";
+            this.textAckermann.ReadOnly = true;
             this.textAckermann.Size = new System.Drawing.Size(55, 26);
             this.textAckermann.TabIndex = 98;
             this.textAckermann.Text = "000,0";
@@ -596,6 +585,7 @@
             this.textCaster.Location = new System.Drawing.Point(589, 448);
             this.textCaster.MaxLength = 5;
             this.textCaster.Name = "textCaster";
+            this.textCaster.ReadOnly = true;
             this.textCaster.Size = new System.Drawing.Size(55, 26);
             this.textCaster.TabIndex = 95;
             this.textCaster.Text = "000,0";
@@ -625,6 +615,7 @@
             this.textRearCamberR.Location = new System.Drawing.Point(701, 405);
             this.textRearCamberR.MaxLength = 5;
             this.textRearCamberR.Name = "textRearCamberR";
+            this.textRearCamberR.ReadOnly = true;
             this.textRearCamberR.Size = new System.Drawing.Size(55, 26);
             this.textRearCamberR.TabIndex = 92;
             this.textRearCamberR.Text = "000,0";
@@ -644,6 +635,7 @@
             this.textRearCamberL.Location = new System.Drawing.Point(591, 405);
             this.textRearCamberL.MaxLength = 5;
             this.textRearCamberL.Name = "textRearCamberL";
+            this.textRearCamberL.ReadOnly = true;
             this.textRearCamberL.Size = new System.Drawing.Size(55, 26);
             this.textRearCamberL.TabIndex = 90;
             this.textRearCamberL.Text = "000,0";
@@ -693,6 +685,7 @@
             this.textFrontCamberR.Location = new System.Drawing.Point(701, 363);
             this.textFrontCamberR.MaxLength = 5;
             this.textFrontCamberR.Name = "textFrontCamberR";
+            this.textFrontCamberR.ReadOnly = true;
             this.textFrontCamberR.Size = new System.Drawing.Size(55, 26);
             this.textFrontCamberR.TabIndex = 85;
             this.textFrontCamberR.Text = "000,0";
@@ -712,6 +705,7 @@
             this.textFrontCamberL.Location = new System.Drawing.Point(591, 363);
             this.textFrontCamberL.MaxLength = 5;
             this.textFrontCamberL.Name = "textFrontCamberL";
+            this.textFrontCamberL.ReadOnly = true;
             this.textFrontCamberL.Size = new System.Drawing.Size(55, 26);
             this.textFrontCamberL.TabIndex = 83;
             this.textFrontCamberL.Text = "000,0";
@@ -761,6 +755,7 @@
             this.textRearToeR.Location = new System.Drawing.Point(701, 312);
             this.textRearToeR.MaxLength = 5;
             this.textRearToeR.Name = "textRearToeR";
+            this.textRearToeR.ReadOnly = true;
             this.textRearToeR.Size = new System.Drawing.Size(55, 26);
             this.textRearToeR.TabIndex = 78;
             this.textRearToeR.Text = "000,0";
@@ -780,6 +775,7 @@
             this.textRearToeL.Location = new System.Drawing.Point(591, 312);
             this.textRearToeL.MaxLength = 5;
             this.textRearToeL.Name = "textRearToeL";
+            this.textRearToeL.ReadOnly = true;
             this.textRearToeL.Size = new System.Drawing.Size(55, 26);
             this.textRearToeL.TabIndex = 76;
             this.textRearToeL.Text = "000,0";
@@ -829,6 +825,7 @@
             this.textFrontToeR.Location = new System.Drawing.Point(701, 270);
             this.textFrontToeR.MaxLength = 5;
             this.textFrontToeR.Name = "textFrontToeR";
+            this.textFrontToeR.ReadOnly = true;
             this.textFrontToeR.Size = new System.Drawing.Size(55, 26);
             this.textFrontToeR.TabIndex = 71;
             this.textFrontToeR.Text = "000,0";
@@ -848,6 +845,7 @@
             this.textFrontToeL.Location = new System.Drawing.Point(591, 270);
             this.textFrontToeL.MaxLength = 5;
             this.textFrontToeL.Name = "textFrontToeL";
+            this.textFrontToeL.ReadOnly = true;
             this.textFrontToeL.Size = new System.Drawing.Size(55, 26);
             this.textFrontToeL.TabIndex = 69;
             this.textFrontToeL.Text = "000,0";
@@ -897,6 +895,7 @@
             this.textCarRoll.Location = new System.Drawing.Point(591, 227);
             this.textCarRoll.MaxLength = 4;
             this.textCarRoll.Name = "textCarRoll";
+            this.textCarRoll.ReadOnly = true;
             this.textCarRoll.Size = new System.Drawing.Size(55, 26);
             this.textCarRoll.TabIndex = 60;
             this.textCarRoll.Text = "0000";
@@ -910,45 +909,6 @@
             this.label46.Size = new System.Drawing.Size(90, 20);
             this.label46.TabIndex = 59;
             this.label46.Text = "Rollcenter:";
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.label44.Location = new System.Drawing.Point(698, 190);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(19, 20);
-            this.label44.TabIndex = 58;
-            this.label44.Text = "T";
-            // 
-            // comboCarAmort2
-            // 
-            this.comboCarAmort2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboCarAmort2.FormattingEnabled = true;
-            this.comboCarAmort2.Items.AddRange(new object[] {
-            "",
-            "½"});
-            this.comboCarAmort2.Location = new System.Drawing.Point(729, 182);
-            this.comboCarAmort2.MaxDropDownItems = 2;
-            this.comboCarAmort2.MaxLength = 2;
-            this.comboCarAmort2.Name = "comboCarAmort2";
-            this.comboCarAmort2.Size = new System.Drawing.Size(43, 28);
-            this.comboCarAmort2.TabIndex = 57;
-            // 
-            // comboCarAmort
-            // 
-            this.comboCarAmort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboCarAmort.FormattingEnabled = true;
-            this.comboCarAmort.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "5",
-            "9"});
-            this.comboCarAmort.Location = new System.Drawing.Point(647, 182);
-            this.comboCarAmort.MaxLength = 2;
-            this.comboCarAmort.Name = "comboCarAmort";
-            this.comboCarAmort.Size = new System.Drawing.Size(43, 28);
-            this.comboCarAmort.TabIndex = 56;
             // 
             // label43
             // 
@@ -975,6 +935,7 @@
             this.textCarMola.Location = new System.Drawing.Point(597, 144);
             this.textCarMola.MaxLength = 2;
             this.textCarMola.Name = "textCarMola";
+            this.textCarMola.ReadOnly = true;
             this.textCarMola.Size = new System.Drawing.Size(30, 26);
             this.textCarMola.TabIndex = 53;
             this.textCarMola.Text = "00";
@@ -1004,6 +965,7 @@
             this.textCarAntiSquat.Location = new System.Drawing.Point(553, 101);
             this.textCarAntiSquat.MaxLength = 5;
             this.textCarAntiSquat.Name = "textCarAntiSquat";
+            this.textCarAntiSquat.ReadOnly = true;
             this.textCarAntiSquat.Size = new System.Drawing.Size(55, 26);
             this.textCarAntiSquat.TabIndex = 50;
             this.textCarAntiSquat.Text = "000,0";
@@ -1033,6 +995,7 @@
             this.textCarAntiDive.Location = new System.Drawing.Point(553, 63);
             this.textCarAntiDive.MaxLength = 5;
             this.textCarAntiDive.Name = "textCarAntiDive";
+            this.textCarAntiDive.ReadOnly = true;
             this.textCarAntiDive.Size = new System.Drawing.Size(55, 26);
             this.textCarAntiDive.TabIndex = 47;
             this.textCarAntiDive.Text = "000,0";
@@ -1072,6 +1035,7 @@
             this.textCarVaoR.Location = new System.Drawing.Point(270, 482);
             this.textCarVaoR.MaxLength = 4;
             this.textCarVaoR.Name = "textCarVaoR";
+            this.textCarVaoR.ReadOnly = true;
             this.textCarVaoR.Size = new System.Drawing.Size(55, 26);
             this.textCarVaoR.TabIndex = 43;
             this.textCarVaoR.Text = "0000";
@@ -1091,6 +1055,7 @@
             this.textCarVaoF.Location = new System.Drawing.Point(145, 482);
             this.textCarVaoF.MaxLength = 4;
             this.textCarVaoF.Name = "textCarVaoF";
+            this.textCarVaoF.ReadOnly = true;
             this.textCarVaoF.Size = new System.Drawing.Size(55, 26);
             this.textCarVaoF.TabIndex = 41;
             this.textCarVaoF.Text = "0000";
@@ -1130,6 +1095,7 @@
             this.textCarAlt.Location = new System.Drawing.Point(270, 443);
             this.textCarAlt.MaxLength = 4;
             this.textCarAlt.Name = "textCarAlt";
+            this.textCarAlt.ReadOnly = true;
             this.textCarAlt.Size = new System.Drawing.Size(55, 26);
             this.textCarAlt.TabIndex = 37;
             this.textCarAlt.Text = "0000";
@@ -1159,6 +1125,7 @@
             this.textCarLarg.Location = new System.Drawing.Point(270, 404);
             this.textCarLarg.MaxLength = 4;
             this.textCarLarg.Name = "textCarLarg";
+            this.textCarLarg.ReadOnly = true;
             this.textCarLarg.Size = new System.Drawing.Size(55, 26);
             this.textCarLarg.TabIndex = 34;
             this.textCarLarg.Text = "0000";
@@ -1188,6 +1155,7 @@
             this.textCarComp.Location = new System.Drawing.Point(270, 369);
             this.textCarComp.MaxLength = 4;
             this.textCarComp.Name = "textCarComp";
+            this.textCarComp.ReadOnly = true;
             this.textCarComp.Size = new System.Drawing.Size(55, 26);
             this.textCarComp.TabIndex = 31;
             this.textCarComp.Text = "0000";
@@ -1227,6 +1195,7 @@
             this.textCarBitR.Location = new System.Drawing.Point(272, 329);
             this.textCarBitR.MaxLength = 4;
             this.textCarBitR.Name = "textCarBitR";
+            this.textCarBitR.ReadOnly = true;
             this.textCarBitR.Size = new System.Drawing.Size(55, 26);
             this.textCarBitR.TabIndex = 27;
             this.textCarBitR.Text = "0000";
@@ -1246,6 +1215,7 @@
             this.textCarBitF.Location = new System.Drawing.Point(145, 329);
             this.textCarBitF.MaxLength = 4;
             this.textCarBitF.Name = "textCarBitF";
+            this.textCarBitF.ReadOnly = true;
             this.textCarBitF.Size = new System.Drawing.Size(55, 26);
             this.textCarBitF.TabIndex = 25;
             this.textCarBitF.Text = "0000";
@@ -1285,6 +1255,7 @@
             this.textCarDistEixo.Location = new System.Drawing.Point(272, 287);
             this.textCarDistEixo.MaxLength = 4;
             this.textCarDistEixo.Name = "textCarDistEixo";
+            this.textCarDistEixo.ReadOnly = true;
             this.textCarDistEixo.Size = new System.Drawing.Size(55, 26);
             this.textCarDistEixo.TabIndex = 21;
             this.textCarDistEixo.Text = "0000";
@@ -1301,6 +1272,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textPneuBand);
             this.groupBox2.Controls.Add(this.textCarPneuTipo);
             this.groupBox2.Controls.Add(this.textCarPneuMarca);
             this.groupBox2.Controls.Add(this.label10);
@@ -1312,7 +1284,6 @@
             this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.comboPneuBand);
             this.groupBox2.Controls.Add(this.textCarPneuAro);
             this.groupBox2.Controls.Add(this.textCarPneuDiaExt);
             this.groupBox2.Controls.Add(this.label11);
@@ -1328,6 +1299,7 @@
             this.textCarPneuTipo.Location = new System.Drawing.Point(267, 161);
             this.textCarPneuTipo.MaxLength = 2;
             this.textCarPneuTipo.Name = "textCarPneuTipo";
+            this.textCarPneuTipo.ReadOnly = true;
             this.textCarPneuTipo.Size = new System.Drawing.Size(43, 26);
             this.textCarPneuTipo.TabIndex = 25;
             this.textCarPneuTipo.Text = "00";
@@ -1337,6 +1309,7 @@
             this.textCarPneuMarca.Location = new System.Drawing.Point(80, 161);
             this.textCarPneuMarca.MaxLength = 15;
             this.textCarPneuMarca.Name = "textCarPneuMarca";
+            this.textCarPneuMarca.ReadOnly = true;
             this.textCarPneuMarca.Size = new System.Drawing.Size(166, 26);
             this.textCarPneuMarca.TabIndex = 24;
             this.textCarPneuMarca.Text = "marca";
@@ -1366,6 +1339,7 @@
             this.textCarPneuPressao.Location = new System.Drawing.Point(172, 129);
             this.textCarPneuPressao.MaxLength = 4;
             this.textCarPneuPressao.Name = "textCarPneuPressao";
+            this.textCarPneuPressao.ReadOnly = true;
             this.textCarPneuPressao.Size = new System.Drawing.Size(55, 26);
             this.textCarPneuPressao.TabIndex = 21;
             this.textCarPneuPressao.Text = "00,0";
@@ -1430,26 +1404,12 @@
             this.label12.TabIndex = 14;
             this.label12.Text = "Raio do Aro:";
             // 
-            // comboPneuBand
-            // 
-            this.comboPneuBand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboPneuBand.FormattingEnabled = true;
-            this.comboPneuBand.Items.AddRange(new object[] {
-            "8",
-            "9",
-            "10"});
-            this.comboPneuBand.Location = new System.Drawing.Point(175, 89);
-            this.comboPneuBand.MaxDropDownItems = 3;
-            this.comboPneuBand.MaxLength = 2;
-            this.comboPneuBand.Name = "comboPneuBand";
-            this.comboPneuBand.Size = new System.Drawing.Size(43, 28);
-            this.comboPneuBand.TabIndex = 13;
-            // 
             // textCarPneuAro
             // 
             this.textCarPneuAro.Location = new System.Drawing.Point(175, 57);
             this.textCarPneuAro.MaxLength = 2;
             this.textCarPneuAro.Name = "textCarPneuAro";
+            this.textCarPneuAro.ReadOnly = true;
             this.textCarPneuAro.Size = new System.Drawing.Size(43, 26);
             this.textCarPneuAro.TabIndex = 12;
             this.textCarPneuAro.Text = "00";
@@ -1459,6 +1419,7 @@
             this.textCarPneuDiaExt.Location = new System.Drawing.Point(175, 25);
             this.textCarPneuDiaExt.MaxLength = 2;
             this.textCarPneuDiaExt.Name = "textCarPneuDiaExt";
+            this.textCarPneuDiaExt.ReadOnly = true;
             this.textCarPneuDiaExt.Size = new System.Drawing.Size(43, 26);
             this.textCarPneuDiaExt.TabIndex = 11;
             this.textCarPneuDiaExt.Text = "00";
@@ -1488,6 +1449,7 @@
             this.textCarPeso.Location = new System.Drawing.Point(145, 20);
             this.textCarPeso.MaxLength = 6;
             this.textCarPeso.Name = "textCarPeso";
+            this.textCarPeso.ReadOnly = true;
             this.textCarPeso.Size = new System.Drawing.Size(48, 26);
             this.textCarPeso.TabIndex = 6;
             // 
@@ -1501,16 +1463,35 @@
             this.label9.TabIndex = 5;
             this.label9.Text = "Massa do Carro";
             // 
-            // GravarCorridaSetup
+            // textPneuBand
             // 
-            this.AcceptButton = this.btIniciar;
+            this.textPneuBand.Location = new System.Drawing.Point(175, 94);
+            this.textPneuBand.MaxLength = 2;
+            this.textPneuBand.Name = "textPneuBand";
+            this.textPneuBand.ReadOnly = true;
+            this.textPneuBand.Size = new System.Drawing.Size(43, 26);
+            this.textPneuBand.TabIndex = 26;
+            this.textPneuBand.Text = "00";
+            // 
+            // textCargAmortecedor
+            // 
+            this.textCargAmortecedor.Location = new System.Drawing.Point(653, 184);
+            this.textCargAmortecedor.MaxLength = 4;
+            this.textCargAmortecedor.Name = "textCargAmortecedor";
+            this.textCargAmortecedor.ReadOnly = true;
+            this.textCargAmortecedor.Size = new System.Drawing.Size(80, 26);
+            this.textCargAmortecedor.TabIndex = 100;
+            this.textCargAmortecedor.Text = "00";
+            // 
+            // AnalisarCorridaSetup
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.btCancelar;
+            this.CancelButton = this.btFechar;
             this.ClientSize = new System.Drawing.Size(1076, 677);
             this.Controls.Add(this.toolStripContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "GravarCorridaSetup";
+            this.Name = "AnalisarCorridaSetup";
             this.Text = "Setup - TeleBaja UEA";
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.ContentPanel.PerformLayout();
@@ -1540,8 +1521,7 @@
         private System.Windows.Forms.TabPage tabCar;
         private System.Windows.Forms.TabPage tabWeather;
         private System.Windows.Forms.TabPage tabDriver;
-        private System.Windows.Forms.Button btIniciar;
-        private System.Windows.Forms.Button btCancelar;
+        private System.Windows.Forms.Button btFechar;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtPilAltura;
         private System.Windows.Forms.Label label5;
@@ -1567,7 +1547,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox comboPneuBand;
         private System.Windows.Forms.TextBox textCarPneuAro;
         private System.Windows.Forms.TextBox textCarPneuDiaExt;
         private System.Windows.Forms.Label label11;
@@ -1610,9 +1589,6 @@
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.TextBox textCarMola;
         private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.Label label44;
-        private System.Windows.Forms.ComboBox comboCarAmort2;
-        private System.Windows.Forms.ComboBox comboCarAmort;
         private System.Windows.Forms.Label label45;
         private System.Windows.Forms.TextBox textCarRoll;
         private System.Windows.Forms.Label label46;
@@ -1657,5 +1633,7 @@
         private System.Windows.Forms.TextBox textCarPneuPressao;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label labelTítulo;
+        private System.Windows.Forms.TextBox textPneuBand;
+        private System.Windows.Forms.TextBox textCargAmortecedor;
     }
 }

@@ -93,6 +93,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ClassesAuxiliares\WindowsFormsInvokingExtensions.cs" />
+    <Compile Include="AnalisarCorridaSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnalisarCorridaSetup.Designer.cs">
+      <DependentUpon>AnalisarCorridaSetup.cs</DependentUpon>
+    </Compile>
     <Compile Include="RaceDataStructs\FileSensorsData.cs" />
     <Compile Include="RaceDataStructs\RaceData.cs" />
     <Compile Include="RaceDataStructs\RaceParameters.cs" />
@@ -153,6 +159,9 @@
     </Compile>
     <EmbeddedResource Include="AnalisarCorrida.resx">
       <DependentUpon>AnalisarCorrida.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnalisarCorridaSetup.resx">
+      <DependentUpon>AnalisarCorridaSetup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="JanelasSecundarias\Configurações.resx">
       <DependentUpon>Configurações.cs</DependentUpon>

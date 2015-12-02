@@ -118,7 +118,7 @@ namespace TeleBajaUEA
 
             parameters.rodaDiamExterno = int.Parse(textCarPneuDiaExt.Text);
             parameters.rodaRaioAro = int.Parse(textCarPneuAro.Text);
-            parameters.rodaBandagem = int.Parse(comboPneuBand.SelectedText);
+            parameters.rodaBandagem = int.Parse(comboPneuBand.SelectedItem.ToString());
             parameters.pneuPressao = float.Parse(textCarPneuPressao.Text);
             parameters.pneuMarca = textCarPneuMarca.Text;
             parameters.pneuTipo = int.Parse(textCarPneuTipo.Text);
@@ -130,8 +130,8 @@ namespace TeleBajaUEA
             parameters.antiDive = float.Parse(textCarAntiDive.Text);
             parameters.antiSquat = float.Parse(textCarAntiSquat.Text);
             parameters.cteMola = int.Parse(textCarMola.Text);
-            parameters.preCargaAmort1 = int.Parse(comboCarAmort.Text);
-            if (comboCarAmort2.Text == "")
+            parameters.preCargaAmort1 = int.Parse(comboCarAmort.SelectedItem.ToString());
+            if (comboCarAmort2.SelectedItem.ToString() == "")
                 parameters.preCargaAmortMeio = false;
             else
                 parameters.preCargaAmortMeio = true;

@@ -123,5 +123,11 @@ namespace TeleBajaUEA
                 btPlus.Enabled = true;
             }
         }
+
+        private void btVerSetup_Click(object sender, EventArgs e)
+        {
+            AnalisarCorridaSetup formSetup = new AnalisarCorridaSetup(raceData.Parameters);
+            formSetup.Show();
+        }
     }
 }
