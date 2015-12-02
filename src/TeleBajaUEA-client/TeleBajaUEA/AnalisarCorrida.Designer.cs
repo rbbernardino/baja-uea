@@ -98,12 +98,15 @@
             this.chartsNew.Name = "chartsNew";
             series1.ChartArea = "Speed";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series1.Legend = "Legend1";
             series1.Name = "Speed";
             series2.ChartArea = "RPM";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series2.Legend = "Legend1";
             series2.Name = "RPM";
             series3.ChartArea = "Brake";
             series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series3.Legend = "Legend1";
             series3.Name = "Brake";
             this.chartsNew.Series.Add(series1);
             this.chartsNew.Series.Add(series2);

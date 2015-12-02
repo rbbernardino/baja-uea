@@ -24,24 +24,52 @@ namespace TeleBajaUEA
 
             raceData = pRaceData;
 
+            AddDataToCharts();
+
+            // ativa ou desativa botões para permitir "andar" para  dir/esq
+            UpdateButtonsState();
+        }
+
+        private void AddDataToCharts()
+        {
             // popula gráfico com os pontos
             double brakePosition;
+            double maxSpeed = 0, avgSpeed = 0, minSpeed = 999;
+
+            int i = 0;
+            double t;
+
             foreach (FileSensorsData pointData in raceData.DataList)
             {
-                chartsNew.Series["Speed"].Points.AddXY(pointData.xValue, pointData.speed);
+                t = pointData.speed + i++;
+                if (t > SPEED_MAXIMUM-5) t = SPEED_MAXIMUM-5;
+                // Velocidade
+                chartsNew.Series["Speed"].Points.AddXY(pointData.xValue, t);//pointData.speed);
 
+                // Velocidade max, media e min
+                //if (pointData.speed > maxSpeed) maxSpeed = pointData.speed;
+                //if (pointData.speed < minSpeed) minSpeed = pointData.speed;
+                //avgSpeed += pointData.speed / raceData.DataList.Count;
+                if (t > maxSpeed)
+                    maxSpeed = t;
+                if (t < minSpeed) minSpeed = t;
+                avgSpeed += t / raceData.DataList.Count;
+
+                // RPM
                 chartsNew.Series["RPM"].Points.AddXY(pointData.xValue, pointData.rpm);
 
+                // Freio
                 if (pointData.breakState)
                     brakePosition = (BRAKE_MAXIMUM / 2) + (BRAKE_MAXIMUM / 4);
                 else
                     brakePosition = (BRAKE_MAXIMUM / 2) - (BRAKE_MAXIMUM / 4);
 
                 chartsNew.Series["Brake"].Points.AddXY(pointData.xValue, brakePosition);
+
             }
 
-            // ativa ou desativa botões para permitir "andar" para  dir/esq
-            UpdateButtonsState();
+            // seta a velocidade max/media/min
+            CreateStripLines(maxSpeed, avgSpeed, minSpeed);
         }
 
         private void button1_Click(object sender, EventArgs e)

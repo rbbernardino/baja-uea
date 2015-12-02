@@ -51,6 +51,11 @@ namespace TeleBajaUEA
         private readonly Color RPM_COLOR = Color.Yellow;
         private readonly Color BRAKE_COLOR = Color.Green;
 
+        private readonly double AUX_SPEED_LINE_WIDTH = 1;
+        private readonly Color AVG_SPEED_COLOR = Color.Orange;
+        private readonly Color MAX_SPEED_COLOR = Color.Blue;
+        private readonly Color MIN_SPEED_COLOR = Color.BlueViolet;
+
         // ------------------ Variáveis de controle interno ----------------//
         private long minX;
         private long maxX;
@@ -58,31 +63,54 @@ namespace TeleBajaUEA
         /// <summary>
         /// Encapsula configuração dos gráficos
         /// </summary>
-        public async Task ConfigureCharts()
+        public void ConfigureCharts()
         {
-            await Task.Run(() =>
-            {
-                minX = (long) X_AXIS_MINIMUM;
-                maxX = (long) X_AXIS_MAXIMUM;
+            minX = (long) X_AXIS_MINIMUM;
+            maxX = (long) X_AXIS_MAXIMUM;
 
-                // configura fundo e linhas de apoio dos gráficos
-                foreach (ChartArea chartArea in chartsNew.ChartAreas)
-                    SetChartsShared(chartArea);
+            // configura fundo e linhas de apoio dos gráficos
+            foreach (ChartArea chartArea in chartsNew.ChartAreas)
+                SetChartsShared(chartArea);
 
-                // configura linhas dos gráficos
-                SetSeriesStyle();
+            // configura linhas dos gráficos
+            SetSeriesStyle();
 
-                // define labels do eixo X iniciais
-                UpdateXLabels();
+            // define labels do eixo X iniciais
+            UpdateXLabels();
 
-                // define os valores e intervalos do eixo Y
-                SetYAxisValues();
+            // define os valores e intervalos do eixo Y
+            SetYAxisValues();
                 
-                // define labels de título do eixo Y
-                SetYAxisTitle("Speed", SPEED_MINIMUM, SPEED_MAXIMUM, "Velocidade");
-                SetYAxisTitle("RPM",   RPM_MINIMUM,   RPM_MAXIMUM,   "RPM");
-                SetYAxisTitle("Brake", BRAKE_MINIMUM, BRAKE_MAXIMUM, "Freio");
-            });
+            // define labels de título do eixo Y
+            SetYAxisTitle("Speed", SPEED_MINIMUM, SPEED_MAXIMUM, "Velocidade");
+            SetYAxisTitle("RPM",   RPM_MINIMUM,   RPM_MAXIMUM,   "RPM");
+            SetYAxisTitle("Brake", BRAKE_MINIMUM, BRAKE_MAXIMUM, "Freio");
+        }
+
+        // essa função é chamada no analisar corrida ao inserir os pontos
+        private void CreateStripLines(double pMaxSpeed, double pAvgSpeed, double pMinSpeed)
+        {
+            StripLine maxSpeedLine = new StripLine();
+            StripLine avgSpeedLine = new StripLine();
+            StripLine minSpeedLine = new StripLine();
+
+            maxSpeedLine.Interval = avgSpeedLine.Interval = minSpeedLine.Interval = 0;
+            maxSpeedLine.StripWidth = avgSpeedLine.StripWidth = minSpeedLine.StripWidth = AUX_SPEED_LINE_WIDTH;
+
+            maxSpeedLine.BackColor = MAX_SPEED_COLOR;
+            avgSpeedLine.BackColor = AVG_SPEED_COLOR;
+            minSpeedLine.BackColor = MIN_SPEED_COLOR;
+
+            // IntervalOffset é o valor das velocidades max, min e média, que serão setados em AnalisarCorrida
+            maxSpeedLine.IntervalOffset = pMaxSpeed;
+            avgSpeedLine.IntervalOffset = pAvgSpeed;
+            minSpeedLine.IntervalOffset = pMinSpeed;
+
+            chartsNew.ChartAreas["Speed"].AxisY.StripLines.Add(maxSpeedLine);
+            chartsNew.ChartAreas["Speed"].AxisY.StripLines.Add(avgSpeedLine);
+            chartsNew.ChartAreas["Speed"].AxisY.StripLines.Add(minSpeedLine);
+
+            chartsNew.Update();
         }
 
         private void SetSeriesStyle()
