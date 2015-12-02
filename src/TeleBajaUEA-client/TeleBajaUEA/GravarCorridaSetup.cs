@@ -13,11 +13,39 @@ namespace TeleBajaUEA
 {
     public partial class GravarCorridaSetup : FormPrincipal
     {
-        private RaceParameters parameters;
+        private RaceParameters parameters = new RaceParameters();
+        private char radioClima;
+        private char radioPista;
 
         public GravarCorridaSetup()
         {
             InitializeComponent();
+            SetTags();
+        }
+
+        private void SetTags()
+        {
+            radioClimChuvoso.Tag = 'C';
+            radioClimEnsolarado.Tag = 'E';
+            radioClimNublado.Tag = 'N';
+
+            radioPistaMolhada.Tag = 'M';
+            radioPistaSeca.Tag = 'S';
+            radioPistaParcMolhada.Tag = 'P';
+        }
+
+        private void radioClima_CheckChanged(object sender, EventArgs e)
+        {
+            RadioButton button = sender as RadioButton;
+            if (button.Checked)
+                radioClima = (char) button.Tag;
+        }
+
+        private void radioPista_CheckChanged(object sender, EventArgs e)
+        {
+            RadioButton button = sender as RadioButton;
+            if (button.Checked)
+                radioPista = (char)button.Tag;
         }
 
         private void btCancelar_Click(object sender, EventArgs e)
@@ -28,6 +56,7 @@ namespace TeleBajaUEA
 
         private async void btIniciar_Click(object sender, EventArgs e)
         {
+            BindParameters();
             Hide();
             await ShowGravarCorrida();
             CloseOnlyThis();
@@ -72,6 +101,47 @@ namespace TeleBajaUEA
             //formGravarCorrida.formTesteMQSQ.Location = new Point(parentLoc.X-100, parentLoc.Y);
             //formGravarCorrida.formTesteMQSQ.Show();
             //--------------------------------------------------------------//
+        }
+
+        private void BindParameters()
+        {
+            parameters.pilNome = txtPilNome.Text;
+            parameters.pilPeso = float.Parse(txtPilPeso.Text);
+            parameters.pilAltura = float.Parse(txtPilAltura.Text);
+
+            parameters.climaTemp = int.Parse(txtClimTemp.Text);
+
+            parameters.carPeso = float.Parse(textCarPeso.Text);
+            parameters.compTotal = int.Parse(textCarComp.Text);
+            parameters.altTotal = int.Parse(textCarAlt.Text);
+            parameters.largTotal = int.Parse(textCarAlt.Text);
+
+            parameters.rodaDiamExterno = int.Parse(textCarPneuDiaExt.Text);
+            parameters.rodaRaioAro = int.Parse(textCarPneuAro.Text);
+            parameters.rodaBandagem = int.Parse(comboPneuBand.SelectedText);
+            parameters.pneuPressao = float.Parse(textCarPneuPressao.Text);
+            parameters.pneuMarca = textCarPneuMarca.Text;
+            parameters.pneuTipo = int.Parse(textCarPneuTipo.Text);
+            parameters.distEixo = int.Parse(textCarDistEixo.Text);
+            parameters.bitolaF = int.Parse(textCarBitF.Text);
+            parameters.bitolaR = int.Parse(textCarBitR.Text);
+            parameters.vaoLivreF = int.Parse(textCarVaoF.Text);
+            parameters.vaoLivreR = int.Parse(textCarVaoR.Text);
+            parameters.antiDive = float.Parse(textCarAntiDive.Text);
+            parameters.antiSquat = float.Parse(textCarAntiSquat.Text);
+            parameters.cteMola = int.Parse(textCarMola.Text);
+            parameters.preCargaAmort1 = int.Parse(comboCarAmort.Text);
+            if (comboCarAmort2.Text == "")
+                parameters.preCargaAmortMeio = false;
+            else
+                parameters.preCargaAmortMeio = true;
+            parameters.rollcenter = int.Parse(textCarRoll.Text);
+            parameters.frontToeL = float.Parse(textFrontToeL.Text);
+            parameters.frontToeR = float.Parse(textFrontToeR.Text);
+            parameters.rearToeL = float.Parse(textRearToeL.Text);
+            parameters.rearToeR = float.Parse(textRearToeR.Text);
+            parameters.caster = float.Parse(textCaster.Text);
+            parameters.ackermann = float.Parse(textAckermann.Text);
         }
     }
 }
