@@ -11,34 +11,20 @@ using TeleBajaUEA.RaceDataStructs;
 
 namespace TeleBajaUEA
 {
-    public partial class AnalisarCorridaSetup : FormPrincipal
+    public partial class AnalisarCorridaSetup : Form
     {
         private RaceParameters parameters = new RaceParameters();
-        private char radioClima;
-        private char radioPista;
 
         public AnalisarCorridaSetup(RaceParameters pParameters)
         {
             InitializeComponent();
             parameters = pParameters;
-            SetTags();
             SetParameters();
-        }
-
-        private void SetTags()
-        {
-            radioClimChuvoso.Tag = 'C';
-            radioClimEnsolarado.Tag = 'E';
-            radioClimNublado.Tag = 'N';
-
-            radioPistaMolhada.Tag = 'M';
-            radioPistaSeca.Tag = 'S';
-            radioPistaParcMolhada.Tag = 'P';
         }
 
         private void btFechar_Click(object sender, EventArgs e)
         {
-            CloseOnlyThis();
+            Close();
         }
 
         private void SetParameters()
@@ -48,6 +34,32 @@ namespace TeleBajaUEA
             txtPilAltura.Text = parameters.pilAltura.ToString();
 
             txtClimTemp.Text = parameters.climaTemp.ToString();
+
+            switch (parameters.clima)
+            {
+                case 'C':
+                    textClima.Text = "Chuvoso";
+                    break;
+                case 'E':
+                    textClima.Text = "Ensolarado";
+                    break;
+                case 'N':
+                    textClima.Text = "Nublado";
+                    break;
+            }
+
+            switch (parameters.pista)
+            {
+                case 'M':
+                    textPista.Text = "Molhada";
+                    break;
+                case 'S':
+                    textPista.Text = "Seca";
+                    break;
+                case 'P':
+                    textPista.Text = "Parcialmente molhada";
+                    break;
+            }
 
             textCarPeso.Text = parameters.carPeso.ToString();
             textCarComp.Text = parameters.compTotal.ToString();

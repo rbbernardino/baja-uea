@@ -110,6 +110,8 @@ namespace TeleBajaUEA
             parameters.pilAltura = float.Parse(txtPilAltura.Text);
 
             parameters.climaTemp = int.Parse(txtClimTemp.Text);
+            parameters.pista = radioPista;
+            parameters.clima = radioClima;
 
             parameters.carPeso = float.Parse(textCarPeso.Text);
             parameters.compTotal = int.Parse(textCarComp.Text);
@@ -131,7 +133,7 @@ namespace TeleBajaUEA
             parameters.antiSquat = float.Parse(textCarAntiSquat.Text);
             parameters.cteMola = int.Parse(textCarMola.Text);
             parameters.preCargaAmort1 = int.Parse(comboCarAmort.SelectedItem.ToString());
-            if (comboCarAmort2.SelectedItem.ToString() == "")
+            if (comboCarAmort2.SelectedItem.ToString() == "") // TODO tratar quando usuário não selecionar nada aqui
                 parameters.preCargaAmortMeio = false;
             else
                 parameters.preCargaAmortMeio = true;

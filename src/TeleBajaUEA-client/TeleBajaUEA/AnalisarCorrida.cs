@@ -128,6 +128,13 @@ namespace TeleBajaUEA
         {
             AnalisarCorridaSetup formSetup = new AnalisarCorridaSetup(raceData.Parameters);
             formSetup.Show();
+            formSetup.FormClosed += FormSetup_FormClosed;
+            btVerSetup.Enabled = false;
+        }
+
+        private void FormSetup_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            btVerSetup.Enabled = true;
         }
     }
 }
