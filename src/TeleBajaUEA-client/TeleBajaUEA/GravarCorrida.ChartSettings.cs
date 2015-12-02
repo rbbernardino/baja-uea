@@ -22,14 +22,14 @@ namespace TeleBajaUEA
         //     máximo como múltiplo de 30    (60, 90, 120...)
         //     intervalo como múltiplo de 10 (10, 20, 30...)
         private readonly double X_AXIS_MINIMUM = 0;
-        private readonly double X_AXIS_MAXIMUM = 10 *1000; // 300 = 5min
+        private readonly double X_AXIS_MAXIMUM = 300 *1000; // 300 = 5min
 
-        private readonly double X_AXIS_INTERVAL = 2 *1000;
-        private readonly double X_AXIS_GRID_INTERVAL = 2 *1000;
+        private readonly double X_AXIS_INTERVAL = 60 *1000;
+        private readonly double X_AXIS_GRID_INTERVAL = 60 *1000;
 
         // define quantos pontos mover para a direita quando pontos plotados
         // atingirem o limite de plotagem (na direita)
-        private readonly double UPDATE_LIMITS_INTERVAL = 10 *1000; // 300 = 5min
+        private readonly double UPDATE_LIMITS_INTERVAL = 300 *1000; // 300 = 5min
 
         // -------------------- Configurações do eixo Y ---------------------//
         private readonly double Y_AXIS_MINIMUM = 0;
