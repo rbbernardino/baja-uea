@@ -10,6 +10,10 @@ namespace TeleBajaUEA
     // Configuração de gráficos na na partial class ChartSettings
     public partial class GravarCorrida : FormPrincipal
     {
+        // flag usada para, ao clicar em "encerrar e salvar", alertar o evento
+        // form_closing de que já foi salvo
+        private bool closeWithoutConfirmation = false;
+
         private Timer timerCheckIncomeData;
         private List<FileSensorsData> dataList;
         private RaceParameters parameters;
@@ -148,15 +152,26 @@ namespace TeleBajaUEA
 
         private void GravarCorrida_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Stop timer
-            timerCheckIncomeData.Stop();
-            timerCheckIncomeData.Tick -= new EventHandler(TickCheckIncomeData);
+            if (!closeWithoutConfirmation)
+            {
+                var result = MessageBox.Show(
+                    "Tem certeza que deseja sair sem salvar?", // mensagem da janela
+                    "Sair", // titulo da janela
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2);
 
-            // Encerra conexões
-            CarConnection.CloseConnection();
+                e.Cancel = (result == DialogResult.No);
 
-            //---------- temporário para teste ---------------------- //
-            //formTesteMQSQ.Close();
+                if (result == DialogResult.Yes)
+                {
+                    // Interrompe recebimento de dados
+                    StopReceiveData();
+
+                    //---------- temporário para teste ---------------------- //
+                    //formTesteMQSQ.Close();
+                }
+            }
         }
 
         private void GravarCorrida_FormClosed(object sender, FormClosedEventArgs e)
@@ -167,19 +182,74 @@ namespace TeleBajaUEA
 
         private async void btEncerrar_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveDialog = new SaveFileDialog();
-            saveDialog.Filter = "Arquivos TeleBajaUEA (*.tbu)|*.tbu|Todos os Arquivos (*.*)|*.*";
-            saveDialog.FilterIndex = 1;
-            saveDialog.RestoreDirectory = true;
+            // Exibe mensagem confirmando se deseja encerrar a gravação de corrida
+            var confirmaEncerrar = MessageBox.Show(
+                "Tem certeza que deseja Encerrar Corrida?", // mensagem da janela
+                "Encerrar Corrida", // titulo da janela
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button2);
 
-            if(saveDialog.ShowDialog() == DialogResult.OK)
+            if (confirmaEncerrar == DialogResult.Yes)
             {
-                // TODO verificar real necessidade de ser async...
-                await RaceFile.SaveToFile(saveDialog.FileName, new RaceData(dataList, parameters));
-            }
+                // Interrompe recebimento de dados
+                StopReceiveData();
 
-            CloseOnlyThis();
-            Program.ShowMenuPrincipal();
+                // Desativa janela de Gravar para exibir confirmacao + salvamento
+                Enabled = false;
+
+                // Prepara janela para salvar dados em disco (arquivo .tbu)
+                SaveFileDialog saveDialog = new SaveFileDialog();
+                saveDialog.Filter = "Arquivos TeleBajaUEA (*.tbu)|*.tbu|Todos os Arquivos (*.*)|*.*";
+                saveDialog.FilterIndex = 1;
+                saveDialog.RestoreDirectory = true;
+
+                // Loop para re-exibir confirmação de "sair sem salvar" caso o usuário
+                // clique en "Cancelar" na janela de salvamento
+                bool canContinue = false;
+                while (!canContinue)
+                {
+                    switch (saveDialog.ShowDialog())
+                    {
+                        // escreveu nome do arquivo e optou por salvar (OK)
+                        case DialogResult.OK:
+                            // TODO verificar real necessidade de ser async...
+                            await RaceFile.SaveToFile(saveDialog.FileName, new RaceData(dataList, parameters));
+                            closeWithoutConfirmation = true;
+                            CloseOnlyThis();
+                            Program.ShowMenuPrincipal();
+                            canContinue = true;
+                            break;
+
+                        // cancelou salvamento
+                        case DialogResult.Cancel:
+                            // Exibe mensagem confirmando se deseja encerrar a gravação de corrida
+                            var confirmaNaoSalvar = MessageBox.Show(
+                                "Tem certeza que deseja encerrar sem salvar?", // mensagem da janela
+                                "Encerrar Corrida", // titulo da janela
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Question,
+                                MessageBoxDefaultButton.Button2);
+
+                            if(confirmaNaoSalvar == DialogResult.Yes)
+                            {
+                                closeWithoutConfirmation = true;
+                                CloseOnlyThis();
+                                Program.ShowMenuPrincipal();
+                                canContinue = true;
+                            }// else continua no while...
+                            break;
+                    }
+                }
+            }
+        }
+
+        private void StopReceiveData()
+        {
+            timerCheckIncomeData.Stop();
+            timerCheckIncomeData.Tick -= new EventHandler(TickCheckIncomeData);
+            CarConnection.CloseConnection();
         }
     }
+
 }

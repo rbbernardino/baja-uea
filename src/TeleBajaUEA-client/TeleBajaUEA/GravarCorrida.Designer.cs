@@ -292,11 +292,11 @@
             // btEncerrar
             // 
             this.btEncerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.btEncerrar.Location = new System.Drawing.Point(417, 481);
+            this.btEncerrar.Location = new System.Drawing.Point(413, 481);
             this.btEncerrar.Name = "btEncerrar";
-            this.btEncerrar.Size = new System.Drawing.Size(135, 51);
+            this.btEncerrar.Size = new System.Drawing.Size(163, 51);
             this.btEncerrar.TabIndex = 18;
-            this.btEncerrar.Text = "Encerrar";
+            this.btEncerrar.Text = "Encerrar e Salvar";
             this.btEncerrar.UseVisualStyleBackColor = true;
             this.btEncerrar.Click += new System.EventHandler(this.btEncerrar_Click);
             // 
