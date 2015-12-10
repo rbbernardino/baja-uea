@@ -83,5 +83,5 @@ extern "C" void __cxa_pure_virtual() {;}
 #define portOutputRegister(P)
 #define portInputRegister(P)
 #define portModeRegister(P)
-#include <..\TeleBajaUEA\TeleBajaUEA.ino>
+#include <..\telebaja-uea2\telebaja-uea2.ino>
 #endif

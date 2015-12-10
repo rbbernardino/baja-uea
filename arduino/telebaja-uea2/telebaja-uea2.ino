@@ -1,22 +1,24 @@
 //Este código lê os valores dos sensores acoplados ao Baja Uea, a saber sensores de temperatura do motor,
-//velocidade do móvel, nível de combustível, acionamento do freio e rotação do motor. 
+//velocidade do móvel, nível de combustível no tanque, acionamento do freio e rotações por minuto do motor. 
+
 
 #include "LiquidCrystal.h"
 #include "Limits.h"
-#include <SoftwareSerial.h>
+#include "SoftwareSerial.h"
+
 
 //Freio________________________________
 const int leitorTensao0 = 8;           //Pino analógico que o resistor pull up está conectado.
 float valorLeitorTensao0 = 0;          //Freio=="0". Ou seja, toda variável que tem "0" está relacionada ao acionamento do freio
 float Voltagem0 = 0;
-char estado[] = "ind";
-char Ativado = 'L';                    // (H)igh - ativado   |   (L)ow - desativado
+char estado[] = "ind";                   //ind é a indicação do freio
+char Ativado = 'L';                         //variavel de teste
 
 
-									   //Nível_______________________________
+										 //Nível_______________________________
 const int leitorTensao1 = 9;          //Pino analógico que o sensor de nível de combustível está conectado.
 float valorLeitorTensao1 = 0;         //Nível=="1". Ou seja, toda variável que tem "1" está relacionada ao nível
-float VR1 = 0, R1 = 0, Rmin = 150, Rmax = 0.1;
+float VR1 = 0, R1 = 0, Rmin = 330, Rmax = 0.1;
 int Nivel = 0;
 int Vnivel = 0;
 
@@ -35,15 +37,16 @@ float VR3 = 0;
 int rpm3 = 0;
 
 
-//Velicidade__________________________
+//Velocidade__________________________
 const int leitorTensao4 = 12;         //Pino analógico que o Conversor FT está conectado.
 float valorLeitorTensao4 = 0;        //Velocidade=="4". Ou seja, toda variável que tem "4" está relacionada a velocidade
 float VR4 = 0;
 int vel4 = 0;
 
-//Display LCD__________________________
-//Criando um objeto da classe LiquidCrystal e inicializando com os pinos da interface.
-LiquidCrystal lcd(51, 49, 43, 41, 39, 37);
+
+//Criando um objeto da classe LiquidCrystal e 
+//inicializando com os pinos da interface.
+LiquidCrystal lcd(39, 41, 43, 45, 47, 49);
 
 //Comunicação XBee__________________________
 // os valores dessas const devem estar exatamente igual aos da aplicação C#
@@ -62,7 +65,6 @@ const int XBEE_DELAY = 10; // 10ms de delay entre o envio de cada byte
 unsigned long current_millis;
 byte current_millisByte[4];
 
-//Setup__________________________
 void setup()
 {
 	//Inicializando o LCD e informando o tamanho de 16 colunas e 2 linhas
@@ -115,6 +117,7 @@ void waitStart()
 
 }
 
+// recebe mensagem de forma sincrona
 char receive_sync()
 {
 	while (XBSerial.available() < 1)
@@ -127,33 +130,32 @@ char receive_sync()
 
 void loop()
 {
-	AtualizaValores();
-	ImprimeLCD();
+	ler_dados();
+	print_lcd();
 	EnviaXBee(); // produz 80ms de delay
 	delay(70); // 70 + 80 = 150ms
 }
 
-// Atualiza valores das variáveis sendo monitoradas
-void AtualizaValores()
-{
+// Lê dados dos sensores e armazena as medições em variáveis
+void ler_dados() {
 	//__________________________________________________________________________________  
 	//Acionamento do Freio
 	//Leitor de tensão para freio
 	valorLeitorTensao0 = analogRead(leitorTensao0);
 	Voltagem0 = 5 * valorLeitorTensao0 / 1023; //1023 é o valor máximo digital para 5V
-	if (Voltagem0 >= 3)
+	if (Voltagem0 >= 3)           //nível de segurança entre detecção de low e high level
 	{
 		estado[1] = 'o';
 		estado[2] = 'f';
 		estado[3] = 'f';
-		Ativado = 1;
+		Ativado = 'L';
 	}
 	else
 	{
 		estado[1] = 'o';
 		estado[2] = 'n';
 		estado[3] = ' ';
-		Ativado = 0;
+		Ativado = 'H';
 	}
 
 
@@ -183,9 +185,9 @@ void AtualizaValores()
 	R1 = ((5 * 2190) / (5 - VR1)) - 2190;    //VALOR EM OHMS =2190 (valor do resistor 2k2 aproximadamente.
 	Nivel = (-100 * (R1 - Rmin)) / (Rmin - Rmax);
 	Vnivel = Nivel;
-	if (Nivel>100 || Nivel<0)
+	if (Nivel<0)
 	{
-		Vnivel = 1000; //falta descobrir como escrever inf ou Nan... Para casos de erro na medição do sensor 
+		Vnivel = 0; //devido a variações do próprio sensor... Para casos de erro na medição por vibração do carro, pista irregular, etc...
 	}
 
 
@@ -195,7 +197,7 @@ void AtualizaValores()
 	//Leitor de tensão
 	valorLeitorTensao3 = analogRead(leitorTensao3);
 	VR3 = 5 * valorLeitorTensao3 / 1023; //1023 é o valor máximo digital para 5V
-	if (VR3 >= 0.01)
+	if (VR3>0.01)
 	{
 		rpm3 = ((3000 * VR3)) / 1.04;//equação que converte tensão em frequencia
 	}
@@ -211,10 +213,10 @@ void AtualizaValores()
 	//Leitor de tensão
 	valorLeitorTensao4 = analogRead(leitorTensao4);
 	VR4 = 5 * valorLeitorTensao4 / 1023; //1023 é o valor máximo digital para 5V
-	if (VR4 >= 0.01)
+	if (VR4>0.1)
 	{
-		vel4 = ((2 * 3.1416*VR4)*(0.4));//equação que converte tensão em frequencia
-										//OBS: a última constante da fórmula acima é o raio da roda do Baja, em metros.
+		vel4 = ((3.6 * 2 * 3.1416*VR4)*(0.4));//equação que converte tensão em frequencia
+											  //OBS: a última constante da fórmula acima é o raio da roda do Baja, em metros (1m/s=3.6km/h).
 	}
 	else
 	{
@@ -222,36 +224,36 @@ void AtualizaValores()
 	}
 }
 
-// Imprime valores lidos no LCD
-void ImprimeLCD()
-{
-	//__________________________________________________________________________
+// imprime valores lidos no lcd
+void print_lcd() {
 	//Exibindo valor das variaveis monitoradas no display.
-	lcd.clear();           //limpa o display do LCD.
-	lcd.print("F:");       //impressao do estado do acionamento (da chave) do freio       
+	lcd.clear();            //limpa o display do LCD.
+	lcd.print("F:");        //impressao do estado do acionamento (da chave) do freio       
 	lcd.print(estado[1]);
 	lcd.print(estado[2]);
-	lcd.print(estado[3]);
+	//lcd.print(estado[3]); //comentado para exibir todas as variaveis no display ao mesmo tempo
+
 
 	lcd.print(" N:");     //impressao do valor de nivel de combustivel 
 	lcd.print(Vnivel);
 	lcd.print("% ");
 
 
-	lcd.setCursor(0, 1);  //posiciona o cursor na coluna 0 linha 1 do LCD.
-
-
 	lcd.print("T:");     //impressao do valor de temperatura       
 	lcd.print(Temp);
-	lcd.print(" ");
+
+
+	lcd.setCursor(0, 1);  //posiciona o cursor na coluna 0 linha 1 do LCD.
 
 
 	lcd.print("Rpm:");   //impressao do valor de rotação do motor (RPM)       
 	lcd.print(rpm3);
+	lcd.print(" ");
 
 
-	lcd.print("Vel:");   //impressao do valor da velocidade (m/s)       
+	lcd.print("Vel:");   //impressao do valor da velocidade (km/h)       
 	lcd.print(vel4);
+
 }
 
 // Envia valores lidos pelo XBee para o PC
@@ -271,23 +273,23 @@ void EnviaXBee()
 	delay(XBEE_DELAY);
 
 	// FREIO
-	Ativado = 'L'; // TODO: remover, apenas teste!
+	//Ativado = 'L'; // TODO: remover, apenas teste!
 	XBSerial.print(Ativado); // envia para XBee o character
 	delay(XBEE_DELAY);
 
 	// COMBUSTIVEL
-	Vnivel = 75; // TODO: remover, apenas teste!
+	//Vnivel = 75; // TODO: remover, apenas teste!
 	writeInt8(XBSerial, Vnivel); // envia para XBee 1 byte (mais significativo apenas)
 
 								 // TEMPERATURA
-	Temp = 250; // TODO: remover, apenas teste!
+								 //Temp = 250; // TODO: remover, apenas teste!
 	writeInt16(XBSerial, Temp);
 
 	// RPM
-	rpm3 = 2000; // TODO: remover, apenas teste!
+	//rpm3 = 2000; // TODO: remover, apenas teste!
 	writeInt16(XBSerial, rpm3);
 
-	vel4 = 50; // TODO: remover, apenas teste!
+	//vel4 = 50; // TODO: remover, apenas teste!
 	writeInt8(XBSerial, vel4);
 }
 

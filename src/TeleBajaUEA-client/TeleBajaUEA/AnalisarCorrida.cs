@@ -41,14 +41,14 @@ namespace TeleBajaUEA
 
             foreach (FileSensorsData pointData in raceData.DataList)
             {
-                t = pointData.speed + i++;
-                if (t > SPEED_MAXIMUM-5) t = SPEED_MAXIMUM-5;
+                t = pointData.speed;// + i++;
+                //if (t > SPEED_MAXIMUM-5) t = SPEED_MAXIMUM-5;
                 // Velocidade
-                chartsNew.Series["Speed"].Points.AddXY(pointData.xValue, t);//pointData.speed);
+                chartsNew.Series["Speed"].Points.AddXY(pointData.xValue, pointData.speed);
 
                 // Velocidade max, media e min
-                //if (pointData.speed > maxSpeed) maxSpeed = pointData.speed;
-                //if (pointData.speed < minSpeed) minSpeed = pointData.speed;
+                if (pointData.speed > maxSpeed) maxSpeed = pointData.speed;
+                if (pointData.speed < minSpeed) minSpeed = pointData.speed;
                 //avgSpeed += pointData.speed / raceData.DataList.Count;
                 if (t > maxSpeed)
                     maxSpeed = t;
