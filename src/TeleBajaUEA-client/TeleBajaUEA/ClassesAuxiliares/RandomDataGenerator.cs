@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Timers;
 using TeleBajaUEA.RaceDataStructs;
 
@@ -13,20 +14,19 @@ namespace TeleBajaUEA
     {
         private Timer timerGenerateData;
 
-        //private long dataCount;
+        private uint millis;
 
         private float currentSpeed;
         private float currentTemperature;
         private float currentRPM;
         private float currentFuel;
-        private bool currentBreakState;
+        private char currentBreakState;
 
         private float deltaSpeed;
         private float deltaTemp;
         private float deltaRPM;
         private float deltaFuel;
 
-        private readonly int GENERATE_RATE = 100;
         private readonly long MAX_SPEED = 60;
         private readonly long MAX_TEMP = 300;
         private readonly long MAX_RPM = 3000;
@@ -35,40 +35,26 @@ namespace TeleBajaUEA
         private int tmpRandomNum;
         private int tmpSignal;
 
-        public void Start()
+        public RandomDataGenerator()
         {
             // valores iniciais
-            //dataCount = 0;
+            millis = 0;
             currentSpeed = 30;
             currentTemperature = 80;
-            currentRPM = 1000;
+            currentRPM = 500;
             currentFuel = 100;
-            currentBreakState = false;
+            currentBreakState = 'L';
             //--------------------
 
             rndGenerator = new Random();
-
-            timerGenerateData = new Timer();
-            timerGenerateData.Interval = GENERATE_RATE;
-            timerGenerateData.Elapsed += new ElapsedEventHandler(TickNewData);
-            timerGenerateData.Enabled = true;
         }
 
-        public void Stop()
+        public void StartReceiveData()
         {
-            timerGenerateData.Stop();
-            timerGenerateData.Elapsed -= new ElapsedEventHandler(TickNewData);
-            timerGenerateData.Enabled = false;
-            timerGenerateData.Dispose();
-            timerGenerateData = null;
+
         }
 
-        private void TickNewData(object _source, ElapsedEventArgs _e)
-        {
-            GenerateNewData();
-        }
-
-        private void GenerateNewData()
+        public async Task<SensorsData> GetNextPacket()
         {
             deltaSpeed = RndDeltaSpeed();
             deltaTemp = RndDeltaTemp();
@@ -80,10 +66,13 @@ namespace TeleBajaUEA
             currentRPM         += deltaRPM;
             currentFuel        += deltaFuel;
 
-            if(RndBreakChange())
-                currentBreakState = RndBreakState();
+            if (RndBreakChange())
+                if (RndBreakState())
+                    currentBreakState = 'H';
+                else
+                    currentBreakState = 'L';
 
-            //dataCount++;
+            millis += 150;
 
             if (currentSpeed > MAX_SPEED) currentSpeed = MAX_SPEED;
             if (currentSpeed <= 0) currentSpeed = 0.1f;
@@ -94,10 +83,7 @@ namespace TeleBajaUEA
             if (currentRPM > MAX_RPM) currentRPM = MAX_RPM;
             if (currentRPM <= 0) currentRPM = 10;
 
-            SensorsData newDataTemp = new SensorsData(currentSpeed, currentTemperature, currentRPM, currentFuel, currentBreakState);
-
-            // incompatível com nova versão
-            //CarConnection.SendToUI(this, newDataTemp);
+            return new SensorsData(millis, currentSpeed, currentTemperature, currentRPM, currentFuel, currentBreakState);
         }
 
         private bool RndBreakState()

@@ -21,6 +21,16 @@ namespace TeleBajaUEA
         {
             InitializeComponent();
             SetTags();
+            FillDefaultValues();
+        }
+
+        private void FillDefaultValues()
+        {
+            radioClimEnsolarado.Checked = true;
+            radioPistaMolhada.Checked = true;
+            comboPneuBand.SelectedIndex = 0;
+            comboCarAmort.SelectedIndex = 0;
+            comboCarAmort2.SelectedIndex = 0;
         }
 
         private void SetTags()
