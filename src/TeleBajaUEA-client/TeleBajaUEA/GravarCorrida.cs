@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Collections.Concurrent;
 using TeleBajaUEA.RaceDataStructs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TeleBajaUEA.ClassesAuxiliares;
 
 namespace TeleBajaUEA
 {
@@ -39,6 +39,17 @@ namespace TeleBajaUEA
             timerCheckIncomeData = new Timer();
             timerCheckIncomeData.Interval = UPDATE_RATE;
             timerCheckIncomeData.Tick += new EventHandler(TickCheckIncomeData);
+
+            // Prepara timer que vai fazer backup de segurança continuamente
+            timerBackupData = new Timer();
+            timerBackupData.Interval = UPDATE_BACKUP_RATE;
+            timerBackupData.Tick += new EventHandler(TickBackupData);
+        }
+
+        private void TickBackupData(object sender, EventArgs e)
+        {
+            RaceData raceData = new RaceData(dataList, parameters);
+            RaceFile.UpdateTempFile(raceData);
         }
 
         public async void StartUpdateCharts()
@@ -49,6 +60,7 @@ namespace TeleBajaUEA
             await UpdateData(firstData);
 
             timerCheckIncomeData.Enabled = true;
+            timerBackupData.Enabled = true;
         }
 
         private async void TickCheckIncomeData(object source, EventArgs e)
@@ -180,6 +192,15 @@ namespace TeleBajaUEA
         {
             timerCheckIncomeData.Dispose();
             timerCheckIncomeData = null;
+
+            timerBackupData.Dispose();
+            timerBackupData = null;
+
+            // Ao encerrar corrida mantém o arquivo de backup para que mesmo
+            // o usuário optando por "sair sem salvar", manterá um backup
+            // Mas isso apenas se o usuário quiser
+            if(ProgramSettings.KeepBackup)
+                RaceFile.SaveToBackupDir();
         }
 
         private async void btEncerrar_Click(object sender, EventArgs e)
@@ -222,7 +243,7 @@ namespace TeleBajaUEA
                     // escreveu nome do arquivo e optou por salvar (OK)
                     case DialogResult.OK:
                         // TODO verificar real necessidade de ser async...
-                        await RaceFile.SaveToFile(saveDialog.FileName, new RaceData(dataList, parameters));
+                        await SaveRaceToFile(saveDialog.FileName);
                         closeWithoutConfirmation = true;
                         CloseOnlyThis();
                         Program.ShowMenuPrincipal();
@@ -251,10 +272,20 @@ namespace TeleBajaUEA
             }
         }
 
+        private async Task SaveRaceToFile(string pFileName)
+        {
+            RaceData raceData = new RaceData(dataList, parameters);
+            await RaceFile.SaveToFile(pFileName, raceData);
+        }
+
         private void StopReceiveData()
         {
             timerCheckIncomeData.Stop();
             timerCheckIncomeData.Tick -= new EventHandler(TickCheckIncomeData);
+
+            timerBackupData.Stop();
+            timerBackupData.Tick -= new EventHandler(TickBackupData);
+
             CarConnection.CloseConnection();
         }
     }

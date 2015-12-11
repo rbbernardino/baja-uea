@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
 using System.Threading.Tasks;
 using TeleBajaUEA.RaceDataStructs;
 
@@ -13,8 +12,13 @@ namespace TeleBajaUEA
     // de/para um arquivo
     public sealed class RaceFile
     {
+        private static string TEMP_FILE_PREFIX = "__backup";
+        private static string TEMP_FILE_EXTENSION = ".btbu";
+        private static string TEMP_DIR_NAME = "backup";
+        private static string tempFileName;
+
         // TODO campo para manter referência ao arquivo temporário
-        // private File...
+        private static Stream backupFile;
 
         public async static Task<bool> SaveToFile(string FilePath, RaceData data) {
             Stream stream = File.Open(FilePath, FileMode.Create);
@@ -39,21 +43,61 @@ namespace TeleBajaUEA
             return data;
         }
 
-        // durante a gravação, a cada 5 minutos, um arquivo temporário é atualizado
+        // durante a gravação, a cada
+        // GravarCorrida.ChartSettings.UPDATE_BACKUP_RATE milisegundos,
+        // um arquivo temporário é atualizado
         // ele contém os dados da corrida até o momento, logo, se ocorrer um falha
         // como o PC travando e reiniciando, esses dados poderão ser recuperados
         public async static Task<bool> CreateTempFile()
         {
-            // TODO cria arquivo temporário
-            await Task.Delay(500);
-            return true;
+            return await Task.Run(() =>
+            {
+                CleanBackupFiles();
+                var culture = new CultureInfo("pt-BR");
+                tempFileName =
+                    TEMP_FILE_PREFIX +
+                    DateTime.Now.ToString("yyyyMMddHHmmss") +
+                    TEMP_FILE_EXTENSION;
+                backupFile = File.Open(tempFileName, FileMode.Create);
+                backupFile.Close();
+                return true;
+            });
         }
 
-        public async static Task<bool> UpdateTempFile(RaceData data)
+        // Apaga todos os arquivos de backup na pasta do programa
+        // a ideia é apagar o backup da corrida anterior 
+        //----------------------------------------------
+        // Fonte: http://stackoverflow.com/a/8132800
+        // "Note that I first try to set attributes to "normal",
+        //      because File.Delete() fails if file is read-only...
+        // Note the use of GetFiles(): see this link
+        // (http://msdn.microsoft.com/it-it/library/8he88b63.aspx) for details."
+        private static void CleanBackupFiles()
         {
-            // TODO Atualiza arquivo temporário com novo conjunto de dados
-            await Task.Delay(500);
-            return true;
+            DirectoryInfo di = new DirectoryInfo(@".");
+            FileInfo[] files = di.GetFiles("*" + TEMP_FILE_EXTENSION)
+                                 .Where(p => p.Extension == TEMP_FILE_EXTENSION).ToArray();
+            foreach (FileInfo file in files)
+                try
+                {
+                    file.Attributes = FileAttributes.Normal;
+                    File.Delete(file.FullName);
+                }
+                catch { }
+        }
+
+        public static void UpdateTempFile(RaceData data)
+        {
+            backupFile = File.Open(tempFileName, FileMode.Open);
+            BinaryFormatter bFormatter = new BinaryFormatter();
+            bFormatter.Serialize(backupFile, data);
+            backupFile.Close();
+        }
+
+        public static void SaveToBackupDir()
+        {
+            Directory.CreateDirectory(TEMP_DIR_NAME);
+            File.Move(tempFileName, TEMP_DIR_NAME + "\\" + tempFileName);
         }
     }
 }

@@ -47,11 +47,11 @@
             // 
             this.btVoltar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btVoltar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.btVoltar.Location = new System.Drawing.Point(506, 663);
+            this.btVoltar.Location = new System.Drawing.Point(506, 655);
             this.btVoltar.Name = "btVoltar";
             this.btVoltar.Size = new System.Drawing.Size(135, 51);
             this.btVoltar.TabIndex = 7;
-            this.btVoltar.Text = "Voltar";
+            this.btVoltar.Text = "Fechar";
             this.btVoltar.UseVisualStyleBackColor = true;
             this.btVoltar.Click += new System.EventHandler(this.btVoltar_Click);
             // 
@@ -119,7 +119,7 @@
             // 
             this.btVerSetup.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btVerSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.btVerSetup.Location = new System.Drawing.Point(86, 663);
+            this.btVerSetup.Location = new System.Drawing.Point(86, 655);
             this.btVerSetup.Name = "btVerSetup";
             this.btVerSetup.Size = new System.Drawing.Size(135, 51);
             this.btVerSetup.TabIndex = 14;
@@ -131,7 +131,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1064, 741);
+            this.ClientSize = new System.Drawing.Size(1064, 733);
             this.Controls.Add(this.btVerSetup);
             this.Controls.Add(this.chartsNew);
             this.Controls.Add(this.btMinus);

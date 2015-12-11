@@ -15,6 +15,7 @@ namespace TeleBajaUEA
     public partial class GravarCorrida
     {
         private readonly static int UPDATE_RATE = 150; // TODO acrescentar valor do ping?
+        private readonly static int UPDATE_BACKUP_RATE = 1000;//3 *(60*1000); // TODO configurar nas configs
 
         // -------------------- Configurações do eixo X ---------------------//
         // valores em segundos
@@ -64,7 +65,7 @@ namespace TeleBajaUEA
                 minX = X_AXIS_MINIMUM;
                 maxX = X_AXIS_MAXIMUM;
 
-                chartDinamic.Legends["Legend1"].Title = "Legend";
+                //chartDinamic.Legends["Legend1"].Title = "Legend";
                 chartDinamic.ChartAreas["ChartArea1"].BackColor = Color.Black;
 
                 // Configurando o Y

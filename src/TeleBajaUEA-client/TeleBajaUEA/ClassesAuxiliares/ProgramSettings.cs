@@ -10,6 +10,11 @@ namespace TeleBajaUEA.ClassesAuxiliares
     {
         public static string PortXBee { get; private set; }
 
+        // indica se deve manter backup de todas as corridas, mesmo as não salvas
+        // Se "false" manterá backup de apenas a última corrida, na pasta do programa
+        // Se "true" manterá backup de todas as corridas na pasta "backup"
+        public static bool KeepBackup { get; private set; } = true; // TODO permitir usuário escolher
+
         // TODO salvar em .xml
         public static void SaveXBeePort(string pPortXBee)
         {
