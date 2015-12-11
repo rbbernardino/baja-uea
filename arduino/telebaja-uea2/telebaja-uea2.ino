@@ -14,15 +14,6 @@ float Voltagem0 = 0;
 char estado[] = "ind";                   //ind é a indicação do freio
 char Ativado = 'L';                         //variavel de teste
 
-
-										 //Nível_______________________________
-const int leitorTensao1 = 9;          //Pino analógico que o sensor de nível de combustível está conectado.
-float valorLeitorTensao1 = 0;         //Nível=="1". Ou seja, toda variável que tem "1" está relacionada ao nível
-float VR1 = 0, R1 = 0, Rmin = 330, Rmax = 0.1;
-int Nivel = 0;
-int Vnivel = 0;
-
-
 //Temperatura_________________________
 const int leitorTensao2 = 10;          //Pino analógico que o resistor NTC está conectado.
 float valorLeitorTensao2 = 0;         //Temperatura=="2". Ou seja, toda variável que tem "2" está relacionada a temperatura.
@@ -71,12 +62,12 @@ void setup()
 	//que é o tamanho do LCD JHD 1602byy usado neste projeto.
 	lcd.begin(16, 2);
 
-	pinMode(CONN_LED, OUTPUT);
-	digitalWrite(CONN_LED, LOW);
+	//pinMode(CONN_LED, OUTPUT);
+	//digitalWrite(CONN_LED, LOW);
 
-	XBSerial.begin(9600);
-	connectToPC();
-	waitStart();
+	//XBSerial.begin(9600);
+	//connectToPC();
+	//waitStart();
 }
 
 void connectToPC()
@@ -132,8 +123,9 @@ void loop()
 {
 	ler_dados();
 	print_lcd();
-	EnviaXBee(); // produz 80ms de delay
-	delay(70); // 70 + 80 = 150ms
+	//EnviaXBee(); // produz 80ms de delay
+	//delay(70); // 70 + 80 = 150ms
+	delay(150);
 }
 
 // Lê dados dos sensores e armazena as medições em variáveis
@@ -156,24 +148,6 @@ void ler_dados() {
 		estado[2] = 'n';
 		estado[3] = ' ';
 		Ativado = 'H';
-	}
-
-
-
-	//__________________________________________________________________________________  
-	//Temperatura do Motor   
-	//Leitor de tensão para temperatura
-	valorLeitorTensao2 = analogRead(leitorTensao2);
-	VR2 = 5 * valorLeitorTensao2 / 1023; //1023 é o valor máximo digital para 5V
-	R2 = ((5 * 5622) / (5 - VR2)) - 5622;    //VALOR EM OHMS =5622 (valor do resistor 5k6 aproximadamente.
-	if (R2 >= 4200)
-	{
-		Temp = 50;    //para evitar mostrar valores baixos de temperatura, nos quais o sistema não irá atuar, são mostradas as temperaturas acima de 50ºC 
-	}
-	else
-	{
-		//valores da curva ajustados para o Arduino por meio de interpolação
-		Temp = (((-1.403*0.000000000000001)*pow(R2, 5))) + ((1.75*(0.00000000001))*pow(R2, 4)) - ((8.404*(0.00000001))*pow(R2, 3)) + ((1.998*(0.0001))*pow(R2, 2)) - ((0.2614)*(R2)) + 238.6;
 	}
 
 
@@ -233,12 +207,6 @@ void print_lcd() {
 	lcd.print(estado[2]);
 	//lcd.print(estado[3]); //comentado para exibir todas as variaveis no display ao mesmo tempo
 
-
-	lcd.print(" N:");     //impressao do valor de nivel de combustivel 
-	lcd.print(Vnivel);
-	lcd.print("% ");
-
-
 	lcd.print("T:");     //impressao do valor de temperatura       
 	lcd.print(Temp);
 
@@ -277,12 +245,8 @@ void EnviaXBee()
 	XBSerial.print(Ativado); // envia para XBee o character
 	delay(XBEE_DELAY);
 
-	// COMBUSTIVEL
-	//Vnivel = 75; // TODO: remover, apenas teste!
-	writeInt8(XBSerial, Vnivel); // envia para XBee 1 byte (mais significativo apenas)
-
-								 // TEMPERATURA
-								 //Temp = 250; // TODO: remover, apenas teste!
+	// TEMPERATURA
+	//Temp = 250; // TODO: remover, apenas teste!
 	writeInt16(XBSerial, Temp);
 
 	// RPM

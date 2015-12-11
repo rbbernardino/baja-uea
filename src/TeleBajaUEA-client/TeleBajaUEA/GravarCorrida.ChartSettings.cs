@@ -103,49 +103,24 @@ namespace TeleBajaUEA
                 // define labels do X e Y iniciais
                 UpdateXLabels();
                 SetYLabels();
-
-                // Configura labels dos gauges
-                SetGaugesLabels();
             });
         }
 
         private void SetYLabels()
         {
             // TODO automatiza posicionamento das labels com as constantes V V
-            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(-5, 5, "0rpm - 0km/h", 0, LabelMarkStyle.None);
-            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(35, 45, RPM_MAXIMUM / 2 + "rpm - " + Y_AXIS_MAXIMUM / 2 + "km/h", 0, LabelMarkStyle.None);
-            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(75, 85, RPM_MAXIMUM + "rpm - " + Y_AXIS_MAXIMUM + "km/h", 0, LabelMarkStyle.None);
-            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(45, 55, "Break ON----------------", 0, LabelMarkStyle.None);
-            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(25, 35, "Break OFF-------------", 0, LabelMarkStyle.None);
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(-5, 5, "0rpm -------- 0km/h", 0, LabelMarkStyle.None);
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(35, 45, RPM_MAXIMUM / 2 + "rpm -------- " + Y_AXIS_MAXIMUM / 2 + "km/h", 0, LabelMarkStyle.None);
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(75, 85, RPM_MAXIMUM + "rpm -------- " + Y_AXIS_MAXIMUM + "km/h", 0, LabelMarkStyle.None);
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(45, 55, "Break ON--------", 0, LabelMarkStyle.None);
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(25, 35, "Break OFF--------", 0, LabelMarkStyle.None);
 
-            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(15, 25, 2*RPM_MAXIMUM / 8 + "rpm - " + 2*Y_AXIS_MAXIMUM/8 + "km/h", 0, LabelMarkStyle.None);
-            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(55, 65, 6*RPM_MAXIMUM/8 + "rpm - "   + 6*Y_AXIS_MAXIMUM /8 + "km/h", 0, LabelMarkStyle.None);
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(15, 25, 2*RPM_MAXIMUM / 8 + "rpm -------- " + 2*Y_AXIS_MAXIMUM/8 + "km/h", 0, LabelMarkStyle.None);
+            chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(55, 65, 6*RPM_MAXIMUM/8 + "rpm -------- " + 6*Y_AXIS_MAXIMUM /8 + "km/h", 0, LabelMarkStyle.None);
             //750, 2200
 
             //TODO melhorar exibição de labels do Y --->------>---------->-------->-----ROW---V
             //   chartDinamic.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(65, 55, RPM_MAXIMUM + "", 2, LabelMarkStyle.None);
-        }
-
-        private void SetGaugesLabels()
-        {
-            aGaugeFuel.ScaleNumbersFormatter = FormatFuelNumbers;
-        }
-
-        private string FormatFuelNumbers(float number)
-        {
-            switch ((int)number)
-            {
-                case 0:
-                    return ""; // fica no CapsText
-                case 25:
-                    return "";
-                case 50:
-                    return "1/2";
-                case 75:
-                    return "";
-                default:
-                    return "F";
-            }
         }
 
         private void UpdateXLabels()

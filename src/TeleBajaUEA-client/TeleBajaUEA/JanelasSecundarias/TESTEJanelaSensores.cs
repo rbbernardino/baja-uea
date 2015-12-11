@@ -67,7 +67,6 @@ namespace TeleBajaUEA
                 "Tempo: " + FormatTimestamp(timeStamp) + "\n" +
                 "Velocidade: " + (int) Data.Speed + "\n" +
                 "Temp do Motor: " + Data.EngineTemperature + "°C\n" +
-                "Combustível: " + (int) Data.Fuel + "%\n" +
                 "RPM: " + (int) Data.RPM + "\n" +
                 "Freio: " + FormatBreakState(Data.BreakState);
         }

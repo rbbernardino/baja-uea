@@ -92,7 +92,6 @@ namespace TeleBajaUEA
         private void UpdateGauges(SensorsData pNewData)
         {
             aGaugeTemperature.Value = pNewData.EngineTemperature;
-            aGaugeFuel.Value = pNewData.Fuel;
         }
 
         private void AddNewDataToGraph(SensorsData pNewData)

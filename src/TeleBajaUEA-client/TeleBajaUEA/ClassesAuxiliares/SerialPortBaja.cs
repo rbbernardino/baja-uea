@@ -34,11 +34,10 @@ namespace TeleBajaUEA.ClassesAuxiliares
         private static float tmpSpeed;
         private static float tmpTemperature;
         private static float tmpRpm;
-        private static float tmpFuel;
         private static char tmpBreakState;
         private void ResetTmpVars()
         {
-            tmpSpeed = tmpTemperature = tmpRpm = tmpFuel = -1;
+            tmpSpeed = tmpTemperature = tmpRpm = -1;
             tmpBreakState = 'N'; // (N)ull
         }
         #endregion
@@ -112,13 +111,12 @@ namespace TeleBajaUEA.ClassesAuxiliares
             {
                 tmpMillis = await NextUInt32();
                 tmpBreakState = await NextChar();
-                tmpFuel = await NextInt8();
                 tmpTemperature = await NextInt16();
                 tmpRpm = await NextInt16();
                 tmpSpeed = await NextInt8();
 
                 return new SensorsData(tmpMillis, tmpSpeed, tmpTemperature,
-                                        tmpRpm, tmpFuel, tmpBreakState);
+                                        tmpRpm, tmpBreakState);
             }
             else
             {

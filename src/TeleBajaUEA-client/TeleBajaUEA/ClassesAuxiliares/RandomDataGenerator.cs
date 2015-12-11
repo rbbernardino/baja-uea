@@ -19,13 +19,11 @@ namespace TeleBajaUEA
         private float currentSpeed;
         private float currentTemperature;
         private float currentRPM;
-        private float currentFuel;
         private char currentBreakState;
 
         private float deltaSpeed;
         private float deltaTemp;
         private float deltaRPM;
-        private float deltaFuel;
 
         private readonly long MAX_SPEED = 60;
         private readonly long MAX_TEMP = 300;
@@ -42,7 +40,6 @@ namespace TeleBajaUEA
             currentSpeed = 30;
             currentTemperature = 80;
             currentRPM = 500;
-            currentFuel = 100;
             currentBreakState = 'L';
             //--------------------
 
@@ -59,12 +56,10 @@ namespace TeleBajaUEA
             deltaSpeed = RndDeltaSpeed();
             deltaTemp = RndDeltaTemp();
             deltaRPM = RndDeltaRPM();
-            deltaFuel = -0.1f;
 
             currentSpeed       += deltaSpeed;
             currentTemperature += deltaTemp;
             currentRPM         += deltaRPM;
-            currentFuel        += deltaFuel;
 
             if (RndBreakChange())
                 if (RndBreakState())
@@ -83,7 +78,7 @@ namespace TeleBajaUEA
             if (currentRPM > MAX_RPM) currentRPM = MAX_RPM;
             if (currentRPM <= 0) currentRPM = 10;
 
-            return new SensorsData(millis, currentSpeed, currentTemperature, currentRPM, currentFuel, currentBreakState);
+            return new SensorsData(millis, currentSpeed, currentTemperature, currentRPM, currentBreakState);
         }
 
         private bool RndBreakState()
