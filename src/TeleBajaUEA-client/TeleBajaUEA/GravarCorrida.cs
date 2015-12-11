@@ -152,6 +152,9 @@ namespace TeleBajaUEA
 
         private void GravarCorrida_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // se fechou pelo botao "Encerrar e Salvar" essa flag será true, logo
+            // não requer confirmar novamente. De outro modo, só pode ter dado
+            // Alt+f4 ou apertado no botão "x"
             if (!closeWithoutConfirmation)
             {
                 var result = MessageBox.Show(
@@ -198,48 +201,53 @@ namespace TeleBajaUEA
                 // Desativa janela de Gravar para exibir confirmacao + salvamento
                 Enabled = false;
 
-                // Prepara janela para salvar dados em disco (arquivo .tbu)
-                SaveFileDialog saveDialog = new SaveFileDialog();
-                saveDialog.Filter = "Arquivos TeleBajaUEA (*.tbu)|*.tbu|Todos os Arquivos (*.*)|*.*";
-                saveDialog.FilterIndex = 1;
-                saveDialog.RestoreDirectory = true;
+                await ConfirmaGravarCorrida();
+            }
+        }
 
-                // Loop para re-exibir confirmação de "sair sem salvar" caso o usuário
-                // clique en "Cancelar" na janela de salvamento
-                bool canContinue = false;
-                while (!canContinue)
+        private async Task ConfirmaGravarCorrida()
+        {
+            // Prepara janela para salvar dados em disco (arquivo .tbu)
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.Filter = "Arquivos TeleBajaUEA (*.tbu)|*.tbu|Todos os Arquivos (*.*)|*.*";
+            saveDialog.FilterIndex = 1;
+            saveDialog.RestoreDirectory = true;
+
+            // Loop para re-exibir confirmação de "sair sem salvar" caso o usuário
+            // clique en "Cancelar" na janela de salvamento
+            bool canContinue = false;
+            while (!canContinue)
+            {
+                switch (saveDialog.ShowDialog())
                 {
-                    switch (saveDialog.ShowDialog())
-                    {
-                        // escreveu nome do arquivo e optou por salvar (OK)
-                        case DialogResult.OK:
-                            // TODO verificar real necessidade de ser async...
-                            await RaceFile.SaveToFile(saveDialog.FileName, new RaceData(dataList, parameters));
+                    // escreveu nome do arquivo e optou por salvar (OK)
+                    case DialogResult.OK:
+                        // TODO verificar real necessidade de ser async...
+                        await RaceFile.SaveToFile(saveDialog.FileName, new RaceData(dataList, parameters));
+                        closeWithoutConfirmation = true;
+                        CloseOnlyThis();
+                        Program.ShowMenuPrincipal();
+                        canContinue = true;
+                        break;
+
+                    // cancelou salvamento
+                    case DialogResult.Cancel:
+                        // Exibe mensagem confirmando se deseja encerrar a gravação de corrida
+                        var confirmaNaoSalvar = MessageBox.Show(
+                            "Tem certeza que deseja encerrar sem salvar?", // mensagem da janela
+                            "Encerrar Corrida", // titulo da janela
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question,
+                            MessageBoxDefaultButton.Button2);
+
+                        if (confirmaNaoSalvar == DialogResult.Yes)
+                        {
                             closeWithoutConfirmation = true;
                             CloseOnlyThis();
                             Program.ShowMenuPrincipal();
                             canContinue = true;
-                            break;
-
-                        // cancelou salvamento
-                        case DialogResult.Cancel:
-                            // Exibe mensagem confirmando se deseja encerrar a gravação de corrida
-                            var confirmaNaoSalvar = MessageBox.Show(
-                                "Tem certeza que deseja encerrar sem salvar?", // mensagem da janela
-                                "Encerrar Corrida", // titulo da janela
-                                MessageBoxButtons.YesNo,
-                                MessageBoxIcon.Question,
-                                MessageBoxDefaultButton.Button2);
-
-                            if(confirmaNaoSalvar == DialogResult.Yes)
-                            {
-                                closeWithoutConfirmation = true;
-                                CloseOnlyThis();
-                                Program.ShowMenuPrincipal();
-                                canContinue = true;
-                            }// else continua no while...
-                            break;
-                    }
+                        }// else continua no while...
+                        break;
                 }
             }
         }
