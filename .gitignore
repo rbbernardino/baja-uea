@@ -21,7 +21,6 @@
 *.dylib
 
 # Executables
-!publish/*.exe
 *.exe
 *.out
 *.app
