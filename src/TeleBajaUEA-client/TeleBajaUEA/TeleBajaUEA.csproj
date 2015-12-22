@@ -25,7 +25,10 @@
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>https://raw.githubusercontent.com/rbbernardino/baja-uea/master/src/TeleBajaUEA-client/TeleBajaUEA/publish/</InstallUrl>
     <UpdateUrl>https://raw.githubusercontent.com/rbbernardino/baja-uea/master/src/TeleBajaUEA-client/TeleBajaUEA/publish/</UpdateUrl>
-    <ApplicationRevision>0</ApplicationRevision>
+    <SupportUrl>https://www.facebook.com/rbbernardino</SupportUrl>
+    <ProductName>TeleBajaUEA</ProductName>
+    <PublisherName>Rodrigo Barros Bernardino</PublisherName>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>0.9.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -242,6 +245,23 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\seta.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="charts-ico.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <FileAssociation Include=".btbu">
+      <Visible>False</Visible>
+      <Description>[backup] Dados de uma corrida gravados pelo TeleBajaUEA</Description>
+      <Progid>cicari.tbufile</Progid>
+      <DefaultIcon>charts-ico.ico</DefaultIcon>
+    </FileAssociation>
+    <FileAssociation Include=".tbu">
+      <Visible>False</Visible>
+      <Description>Dados de uma corrida gravados pelo TeleBajaUEA</Description>
+      <Progid>cicari.tbufile</Progid>
+      <DefaultIcon>charts-ico.ico</DefaultIcon>
+    </FileAssociation>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
