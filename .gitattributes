@@ -61,3 +61,13 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+###############################################################################
+# behavior for ClickOnce files
+#
+# treated as binary to avoid hash mismatch on installation
+# more info: http://refactorsaurusrex.com/how-to-host-a-clickonce-installer-on-github/
+###############################################################################
+*.manifest binary
+*.application binary
+*.deploy binary
