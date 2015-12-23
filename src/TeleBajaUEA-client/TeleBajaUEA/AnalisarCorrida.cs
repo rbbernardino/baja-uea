@@ -34,29 +34,21 @@ namespace TeleBajaUEA
         {
             // popula gráfico com os pontos
             double brakePosition;
-            double maxSpeed = 0, avgSpeed = 0, minSpeed = 999;
-
-            int i = 0;
-            double t;
+            double currentSpeed, maxSpeed = 0, minSpeed = 999, avgSpeed = 0;
 
             foreach (FileSensorsData pointData in raceData.DataList)
             {
-                t = pointData.speed;// + i++;
-                //if (t > SPEED_MAXIMUM-5) t = SPEED_MAXIMUM-5;
                 // Velocidade
-                chartsNew.Series["Speed"].Points.AddXY(pointData.xValue, pointData.speed);
+                AddPoint("Speed", pointData.xValue, pointData.speed);
 
                 // Velocidade max, media e min
-                if (pointData.speed > maxSpeed) maxSpeed = pointData.speed;
-                if (pointData.speed < minSpeed) minSpeed = pointData.speed;
-                //avgSpeed += pointData.speed / raceData.DataList.Count;
-                if (t > maxSpeed)
-                    maxSpeed = t;
-                if (t < minSpeed) minSpeed = t;
-                avgSpeed += t / raceData.DataList.Count;
+                currentSpeed = pointData.speed;
+                if (currentSpeed > maxSpeed) maxSpeed = currentSpeed;
+                if (currentSpeed < minSpeed) minSpeed = currentSpeed;
+                avgSpeed += currentSpeed / raceData.DataList.Count;
 
                 // RPM
-                chartsNew.Series["RPM"].Points.AddXY(pointData.xValue, pointData.rpm);
+                AddPoint("RPM", pointData.xValue, pointData.rpm);
 
                 // Freio
                 if (pointData.breakState)
@@ -70,6 +62,18 @@ namespace TeleBajaUEA
 
             // seta a velocidade max/media/min
             CreateStripLines(maxSpeed, avgSpeed, minSpeed);
+        }
+
+        private void AddPoint(string serie, double x, double y)
+        {
+            // a unidade "fundamental" do gráfico para ser incrementado
+            // a ideia é evitar que quando y seja muito pequeno ele não seja visto no gráfico
+            double chartUnity = chartsNew.ChartAreas[serie].AxisY.Maximum / 100;
+
+            if (y <= chartUnity)
+                chartsNew.Series[serie].Points.AddXY(x, chartUnity);
+            else
+                chartsNew.Series[serie].Points.AddXY(x, y);
         }
 
         private void button1_Click(object sender, EventArgs e)

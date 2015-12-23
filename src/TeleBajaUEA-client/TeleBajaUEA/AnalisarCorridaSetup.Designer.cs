@@ -43,6 +43,10 @@
             this.txtPilNome = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabWeather = new System.Windows.Forms.TabPage();
+            this.textPista = new System.Windows.Forms.TextBox();
+            this.label71 = new System.Windows.Forms.Label();
+            this.textClima = new System.Windows.Forms.TextBox();
+            this.label44 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.txtClimTemp = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -140,10 +144,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.textCarPeso = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.textClima = new System.Windows.Forms.TextBox();
-            this.label44 = new System.Windows.Forms.Label();
-            this.textPista = new System.Windows.Forms.TextBox();
-            this.label71 = new System.Windows.Forms.Label();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -322,6 +322,44 @@
             this.tabWeather.TabIndex = 1;
             this.tabWeather.Text = "Clima e Pista";
             this.tabWeather.UseVisualStyleBackColor = true;
+            // 
+            // textPista
+            // 
+            this.textPista.Location = new System.Drawing.Point(126, 97);
+            this.textPista.MaxLength = 2;
+            this.textPista.Name = "textPista";
+            this.textPista.ReadOnly = true;
+            this.textPista.Size = new System.Drawing.Size(168, 26);
+            this.textPista.TabIndex = 19;
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.label71.Location = new System.Drawing.Point(16, 100);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(52, 20);
+            this.label71.TabIndex = 18;
+            this.label71.Text = "Pista:";
+            // 
+            // textClima
+            // 
+            this.textClima.Location = new System.Drawing.Point(126, 54);
+            this.textClima.MaxLength = 2;
+            this.textClima.Name = "textClima";
+            this.textClima.ReadOnly = true;
+            this.textClima.Size = new System.Drawing.Size(97, 26);
+            this.textClima.TabIndex = 17;
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.label44.Location = new System.Drawing.Point(16, 57);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(57, 20);
+            this.label44.TabIndex = 16;
+            this.label44.Text = "Clima:";
             // 
             // label7
             // 
@@ -1382,44 +1420,6 @@
             this.label9.Size = new System.Drawing.Size(129, 20);
             this.label9.TabIndex = 5;
             this.label9.Text = "Massa do Carro";
-            // 
-            // textClima
-            // 
-            this.textClima.Location = new System.Drawing.Point(126, 54);
-            this.textClima.MaxLength = 2;
-            this.textClima.Name = "textClima";
-            this.textClima.ReadOnly = true;
-            this.textClima.Size = new System.Drawing.Size(97, 26);
-            this.textClima.TabIndex = 17;
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.label44.Location = new System.Drawing.Point(16, 57);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(57, 20);
-            this.label44.TabIndex = 16;
-            this.label44.Text = "Clima:";
-            // 
-            // textPista
-            // 
-            this.textPista.Location = new System.Drawing.Point(126, 97);
-            this.textPista.MaxLength = 2;
-            this.textPista.Name = "textPista";
-            this.textPista.ReadOnly = true;
-            this.textPista.Size = new System.Drawing.Size(168, 26);
-            this.textPista.TabIndex = 19;
-            // 
-            // label71
-            // 
-            this.label71.AutoSize = true;
-            this.label71.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.label71.Location = new System.Drawing.Point(16, 100);
-            this.label71.Name = "label71";
-            this.label71.Size = new System.Drawing.Size(52, 20);
-            this.label71.TabIndex = 18;
-            this.label71.Text = "Pista:";
             // 
             // AnalisarCorridaSetup
             // 

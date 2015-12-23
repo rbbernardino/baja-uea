@@ -37,7 +37,7 @@ namespace TeleBajaUEA
         {
             // valores iniciais
             millis = 0;
-            currentSpeed = 30;
+            currentSpeed = 0; //30;
             currentTemperature = 80;
             currentRPM = 500;
             currentBreakState = 'L';
@@ -57,7 +57,7 @@ namespace TeleBajaUEA
             deltaTemp = RndDeltaTemp();
             deltaRPM = RndDeltaRPM();
 
-            currentSpeed       += deltaSpeed;
+            //currentSpeed       += deltaSpeed;
             currentTemperature += deltaTemp;
             currentRPM         += deltaRPM;
 

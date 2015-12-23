@@ -44,6 +44,10 @@
             this.txtPilNome = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabWeather = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioPistaSeca = new System.Windows.Forms.RadioButton();
+            this.radioPistaParcMolhada = new System.Windows.Forms.RadioButton();
+            this.radioPistaMolhada = new System.Windows.Forms.RadioButton();
             this.groupClima = new System.Windows.Forms.GroupBox();
             this.radioClimChuvoso = new System.Windows.Forms.RadioButton();
             this.radioClimNublado = new System.Windows.Forms.RadioButton();
@@ -147,19 +151,15 @@
             this.label8 = new System.Windows.Forms.Label();
             this.textCarPeso = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.radioPistaMolhada = new System.Windows.Forms.RadioButton();
-            this.radioPistaParcMolhada = new System.Windows.Forms.RadioButton();
-            this.radioPistaSeca = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabDriver.SuspendLayout();
             this.tabWeather.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.groupClima.SuspendLayout();
             this.tabCar.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripContainer1
@@ -337,6 +337,57 @@
             this.tabWeather.TabIndex = 1;
             this.tabWeather.Text = "Clima e Pista";
             this.tabWeather.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.radioPistaSeca);
+            this.groupBox1.Controls.Add(this.radioPistaParcMolhada);
+            this.groupBox1.Controls.Add(this.radioPistaMolhada);
+            this.groupBox1.Location = new System.Drawing.Point(244, 59);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(233, 121);
+            this.groupBox1.TabIndex = 15;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Pista";
+            // 
+            // radioPistaSeca
+            // 
+            this.radioPistaSeca.AutoSize = true;
+            this.radioPistaSeca.Location = new System.Drawing.Point(22, 85);
+            this.radioPistaSeca.Name = "radioPistaSeca";
+            this.radioPistaSeca.Size = new System.Drawing.Size(65, 24);
+            this.radioPistaSeca.TabIndex = 16;
+            this.radioPistaSeca.TabStop = true;
+            this.radioPistaSeca.Tag = "S";
+            this.radioPistaSeca.Text = "Seca";
+            this.radioPistaSeca.UseVisualStyleBackColor = true;
+            this.radioPistaSeca.CheckedChanged += new System.EventHandler(this.radioPista_CheckChanged);
+            // 
+            // radioPistaParcMolhada
+            // 
+            this.radioPistaParcMolhada.AutoSize = true;
+            this.radioPistaParcMolhada.Location = new System.Drawing.Point(22, 55);
+            this.radioPistaParcMolhada.Name = "radioPistaParcMolhada";
+            this.radioPistaParcMolhada.Size = new System.Drawing.Size(193, 24);
+            this.radioPistaParcMolhada.TabIndex = 15;
+            this.radioPistaParcMolhada.TabStop = true;
+            this.radioPistaParcMolhada.Tag = "P";
+            this.radioPistaParcMolhada.Text = "Parcialmente molhada";
+            this.radioPistaParcMolhada.UseVisualStyleBackColor = true;
+            this.radioPistaParcMolhada.CheckedChanged += new System.EventHandler(this.radioPista_CheckChanged);
+            // 
+            // radioPistaMolhada
+            // 
+            this.radioPistaMolhada.AutoSize = true;
+            this.radioPistaMolhada.Location = new System.Drawing.Point(22, 25);
+            this.radioPistaMolhada.Name = "radioPistaMolhada";
+            this.radioPistaMolhada.Size = new System.Drawing.Size(90, 24);
+            this.radioPistaMolhada.TabIndex = 14;
+            this.radioPistaMolhada.TabStop = true;
+            this.radioPistaMolhada.Tag = "M";
+            this.radioPistaMolhada.Text = "Molhada";
+            this.radioPistaMolhada.UseVisualStyleBackColor = true;
+            this.radioPistaMolhada.CheckedChanged += new System.EventHandler(this.radioPista_CheckChanged);
             // 
             // groupClima
             // 
@@ -1458,57 +1509,6 @@
             this.label9.TabIndex = 5;
             this.label9.Text = "Massa do Carro";
             // 
-            // radioPistaMolhada
-            // 
-            this.radioPistaMolhada.AutoSize = true;
-            this.radioPistaMolhada.Location = new System.Drawing.Point(22, 25);
-            this.radioPistaMolhada.Name = "radioPistaMolhada";
-            this.radioPistaMolhada.Size = new System.Drawing.Size(90, 24);
-            this.radioPistaMolhada.TabIndex = 14;
-            this.radioPistaMolhada.TabStop = true;
-            this.radioPistaMolhada.Tag = "M";
-            this.radioPistaMolhada.Text = "Molhada";
-            this.radioPistaMolhada.UseVisualStyleBackColor = true;
-            this.radioPistaMolhada.CheckedChanged += new System.EventHandler(this.radioPista_CheckChanged);
-            // 
-            // radioPistaParcMolhada
-            // 
-            this.radioPistaParcMolhada.AutoSize = true;
-            this.radioPistaParcMolhada.Location = new System.Drawing.Point(22, 55);
-            this.radioPistaParcMolhada.Name = "radioPistaParcMolhada";
-            this.radioPistaParcMolhada.Size = new System.Drawing.Size(193, 24);
-            this.radioPistaParcMolhada.TabIndex = 15;
-            this.radioPistaParcMolhada.TabStop = true;
-            this.radioPistaParcMolhada.Tag = "P";
-            this.radioPistaParcMolhada.Text = "Parcialmente molhada";
-            this.radioPistaParcMolhada.UseVisualStyleBackColor = true;
-            this.radioPistaParcMolhada.CheckedChanged += new System.EventHandler(this.radioPista_CheckChanged);
-            // 
-            // radioPistaSeca
-            // 
-            this.radioPistaSeca.AutoSize = true;
-            this.radioPistaSeca.Location = new System.Drawing.Point(22, 85);
-            this.radioPistaSeca.Name = "radioPistaSeca";
-            this.radioPistaSeca.Size = new System.Drawing.Size(65, 24);
-            this.radioPistaSeca.TabIndex = 16;
-            this.radioPistaSeca.TabStop = true;
-            this.radioPistaSeca.Tag = "S";
-            this.radioPistaSeca.Text = "Seca";
-            this.radioPistaSeca.UseVisualStyleBackColor = true;
-            this.radioPistaSeca.CheckedChanged += new System.EventHandler(this.radioPista_CheckChanged);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.radioPistaSeca);
-            this.groupBox1.Controls.Add(this.radioPistaParcMolhada);
-            this.groupBox1.Controls.Add(this.radioPistaMolhada);
-            this.groupBox1.Location = new System.Drawing.Point(244, 59);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(233, 121);
-            this.groupBox1.TabIndex = 15;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Pista";
-            // 
             // GravarCorridaSetup
             // 
             this.AcceptButton = this.btIniciar;
@@ -1529,14 +1529,14 @@
             this.tabDriver.PerformLayout();
             this.tabWeather.ResumeLayout(false);
             this.tabWeather.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.groupClima.ResumeLayout(false);
             this.groupClima.PerformLayout();
             this.tabCar.ResumeLayout(false);
             this.tabCar.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
