@@ -14,15 +14,25 @@ namespace TeleBajaUEA
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             ProgramSettings.LoadFromFile();
 
-            formMenuPrincipal = new MenuPrincipal();
-            Application.Run(formMenuPrincipal);
+            if(args.Length >= 1)
+            {
+                formMenuPrincipal = new MenuPrincipal(args[0]);
+                Application.Run();
+            }
+            else
+            {
+                formMenuPrincipal = new MenuPrincipal();
+                Application.Run(formMenuPrincipal);
+            }
+
+
             //SerialTest formSerialTest = new SerialTest();
             //Application.Run(formSerialTest);
         }

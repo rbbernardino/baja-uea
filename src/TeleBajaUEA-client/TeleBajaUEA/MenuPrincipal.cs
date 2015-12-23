@@ -18,6 +18,16 @@ namespace TeleBajaUEA
             InitializeComponent();
         }
 
+        public MenuPrincipal(string fileName)
+        {
+            InitializeComponent();
+            RaceData raceData = RaceFile.LoadFromFile(fileName);
+
+            AnalisarCorrida formAnalisarCorrida = new AnalisarCorrida(raceData);
+
+            formAnalisarCorrida.Show();
+        }
+
         private void btConfigurações_Click(object sender, EventArgs e)
         {
             Configurações conf = new Configurações();
@@ -68,6 +78,11 @@ namespace TeleBajaUEA
                 System.Environment.Exit(1);
             }
 
+        }
+
+        private void MenuPrincipal_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
