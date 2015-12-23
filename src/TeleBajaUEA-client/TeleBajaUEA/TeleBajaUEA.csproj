@@ -250,7 +250,6 @@
     <None Include="Resources\seta.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="charts-ico.ico" />
     <Content Include="charts-icon.ico" />
     <None Include="Resources\logo-uea.png" />
     <None Include="Resources\logo-saebrasil.jpg" />
@@ -262,13 +261,13 @@
       <Visible>False</Visible>
       <Description>[backup] Dados de uma corrida gravados pelo TeleBajaUEA</Description>
       <Progid>cicari.tbufile</Progid>
-      <DefaultIcon>charts-ico.ico</DefaultIcon>
+      <DefaultIcon>charts-icon.ico</DefaultIcon>
     </FileAssociation>
     <FileAssociation Include=".tbu">
       <Visible>False</Visible>
       <Description>Dados de uma corrida gravados pelo TeleBajaUEA</Description>
       <Progid>cicari.tbufile</Progid>
-      <DefaultIcon>charts-ico.ico</DefaultIcon>
+      <DefaultIcon>charts-icon.ico</DefaultIcon>
     </FileAssociation>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
