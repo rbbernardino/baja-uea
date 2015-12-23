@@ -260,7 +260,7 @@
     <FileAssociation Include=".btbu">
       <Visible>False</Visible>
       <Description>[backup] Dados de uma corrida gravados pelo TeleBajaUEA</Description>
-      <Progid>cicari.tbufile</Progid>
+      <Progid>cicari.btbufile</Progid>
       <DefaultIcon>charts-icon.ico</DefaultIcon>
     </FileAssociation>
     <FileAssociation Include=".tbu">
