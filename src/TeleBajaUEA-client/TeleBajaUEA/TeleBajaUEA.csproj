@@ -251,6 +251,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="charts-icon.ico" />
+    <Content Include="charts-icon_backup.ico" />
+    <Content Include="charts-icon_corrida.ico" />
+    <None Include="Resources\about-icon.png" />
+    <None Include="Resources\charts-icon.png" />
     <None Include="Resources\logo-uea.png" />
     <None Include="Resources\logo-saebrasil.jpg" />
     <None Include="Resources\logo-cicari.png" />
@@ -261,13 +265,13 @@
       <Visible>False</Visible>
       <Description>Corrida TeleBajaUEA %28Backup%29</Description>
       <Progid>cicari.btbufile</Progid>
-      <DefaultIcon>charts-icon.ico</DefaultIcon>
+      <DefaultIcon>charts-icon_backup.ico</DefaultIcon>
     </FileAssociation>
     <FileAssociation Include=".tbu">
       <Visible>False</Visible>
       <Description>Corrida TeleBajaUEA</Description>
       <Progid>cicari.tbufile</Progid>
-      <DefaultIcon>charts-icon.ico</DefaultIcon>
+      <DefaultIcon>charts-icon_corrida.ico</DefaultIcon>
     </FileAssociation>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

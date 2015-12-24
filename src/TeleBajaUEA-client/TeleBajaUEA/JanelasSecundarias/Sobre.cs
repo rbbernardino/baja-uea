@@ -9,16 +9,18 @@ using System.Windows.Forms;
 
 namespace TeleBajaUEA
 {
-    public partial class Sobre : FormPrincipal
+    public partial class Sobre : Form
     {
         public Sobre()
         {
             InitializeComponent();
+            var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            labelVersion.Text = String.Format("Versão {0}", version);
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            CloseOnlyThis();
+            Close();
         }
     }
 }
