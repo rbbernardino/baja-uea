@@ -37,6 +37,14 @@
             this.chartDinamic = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.aGaugeTemperature = new TeleBajaUEA.AGauge();
             this.btEncerrar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textVelocidade = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textRPM = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textFreio = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chartDinamic)).BeginInit();
             this.SuspendLayout();
             // 
@@ -202,11 +210,107 @@
             this.btEncerrar.UseVisualStyleBackColor = true;
             this.btEncerrar.Click += new System.EventHandler(this.btEncerrar_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.label1.Location = new System.Drawing.Point(328, 481);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(78, 17);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "Velocidade";
+            // 
+            // textVelocidade
+            // 
+            this.textVelocidade.BackColor = System.Drawing.Color.Black;
+            this.textVelocidade.Font = new System.Drawing.Font("Microsoft Sans Serif", 23.25F);
+            this.textVelocidade.ForeColor = System.Drawing.Color.Lime;
+            this.textVelocidade.Location = new System.Drawing.Point(331, 501);
+            this.textVelocidade.Name = "textVelocidade";
+            this.textVelocidade.Size = new System.Drawing.Size(100, 43);
+            this.textVelocidade.TabIndex = 20;
+            this.textVelocidade.Text = " 00";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Black;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.label2.ForeColor = System.Drawing.Color.Lime;
+            this.label2.Location = new System.Drawing.Point(390, 519);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(38, 17);
+            this.label2.TabIndex = 21;
+            this.label2.Text = "km/h";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Black;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.label3.ForeColor = System.Drawing.Color.Lime;
+            this.label3.Location = new System.Drawing.Point(547, 519);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(32, 17);
+            this.label3.TabIndex = 24;
+            this.label3.Text = "rpm";
+            // 
+            // textRPM
+            // 
+            this.textRPM.BackColor = System.Drawing.Color.Black;
+            this.textRPM.Font = new System.Drawing.Font("Microsoft Sans Serif", 23.25F);
+            this.textRPM.ForeColor = System.Drawing.Color.Lime;
+            this.textRPM.Location = new System.Drawing.Point(455, 501);
+            this.textRPM.Name = "textRPM";
+            this.textRPM.Size = new System.Drawing.Size(127, 43);
+            this.textRPM.TabIndex = 23;
+            this.textRPM.Text = " 0000";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.label4.Location = new System.Drawing.Point(452, 481);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(38, 17);
+            this.label4.TabIndex = 22;
+            this.label4.Text = "RPM";
+            // 
+            // textFreio
+            // 
+            this.textFreio.BackColor = System.Drawing.Color.Black;
+            this.textFreio.Font = new System.Drawing.Font("Microsoft Sans Serif", 23.25F);
+            this.textFreio.ForeColor = System.Drawing.Color.Red;
+            this.textFreio.Location = new System.Drawing.Point(609, 501);
+            this.textFreio.Name = "textFreio";
+            this.textFreio.Size = new System.Drawing.Size(90, 43);
+            this.textFreio.TabIndex = 26;
+            this.textFreio.Text = "OFF";
+            this.textFreio.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.label5.Location = new System.Drawing.Point(606, 481);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(40, 17);
+            this.label5.TabIndex = 25;
+            this.label5.Text = "Freio";
+            // 
             // GravarCorrida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1064, 611);
+            this.Controls.Add(this.textFreio);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.textRPM);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.textVelocidade);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btEncerrar);
             this.Controls.Add(this.aGaugeTemperature);
             this.Controls.Add(this.chartDinamic);
@@ -217,6 +321,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GravarCorrida_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.chartDinamic)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -224,5 +329,13 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chartDinamic;
         private TeleBajaUEA.AGauge aGaugeTemperature;
         private System.Windows.Forms.Button btEncerrar;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textVelocidade;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textRPM;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textFreio;
+        private System.Windows.Forms.Label label5;
     }
 }

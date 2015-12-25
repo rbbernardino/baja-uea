@@ -54,7 +54,7 @@ namespace TeleBajaUEA
         private readonly double AUX_SPEED_LINE_WIDTH = 1;
         private readonly Color AVG_SPEED_COLOR = Color.Orange;
         private readonly Color MAX_SPEED_COLOR = Color.Blue;
-        private readonly Color MIN_SPEED_COLOR = Color.BlueViolet;
+        private readonly Color MIN_SPEED_COLOR = Color.LawnGreen;
 
         // ------------------ Variáveis de controle interno ----------------//
         private long minX;
@@ -74,6 +74,7 @@ namespace TeleBajaUEA
 
             // configura linhas dos gráficos
             SetSeriesStyle();
+            SetLegendsStyle();
 
             // define labels do eixo X iniciais
             UpdateXLabels();
@@ -85,6 +86,16 @@ namespace TeleBajaUEA
             SetYAxisTitle("Speed", SPEED_MINIMUM, SPEED_MAXIMUM, "Velocidade");
             SetYAxisTitle("RPM",   RPM_MINIMUM,   RPM_MAXIMUM,   "RPM");
             SetYAxisTitle("Brake", BRAKE_MINIMUM, BRAKE_MAXIMUM, "Freio");
+        }
+
+        private void SetLegendsStyle()
+        {
+            foreach(LegendItem leg in chartsNew.Legends[0].CustomItems)
+            {
+                if (leg.Name == "min") leg.Color = MIN_SPEED_COLOR;
+                if (leg.Name == "med") leg.Color = AVG_SPEED_COLOR;
+                if (leg.Name == "max") leg.Color = MAX_SPEED_COLOR;
+            }
         }
 
         // essa função é chamada no analisar corrida ao inserir os pontos

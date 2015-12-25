@@ -168,5 +168,20 @@ namespace TeleBajaUEA
         {
             btVerSetup.Enabled = true;
         }
+
+        // esse código existe apenas para remover as legendas geradas automaticamente
+        // que são da velocidade, rpm e freio...
+        private void chartsNew_CustomizeLegend(object sender, CustomizeLegendEventArgs e)
+        {
+            int customItems = ((Chart)sender).Legends[0].CustomItems.Count();
+            if (customItems > 0)
+            {
+                int numberOfAutoItems = e.LegendItems.Count() - customItems;
+                for (int i = 0; i < numberOfAutoItems; i++)
+                {
+                    e.LegendItems.RemoveAt(0);
+                }
+            }
+        }
     }
 }

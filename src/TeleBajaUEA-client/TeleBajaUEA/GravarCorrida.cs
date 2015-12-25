@@ -97,6 +97,7 @@ namespace TeleBajaUEA
 
                     AddNewDataToGraph(pNewData);
                     UpdateGauges(pNewData);
+                    UpdateTextBoxes(pNewData);
                 });
             });
         }
@@ -104,6 +105,22 @@ namespace TeleBajaUEA
         private void UpdateGauges(SensorsData pNewData)
         {
             aGaugeTemperature.Value = pNewData.EngineTemperature;
+        }
+
+        private void UpdateTextBoxes(SensorsData pNewData)
+        {
+            textVelocidade.Text = " " + pNewData.Speed;
+            textRPM.Text = " " + pNewData.RPM;
+            if (pNewData.BreakState)
+            {
+                textFreio.Text = "ON";
+                textFreio.ForeColor = System.Drawing.Color.Lime;
+            }
+            else
+            {
+                textFreio.Text = "OFF";
+                textFreio.ForeColor = System.Drawing.Color.DarkRed;
+            }
         }
 
         private void AddNewDataToGraph(SensorsData pNewData)

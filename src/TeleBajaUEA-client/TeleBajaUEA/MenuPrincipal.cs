@@ -44,7 +44,7 @@ namespace TeleBajaUEA
         private void btAnalisarCorrida_Click(object sender, EventArgs e)
         {
             OpenFileDialog openDialog = new OpenFileDialog();
-            openDialog.Filter = "Arquivos TeleBajaUEA (*.tbu)|*.tbu|Todos os Arquivos (*.*)|*.*";
+            openDialog.Filter = "Arquivos TeleBajaUEA (*.tbu,*.btbu)|*.tbu;*.btbu|Todos os Arquivos (*.*)|*.*";
             openDialog.FilterIndex = 1;
             openDialog.RestoreDirectory = true;
 

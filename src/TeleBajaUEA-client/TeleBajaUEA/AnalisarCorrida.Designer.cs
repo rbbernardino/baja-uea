@@ -31,6 +31,10 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem1 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
+            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem2 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
+            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem3 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -94,6 +98,29 @@
             this.chartsNew.ChartAreas.Add(chartArea1);
             this.chartsNew.ChartAreas.Add(chartArea2);
             this.chartsNew.ChartAreas.Add(chartArea3);
+            legend1.BackColor = System.Drawing.Color.White;
+            legend1.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Top;
+            legend1.BorderColor = System.Drawing.Color.Black;
+            legendItem1.BorderWidth = 3;
+            legendItem1.Color = System.Drawing.Color.Maroon;
+            legendItem1.ImageStyle = System.Windows.Forms.DataVisualization.Charting.LegendImageStyle.Line;
+            legendItem1.Name = "max";
+            legendItem2.BorderWidth = 3;
+            legendItem2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            legendItem2.ImageStyle = System.Windows.Forms.DataVisualization.Charting.LegendImageStyle.Line;
+            legendItem2.Name = "med";
+            legendItem3.BorderWidth = 3;
+            legendItem3.Color = System.Drawing.Color.Purple;
+            legendItem3.ImageStyle = System.Windows.Forms.DataVisualization.Charting.LegendImageStyle.Line;
+            legendItem3.Name = "min";
+            legend1.CustomItems.Add(legendItem1);
+            legend1.CustomItems.Add(legendItem2);
+            legend1.CustomItems.Add(legendItem3);
+            legend1.DockedToChartArea = "Speed";
+            legend1.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Row;
+            legend1.Name = "Legend1";
+            legend1.ShadowOffset = 3;
+            this.chartsNew.Legends.Add(legend1);
             this.chartsNew.Location = new System.Drawing.Point(12, 12);
             this.chartsNew.Name = "chartsNew";
             series1.ChartArea = "Speed";
@@ -114,6 +141,7 @@
             this.chartsNew.Size = new System.Drawing.Size(1040, 629);
             this.chartsNew.TabIndex = 13;
             this.chartsNew.Text = "chart1";
+            this.chartsNew.CustomizeLegend += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.CustomizeLegendEventArgs>(this.chartsNew_CustomizeLegend);
             // 
             // btVerSetup
             // 
