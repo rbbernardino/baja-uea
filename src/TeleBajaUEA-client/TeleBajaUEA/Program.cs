@@ -30,7 +30,11 @@ namespace TeleBajaUEA
 
             ProgramSettings.LoadFromFile();
 
-            if(args.Length >= 1)
+            string[] activationData;
+            if(GetActivationData(out activationData))
+                args = activationData;
+
+            if (args != null && args.Length >= 1)
             {
                 formMenuPrincipal = new MenuPrincipal(args[0]);
                 Application.Run();
@@ -41,9 +45,22 @@ namespace TeleBajaUEA
                 Application.Run(formMenuPrincipal);
             }
 
-
             //SerialTest formSerialTest = new SerialTest();
             //Application.Run(formSerialTest);
+        }
+
+        // fonte: https://robindotnet.wordpress.com/2010/03/21/how-to-pass-arguments-to-an-offline-clickonce-application/
+        private static bool GetActivationData(out string[] activationData)
+        {
+            // se executado pelo VisualStudio ou diretamente o .exe, isso não é válido
+            if (AppDomain.CurrentDomain.SetupInformation.ActivationArguments != null)
+            {
+                activationData = AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData;
+                return true;
+            }
+            else
+                activationData = null;
+                return false;
         }
 
         public static void ShowMenuPrincipal()
