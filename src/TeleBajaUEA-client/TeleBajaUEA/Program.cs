@@ -7,6 +7,7 @@ using TeleBajaUEA.ClassesAuxiliares;
 
 namespace TeleBajaUEA
 {
+    // TODO criar variável global com o nome do aplicativo (TeleBajaUEA)
     static class Program
     {
         public static Version AssemblyVersion
@@ -32,9 +33,7 @@ namespace TeleBajaUEA
 
             try
             {
-                string[] activationData;
-                if(GetActivationData(out activationData))
-                    args = activationData;
+                args = GetActivationData(args);
 
                 if (args != null && args.Length >= 1)
                 {
@@ -49,27 +48,41 @@ namespace TeleBajaUEA
             }
             catch(Exception e)
             {
-                MessageBox.Show("ERRO!\n\n" +
+                string errorMessage =
+                    "Erro Inesperado! \n\n" +
                     e.Message + "\n\n" +
-                    e.StackTrace + "\n\n");
+                    "----------------------------\n\n" +
+                    e.StackTrace + "\n\n";
+                MessageBox.Show(errorMessage, "TeleBajaUEA", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             //SerialTest formSerialTest = new SerialTest();
             //Application.Run(formSerialTest);
         }
 
+        // Não há uma real necessidade de se passar o args do main para essa função
+        // fiz isso apenas para tentar simplificar o código no main, já que:
+        //
+        // 1. se estiver rodando direto pelo .exe ou visual studio, o args do main será usado
+        // 2. se estiver rodando pelo application instalado, será usado o ActivationData
         // fonte: https://robindotnet.wordpress.com/2010/03/21/how-to-pass-arguments-to-an-offline-clickonce-application/
-        private static bool GetActivationData(out string[] activationData)
+        private static string[] GetActivationData(string[] pArgs)
         {
             // se executado pelo VisualStudio ou diretamente o .exe, isso não é válido
             if (AppDomain.CurrentDomain.SetupInformation.ActivationArguments != null)
             {
-                activationData = AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData;
-                return true;
+                string[] activationData = AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData;
+
+                string[] args = new string[activationData.Length];
+                for (int i = 0; i < activationData.Length; i++)
+                {
+                    Uri uri = new Uri(activationData[i]);
+                    args[i] = uri.LocalPath.ToString();
+                }
+                return args;
             }
             else
-                activationData = null;
-                return false;
+                return pArgs;
         }
 
         public static void ShowMenuPrincipal()
