@@ -30,19 +30,28 @@ namespace TeleBajaUEA
 
             ProgramSettings.LoadFromFile();
 
-            string[] activationData;
-            if(GetActivationData(out activationData))
-                args = activationData;
+            try
+            {
+                string[] activationData;
+                if(GetActivationData(out activationData))
+                    args = activationData;
 
-            if (args != null && args.Length >= 1)
-            {
-                formMenuPrincipal = new MenuPrincipal(args[0]);
-                Application.Run();
+                if (args != null && args.Length >= 1)
+                {
+                    formMenuPrincipal = new MenuPrincipal(args[0]);
+                    Application.Run();
+                }
+                else
+                {
+                    formMenuPrincipal = new MenuPrincipal();
+                    Application.Run(formMenuPrincipal);
+                }
             }
-            else
+            catch(Exception e)
             {
-                formMenuPrincipal = new MenuPrincipal();
-                Application.Run(formMenuPrincipal);
+                MessageBox.Show("ERRO!\n\n" +
+                    e.Message + "\n\n" +
+                    e.StackTrace + "\n\n");
             }
 
             //SerialTest formSerialTest = new SerialTest();
