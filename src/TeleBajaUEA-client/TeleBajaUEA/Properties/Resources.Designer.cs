@@ -73,6 +73,26 @@ namespace TeleBajaUEA.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap arrow_left_minus {
+            get {
+                object obj = ResourceManager.GetObject("arrow_left_minus", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap arrow_right_plus {
+            get {
+                object obj = ResourceManager.GetObject("arrow_right_plus", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap done {
             get {
                 object obj = ResourceManager.GetObject("done", resourceCulture);
@@ -123,9 +143,9 @@ namespace TeleBajaUEA.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap seta {
+        internal static System.Drawing.Bitmap spinner {
             get {
-                object obj = ResourceManager.GetObject("seta", resourceCulture);
+                object obj = ResourceManager.GetObject("spinner", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +153,19 @@ namespace TeleBajaUEA.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap spinner {
+        internal static System.Drawing.Bitmap zoom_in {
             get {
-                object obj = ResourceManager.GetObject("spinner", resourceCulture);
+                object obj = ResourceManager.GetObject("zoom_in", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap zoom_out {
+            get {
+                object obj = ResourceManager.GetObject("zoom_out", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -40,10 +40,12 @@
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AnalisarCorrida));
             this.btVoltar = new System.Windows.Forms.Button();
-            this.btPlus = new System.Windows.Forms.Button();
-            this.btMinus = new System.Windows.Forms.Button();
             this.chartsNew = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btVerSetup = new System.Windows.Forms.Button();
+            this.btZoomOut = new System.Windows.Forms.Button();
+            this.btZoomIn = new System.Windows.Forms.Button();
+            this.btMinus = new System.Windows.Forms.Button();
+            this.btPlus = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chartsNew)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,35 +53,13 @@
             // 
             this.btVoltar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btVoltar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.btVoltar.Location = new System.Drawing.Point(506, 655);
+            this.btVoltar.Location = new System.Drawing.Point(891, 655);
             this.btVoltar.Name = "btVoltar";
             this.btVoltar.Size = new System.Drawing.Size(135, 51);
             this.btVoltar.TabIndex = 7;
             this.btVoltar.Text = "Fechar";
             this.btVoltar.UseVisualStyleBackColor = true;
             this.btVoltar.Click += new System.EventHandler(this.btVoltar_Click);
-            // 
-            // btPlus
-            // 
-            this.btPlus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.btPlus.Location = new System.Drawing.Point(940, 663);
-            this.btPlus.Name = "btPlus";
-            this.btPlus.Size = new System.Drawing.Size(75, 36);
-            this.btPlus.TabIndex = 11;
-            this.btPlus.Text = "+ 5 min";
-            this.btPlus.UseVisualStyleBackColor = true;
-            this.btPlus.Click += new System.EventHandler(this.btPlus_Click);
-            // 
-            // btMinus
-            // 
-            this.btMinus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.btMinus.Location = new System.Drawing.Point(836, 663);
-            this.btMinus.Name = "btMinus";
-            this.btMinus.Size = new System.Drawing.Size(75, 36);
-            this.btMinus.TabIndex = 12;
-            this.btMinus.Text = "- 5 min";
-            this.btMinus.UseVisualStyleBackColor = true;
-            this.btMinus.Click += new System.EventHandler(this.btMinus_Click);
             // 
             // chartsNew
             // 
@@ -125,14 +105,17 @@
             this.chartsNew.Name = "chartsNew";
             series1.ChartArea = "Speed";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series1.IsVisibleInLegend = false;
             series1.Legend = "Legend1";
             series1.Name = "Speed";
             series2.ChartArea = "RPM";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series2.IsVisibleInLegend = false;
             series2.Legend = "Legend1";
             series2.Name = "RPM";
             series3.ChartArea = "Brake";
             series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series3.IsVisibleInLegend = false;
             series3.Legend = "Legend1";
             series3.Name = "Brake";
             this.chartsNew.Series.Add(series1);
@@ -140,14 +123,14 @@
             this.chartsNew.Series.Add(series3);
             this.chartsNew.Size = new System.Drawing.Size(1040, 629);
             this.chartsNew.TabIndex = 13;
-            this.chartsNew.Text = "chart1";
+            this.chartsNew.Text = "5";
             this.chartsNew.CustomizeLegend += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.CustomizeLegendEventArgs>(this.chartsNew_CustomizeLegend);
             // 
             // btVerSetup
             // 
             this.btVerSetup.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btVerSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.btVerSetup.Location = new System.Drawing.Point(86, 655);
+            this.btVerSetup.Location = new System.Drawing.Point(733, 655);
             this.btVerSetup.Name = "btVerSetup";
             this.btVerSetup.Size = new System.Drawing.Size(135, 51);
             this.btVerSetup.TabIndex = 14;
@@ -155,11 +138,63 @@
             this.btVerSetup.UseVisualStyleBackColor = true;
             this.btVerSetup.Click += new System.EventHandler(this.btVerSetup_Click);
             // 
+            // btZoomOut
+            // 
+            this.btZoomOut.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btZoomOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btZoomOut.Image = global::TeleBajaUEA.Properties.Resources.zoom_out;
+            this.btZoomOut.Location = new System.Drawing.Point(510, 681);
+            this.btZoomOut.Name = "btZoomOut";
+            this.btZoomOut.Size = new System.Drawing.Size(40, 40);
+            this.btZoomOut.TabIndex = 18;
+            this.btZoomOut.UseVisualStyleBackColor = true;
+            this.btZoomOut.Click += new System.EventHandler(this.btZoomOut_Click);
+            // 
+            // btZoomIn
+            // 
+            this.btZoomIn.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btZoomIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btZoomIn.Image = global::TeleBajaUEA.Properties.Resources.zoom_in;
+            this.btZoomIn.Location = new System.Drawing.Point(510, 623);
+            this.btZoomIn.Name = "btZoomIn";
+            this.btZoomIn.Size = new System.Drawing.Size(40, 40);
+            this.btZoomIn.TabIndex = 17;
+            this.btZoomIn.UseVisualStyleBackColor = true;
+            this.btZoomIn.Click += new System.EventHandler(this.btZoomIn_Click);
+            // 
+            // btMinus
+            // 
+            this.btMinus.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btMinus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btMinus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.btMinus.Image = global::TeleBajaUEA.Properties.Resources.arrow_left_minus;
+            this.btMinus.Location = new System.Drawing.Point(453, 647);
+            this.btMinus.Name = "btMinus";
+            this.btMinus.Size = new System.Drawing.Size(40, 48);
+            this.btMinus.TabIndex = 12;
+            this.btMinus.UseVisualStyleBackColor = true;
+            this.btMinus.Click += new System.EventHandler(this.btMinus_Click);
+            // 
+            // btPlus
+            // 
+            this.btPlus.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btPlus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btPlus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.btPlus.Image = global::TeleBajaUEA.Properties.Resources.arrow_right_plus;
+            this.btPlus.Location = new System.Drawing.Point(571, 647);
+            this.btPlus.Name = "btPlus";
+            this.btPlus.Size = new System.Drawing.Size(40, 48);
+            this.btPlus.TabIndex = 11;
+            this.btPlus.UseVisualStyleBackColor = true;
+            this.btPlus.Click += new System.EventHandler(this.btPlus_Click);
+            // 
             // AnalisarCorrida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1064, 733);
+            this.Controls.Add(this.btZoomOut);
+            this.Controls.Add(this.btZoomIn);
             this.Controls.Add(this.btVerSetup);
             this.Controls.Add(this.chartsNew);
             this.Controls.Add(this.btMinus);
@@ -180,5 +215,7 @@
         private System.Windows.Forms.Button btMinus;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartsNew;
         private System.Windows.Forms.Button btVerSetup;
+        private System.Windows.Forms.Button btZoomIn;
+        private System.Windows.Forms.Button btZoomOut;
     }
 }

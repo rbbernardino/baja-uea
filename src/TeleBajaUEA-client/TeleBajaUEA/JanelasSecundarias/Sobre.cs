@@ -14,7 +14,7 @@ namespace TeleBajaUEA
         public Sobre()
         {
             InitializeComponent();
-            var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            var version = Program.AssemblyVersion;
             labelVersion.Text = String.Format("Versão {0}", version);
         }
 

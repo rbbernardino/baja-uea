@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Deployment.Application;
 using System.Linq;
 using System.Windows.Forms;
 using TeleBajaUEA.ClassesAuxiliares;
@@ -8,6 +9,14 @@ namespace TeleBajaUEA
 {
     static class Program
     {
+        public static Version AssemblyVersion
+        {
+            get
+            {
+                return ApplicationDeployment.CurrentDeployment.CurrentVersion;
+            }
+        }
+
         private static MenuPrincipal formMenuPrincipal;
 
         /// <summary>

@@ -16,13 +16,9 @@ namespace TeleBajaUEA
         // sugestão de config.:
         //     máximo como múltiplo de 30    (60, 90, 120...)
         //     intervalo como múltiplo de 10 (10, 20, 30...)
-        private readonly double X_AXIS_MINIMUM = 0;
-        private readonly double X_AXIS_MAXIMUM = 300 * 1000; // 300 = 5min
-        private readonly double INCREASE_LIMITS_INTERVAL = 300 * 1000;
-
-        private readonly double X_AXIS_INTERVAL = 50 * 1000;
-        private readonly double X_AXIS_GRID_INTERVAL = 50 * 1000;
-
+        private readonly double INITIAL_MIN_X = 0;
+        private readonly double INITIAL_MAX_X = 300 * 1000; // 300 = 5min
+        private readonly double INITIAL_X_INTERVAL = 50 * 1000;
 
         // -------------------- Configurações do eixo Y ---------------------//
         private readonly double SPEED_MINIMUM = 0;
@@ -54,19 +50,24 @@ namespace TeleBajaUEA
         private readonly double AUX_SPEED_LINE_WIDTH = 1;
         private readonly Color AVG_SPEED_COLOR = Color.Orange;
         private readonly Color MAX_SPEED_COLOR = Color.Blue;
-        private readonly Color MIN_SPEED_COLOR = Color.LawnGreen;
+        private readonly Color MIN_SPEED_COLOR = Color.Olive;
 
         // ------------------ Variáveis de controle interno ----------------//
-        private long minX;
-        private long maxX;
+        // variável para controlar o quanto os limites vão variar quando apertar "<" ou ">"
+        private double XIncreaseRate;
+        private double XInterval;
+        private double minX;
+        private double maxX;
 
         /// <summary>
         /// Encapsula configuração dos gráficos
         /// </summary>
         public void ConfigureCharts()
         {
-            minX = (long) X_AXIS_MINIMUM;
-            maxX = (long) X_AXIS_MAXIMUM;
+            minX = INITIAL_MIN_X;
+            maxX = INITIAL_MAX_X;
+            XIncreaseRate = (long)INITIAL_MAX_X - INITIAL_MIN_X;
+            XInterval = INITIAL_X_INTERVAL;
 
             // configura fundo e linhas de apoio dos gráficos
             foreach (ChartArea chartArea in chartsNew.ChartAreas)
@@ -151,12 +152,12 @@ namespace TeleBajaUEA
             chartArea.AxisY.MajorGrid.LineColor = GRID_COLOR;
 
             // Configurando o X
-            chartArea.AxisX.Minimum = X_AXIS_MINIMUM;
-            chartArea.AxisX.Maximum = X_AXIS_MAXIMUM;
-            chartArea.AxisX.Interval = X_AXIS_INTERVAL;
+            chartArea.AxisX.Minimum = minX;
+            chartArea.AxisX.Maximum = maxX;
+            chartArea.AxisX.Interval = INITIAL_X_INTERVAL;
 
             // linhas de trás/apoio/fundo
-            chartArea.AxisX.MajorGrid.Interval = X_AXIS_GRID_INTERVAL;
+            chartArea.AxisX.MajorGrid.Interval = XIncreaseRate;
             chartArea.AxisX.MajorGrid.LineColor = GRID_COLOR;
         }
 
@@ -204,18 +205,28 @@ namespace TeleBajaUEA
         {
             chartsNew.ChartAreas[XLabelChartArea].AxisX.CustomLabels.Clear();
 
-            long fromPosition, toPosition;
+            double fromPosition, toPosition;
             string text;
-            for (long currentXLabel = minX;
-                currentXLabel <= maxX; currentXLabel += (long)X_AXIS_INTERVAL)
+            for (double currentXLabel = minX;
+                currentXLabel <= maxX; currentXLabel += XInterval)
             {
-                fromPosition = currentXLabel - 5 * ((long)X_AXIS_INTERVAL / 10); // TODO trocar de 10 para UPDATE_RATE...
-                toPosition = currentXLabel + 5 * ((long)X_AXIS_INTERVAL / 10);
+                fromPosition = currentXLabel - 5 * (XInterval / 10); // TODO trocar de 10 para UPDATE_RATE...
+                toPosition = currentXLabel + 5 * (XInterval / 10);
                 
                 // contagem é feita em milisegundos
-                text = SecondsToTime(currentXLabel/1000);
+                text = SecondsToTime((long) currentXLabel/1000);
 
                 chartsNew.ChartAreas[XLabelChartArea].AxisX.CustomLabels.Add(fromPosition, toPosition, text);
+            }
+        }
+
+        // chamada sempre que os limites maxX e minX forem alterados, atualizando no chart
+        private void UpdateXLimits()
+        {
+            foreach (ChartArea chart in chartsNew.ChartAreas)
+            {
+                chart.AxisX.Minimum = minX;
+                chart.AxisX.Maximum = maxX;
             }
         }
 

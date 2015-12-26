@@ -101,30 +101,20 @@ namespace TeleBajaUEA
 
         private void IncreaseXLimits()
         {
-            minX += (long)INCREASE_LIMITS_INTERVAL;
-            maxX += (long)INCREASE_LIMITS_INTERVAL;
+            minX += (long)XIncreaseRate;
+            maxX += (long)XIncreaseRate;
 
-            foreach (ChartArea chart in chartsNew.ChartAreas)
-            {
-                chart.AxisX.Minimum = minX;
-                chart.AxisX.Maximum = maxX;
-            }
-
+            UpdateXLimits();
             UpdateXLabels();
             UpdateButtonsState();
         }
 
         private void DecreaseXLimits()
         {
-            minX -= (long)INCREASE_LIMITS_INTERVAL;
-            maxX -= (long)INCREASE_LIMITS_INTERVAL;
+            minX -= (long)XIncreaseRate;
+            maxX -= (long)XIncreaseRate;
 
-            foreach (ChartArea chart in chartsNew.ChartAreas)
-            {
-                chart.AxisX.Minimum = minX;
-                chart.AxisX.Maximum = maxX;
-            }
-
+            UpdateXLimits();
             UpdateXLabels();
             UpdateButtonsState();
         }
@@ -183,5 +173,28 @@ namespace TeleBajaUEA
                 }
             }
         }
+
+        private void btZoomIn_Click(object sender, EventArgs e)
+        {
+            XIncreaseRate /= 5f;
+            XInterval /= 5f;
+            maxX = minX + XIncreaseRate;
+
+            UpdateXLimits();
+            UpdateXLabels();
+            UpdateButtonsState();
+        }
+
+        private void btZoomOut_Click(object sender, EventArgs e)
+        {
+            XIncreaseRate *= 5f;
+            XInterval *= 5f;
+            maxX = minX + XIncreaseRate;
+
+            UpdateXLimits();
+            UpdateXLabels();
+            UpdateButtonsState();
+        }
+
     }
 }
