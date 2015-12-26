@@ -68,8 +68,10 @@ namespace TeleBajaUEA
         // fonte: https://robindotnet.wordpress.com/2010/03/21/how-to-pass-arguments-to-an-offline-clickonce-application/
         private static string[] GetActivationData(string[] pArgs)
         {
+            // TODO verificar se de fato são caminhos para arquivos e se eles existem...
             // se executado pelo VisualStudio ou diretamente o .exe, isso não é válido
-            if (AppDomain.CurrentDomain.SetupInformation.ActivationArguments != null)
+            if (AppDomain.CurrentDomain.SetupInformation.ActivationArguments != null &&
+                    AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData != null)
             {
                 string[] activationData = AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData;
 
