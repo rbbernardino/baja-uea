@@ -14,20 +14,65 @@ namespace TeleBajaUEA
 {
     public partial class AnalisarCorrida : FormPrincipal
     {
+        private ToolTip toolTipPoint = new ToolTip();
+        private Point? prevPosition = null;
+
         private RaceData raceData;
+        
+        // DataSize indica a quantidade de pontos e o valor máximo do eixo X
+        private double DataSize { get; }
 
         public AnalisarCorrida(RaceData pRaceData)
         {
             InitializeComponent();
 
-            ConfigureCharts();
-
+            // configura a quantidade de pontos e valor máximo do eixo X
+            DataSize = pRaceData.DataList.Last().xValue;
             raceData = pRaceData;
 
             AddDataToCharts();
 
+            ConfigureCharts();
+
             // ativa ou desativa botões para permitir "andar" para  dir/esq
             UpdateButtonsState();
+
+            // evento para detectar quando o ponteiro do mouse estiver em cima de algum gráfico
+            chartsNew.MouseMove += new MouseEventHandler(chartsNew_MouseMove);
+            toolTipPoint.AutomaticDelay = 10;
+        }
+
+        // obtido a partir de: http://pastebin.com/PzhHtfMu
+        private void chartsNew_MouseMove(object sender, MouseEventArgs e)
+        {
+            var pos = e.Location;
+            if (prevPosition.HasValue && pos == prevPosition.Value)
+                return;
+            toolTipPoint.RemoveAll();
+            prevPosition = pos;
+            var results = chartsNew.HitTest(pos.X, pos.Y, false,
+                                            ChartElementType.DataPoint);
+
+            foreach (var result in results)
+            {
+                if (result.ChartElementType == ChartElementType.DataPoint)
+                {
+                    var prop = result.Object as DataPoint;
+                    if (prop != null)
+                    {
+                        var pointXPixel = result.ChartArea.AxisX.ValueToPixelPosition(prop.XValue);
+                        var pointYPixel = result.ChartArea.AxisY.ValueToPixelPosition(prop.YValues[0]);
+
+                        // check if the cursor is really close to the point (2 pixels around)
+                        if (Math.Abs(pos.X - pointXPixel) < 2 &&
+                            Math.Abs(pos.Y - pointYPixel) < 2)
+                        {
+                            toolTipPoint.Show("X=" + prop.XValue + ", Y=" + prop.YValues[0], chartsNew,
+                                            pos.X, pos.Y - 15);
+                        }
+                    }
+                }
+            }
         }
 
         private void AddDataToCharts()
@@ -57,7 +102,6 @@ namespace TeleBajaUEA
                     brakePosition = (BRAKE_MAXIMUM / 2) - (BRAKE_MAXIMUM / 4);
 
                 chartsNew.Series["Brake"].Points.AddXY(pointData.xValue, brakePosition);
-
             }
 
             // seta a velocidade max/media/min
@@ -76,6 +120,7 @@ namespace TeleBajaUEA
                 chartsNew.Series[serie].Points.AddXY(x, y);
         }
 
+        #region Button Events {...}
         private void button1_Click(object sender, EventArgs e)
         {
             Hide();
@@ -91,59 +136,10 @@ namespace TeleBajaUEA
 
         private void btPlus_Click(object sender, EventArgs e)
         {
-            IncreaseXLimits();
         }
 
         private void btMinus_Click(object sender, EventArgs e)
         {
-            DecreaseXLimits();
-        }
-
-        private void IncreaseXLimits()
-        {
-            minX += (long)XIncreaseRate;
-            maxX += (long)XIncreaseRate;
-
-            UpdateXLimits();
-            UpdateXLabels();
-            UpdateButtonsState();
-        }
-
-        private void DecreaseXLimits()
-        {
-            minX -= (long)XIncreaseRate;
-            maxX -= (long)XIncreaseRate;
-
-            UpdateXLimits();
-            UpdateXLabels();
-            UpdateButtonsState();
-        }
-
-        private void UpdateButtonsState()
-        {
-            // verifica se o primeiro ponto está plotado, impedindo o gráfico
-            // de ir mais a esquerda, onde não existem mais pontos
-            FileSensorsData firstPoint = raceData.DataList.First();
-            if (firstPoint.xValue >= minX)
-            {
-                btMinus.Enabled = false;
-            }
-            else
-            {
-                btMinus.Enabled = true;
-            }
-
-            // verifica se o último ponto está plotado, impedindo o gráfico
-            // de ir mais a direita, onde não existem pontos
-            FileSensorsData lastPoint = raceData.DataList.Last();
-            if (lastPoint.xValue <= maxX)
-            {
-                btPlus.Enabled = false;
-            }
-            else
-            {
-                btPlus.Enabled = true;
-            }
         }
 
         private void btVerSetup_Click(object sender, EventArgs e)
@@ -152,6 +148,61 @@ namespace TeleBajaUEA
             formSetup.Show();
             formSetup.FormClosed += FormSetup_FormClosed;
             btVerSetup.Enabled = false;
+        }
+
+        private void btZoomIn_Click(object sender, EventArgs e)
+        {
+            ChartArea c = chartsNew.ChartAreas[XLabelChartArea];
+
+            double newMin = c.AxisX.CustomLabels[1].FromPosition + 5 * ((XInterval / 10));
+            double newMax = newMin + XInterval * 2;//(LABELS_INTERVAL_RATE-3);
+
+            //double decreaseRate = (LABELS_INTERVAL_RATE - 1) * scaleViewSize / LABELS_INTERVAL_RATE;
+            // = c.AxisX.ScaleView.ViewMinimum;
+            //double curMax = c.AxisX.ScaleView.ViewMaximum;
+
+            //MessageBox.Show("isso: " + curMin + "\n" + "e isso: " + curMax);
+            //c.AxisX.ScaleView.Zoom(curMin + decreaseRate, curMax - decreaseRate, DateTimeIntervalType.Number, true);
+            c.AxisX.ScaleView.Zoom(newMin, newMax,    DateTimeIntervalType.Number,true );
+
+            UpdateCharts();
+            i++;
+        }
+        int i=0; // TODO melhorar, corrigir, mudar estratégia desse contador...
+        private void btZoomOut_Click(object sender, EventArgs e)
+        {
+            if (i == 0)
+            {
+                chartsNew.ChartAreas[XLabelChartArea].AxisX.ScaleView.Zoom(0, DataSize);
+                btZoomOut.Enabled = false;
+            }
+            else
+            {
+                chartsNew.ChartAreas[XLabelChartArea].AxisX.ScaleView.ZoomReset();
+                i--;
+            }
+            UpdateCharts();
+        }
+        #endregion
+
+
+        private void UpdateButtonsState()
+        {
+            // verifica se o primeiro ponto está plotado, impedindo o gráfico
+            // de ir mais a esquerda, onde não existem mais pontos
+            FileSensorsData firstPoint = raceData.DataList.First();
+            if (firstPoint.xValue >= 0)
+                btMinus.Enabled = false;
+            else
+                btMinus.Enabled = true;
+
+            // verifica se o último ponto está plotado, impedindo o gráfico
+            // de ir mais a direita, onde não existem pontos
+            FileSensorsData lastPoint = raceData.DataList.Last();
+            if (lastPoint.xValue <= DataSize)
+                btPlus.Enabled = false;
+            else
+                btPlus.Enabled = true;
         }
 
         private void FormSetup_FormClosed(object sender, FormClosedEventArgs e)
@@ -174,27 +225,21 @@ namespace TeleBajaUEA
             }
         }
 
-        private void btZoomIn_Click(object sender, EventArgs e)
+        private void chartsNew_AxisViewChanged(object sender, ViewEventArgs e)
         {
-            XIncreaseRate /= 5f;
-            XInterval /= 5f;
-            maxX = minX + XIncreaseRate;
+            UpdateCharts();
+        }
 
-            UpdateXLimits();
+        private void chartsNew_SelectionRangeChanged(object sender, CursorEventArgs e)
+        {
+            UpdateCharts();
+        }
+
+        private void UpdateCharts()
+        {
+            UpdateAllCharts();
             UpdateXLabels();
             UpdateButtonsState();
         }
-
-        private void btZoomOut_Click(object sender, EventArgs e)
-        {
-            XIncreaseRate *= 5f;
-            XInterval *= 5f;
-            maxX = minX + XIncreaseRate;
-
-            UpdateXLimits();
-            UpdateXLabels();
-            UpdateButtonsState();
-        }
-
     }
 }

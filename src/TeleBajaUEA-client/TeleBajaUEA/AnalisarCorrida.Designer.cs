@@ -65,19 +65,35 @@
             // 
             this.chartsNew.BackColor = System.Drawing.Color.Transparent;
             chartArea1.AxisX.LabelStyle.Enabled = false;
+            chartArea1.AxisX.ScrollBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            chartArea1.AxisX.ScrollBar.ButtonColor = System.Drawing.Color.Silver;
+            chartArea1.AxisX.ScrollBar.Size = 16D;
             chartArea1.AxisY.IsLabelAutoFit = false;
             chartArea1.AxisY.LabelStyle.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea1.CursorX.IsUserEnabled = true;
+            chartArea1.CursorX.IsUserSelectionEnabled = true;
             chartArea1.Name = "Speed";
             chartArea2.AlignWithChartArea = "Speed";
             chartArea2.AxisX.LabelStyle.Enabled = false;
+            chartArea2.AxisX.ScrollBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            chartArea2.AxisX.ScrollBar.ButtonColor = System.Drawing.Color.Silver;
+            chartArea2.AxisX.ScrollBar.Size = 16D;
             chartArea2.AxisY.LabelStyle.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea2.CursorX.IsUserEnabled = true;
+            chartArea2.CursorX.IsUserSelectionEnabled = true;
             chartArea2.Name = "RPM";
             chartArea3.AlignWithChartArea = "Speed";
+            chartArea3.AxisX.ScrollBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            chartArea3.AxisX.ScrollBar.ButtonColor = System.Drawing.Color.Silver;
+            chartArea3.AxisX.ScrollBar.Size = 16D;
             chartArea3.AxisY.LabelStyle.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea3.CursorX.IsUserEnabled = true;
+            chartArea3.CursorX.IsUserSelectionEnabled = true;
             chartArea3.Name = "Brake";
             this.chartsNew.ChartAreas.Add(chartArea1);
             this.chartsNew.ChartAreas.Add(chartArea2);
             this.chartsNew.ChartAreas.Add(chartArea3);
+            this.chartsNew.Cursor = System.Windows.Forms.Cursors.Cross;
             legend1.BackColor = System.Drawing.Color.White;
             legend1.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Top;
             legend1.BorderColor = System.Drawing.Color.Black;
@@ -124,6 +140,8 @@
             this.chartsNew.Size = new System.Drawing.Size(1040, 629);
             this.chartsNew.TabIndex = 13;
             this.chartsNew.Text = "5";
+            this.chartsNew.SelectionRangeChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.CursorEventArgs>(this.chartsNew_SelectionRangeChanged);
+            this.chartsNew.AxisViewChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ViewEventArgs>(this.chartsNew_AxisViewChanged);
             this.chartsNew.CustomizeLegend += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.CustomizeLegendEventArgs>(this.chartsNew_CustomizeLegend);
             // 
             // btVerSetup

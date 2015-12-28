@@ -16,9 +16,11 @@ namespace TeleBajaUEA
         // sugestão de config.:
         //     máximo como múltiplo de 30    (60, 90, 120...)
         //     intervalo como múltiplo de 10 (10, 20, 30...)
-        private readonly double INITIAL_MIN_X = 0;
-        private readonly double INITIAL_MAX_X = 300 * 1000; // 300 = 5min
-        private readonly double INITIAL_X_INTERVAL = 50 * 1000;
+        private readonly double INITIAL_VIEW_SIZE = 300 * 1000; // 300 = 5min
+
+        // indica em quantas partes o eixo X será dividido para mostar as labels
+        // logo, havérão LABELS_INTERVAL_RATE-1 labels no gráfico
+        private readonly double LABELS_INTERVAL_RATE = 7d;
 
         // -------------------- Configurações do eixo Y ---------------------//
         private readonly double SPEED_MINIMUM = 0;
@@ -54,44 +56,36 @@ namespace TeleBajaUEA
 
         // ------------------ Variáveis de controle interno ----------------//
         // variável para controlar o quanto os limites vão variar quando apertar "<" ou ">"
-        private double XIncreaseRate;
+        //private double XIncreaseRate; // TODO verificar essa variável
         private double XInterval;
-        private double minX;
-        private double maxX;
+        private double scaleViewSize;
 
         /// <summary>
         /// Encapsula configuração dos gráficos
         /// </summary>
         public void ConfigureCharts()
         {
-            minX = INITIAL_MIN_X;
-            maxX = INITIAL_MAX_X;
-            XIncreaseRate = (long)INITIAL_MAX_X - INITIAL_MIN_X;
-            XInterval = INITIAL_X_INTERVAL;
+            scaleViewSize = INITIAL_VIEW_SIZE;
+
+            // configura barras de rolagem / zoom
+            SetScrollBars();
 
             // configura fundo e linhas de apoio dos gráficos
-            foreach (ChartArea chartArea in chartsNew.ChartAreas)
-                SetChartsShared(chartArea);
+            UpdateAllCharts();
 
             // configura linhas dos gráficos
             SetSeriesStyle();
             SetLegendsStyle();
 
-            // define labels do eixo X iniciais
-            UpdateXLabels();
-
-            // define os valores e intervalos do eixo Y
-            SetYAxisValues();
-                
-            // define labels de título do eixo Y
-            SetYAxisTitle("Speed", SPEED_MINIMUM, SPEED_MAXIMUM, "Velocidade");
-            SetYAxisTitle("RPM",   RPM_MINIMUM,   RPM_MAXIMUM,   "RPM");
-            SetYAxisTitle("Brake", BRAKE_MINIMUM, BRAKE_MAXIMUM, "Freio");
+            // define valores, intervalos e labels dos eixos
+            SetXAxis();
+            SetYAxis();
         }
 
+        #region Funções de setup (configuração inicial) {...}
         private void SetLegendsStyle()
         {
-            foreach(LegendItem leg in chartsNew.Legends[0].CustomItems)
+            foreach (LegendItem leg in chartsNew.Legends[0].CustomItems)
             {
                 if (leg.Name == "min") leg.Color = MIN_SPEED_COLOR;
                 if (leg.Name == "med") leg.Color = AVG_SPEED_COLOR;
@@ -143,32 +137,52 @@ namespace TeleBajaUEA
             chartsNew.Series["Brake"].BorderWidth = BRAKE_LINE_WIDTH;
         }
 
-        // Aplica as configurações que são comuns a todas as CharAreas
-        private void SetChartsShared(ChartArea chartArea)
+        private void SetXAxis()
         {
-            chartArea.BackColor = Color.Black;
+            foreach (ChartArea chartArea in chartsNew.ChartAreas)
+            {
+                // Configurando o X
+                chartArea.AxisX.Minimum = 0;
+                chartArea.AxisX.Maximum = DataSize;
+                chartArea.AxisX.Interval = XInterval;
+            }
 
-            // linhas de trás/apoio (grid)
-            chartArea.AxisY.MajorGrid.LineColor = GRID_COLOR;
+            // define labels do eixo X iniciais
+            UpdateXLabels();
+        }
 
-            // Configurando o X
-            chartArea.AxisX.Minimum = minX;
-            chartArea.AxisX.Maximum = maxX;
-            chartArea.AxisX.Interval = INITIAL_X_INTERVAL;
+        private void SetScrollBars()
+        {
+            foreach (ChartArea chartArea in chartsNew.ChartAreas)
+            {
+                // permitir usuário selecionar para dar zoom na seleção
+                chartArea.CursorX.AutoScroll = true;
+                chartArea.CursorX.IsUserEnabled = true;
+                chartArea.CursorX.IsUserSelectionEnabled = true;
 
-            // linhas de trás/apoio/fundo
-            chartArea.AxisX.MajorGrid.Interval = XIncreaseRate;
-            chartArea.AxisX.MajorGrid.LineColor = GRID_COLOR;
+                chartArea.AxisX.ScaleView.Zoomable = true;
+
+                // Configurando a aparência da scrollbar
+                chartArea.AxisX.ScrollBar.BackColor = Color.FromArgb(64, 64, 64);
+                chartArea.AxisX.ScrollBar.ButtonColor = Color.Silver;
+                chartArea.AxisX.ScrollBar.Size = 16;
+                chartArea.AxisX.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;
+
+                // o gráfico exibirá a princípio todos os pontos e, então,
+                // é dado um zoom inicial do tamanho predefinido
+                chartArea.AxisX.Maximum = DataSize;
+                chartArea.AxisX.ScaleView.Zoom(0, INITIAL_VIEW_SIZE, DateTimeIntervalType.Number, true);
+            }
         }
 
         // TODO fazer como no SetYAxisTitle? Vai reduzir bastante linhas?
-        private void SetYAxisValues()
+        private void SetYAxis()
         {
-            // Configurando os limites e intervales dos eixos Y de cada g[rafico
+            // Configurando os limites e intervales dos eixos Y de cada grafico
             chartsNew.ChartAreas["Speed"].AxisY.Minimum = SPEED_MINIMUM;
             chartsNew.ChartAreas["Speed"].AxisY.Maximum = SPEED_MAXIMUM;
             chartsNew.ChartAreas["Speed"].AxisY.Interval = SPEED_Y_INTERVAL;
-            chartsNew.ChartAreas["Speed"].AxisY.MajorGrid.Interval = SPEED_Y_INTERVAL/2;
+            chartsNew.ChartAreas["Speed"].AxisY.MajorGrid.Interval = SPEED_Y_INTERVAL / 2;
 
             chartsNew.ChartAreas["RPM"].AxisY.Minimum = RPM_MINIMUM;
             chartsNew.ChartAreas["RPM"].AxisY.Maximum = RPM_MAXIMUM;
@@ -180,10 +194,13 @@ namespace TeleBajaUEA
             chartsNew.ChartAreas["Brake"].AxisY.Interval = BRAKE_Y_INTERVAL;
             chartsNew.ChartAreas["Brake"].AxisY.MajorGrid.Interval = 25;
 
-            //chartsNew.ChartAreas["Brake"].AxisY.CustomLabels.Add(65, 85, "ON", 0, LabelMarkStyle.None);
-            //chartsNew.ChartAreas["Brake"].AxisY.CustomLabels.Add(15, 35, "OFF", 0, LabelMarkStyle.None);
             chartsNew.ChartAreas["Brake"].AxisY.CustomLabels.Add(BRAKE_MAXIMUM / 2, BRAKE_MAXIMUM, "ON", 0, LabelMarkStyle.None);
-            chartsNew.ChartAreas["Brake"].AxisY.CustomLabels.Add(0, BRAKE_MAXIMUM/2, "OFF", 0, LabelMarkStyle.None);
+            chartsNew.ChartAreas["Brake"].AxisY.CustomLabels.Add(0, BRAKE_MAXIMUM / 2, "OFF", 0, LabelMarkStyle.None);
+
+            // define labels de título do eixo Y
+            SetYAxisTitle("Speed", SPEED_MINIMUM, SPEED_MAXIMUM, "Velocidade");
+            SetYAxisTitle("RPM", RPM_MINIMUM, RPM_MAXIMUM, "RPM");
+            SetYAxisTitle("Brake", BRAKE_MINIMUM, BRAKE_MAXIMUM, "Freio");
         }
 
         // labels laterais, escritas na vertical
@@ -192,7 +209,7 @@ namespace TeleBajaUEA
             CustomLabel label = new CustomLabel()
             {
                 FromPosition = fromPosition,
-                ToPosition   = toPosition,
+                ToPosition = toPosition,
                 Text = text,
                 RowIndex = 1,
                 LabelMark = LabelMarkStyle.None
@@ -201,52 +218,52 @@ namespace TeleBajaUEA
             chartsNew.ChartAreas[name].AxisY.CustomLabels.Add(label);
         }
 
+        #endregion
+
+        //-----------------------------------------------------------------------
+        #region Funções de atualização, chamadas sempre que o zoom/scroll/view mudar
+        
+        // TODO botar os COLORS fora daqui, em algum Set...()
+        private void UpdateAllCharts()
+        {
+            foreach (ChartArea chartArea in chartsNew.ChartAreas)
+            {
+                // Cor de fundo
+                chartArea.BackColor = Color.Black;
+
+                // Cor das linhas de trás/apoio (grid)
+                chartArea.AxisY.MajorGrid.LineColor = GRID_COLOR;
+                chartArea.AxisX.MajorGrid.LineColor = GRID_COLOR;
+
+                // Intervalo entre as linhas de trás/apoio/fundo (grid)
+                XInterval = chartArea.AxisX.ScaleView.Size / LABELS_INTERVAL_RATE;
+                chartArea.AxisX.MajorGrid.Interval = XInterval;
+            }
+        }
+
         private void UpdateXLabels()
         {
             chartsNew.ChartAreas[XLabelChartArea].AxisX.CustomLabels.Clear();
 
+            double startPointX = chartsNew.ChartAreas[XLabelChartArea].AxisX.ScaleView.ViewMinimum;
+            double endPointX = chartsNew.ChartAreas[XLabelChartArea].AxisX.ScaleView.ViewMaximum;
+
             double fromPosition, toPosition;
             string text;
-            for (double currentXLabel = minX;
-                currentXLabel <= maxX; currentXLabel += XInterval)
+            for (double currentXLabel = startPointX; currentXLabel <= endPointX; currentXLabel += XInterval)
             {
                 fromPosition = currentXLabel - 5 * (XInterval / 10); // TODO trocar de 10 para UPDATE_RATE...
                 toPosition = currentXLabel + 5 * (XInterval / 10);
-                
+
                 // contagem é feita em milisegundos
-                text = SecondsToTime((long) currentXLabel/1000);
+                text = SecondsToTime((long)currentXLabel / 1000);
 
                 chartsNew.ChartAreas[XLabelChartArea].AxisX.CustomLabels.Add(fromPosition, toPosition, text);
             }
         }
+        #endregion
 
-        // chamada sempre que os limites maxX e minX forem alterados, atualizando no chart
-        private void UpdateXLimits()
-        {
-            foreach (ChartArea chart in chartsNew.ChartAreas)
-            {
-                chart.AxisX.Minimum = minX;
-                chart.AxisX.Maximum = maxX;
-            }
-        }
-
-        private string FormatFuelNumbers(float number)
-        {
-            switch ((int)number)
-            {
-                case 0:
-                    return ""; // fica no CapsText
-                case 25:
-                    return "";
-                case 50:
-                    return "1/2";
-                case 75:
-                    return "";
-                default:
-                    return "F";
-            }
-        }
-
+        //-----------------------------------------------------------------------
         private string SecondsToTime(long totalSeconds)
         {
             long seconds = totalSeconds % 60;
