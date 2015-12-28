@@ -19,8 +19,9 @@ namespace TeleBajaUEA
         private readonly double INITIAL_VIEW_SIZE = 300 * 1000; // 300 = 5min
 
         // indica em quantas partes o eixo X será dividido para mostar as labels
-        // logo, havérão LABELS_INTERVAL_RATE-1 labels no gráfico
-        private readonly double LABELS_INTERVAL_RATE = 7d;
+        // logo, havérão LABELS_INTERVAL_RATE+1 labels no gráfico
+        // deve ner no Mínimo igual a ***** 3 *****!
+        private readonly double X_SUBDIVISIONS = 9d;//7d;
 
         // -------------------- Configurações do eixo Y ---------------------//
         private readonly double SPEED_MINIMUM = 0;
@@ -57,21 +58,24 @@ namespace TeleBajaUEA
         // ------------------ Variáveis de controle interno ----------------//
         // variável para controlar o quanto os limites vão variar quando apertar "<" ou ">"
         //private double XIncreaseRate; // TODO verificar essa variável
-        private double XInterval;
-        private double scaleViewSize;
+        private double xInterval;
+        private double ScaleViewSize
+        {
+            get { return xInterval * X_SUBDIVISIONS; }
+            set { xInterval = value / X_SUBDIVISIONS; }
+        }
 
         /// <summary>
         /// Encapsula configuração dos gráficos
         /// </summary>
         public void ConfigureCharts()
         {
-            scaleViewSize = INITIAL_VIEW_SIZE;
-
             // configura barras de rolagem / zoom
             SetScrollBars();
 
             // configura fundo e linhas de apoio dos gráficos
-            UpdateAllCharts();
+            SetCommonProperties();
+            UpdateMajorGrids();
 
             // configura linhas dos gráficos
             SetSeriesStyle();
@@ -144,7 +148,7 @@ namespace TeleBajaUEA
                 // Configurando o X
                 chartArea.AxisX.Minimum = 0;
                 chartArea.AxisX.Maximum = DataSize;
-                chartArea.AxisX.Interval = XInterval;
+                chartArea.AxisX.Interval = xInterval;
             }
 
             // define labels do eixo X iniciais
@@ -155,11 +159,10 @@ namespace TeleBajaUEA
         {
             foreach (ChartArea chartArea in chartsNew.ChartAreas)
             {
-                // permitir usuário selecionar para dar zoom na seleção
+                // permitir usuário selecionar e dar zoom
                 chartArea.CursorX.AutoScroll = true;
                 chartArea.CursorX.IsUserEnabled = true;
                 chartArea.CursorX.IsUserSelectionEnabled = true;
-
                 chartArea.AxisX.ScaleView.Zoomable = true;
 
                 // Configurando a aparência da scrollbar
@@ -168,11 +171,12 @@ namespace TeleBajaUEA
                 chartArea.AxisX.ScrollBar.Size = 16;
                 chartArea.AxisX.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;
 
-                // o gráfico exibirá a princípio todos os pontos e, então,
-                // é dado um zoom inicial do tamanho predefinido
-                chartArea.AxisX.Maximum = DataSize;
-                chartArea.AxisX.ScaleView.Zoom(0, INITIAL_VIEW_SIZE, DateTimeIntervalType.Number, true);
             }
+            // o gráfico exibirá a princípio todos os pontos e, então,
+            // é dado um zoom inicial do tamanho mínimo predefinido
+            chartsNew.ChartAreas[XLabelChartArea].AxisX.ScaleView.Zoom(0, INITIAL_VIEW_SIZE, DateTimeIntervalType.Number, true);
+            zoomedAreaStack.Push(chartsNew.ChartAreas[0]);
+            ScaleViewSize = INITIAL_VIEW_SIZE;
         }
 
         // TODO fazer como no SetYAxisTitle? Vai reduzir bastante linhas?
@@ -218,13 +222,7 @@ namespace TeleBajaUEA
             chartsNew.ChartAreas[name].AxisY.CustomLabels.Add(label);
         }
 
-        #endregion
-
-        //-----------------------------------------------------------------------
-        #region Funções de atualização, chamadas sempre que o zoom/scroll/view mudar
-        
-        // TODO botar os COLORS fora daqui, em algum Set...()
-        private void UpdateAllCharts()
+        private void SetCommonProperties()
         {
             foreach (ChartArea chartArea in chartsNew.ChartAreas)
             {
@@ -236,9 +234,21 @@ namespace TeleBajaUEA
                 chartArea.AxisX.MajorGrid.LineColor = GRID_COLOR;
 
                 // Intervalo entre as linhas de trás/apoio/fundo (grid)
-                XInterval = chartArea.AxisX.ScaleView.Size / LABELS_INTERVAL_RATE;
-                chartArea.AxisX.MajorGrid.Interval = XInterval;
+                chartArea.AxisX.MajorGrid.Interval = xInterval;
             }
+        }
+
+        #endregion
+
+        //-----------------------------------------------------------------------
+        #region Funções de atualização, chamadas sempre que o zoom/scroll/view mudar
+        
+        // TODO botar os COLORS fora daqui, em algum Set...()
+        private void UpdateMajorGrids()
+        {
+            foreach(ChartArea chartArea in chartsNew.ChartAreas)
+                // Intervalo entre as linhas de trás/apoio/fundo (grid)
+                chartArea.AxisX.MajorGrid.Interval = xInterval;
         }
 
         private void UpdateXLabels()
@@ -250,10 +260,10 @@ namespace TeleBajaUEA
 
             double fromPosition, toPosition;
             string text;
-            for (double currentXLabel = startPointX; currentXLabel <= endPointX; currentXLabel += XInterval)
+            for (double currentXLabel = startPointX; currentXLabel <= endPointX; currentXLabel += xInterval)
             {
-                fromPosition = currentXLabel - 5 * (XInterval / 10); // TODO trocar de 10 para UPDATE_RATE...
-                toPosition = currentXLabel + 5 * (XInterval / 10);
+                fromPosition = currentXLabel - 5 * (xInterval / 10); // TODO trocar de 10 para UPDATE_RATE...
+                toPosition = currentXLabel + 5 * (xInterval / 10);
 
                 // contagem é feita em milisegundos
                 text = SecondsToTime((long)currentXLabel / 1000);

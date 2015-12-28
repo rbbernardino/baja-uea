@@ -18,7 +18,9 @@ namespace TeleBajaUEA
         private Point? prevPosition = null;
 
         private RaceData raceData;
-        
+
+        private Stack<ChartArea> zoomedAreaStack = new Stack<ChartArea>();
+
         // DataSize indica a quantidade de pontos e o valor máximo do eixo X
         private double DataSize { get; }
 
@@ -152,35 +154,36 @@ namespace TeleBajaUEA
 
         private void btZoomIn_Click(object sender, EventArgs e)
         {
-            ChartArea c = chartsNew.ChartAreas[XLabelChartArea];
+            ChartArea zoomingArea = chartsNew.ChartAreas[XLabelChartArea];
 
-            double newMin = c.AxisX.CustomLabels[1].FromPosition + 5 * ((XInterval / 10));
-            double newMax = newMin + XInterval * 2;//(LABELS_INTERVAL_RATE-3);
+            double currentMin, newMin, newSize;
+            if (zoomedAreaStack.Count > 0)
+                currentMin = zoomingArea.AxisX.ScaleView.ViewMinimum;
+            else
+                currentMin = zoomingArea.AxisX.Minimum;
 
-            //double decreaseRate = (LABELS_INTERVAL_RATE - 1) * scaleViewSize / LABELS_INTERVAL_RATE;
-            // = c.AxisX.ScaleView.ViewMinimum;
-            //double curMax = c.AxisX.ScaleView.ViewMaximum;
+            newMin  = currentMin + xInterval    * (int)(X_SUBDIVISIONS + 1) / 4; // 2;
+            newSize = ScaleViewSize - xInterval * (int)(X_SUBDIVISIONS + 1) / 2; //(xInterval *4);
 
-            //MessageBox.Show("isso: " + curMin + "\n" + "e isso: " + curMax);
-            //c.AxisX.ScaleView.Zoom(curMin + decreaseRate, curMax - decreaseRate, DateTimeIntervalType.Number, true);
-            c.AxisX.ScaleView.Zoom(newMin, newMax,    DateTimeIntervalType.Number,true );
+            zoomingArea.AxisX.ScaleView.Zoom(newMin, newSize, DateTimeIntervalType.Number, true);
+
+            ScaleViewSize = zoomingArea.AxisX.ScaleView.Size;
+            zoomedAreaStack.Push(zoomingArea);
 
             UpdateCharts();
-            i++;
         }
-        int i=0; // TODO melhorar, corrigir, mudar estratégia desse contador...
+
         private void btZoomOut_Click(object sender, EventArgs e)
         {
-            if (i == 0)
-            {
-                chartsNew.ChartAreas[XLabelChartArea].AxisX.ScaleView.Zoom(0, DataSize);
-                btZoomOut.Enabled = false;
-            }
+            ChartArea zoomedArea = zoomedAreaStack.Pop();
+            zoomedArea.AxisX.ScaleView.ZoomReset();
+
+            // verifica se é o último ZoomOut (que faz mostrar todos os pontos)
+            if (zoomedArea.AxisX.ScaleView.IsZoomed)
+                ScaleViewSize = zoomedArea.AxisX.ScaleView.Size;
             else
-            {
-                chartsNew.ChartAreas[XLabelChartArea].AxisX.ScaleView.ZoomReset();
-                i--;
-            }
+                ScaleViewSize = zoomedArea.AxisX.Maximum;
+
             UpdateCharts();
         }
         #endregion
@@ -188,21 +191,10 @@ namespace TeleBajaUEA
 
         private void UpdateButtonsState()
         {
-            // verifica se o primeiro ponto está plotado, impedindo o gráfico
-            // de ir mais a esquerda, onde não existem mais pontos
-            FileSensorsData firstPoint = raceData.DataList.First();
-            if (firstPoint.xValue >= 0)
-                btMinus.Enabled = false;
+            if (zoomedAreaStack.Count == 0)
+                btZoomOut.Enabled = false;
             else
-                btMinus.Enabled = true;
-
-            // verifica se o último ponto está plotado, impedindo o gráfico
-            // de ir mais a direita, onde não existem pontos
-            FileSensorsData lastPoint = raceData.DataList.Last();
-            if (lastPoint.xValue <= DataSize)
-                btPlus.Enabled = false;
-            else
-                btPlus.Enabled = true;
+                btZoomOut.Enabled = true;
         }
 
         private void FormSetup_FormClosed(object sender, FormClosedEventArgs e)
@@ -230,14 +222,17 @@ namespace TeleBajaUEA
             UpdateCharts();
         }
 
+        // evento chamado ao término de dar zoom após o usuário ter selecionado
         private void chartsNew_SelectionRangeChanged(object sender, CursorEventArgs e)
         {
+            zoomedAreaStack.Push(e.ChartArea);
+            ScaleViewSize = e.ChartArea.AxisX.ScaleView.Size;
             UpdateCharts();
         }
 
         private void UpdateCharts()
         {
-            UpdateAllCharts();
+            UpdateMajorGrids();
             UpdateXLabels();
             UpdateButtonsState();
         }
