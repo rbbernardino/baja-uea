@@ -24,6 +24,12 @@ namespace TeleBajaUEA
         // DataSize indica a quantidade de pontos e o valor máximo do eixo X
         private double DataSize { get; }
 
+        enum ScrollDirection
+        {
+            Right = 1,
+            Left = -1
+        }
+
         public AnalisarCorrida(RaceData pRaceData)
         {
             InitializeComponent();
@@ -42,6 +48,28 @@ namespace TeleBajaUEA
             // evento para detectar quando o ponteiro do mouse estiver em cima de algum gráfico
             chartsNew.MouseMove += new MouseEventHandler(chartsNew_MouseMove);
             toolTipPoint.AutomaticDelay = 10;
+
+            // Desativa navegação por setas e ativa scroll com right/left
+            foreach (Control control in this.Controls)
+                control.PreviewKeyDown += new PreviewKeyDownEventHandler(control_PreviewKeyDown);
+        }
+
+        void control_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            // desativa navegação por setas
+            if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down || e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
+                e.IsInputKey = true;
+
+            // ativa scroll com setas
+            switch (e.KeyCode)
+            {
+                case Keys.Right:
+                    FastScroll(ScrollDirection.Right);
+                    break;
+                case Keys.Left:
+                    FastScroll(ScrollDirection.Left);
+                    break;
+            }
         }
 
         // obtido a partir de: http://pastebin.com/PzhHtfMu
@@ -136,12 +164,14 @@ namespace TeleBajaUEA
             Program.ShowMenuPrincipal();
         }
 
-        private void btPlus_Click(object sender, EventArgs e)
+        private void btScrollRight_Click(object sender, EventArgs e)
         {
+            FastScroll(ScrollDirection.Right);
         }
 
-        private void btMinus_Click(object sender, EventArgs e)
+        private void btScrollLeft_Click(object sender, EventArgs e)
         {
+            FastScroll(ScrollDirection.Left);
         }
 
         private void btVerSetup_Click(object sender, EventArgs e)
@@ -188,6 +218,15 @@ namespace TeleBajaUEA
         }
         #endregion
 
+        // (dir)ection: 1 (direita) ou -1 (esquerda)
+        private void FastScroll(ScrollDirection dir)
+        {
+            ChartArea scrollingArea = chartsNew.ChartAreas[XLabelChartArea];
+            double currentPosition = scrollingArea.AxisX.ScaleView.Position;
+            double newPosition = currentPosition + ((int)dir) * (xInterval * (X_SUBDIVISIONS + 1));
+            scrollingArea.AxisX.ScaleView.Scroll(newPosition);
+            UpdateCharts();
+        }
 
         private void UpdateButtonsState()
         {

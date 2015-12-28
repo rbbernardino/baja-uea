@@ -44,8 +44,8 @@
             this.btVerSetup = new System.Windows.Forms.Button();
             this.btZoomOut = new System.Windows.Forms.Button();
             this.btZoomIn = new System.Windows.Forms.Button();
-            this.btMinus = new System.Windows.Forms.Button();
-            this.btPlus = new System.Windows.Forms.Button();
+            this.btbtScrollLeft = new System.Windows.Forms.Button();
+            this.btScrollRight = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chartsNew)).BeginInit();
             this.SuspendLayout();
             // 
@@ -180,31 +180,31 @@
             this.btZoomIn.UseVisualStyleBackColor = true;
             this.btZoomIn.Click += new System.EventHandler(this.btZoomIn_Click);
             // 
-            // btMinus
+            // btbtScrollLeft
             // 
-            this.btMinus.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btMinus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btMinus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.btMinus.Image = global::TeleBajaUEA.Properties.Resources.arrow_left_minus;
-            this.btMinus.Location = new System.Drawing.Point(453, 647);
-            this.btMinus.Name = "btMinus";
-            this.btMinus.Size = new System.Drawing.Size(40, 48);
-            this.btMinus.TabIndex = 12;
-            this.btMinus.UseVisualStyleBackColor = true;
-            this.btMinus.Click += new System.EventHandler(this.btMinus_Click);
+            this.btbtScrollLeft.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btbtScrollLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btbtScrollLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.btbtScrollLeft.Image = global::TeleBajaUEA.Properties.Resources.arrow_left_minus;
+            this.btbtScrollLeft.Location = new System.Drawing.Point(453, 647);
+            this.btbtScrollLeft.Name = "btbtScrollLeft";
+            this.btbtScrollLeft.Size = new System.Drawing.Size(40, 48);
+            this.btbtScrollLeft.TabIndex = 12;
+            this.btbtScrollLeft.UseVisualStyleBackColor = true;
+            this.btbtScrollLeft.Click += new System.EventHandler(this.btScrollLeft_Click);
             // 
-            // btPlus
+            // btScrollRight
             // 
-            this.btPlus.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btPlus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btPlus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.btPlus.Image = global::TeleBajaUEA.Properties.Resources.arrow_right_plus;
-            this.btPlus.Location = new System.Drawing.Point(571, 647);
-            this.btPlus.Name = "btPlus";
-            this.btPlus.Size = new System.Drawing.Size(40, 48);
-            this.btPlus.TabIndex = 11;
-            this.btPlus.UseVisualStyleBackColor = true;
-            this.btPlus.Click += new System.EventHandler(this.btPlus_Click);
+            this.btScrollRight.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btScrollRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btScrollRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.btScrollRight.Image = global::TeleBajaUEA.Properties.Resources.arrow_right_plus;
+            this.btScrollRight.Location = new System.Drawing.Point(571, 647);
+            this.btScrollRight.Name = "btScrollRight";
+            this.btScrollRight.Size = new System.Drawing.Size(40, 48);
+            this.btScrollRight.TabIndex = 11;
+            this.btScrollRight.UseVisualStyleBackColor = true;
+            this.btScrollRight.Click += new System.EventHandler(this.btScrollRight_Click);
             // 
             // AnalisarCorrida
             // 
@@ -215,8 +215,8 @@
             this.Controls.Add(this.btZoomIn);
             this.Controls.Add(this.btVerSetup);
             this.Controls.Add(this.chartsNew);
-            this.Controls.Add(this.btMinus);
-            this.Controls.Add(this.btPlus);
+            this.Controls.Add(this.btbtScrollLeft);
+            this.Controls.Add(this.btScrollRight);
             this.Controls.Add(this.btVoltar);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AnalisarCorrida";
@@ -229,8 +229,8 @@
         #endregion
 
         private System.Windows.Forms.Button btVoltar;
-        private System.Windows.Forms.Button btPlus;
-        private System.Windows.Forms.Button btMinus;
+        private System.Windows.Forms.Button btScrollRight;
+        private System.Windows.Forms.Button btbtScrollLeft;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartsNew;
         private System.Windows.Forms.Button btVerSetup;
         private System.Windows.Forms.Button btZoomIn;
