@@ -143,6 +143,10 @@
             this.chartsNew.SelectionRangeChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.CursorEventArgs>(this.chartsNew_SelectionRangeChanged);
             this.chartsNew.AxisViewChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ViewEventArgs>(this.chartsNew_AxisViewChanged);
             this.chartsNew.CustomizeLegend += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.CustomizeLegendEventArgs>(this.chartsNew_CustomizeLegend);
+            this.chartsNew.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chartsNew_MouseDown);
+            this.chartsNew.MouseEnter += new System.EventHandler(this.chartsNew_MouseEnter);
+            this.chartsNew.MouseLeave += new System.EventHandler(this.chartsNew_MouseLeave);
+            this.chartsNew.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chartsNew_MouseMove);
             // 
             // btVerSetup
             // 

@@ -46,12 +46,12 @@ namespace TeleBajaUEA
             UpdateButtonsState();
 
             // evento para detectar quando o ponteiro do mouse estiver em cima de algum gráfico
-            chartsNew.MouseMove += new MouseEventHandler(chartsNew_MouseMove);
             toolTipPoint.AutomaticDelay = 10;
 
             // Desativa navegação por setas e ativa scroll com right/left
             foreach (Control control in this.Controls)
                 control.PreviewKeyDown += new PreviewKeyDownEventHandler(control_PreviewKeyDown);
+            chartsNew.MouseWheel += new MouseEventHandler(chartsNew_MouseWheel);
         }
 
         void control_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -72,8 +72,15 @@ namespace TeleBajaUEA
             }
         }
 
-        // obtido a partir de: http://pastebin.com/PzhHtfMu
         private void chartsNew_MouseMove(object sender, MouseEventArgs e)
+        {
+            ShowPointToolTip(e);
+
+            //TryMouseScroll(e);   DESATIVADO, ver comentário em AnalisarCorrida.MouseWheel
+        }
+
+        // obtido a partir de: http://pastebin.com/PzhHtfMu
+        private void ShowPointToolTip(MouseEventArgs e)
         {
             var pos = e.Location;
             if (prevPosition.HasValue && pos == prevPosition.Value)
@@ -274,6 +281,32 @@ namespace TeleBajaUEA
             UpdateMajorGrids();
             UpdateXLabels();
             UpdateButtonsState();
+        }
+
+        
+        // ----------------- O código abaixo está desativado ----------------//
+        // ver comentário em AnalisarCorrida.MouseWheel.cs
+        private void chartsNew_MouseDown(object sender, MouseEventArgs e)
+        {
+            //if (getAxisUnderPoint(e.Location) != null)
+            //    fromPoint = e.Location;
+        }
+
+        private void chartsNew_MouseEnter(object sender, EventArgs e)
+        {
+            //if (!chartsNew.Focused)
+            //    chartsNew.Focus();
+        }
+
+        private void chartsNew_MouseLeave(object sender, EventArgs e)
+        {
+            //if (chartsNew.Focused)
+            //    chartsNew.Parent.Focus();
+        }
+
+        private void chartsNew_MouseWheel(object sender, MouseEventArgs e)
+        {
+            //MouseWheelScroll(e);
         }
     }
 }

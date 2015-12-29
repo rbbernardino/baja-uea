@@ -102,6 +102,9 @@
     <Compile Include="AnalisarCorrida.Designer.cs">
       <DependentUpon>AnalisarCorrida.cs</DependentUpon>
     </Compile>
+    <Compile Include="AnalisarCorrida.MouseWheel.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ClassesAuxiliares\AGauge.cs">
       <SubType>Component</SubType>
     </Compile>
