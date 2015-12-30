@@ -23,20 +23,29 @@ namespace TeleBajaUEA
                 comboUSB.Items.Add(portName);
 
             // TODO seleção automática de configuração salva da porta USB
-            //if (ProgramSettings.PortXBee != null &&
-            //    comboUSB.Items.Contains(ProgramSettings.PortXBee))
-            //    comboUSB.Items.
+            if (!Program.Settings.PortXBee.Equals("NULL") &&
+                    comboUSB.Items.Contains(Program.Settings.PortXBee))
+            {
+                comboUSB.SelectedItem = comboUSB.Items.IndexOf(Program.Settings.PortXBee);
+            }
+
+            checkKeepBackup.Checked = Program.Settings.KeepBackup;
         }
 
         private void btOK_Click(object sender, EventArgs e)
         {
-            ProgramSettings.SaveXBeePort((string) comboUSB.SelectedItem);
+            SettingsFile.SaveToFile();
             CloseOnlyThis();
         }
 
         private void btCancelar_Click(object sender, EventArgs e)
         {
             CloseOnlyThis();
+        }
+
+        private void checkKeepBackup_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.Settings.KeepBackup = checkKeepBackup.Checked;
         }
     }
 }

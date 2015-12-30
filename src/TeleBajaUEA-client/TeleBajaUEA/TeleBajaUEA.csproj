@@ -27,7 +27,7 @@
     <UpdateUrl>https://raw.githubusercontent.com/rbbernardino/baja-uea/master/src/TeleBajaUEA-client/TeleBajaUEA/publish/</UpdateUrl>
     <SupportUrl>https://www.facebook.com/rbbernardino</SupportUrl>
     <ProductName>TeleBajaUEA</ProductName>
-    <PublisherName>Rodrigo Barros Bernardino</PublisherName>
+    <PublisherName>BajaUEA</PublisherName>
     <MinimumRequiredVersion>0.9.1.6</MinimumRequiredVersion>
     <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>0.9.3.%2a</ApplicationVersion>
@@ -117,6 +117,7 @@
     <Compile Include="ClassesAuxiliares\SerialPortBaja.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ClassesAuxiliares\SettingsFile.cs" />
     <Compile Include="ClassesAuxiliares\WindowsFormsInvokingExtensions.cs" />
     <Compile Include="AnalisarCorridaSetup.cs">
       <SubType>Form</SubType>
@@ -221,6 +222,7 @@
       <DependentUpon>TESTEJanelaSensores.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="Properties\DataSources\TeleBajaUEA.ClassesAuxiliares.ProgramSettings.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -14,7 +14,16 @@ namespace TeleBajaUEA
     {
         private static string TEMP_FILE_PREFIX = "__backup";
         private static string TEMP_FILE_EXTENSION = ".btbu";
-        private static string TEMP_DIR_NAME = "backup";
+        private static string TEMP_DIR_NAME
+        {
+            get
+            {
+                return Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    "TeleBajaUEA\\backup");
+            }
+        }
+
         private static string tempFileName;
 
         // TODO campo para manter referência ao arquivo temporário

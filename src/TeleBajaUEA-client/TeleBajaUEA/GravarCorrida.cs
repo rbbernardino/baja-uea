@@ -216,7 +216,7 @@ namespace TeleBajaUEA
             // Ao encerrar corrida mantém o arquivo de backup para que mesmo
             // o usuário optando por "sair sem salvar", manterá um backup
             // Mas isso apenas se o usuário quiser
-            if(ProgramSettings.KeepBackup)
+            if(Program.Settings.KeepBackup)
                 RaceFile.SaveToBackupDir();
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Deployment.Application;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using TeleBajaUEA.ClassesAuxiliares;
 
@@ -14,11 +15,15 @@ namespace TeleBajaUEA
         {
             get
             {
-                return ApplicationDeployment.CurrentDeployment.CurrentVersion;
+                if (ApplicationDeployment.IsNetworkDeployed)
+                    return ApplicationDeployment.CurrentDeployment.CurrentVersion;
+                else
+                    return Assembly.GetExecutingAssembly().GetName().Version;
             }
         }
 
         private static MenuPrincipal formMenuPrincipal;
+        public static ProgramSettings Settings { get; private set; } = new ProgramSettings();
 
         /// <summary>
         /// The main entry point for the application.
@@ -29,7 +34,10 @@ namespace TeleBajaUEA
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            ProgramSettings.LoadFromFile();
+            if (SettingsFile.SettingsFileExists)
+                Settings = SettingsFile.LoadFromFile();
+            else
+                SettingsFile.SaveToFile(); // lembre que tem inicializador padrão ali ^
 
             try
             {

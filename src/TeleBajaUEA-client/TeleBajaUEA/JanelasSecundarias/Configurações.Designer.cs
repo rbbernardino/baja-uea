@@ -29,27 +29,19 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Configurações));
-            this.btSenha = new System.Windows.Forms.Button();
             this.btBancoDeDados = new System.Windows.Forms.Button();
             this.labelTítulo = new System.Windows.Forms.Label();
             this.btCancelar = new System.Windows.Forms.Button();
             this.btOK = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.comboUSB = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.checkKeepBackup = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
-            // 
-            // btSenha
-            // 
-            this.btSenha.Location = new System.Drawing.Point(114, 226);
-            this.btSenha.Name = "btSenha";
-            this.btSenha.Size = new System.Drawing.Size(95, 31);
-            this.btSenha.TabIndex = 13;
-            this.btSenha.Text = "Senha";
-            this.btSenha.UseVisualStyleBackColor = true;
             // 
             // btBancoDeDados
             // 
-            this.btBancoDeDados.Location = new System.Drawing.Point(114, 173);
+            this.btBancoDeDados.Location = new System.Drawing.Point(442, 141);
             this.btBancoDeDados.Name = "btBancoDeDados";
             this.btBancoDeDados.Size = new System.Drawing.Size(95, 31);
             this.btBancoDeDados.TabIndex = 11;
@@ -110,16 +102,37 @@
             this.comboUSB.Size = new System.Drawing.Size(105, 28);
             this.comboUSB.TabIndex = 19;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.label2.Location = new System.Drawing.Point(34, 142);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(136, 24);
+            this.label2.TabIndex = 20;
+            this.label2.Text = "Manter Backup";
+            // 
+            // checkKeepBackup
+            // 
+            this.checkKeepBackup.AutoSize = true;
+            this.checkKeepBackup.Location = new System.Drawing.Point(176, 150);
+            this.checkKeepBackup.Name = "checkKeepBackup";
+            this.checkKeepBackup.Size = new System.Drawing.Size(15, 14);
+            this.checkKeepBackup.TabIndex = 21;
+            this.checkKeepBackup.UseVisualStyleBackColor = true;
+            this.checkKeepBackup.CheckedChanged += new System.EventHandler(this.checkKeepBackup_CheckedChanged);
+            // 
             // Configurações
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(582, 358);
+            this.Controls.Add(this.checkKeepBackup);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.comboUSB);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btCancelar);
             this.Controls.Add(this.btOK);
-            this.Controls.Add(this.btSenha);
             this.Controls.Add(this.btBancoDeDados);
             this.Controls.Add(this.labelTítulo);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -131,13 +144,13 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btSenha;
         private System.Windows.Forms.Button btBancoDeDados;
         private System.Windows.Forms.Label labelTítulo;
         private System.Windows.Forms.Button btCancelar;
         private System.Windows.Forms.Button btOK;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboUSB;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox checkKeepBackup;
     }
 }
