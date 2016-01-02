@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="TeleBajaUEA.exe" version="0.9.3.2" publicKeyToken="50cd0900bb5c4e97" language="neutral" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="charts-icon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="TeleBajaUEA" version="0.9.3.2" language="neutral" processorArchitecture="msil" />
+    <commandLine file="TeleBajaUEA.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TeleBajaUEA.exe" size="3644856">
+      <assemblyIdentity name="TeleBajaUEA" version="0.9.3.2" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>xlNySkbgSLSpAf8JPc6MgYJXf29bJXAzJAhSQPGCjUE=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="charts-icon.ico" size="370070">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>VvRKswXoo/dPQtWE1HrhLj9UYEfOEO31BSvvz0vyzD0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="charts-icon_backup.ico" size="99678">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Yt6brAzrGTuRQ+6bzFUUO6XyTY2MBRaZFeyU93gTqmY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="charts-icon_corrida.ico" size="99678">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>uHbwgXxbYSB6gicTmfGusfBbpAf/frbKXWB2QYIrduI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="TeleBajaUEA.exe.config" size="161">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>1SR2HBfPDeqUEJ8/zazS7LZ1UBFf+eAwf3jAUFVBnv4=</dsig:DigestValue>
+    </hash>
+  </file>
+  <fileAssociation extension=".btbu" description="Corrida TeleBajaUEA (Backup)" progid="cicari.btbufile" defaultIcon="charts-icon_backup.ico" xmlns="urn:schemas-microsoft-com:clickonce.v1" />
+  <fileAssociation extension=".tbu" description="Corrida TeleBajaUEA" progid="cicari.tbufile" defaultIcon="charts-icon_corrida.ico" xmlns="urn:schemas-microsoft-com:clickonce.v1" />
+<publisherIdentity name="CN=USER\rodri_000" issuerKeyHash="9e14d984806d8d2dbfe58ae341eb8616c929b03c" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>5Hu+OVe14awikiJmUn7XeoI4E0393ZR+SFxaT/fuq/A=</DigestValue></Reference></SignedInfo><SignatureValue>XYbnicB5RL6D1NRngYdUURHB/IhjwGBxORrWYmlYAGIXeo93fPD3iXWKm7IOD0SVFQKGlO2oeWxHZ7LQaDH8Um9YPXRFitXSpvBtj3ErMTF4sr1NzcQIEX7bVfHAcD1o1j9IbkCZ0y/HXrjkHyZ57ylsDPjSjYNbiP8sAUwuhD8=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>6KA8q8XA0haUyP0zzPrgSf6WJFeqoxWTZz6tJSUNvYT0hfta9KB2dWfk8Ym2OKR4ucNuObKF1i5ms4UJD6Wucmmsygai2QQhs0dbM9D5c03r4Hw6zXz0jsnZlsMNRtZ5tLHj3c5y3u4l6gWezUbZQfQnKBjknQc8fx1u9U3rOgk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="f0abeef74f5a5c487e94ddfd4d1338827ad77e5266229222ace1b55739be7be4" Description="" Url=""><as:assemblyIdentity name="TeleBajaUEA.exe" version="0.9.3.2" publicKeyToken="50cd0900bb5c4e97" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=USER\rodri_000</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>+m7V06Mh31V+H+7E7X3PpseXp1zibVHZm+1a2mhUBtY=</DigestValue></Reference></SignedInfo><SignatureValue>JAVxAFfm6USwpzLh1wetaswXFlvy4E39NAKcKNagdgabQI2D4cQfyV0UXcGT12XgqTdz+veL2bjqhLlhh50HnMq/cvE/8K5G1J3keeNnFSFvpU2x9YP7bXY2BiV3UO5XOn/Y5qX0S+VUqNlpoEM5H+6yJ4CwIK1I5taj7uLCEc4=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>6KA8q8XA0haUyP0zzPrgSf6WJFeqoxWTZz6tJSUNvYT0hfta9KB2dWfk8Ym2OKR4ucNuObKF1i5ms4UJD6Wucmmsygai2QQhs0dbM9D5c03r4Hw6zXz0jsnZlsMNRtZ5tLHj3c5y3u4l6gWezUbZQfQnKBjknQc8fx1u9U3rOgk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB0TCCATqgAwIBAgIQHzxUW57Pp6lKXNrHIJ82NzANBgkqhkiG9w0BAQsFADAnMSUwIwYDVQQDHhwAVQBTAEUAUgBcAHIAbwBkAHIAaQBfADAAMAAwMB4XDTE1MTIyMjIwMzczMloXDTE2MTIyMjAyMzczMlowJzElMCMGA1UEAx4cAFUAUwBFAFIAXAByAG8AZAByAGkAXwAwADAAMDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA6KA8q8XA0haUyP0zzPrgSf6WJFeqoxWTZz6tJSUNvYT0hfta9KB2dWfk8Ym2OKR4ucNuObKF1i5ms4UJD6Wucmmsygai2QQhs0dbM9D5c03r4Hw6zXz0jsnZlsMNRtZ5tLHj3c5y3u4l6gWezUbZQfQnKBjknQc8fx1u9U3rOgkCAwEAATANBgkqhkiG9w0BAQsFAAOBgQAs73mrZJ88b/DLty70tbYpm9aLFUA5tVlfJ6ItwRtmF+3EYS9W95X8th7R97ccQedN/11bHGHqritBDznrR0c2FrK0DOqSo38MvSbwrMwYGAOLGRpcz/GnIhNt+fabPg6S3Vq7qEjQ85J8uWpTJQ8ZirsD+L7Ko42DG1a9j/F3Jg==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
