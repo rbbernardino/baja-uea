@@ -36,9 +36,48 @@ namespace TeleBajaUEA
 
         private void btGravarCorrida_Click(object sender, EventArgs e)
         {
-            GravarCorridaSetup formSetup = new GravarCorridaSetup();
+            GravarCorridaSetup formSetup2 = new GravarCorridaSetup();
             Hide();
-            formSetup.Show();
+            formSetup2.Show();
+            return;
+            //--------------------------------------TESTE--------------------
+
+            if (CarConnection.AvaiablePortExists)
+            {
+                if(Program.Settings.PortXBee == "NULL")
+                {
+                    string errorMsg =
+                        "\t\tALERTA\n" +
+                        "Existe uma ou mais portas serial disponíveis, porém " + 
+                        "nenhuma foi configurada, acesse as configurações e escolha uma porta.";
+                    MessageBox.Show(errorMsg, "TeleBajaUEA", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    if(CarConnection.IsPortAvaiable(Program.Settings.PortXBee))
+                    {
+                        GravarCorridaSetup formSetup = new GravarCorridaSetup();
+                        Hide();
+                        formSetup.Show();
+                    }
+                    else
+                    {
+                        string errorMsg =
+                            "\t\tALERTA\n" +
+                            "Existe uma ou mais portas serial disponíveis, mas " +
+                            "a porta que está configurada não está mais acessível. " +
+                            "Por favor, acesse as configurações e escolha uma porta disponível.";
+                        MessageBox.Show(errorMsg, "TeleBajaUEA", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+            }
+            else
+            {
+                string errorMsg =
+                    "\t\tALERTA\n" +
+                    "Nenhuma porta serial disponível! Conecte o XBee e tente novamente.";
+                MessageBox.Show(errorMsg, "TeleBajaUEA", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void btAnalisarCorrida_Click(object sender, EventArgs e)

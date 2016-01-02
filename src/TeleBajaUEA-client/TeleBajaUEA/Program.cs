@@ -23,7 +23,7 @@ namespace TeleBajaUEA
         }
 
         private static MenuPrincipal formMenuPrincipal;
-        public static ProgramSettings Settings { get; private set; } = new ProgramSettings();
+        public static ProgramSettings Settings { get; private set; }
 
         /// <summary>
         /// The main entry point for the application.
@@ -37,7 +37,11 @@ namespace TeleBajaUEA
             if (SettingsFile.SettingsFileExists)
                 Settings = SettingsFile.LoadFromFile();
             else
-                SettingsFile.SaveToFile(); // lembre que tem inicializador padrão ali ^
+            {
+                Settings = new ProgramSettings();
+                SettingsFile.CreateAppFilesFolder();
+                SettingsFile.SaveToFile(Settings);
+            }
 
             try
             {
@@ -63,9 +67,6 @@ namespace TeleBajaUEA
                     e.StackTrace + "\n\n";
                 MessageBox.Show(errorMessage, "TeleBajaUEA", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            //SerialTest formSerialTest = new SerialTest();
-            //Application.Run(formSerialTest);
         }
 
         // Não há uma real necessidade de se passar o args do main para essa função

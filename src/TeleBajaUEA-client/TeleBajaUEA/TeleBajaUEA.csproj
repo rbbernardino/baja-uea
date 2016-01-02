@@ -113,6 +113,9 @@
     </Compile>
     <Compile Include="ClassesAuxiliares\CarConnection.cs" />
     <Compile Include="ClassesAuxiliares\DataGenMachine.Generator.cs" />
+    <Compile Include="ClassesAuxiliares\FolderBrowserDialogEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ClassesAuxiliares\ProgramSettings.cs" />
     <Compile Include="ClassesAuxiliares\SerialPortBaja.cs">
       <SubType>Component</SubType>

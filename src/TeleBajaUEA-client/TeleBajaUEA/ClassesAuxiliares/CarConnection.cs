@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO.Ports;
+using System.Threading.Tasks;
 using TeleBajaUEA.ClassesAuxiliares;
 using TeleBajaUEA.RaceDataStructs;
 
@@ -8,6 +9,8 @@ namespace TeleBajaUEA
     // Tamb�m encapsula a tradu��o entre Formato bytes XBee ---> Objeto do C#
     public sealed class CarConnection
     {
+        public static bool AvaiablePortExists { get { return SerialPort.GetPortNames().Length > 0; } }
+
         private static event NewDataHandler NewDataArrived;
         private delegate void NewDataHandler(object source, SensorsData newData);
 
@@ -22,10 +25,12 @@ namespace TeleBajaUEA
         {
             DataGenerator = new RandomDataGenerator();
             return true;
-            /* TODO ------------------TESTE-------------------
+            
+            // TODO remover ^ ------------------TESTE-------------------
+
             // tempo para conectar com o carro
             // TODO fazer catch para tratar falha ao conectar com o USB
-            portXBee = new SerialPortBaja(ProgramSettings.PortXBee);
+            portXBee = new SerialPortBaja(Program.Settings.PortXBee);
             await Task.Run(() =>{ portXBee.Open(); });
 
             // TODO melhorar retorno de erro ao abrir porta
@@ -33,7 +38,6 @@ namespace TeleBajaUEA
                 return false;
 
             return await portXBee.TryHandshake();
-            */
         }
 
         public static void StartListen()
@@ -59,12 +63,15 @@ namespace TeleBajaUEA
             return await DataGenerator.GetNextPacket();
         }
 
-        // ----------------------- Tempor�rio para Teste --------------------//
-        //public static void StartDataGenerator()
-        //{
-        //    DataGenerator = new DataGenMachine();
-        //    DataGenerator.Start();
-        //}
-        // ------------------------------------------------------------------//
+        public static bool IsPortAvaiable(string pPortName)
+        {
+            string[] portList = SerialPort.GetPortNames();
+
+            foreach (string portName in portList)
+                if (portName.Equals(pPortName))
+                    return true;
+
+            return false;
+        }
     }
 }

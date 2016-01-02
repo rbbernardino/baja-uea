@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
+using TeleBajaUEA.ClassesAuxiliares;
 using TeleBajaUEA.RaceDataStructs;
 
 namespace TeleBajaUEA
@@ -12,18 +13,21 @@ namespace TeleBajaUEA
     // de/para um arquivo
     public sealed class RaceFile
     {
-        private static string TEMP_FILE_PREFIX = "__backup";
-        private static string TEMP_FILE_EXTENSION = ".btbu";
-        private static string TEMP_DIR_NAME
+        public static string DEFAULT_BACKUP_PATH
         {
             get
             {
                 return Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                    "TeleBajaUEA\\backup");
+                    @"TeleBajaUEA\backup\");
             }
         }
 
+        private static string TEMP_FILE_PREFIX = "__backup";
+        private static string TEMP_FILE_EXTENSION = ".btbu";
+        private static string TEMP_FILE_PATH { get { return SettingsFile.APP_FILES_PATH + tempFileName; } }
+
+        private static string BackupPath { get { return Program.Settings.BackupPath; } }
         private static string tempFileName;
 
         // TODO campo para manter referência ao arquivo temporário
@@ -67,7 +71,7 @@ namespace TeleBajaUEA
                     TEMP_FILE_PREFIX +
                     DateTime.Now.ToString("yyyyMMddHHmmss") +
                     TEMP_FILE_EXTENSION;
-                backupFile = File.Open(tempFileName, FileMode.Create);
+                backupFile = File.Open(TEMP_FILE_PATH, FileMode.Create);
                 backupFile.Close();
                 return true;
             });
@@ -83,7 +87,7 @@ namespace TeleBajaUEA
         // (http://msdn.microsoft.com/it-it/library/8he88b63.aspx) for details."
         private static void CleanBackupFiles()
         {
-            DirectoryInfo di = new DirectoryInfo(@".");
+            DirectoryInfo di = new DirectoryInfo(SettingsFile.APP_FILES_PATH);
             FileInfo[] files = di.GetFiles("*" + TEMP_FILE_EXTENSION)
                                  .Where(p => p.Extension == TEMP_FILE_EXTENSION).ToArray();
             foreach (FileInfo file in files)
@@ -97,7 +101,7 @@ namespace TeleBajaUEA
 
         public static void UpdateTempFile(RaceData data)
         {
-            backupFile = File.Open(tempFileName, FileMode.Open);
+            backupFile = File.Open(TEMP_FILE_PATH, FileMode.Open);
             BinaryFormatter bFormatter = new BinaryFormatter();
             bFormatter.Serialize(backupFile, data);
             backupFile.Close();
@@ -105,8 +109,8 @@ namespace TeleBajaUEA
 
         public static void SaveToBackupDir()
         {
-            Directory.CreateDirectory(TEMP_DIR_NAME);
-            File.Move(tempFileName, TEMP_DIR_NAME + "\\" + tempFileName);
+            Directory.CreateDirectory(BackupPath);
+            File.Move(TEMP_FILE_PATH, BackupPath + tempFileName);
         }
     }
 }

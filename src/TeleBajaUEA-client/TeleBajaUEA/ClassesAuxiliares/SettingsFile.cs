@@ -13,21 +13,22 @@ namespace TeleBajaUEA.ClassesAuxiliares
         public static bool SettingsFileExists { get { return File.Exists(SETTINGS_PATH); } }
 
         private readonly static string SETTINGS_FILE_NAME = "config.xml";
-        private static string SETTINGS_PATH
+        private static string SETTINGS_PATH = APP_FILES_PATH + SETTINGS_FILE_NAME;
+        public static string APP_FILES_PATH
         {
             get
             {
                 return Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                    "TeleBajaUEA\\" + SETTINGS_FILE_NAME);
+                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    @"TeleBajaUEA\");
             }
         }
 
-        public static void SaveToFile()
+        public static void SaveToFile(ProgramSettings pSettings)
         {
-            XmlSerializer serializer = new XmlSerializer(Program.Settings.GetType());
+            XmlSerializer serializer = new XmlSerializer(pSettings.GetType());
             StreamWriter writer = new StreamWriter(SETTINGS_PATH);
-            serializer.Serialize(writer, Program.Settings);
+            serializer.Serialize(writer, pSettings);
             writer.Close();
         }
 
@@ -43,6 +44,11 @@ namespace TeleBajaUEA.ClassesAuxiliares
             settings = (ProgramSettings)serializer.Deserialize(reader);
             reader.Close();
             return settings;
+        }
+
+        public static void CreateAppFilesFolder()
+        {
+            Directory.CreateDirectory(APP_FILES_PATH);
         }
     }
 }
