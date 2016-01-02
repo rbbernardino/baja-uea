@@ -50,10 +50,6 @@ namespace TeleBajaUEA
         // TODO implentar encerrar conexão
         public static void CloseConnection()
         {
-            // TODO timers ficam mais lentos ao reabrir janela de gravar corrida
-            
-            //DataGenerator.Stop();
-            //DataGenerator = null;
         }
 
         public async static Task<SensorsData> GetNextData()
