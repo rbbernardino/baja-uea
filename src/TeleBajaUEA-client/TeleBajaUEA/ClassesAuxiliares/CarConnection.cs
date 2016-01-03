@@ -16,47 +16,41 @@ namespace TeleBajaUEA
 
         private static SerialPortBaja portXBee;
 
-        // TODO ------------------TESTE-------------------
-        private static RandomDataGenerator DataGenerator;
-        //private static DataGenMachine DataGenerator;
-        
+        //private static RandomDataGenerator DataGenerator;
+
         // TODO fazer await aqui e ali? realmetne necessário async??
-        public async static Task<bool> ConnectToCar()
+        public async static Task ConnectToCar()
         {
-            DataGenerator = new RandomDataGenerator();
-            return true;
-            
-            // TODO remover ^ ------------------TESTE-------------------
+            //DataGenerator = new RandomDataGenerator();
+            //return;
 
             // tempo para conectar com o carro
-            // TODO fazer catch para tratar falha ao conectar com o USB
             portXBee = new SerialPortBaja(Program.Settings.PortXBee);
             await Task.Run(() =>{ portXBee.Open(); });
 
-            // TODO melhorar retorno de erro ao abrir porta
             if (!portXBee.IsOpen)
-                return false;
+                throw new System.Exception("Porta não pôde ser aberta por razões desconhecidas.");
 
-            return await portXBee.TryHandshake();
+            await portXBee.TryHandshake();
         }
 
         public static void StartListen()
         {
-            //portXBee.StartReceiveData();
-            // TODO ------------------TESTE-------------------
-            DataGenerator.StartReceiveData();
+            portXBee.StartReceiveData();
+            //DataGenerator.StartReceiveData();
         }
 
         // TODO implentar encerrar conexão
         public static void CloseConnection()
         {
+            if (portXBee != null && portXBee.IsOpen)
+                portXBee.Close();
         }
 
         public async static Task<SensorsData> GetNextData()
         {
-            //return await portXBee.GetNextPacket();
-        // TODO ------------------TESTE-------------------
-            return await DataGenerator.GetNextPacket();
+            return await portXBee.GetNextPacket();
+            //return await DataGenerator.GetNextPacket();
         }
 
         public static bool IsPortAvaiable(string pPortName)

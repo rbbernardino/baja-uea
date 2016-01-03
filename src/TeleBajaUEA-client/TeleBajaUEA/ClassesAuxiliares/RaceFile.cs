@@ -77,6 +77,12 @@ namespace TeleBajaUEA
             });
         }
 
+        public static void DeleteTempFile()
+        {
+            if(File.Exists(TEMP_FILE_PATH))
+                File.Delete(TEMP_FILE_PATH);
+        }
+
         // Apaga todos os arquivos de backup na pasta do programa
         // a ideia é apagar o backup da corrida anterior 
         //----------------------------------------------

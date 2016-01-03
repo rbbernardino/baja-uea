@@ -21,10 +21,6 @@ namespace TeleBajaUEA
         // TODO criar timer para a cada 5min salvar os dados no arquivo temporario
         private Timer timerBackupData;
 
-        // ------------- temporário para testar -------------------//
-        //public TESTEJanelaSensores formTesteMQSQ;
-        //--------------------------------------------------------//
-
         // o primeiro Millis será usado como referência (zero) do gráfico no eixo X
         private uint zeroMillis;
 
@@ -54,22 +50,45 @@ namespace TeleBajaUEA
 
         public async void StartUpdateCharts()
         {
-            SensorsData firstData;
-            firstData = await CarConnection.GetNextData();
-            zeroMillis = firstData.Millis;
-            await UpdateData(firstData);
+            try
+            {
+                SensorsData firstData;
+                firstData = await CarConnection.GetNextData();
+                zeroMillis = firstData.Millis;
+                await UpdateData(firstData);
 
-            timerCheckIncomeData.Enabled = true;
-            timerBackupData.Enabled = true;
+                timerCheckIncomeData.Enabled = true;
+                timerBackupData.Enabled = true;
+            }
+            catch (ErrorMessage.InvalidProtocolException exception)
+            {
+                ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);
+                return;
+            }
+            catch (Exception exception)
+            {
+                ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);
+            }
         }
 
         private async void TickCheckIncomeData(object source, EventArgs e)
         {
-            timerCheckIncomeData.Tick -= TickCheckIncomeData;
-            SensorsData newData = await CarConnection.GetNextData();
-            await UpdateData(newData);
-            //UpdateTESTEformMillis(data.Millis - zeroMillis);
-            timerCheckIncomeData.Tick += TickCheckIncomeData;
+            try
+            {
+                timerCheckIncomeData.Tick -= TickCheckIncomeData;
+                SensorsData newData = await CarConnection.GetNextData();
+                await UpdateData(newData);
+                timerCheckIncomeData.Tick += TickCheckIncomeData;
+            }
+            catch (ErrorMessage.InvalidProtocolException exception)
+            {
+                ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);
+                return;
+            }
+            catch(Exception exception)
+            {
+                ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);
+            }
         }
 
         private async Task UpdateData(SensorsData pNewData)
@@ -161,16 +180,6 @@ namespace TeleBajaUEA
             UpdateXLabels();
             chartDinamic.Update();
         }
-
-        // --------------- teste ------------------
-        //private void UpdateTESTEform(SensorsData newData)
-        //{
-        //    formTesteMQSQ.SetData(this, newData);
-        //}
-        //private void UpdateTESTEformMillis(uint millis)
-        //{
-        //    formTesteMQSQ.SetMillis(this, millis);
-        //}
 
         private void button1_Click(object sender, EventArgs e)
         {

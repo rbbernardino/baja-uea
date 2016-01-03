@@ -8,7 +8,10 @@ using TeleBajaUEA.ClassesAuxiliares;
 
 namespace TeleBajaUEA
 {
-    // TODO criar variável global com o nome do aplicativo (TeleBajaUEA)
+    // TODO 1- criar variável global com o nome do aplicativo (TeleBajaUEA)
+    //
+    // TODO 2- repensar tratamento de erros no caso de exceções do sistema
+    //         exibir também a call stack nesse caso
     static class Program
     {
         public static Version AssemblyVersion

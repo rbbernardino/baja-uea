@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TeleBajaUEA.ClassesAuxiliares;
 
 namespace TeleBajaUEA
 {
@@ -18,17 +19,27 @@ namespace TeleBajaUEA
             InitializeComponent();
         }
 
-        public async Task CreateConnections()
+        public async Task<bool> CreateConnections()
         {
-            await ConnectToCar();
-            await RaceFile.CreateTempFile();
+            bool result = true;
+            result &= await ConnectToCar();
+            result &= await RaceFile.CreateTempFile();
+
+            if (!result)
+            {
+                CarConnection.CloseConnection();
+                RaceFile.DeleteTempFile();
+            }
+            return result;
         }
 
-        private async Task ConnectToCar()
+        private async Task<bool> ConnectToCar()
         {
             // cria conexão com o carro
-            if (await CarConnection.ConnectToCar())
+            try
             {
+                await CarConnection.ConnectToCar();
+
                 // mesmo que seja instantâneo, deve esperar 1/2 segundo
                 // pois feedback de [carregando -->-->-->-- carregado] é prazerozo!
                 await Task.Delay(500);
@@ -40,11 +51,12 @@ namespace TeleBajaUEA
                 // dá um tempo para o usuário perceber que conectou
                 // (feedback prazeroso)
                 await Task.Delay(500);
+                return true;
             }
-            else
+            catch(Exception e)
             {
-                // TODO exibir mensagem de erro mais detalhada
-                MessageBox.Show("ERRO ao se conectar com o carro...");
+                ErrorMessage.Show(ErrorType.Error, ErrorReason.ConnectToCarFailed, e.Message);
+                return false;
             }
         }
     }

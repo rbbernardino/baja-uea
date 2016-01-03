@@ -112,7 +112,7 @@
       <DependentUpon>AGauge.cs</DependentUpon>
     </Compile>
     <Compile Include="ClassesAuxiliares\CarConnection.cs" />
-    <Compile Include="ClassesAuxiliares\DataGenMachine.Generator.cs" />
+    <Compile Include="ClassesAuxiliares\ErrorMessage.cs" />
     <Compile Include="ClassesAuxiliares\FolderBrowserDialogEx.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -132,19 +132,11 @@
     <Compile Include="RaceDataStructs\RaceData.cs" />
     <Compile Include="RaceDataStructs\RaceParameters.cs" />
     <Compile Include="ClassesAuxiliares\RandomDataGenerator.cs" />
-    <Compile Include="ClassesAuxiliares\DataGenMachine.cs" />
-    <Compile Include="ClassesAuxiliares\DataGenMachine.Transition.cs" />
     <Compile Include="GravarCorrida.ChartSettings.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RaceDataStructs\SensorsData.cs" />
     <Compile Include="ClassesAuxiliares\RaceFile.cs" />
-    <Compile Include="JanelasSecundarias\TESTEJanelaSensores.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="JanelasSecundarias\TESTEJanelaSensores.Designer.cs">
-      <DependentUpon>TESTEJanelaSensores.cs</DependentUpon>
-    </Compile>
     <Compile Include="ClassesAuxiliares\FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -220,9 +212,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="JanelasSecundarias\Sobre.resx">
       <DependentUpon>Sobre.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="JanelasSecundarias\TESTEJanelaSensores.resx">
-      <DependentUpon>TESTEJanelaSensores.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\DataSources\TeleBajaUEA.ClassesAuxiliares.ProgramSettings.datasource" />

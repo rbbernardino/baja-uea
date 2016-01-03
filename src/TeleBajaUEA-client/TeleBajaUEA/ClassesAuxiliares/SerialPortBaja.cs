@@ -67,31 +67,40 @@ namespace TeleBajaUEA.ClassesAuxiliares
 
         // tenta trocar mensagens com o XBee do carro para checar conexão
         // e sincronizar estados
-        public async Task<bool> TryHandshake()
+        public async Task TryHandshake()
         {
             // começa a ouvir a porta e guardar os dados recebido na queue
             DataReceived += port_DataReceived;
 
-            // trocar por TaskCompletionSource?? (http://stackoverflow.com/a/12858633)
-            //canReceiveDataSignal = new SemaphoreSlim(0, 1);
-            //await canReceiveDataSignal.WaitAsync();
-
-            // quando sair do await é porque conectou ou deu falha...
             char msg = await NextChar();
             if (msg == (char)SerialMsg.CONNECT)
             {
                 WriteChar((char)SerialMsg.OK);
 
                 // TODO colocar timeout...
-                // ignora todas as mensagens até receber READY (haverá vários (C)onnect)
+                // ignora todas as mensagens até receber (R)EADY (talvez haja vários (C)onnect)
                 msg = await NextChar();
                 while (msg != (char)SerialMsg.READY)
-                    msg = await NextChar();
+                {
+                    if(msg != (char)SerialMsg.CONNECT)
+                    {
+                        string errorMsg =
+                            "Erro de protocolo durante Handshake. Esperava '" +
+                            (char)SerialMsg.CONNECT + "', mas recebeu '" + msg + "'";
+                        throw new Exception(errorMsg);
+                    }
 
-                return true;
+                    msg = await NextChar();
+                }
             }
             else
-                return false; // TODO reportar ERRO: a 1a msg deve ser 'S' ou algo está errado
+            {
+                string errorMsg =
+                    "Erro de protocolo durante Handshake. Esperava '" +
+                    (char)SerialMsg.CONNECT + "', mas recebeu '" + msg + "'";
+
+                throw new Exception(errorMsg);
+            }
         }
 
         public void StartReceiveData()

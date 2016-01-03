@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TeleBajaUEA.ClassesAuxiliares;
 using TeleBajaUEA.RaceDataStructs;
 
 namespace TeleBajaUEA
@@ -69,7 +70,6 @@ namespace TeleBajaUEA
             BindParameters();
             Hide();
             await ShowGravarCorrida();
-            CloseOnlyThis();
         }
 
         private async Task ShowGravarCorrida()
@@ -77,40 +77,43 @@ namespace TeleBajaUEA
             GravarCorridaConexão formGravarCorridaConexao = new GravarCorridaConexão();
             formGravarCorridaConexao.Show();
 
-            await formGravarCorridaConexao.CreateConnections();
+            bool connected = await formGravarCorridaConexao.CreateConnections();
 
-            // cria janela de gravar corrida
-            GravarCorrida formGravarCorrida = new GravarCorrida(parameters);
-            await formGravarCorrida.ConfigureCharts();
+            if (!connected)
+            {
+                formGravarCorridaConexao.CloseOnlyThis();
+                Show();
+            }
+            else
+            {
+                // cria janela de gravar corrida
+                GravarCorrida formGravarCorrida = new GravarCorrida(parameters);
+                await formGravarCorrida.ConfigureCharts();
 
-            //------------- temporário para testar -----------------//
-            //formGravarCorrida.formTesteMQSQ = new TESTEJanelaSensores();
-            //------------------------------------------------------//
+                // fecha janela de loading e setup
+                formGravarCorridaConexao.CloseOnlyThis();
+                CloseOnlyThis();
 
-            // fecha janela de loading evitando que programa encerre
-            formGravarCorridaConexao.CloseOnlyThis();
+                // abre janela de gravar corrida
+                formGravarCorrida.Show();
 
-            // abre janela de gravar corrida
-            formGravarCorrida.Show();
+                // TODO o código abaixo está feio, melhorar? Botar captura em outro lugar?
+                try
+                {
+                    // inicia recebimento de dados dos sensores
+                    CarConnection.StartListen();
+                }
+                catch(Exception e)
+                {
+                    ErrorMessage.Show(ErrorType.Error, ErrorReason.SendToCarFail, e.Message);
+                    formGravarCorridaConexao.CloseOnlyThis();
+                    Show();
+                    return;
+                }
 
-            // inicia recebimento de dados dos sensores
-            CarConnection.StartListen();
-
-            // ------------------ Teste: simula medições do carro --------------
-            //CarConnection.StartDataGenerator();
-
-            // inicia atualização dos gráficos na tela de gravação de corrida
-            formGravarCorrida.StartUpdateCharts();
-
-            //--------------------------- teste ----------------------------//
-            //formGravarCorrida.formTesteMQSQ.StartCountTime();
-            
-            // seta posição melhor
-            //formGravarCorrida.formTesteMQSQ.StartPosition = FormStartPosition.Manual;
-            //Point parentLoc = formGravarCorrida.Location;
-            //formGravarCorrida.formTesteMQSQ.Location = new Point(parentLoc.X-100, parentLoc.Y);
-            //formGravarCorrida.formTesteMQSQ.Show();
-            //--------------------------------------------------------------//
+                // inicia atualização dos gráficos na tela de gravação de corrida
+                formGravarCorrida.StartUpdateCharts();
+            }
         }
 
         private void BindParameters()
