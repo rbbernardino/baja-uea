@@ -16,13 +16,13 @@ namespace TeleBajaUEA
 
         private static SerialPortBaja portXBee;
 
-        //private static RandomDataGenerator DataGenerator;
+        private static RandomDataGenerator DataGenerator; // TODO TESTE
 
         // TODO fazer await aqui e ali? realmetne necessário async??
         public async static Task ConnectToCar()
         {
-            //DataGenerator = new RandomDataGenerator();
-            //return;
+            DataGenerator = new RandomDataGenerator();// TODO TESTE
+            return;// TODO TESTE
 
             // tempo para conectar com o carro
             portXBee = new SerialPortBaja(Program.Settings.PortXBee);
@@ -36,8 +36,8 @@ namespace TeleBajaUEA
 
         public static void StartListen()
         {
-            portXBee.StartReceiveData();
-            //DataGenerator.StartReceiveData();
+            //portXBee.StartReceiveData();
+            DataGenerator.StartReceiveData();// TODO TESTE
         }
 
         // TODO implentar encerrar conexão
@@ -49,8 +49,8 @@ namespace TeleBajaUEA
 
         public async static Task<SensorsData> GetNextData()
         {
-            return await portXBee.GetNextPacket();
-            //return await DataGenerator.GetNextPacket();
+            //return await portXBee.GetNextPacket();
+            return await DataGenerator.GetNextPacket();// TODO TESTE
         }
 
         public static bool IsPortAvaiable(string pPortName)

@@ -314,6 +314,7 @@
             this.Controls.Add(this.btEncerrar);
             this.Controls.Add(this.aGaugeTemperature);
             this.Controls.Add(this.chartDinamic);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GravarCorrida";
             this.Text = "Gravar Corrida - TeleBaja  UEA";

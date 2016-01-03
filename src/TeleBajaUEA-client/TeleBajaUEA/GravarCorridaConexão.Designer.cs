@@ -62,6 +62,7 @@
             this.ClientSize = new System.Drawing.Size(409, 231);
             this.Controls.Add(this.labelCarConnection);
             this.Controls.Add(this.loadingIconCar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GravarCorridaConexão";
             this.Text = "Gravar Corrida - TeleBaja UEA";

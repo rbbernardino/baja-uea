@@ -25,13 +25,13 @@
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>https://raw.githubusercontent.com/rbbernardino/baja-uea/master/src/TeleBajaUEA-client/TeleBajaUEA/publish/</InstallUrl>
     <UpdateUrl>https://raw.githubusercontent.com/rbbernardino/baja-uea/master/src/TeleBajaUEA-client/TeleBajaUEA/publish/</UpdateUrl>
-    <SupportUrl>https://www.facebook.com/rbbernardino</SupportUrl>
     <ProductName>TeleBajaUEA</ProductName>
     <PublisherName>BajaUEA</PublisherName>
     <MinimumRequiredVersion>0.9.1.6</MinimumRequiredVersion>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>0.9.3.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>

@@ -222,6 +222,7 @@
             this.Controls.Add(this.btbtScrollLeft);
             this.Controls.Add(this.btScrollRight);
             this.Controls.Add(this.btVoltar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AnalisarCorrida";
             this.Text = "Analisar Corrida - TeleBaja UEA";

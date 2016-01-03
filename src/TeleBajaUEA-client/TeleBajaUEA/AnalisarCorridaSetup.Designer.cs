@@ -1428,6 +1428,7 @@
             this.CancelButton = this.btFechar;
             this.ClientSize = new System.Drawing.Size(1076, 677);
             this.Controls.Add(this.toolStripContainer1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AnalisarCorridaSetup";
             this.Text = "Setup - TeleBaja UEA";

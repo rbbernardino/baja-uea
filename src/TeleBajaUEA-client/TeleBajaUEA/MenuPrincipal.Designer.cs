@@ -113,6 +113,7 @@
             this.Controls.Add(this.btSobre);
             this.Controls.Add(this.btGravarCorrida);
             this.Controls.Add(this.label1_Título);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MenuPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
