@@ -25,7 +25,12 @@ namespace TeleBajaUEA
 
         private static string TEMP_FILE_PREFIX = "__backup";
         private static string TEMP_FILE_EXTENSION = ".btbu";
-        private static string TEMP_FILE_PATH { get { return SettingsFile.APP_FILES_PATH + tempFileName; } }
+        private static string TEMP_BACKUP_FOLDER_PATH
+        {
+            get { return Program.Settings.BackupPath + @"\tempBackup\"; }
+        }
+        private static string TEMP_FILE_PATH { get { return TEMP_BACKUP_FOLDER_PATH + tempFileName; } }
+        //get { return SettingsFile.APP_FILES_PATH + tempFileName; } }
 
         private static string BackupPath { get { return Program.Settings.BackupPath; } }
         private static string tempFileName;
@@ -65,12 +70,17 @@ namespace TeleBajaUEA
         {
             return await Task.Run(() =>
             {
-                CleanBackupFiles();
+                // desativado, pois se der erro e iniciar o programa novamente vai deletar
+                // o que estava sendo gravado até o erro...
+                //CleanBackupFiles();
+
                 var culture = new CultureInfo("pt-BR");
                 tempFileName =
                     TEMP_FILE_PREFIX +
-                    DateTime.Now.ToString("yyyyMMddHHmmss") +
+                    DateTime.Now.ToString("yyyyMMdd-HHmmss") +
                     TEMP_FILE_EXTENSION;
+
+                Directory.CreateDirectory(TEMP_BACKUP_FOLDER_PATH);
                 backupFile = File.Open(TEMP_FILE_PATH, FileMode.Create);
                 backupFile.Close();
                 return true;
@@ -83,6 +93,7 @@ namespace TeleBajaUEA
                 File.Delete(TEMP_FILE_PATH);
         }
 
+        //
         // Apaga todos os arquivos de backup na pasta do programa
         // a ideia é apagar o backup da corrida anterior 
         //----------------------------------------------

@@ -71,6 +71,7 @@ namespace TeleBajaUEA
 
             if (currentSpeed > MAX_SPEED) currentSpeed = MAX_SPEED;
             if (currentSpeed <= 0) currentSpeed = 0.1f;
+            currentSpeed = (int)currentSpeed;
 
             if (currentTemperature > MAX_TEMP) currentTemperature = MAX_TEMP;
             if (currentTemperature <= 0) currentTemperature = 0.1f;

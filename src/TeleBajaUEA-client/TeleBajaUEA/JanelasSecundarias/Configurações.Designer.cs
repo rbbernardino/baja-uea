@@ -178,7 +178,7 @@
             this.groupBox2.Size = new System.Drawing.Size(549, 118);
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Backup de Corrida (durante gravação)";
+            this.groupBox2.Text = "Backup de Corrida";
             // 
             // Configurações
             // 
