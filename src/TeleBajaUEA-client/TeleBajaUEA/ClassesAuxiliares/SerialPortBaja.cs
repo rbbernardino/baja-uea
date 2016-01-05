@@ -10,7 +10,11 @@ namespace TeleBajaUEA.ClassesAuxiliares
 {
     class SerialPortBaja : SerialPort
     {
-        // TODO criar timeout nos TryDequeue
+        // tempo em milisegundos até "NextByte()" lance uma exceção se não receber dados
+        private readonly double NEXT_BYTE_TIMEOUT = 5000;
+        private System.Timers.Timer timeoutTimer;
+        private bool timeoutExceeded;
+
         #region Protocol
         //private static SemaphoreSlim canReceiveDataSignal;
 
@@ -79,19 +83,26 @@ namespace TeleBajaUEA.ClassesAuxiliares
 
                 // TODO colocar timeout...
                 // ignora todas as mensagens até receber (R)EADY (talvez haja vários (C)onnect)
+                StartTimeoutTimer();
                 msg = await NextChar();
                 while (msg != (char)SerialMsg.READY)
                 {
-                    if(msg != (char)SerialMsg.CONNECT)
+                    if (timeoutExceeded)
+                        throw new ErrorMessage.ReceiveDataTimeoutException();
+                    else
                     {
-                        string errorMsg =
-                            "Erro de protocolo durante Handshake. Esperava '" +
-                            (char)SerialMsg.CONNECT + "', mas recebeu '" + msg + "'";
-                        throw new Exception(errorMsg);
-                    }
+                        if (msg != (char)SerialMsg.CONNECT)
+                        {
+                            string errorMsg =
+                                "Erro de protocolo durante Handshake. Esperava '" +
+                                (char)SerialMsg.CONNECT + "', mas recebeu '" + msg + "'";
+                            throw new Exception(errorMsg);
+                        }
 
-                    msg = await NextChar();
+                        msg = await NextChar();
+                    }
                 }
+                StopTimeoutTimer();
             }
             else
             {
@@ -110,6 +121,7 @@ namespace TeleBajaUEA.ClassesAuxiliares
         }
 
         // TODO implementar GetNextPacket (total de 10 bytes excluindo o 'B'
+        // pode gerar a exceção NextByteTimeoutException
         // lê os dados, armazena em variáveis temporárias e gera um novo objeto SensorsData (newData)
         public async Task<SensorsData> GetNextPacket()
         {
@@ -135,10 +147,23 @@ namespace TeleBajaUEA.ClassesAuxiliares
             }
         }
 
+        // pode gerar a exceção NextByteTimeoutException
         private async Task<byte> NextByte()
         {
+            StartTimeoutTimer();
+
             byte rcvByte;
-            while (!receivedDataQueue.TryDequeue(out rcvByte)) { await Task.Delay(300); }
+            while (!receivedDataQueue.TryDequeue(out rcvByte))
+            {
+                // quando o Timer disparar, será automaticamente desativado (AutoReset = false)
+                if (timeoutExceeded)
+                    throw new ErrorMessage.ReceiveDataTimeoutException();
+                else
+                    await Task.Delay(300);
+            }
+
+            // quando sair do while, sucesso, logo desativa o timer
+            StopTimeoutTimer();
             return rcvByte;
 
         }
@@ -179,6 +204,38 @@ namespace TeleBajaUEA.ClassesAuxiliares
         public void WriteChar(char c)
         {
             Write(c.ToString());
+        }
+
+        private void StartTimeoutTimer()
+        {
+            timeoutExceeded = false;
+
+            timeoutTimer = new System.Timers.Timer();
+            timeoutTimer.Interval = NEXT_BYTE_TIMEOUT;
+            timeoutTimer.Elapsed += TimeoutTimer_Elapsed;
+            timeoutTimer.AutoReset = false;
+            timeoutTimer.Enabled = true;
+            timeoutTimer.Start();
+        }
+
+        // TODO verificar se a info abaixo procede ou porque dá erro durante execução
+        // Aparentemente com o AutoReset = false ele automaticamente faz o
+        // Dispose após disparar
+        private void StopTimeoutTimer()
+        {
+            if(timeoutTimer != null)
+            {
+                timeoutTimer.Enabled = false;
+                timeoutTimer.Stop();
+                timeoutTimer.Dispose();
+                timeoutTimer = null;
+            }
+        }
+
+        private void TimeoutTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            timeoutExceeded = true;
+            StopTimeoutTimer();
         }
     }
 }

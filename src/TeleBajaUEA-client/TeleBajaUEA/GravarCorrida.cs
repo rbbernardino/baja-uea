@@ -65,12 +65,18 @@ namespace TeleBajaUEA
                 ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);
                 return;
             }
+            catch (ErrorMessage.ReceiveDataTimeoutException exception)
+            {
+                ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);
+                return;
+            }
             catch (Exception exception)
             {
                 ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);
             }
         }
 
+        // TODO tratar quando uma exceção for lançada (encerrar corrida, etc.)
         private async void TickCheckIncomeData(object source, EventArgs e)
         {
             try
@@ -85,9 +91,16 @@ namespace TeleBajaUEA
                 ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);
                 return;
             }
-            catch(Exception exception)
+            catch(ErrorMessage.ReceiveDataTimeoutException exception)
             {
                 ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);
+                ErrorMessage.Show(ErrorType.Info, ErrorReason.BackupWillBeSaved);
+                return;
+            }
+            catch (Exception exception)
+            {
+                ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);
+                return;
             }
         }
 

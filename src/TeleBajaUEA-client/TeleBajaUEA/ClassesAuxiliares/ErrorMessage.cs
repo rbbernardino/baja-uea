@@ -7,6 +7,9 @@ using System.Windows.Forms;
 
 namespace TeleBajaUEA.ClassesAuxiliares
 {
+    // TODO Tipo de erro deveria ter o conteúdo de "ErrorReason"
+    //      e ErrorReason deveria identificar os "details"
+    //      certo?? @_@
     public enum ErrorType
     { Error, Info, Warnning, }
 
@@ -18,6 +21,7 @@ namespace TeleBajaUEA.ClassesAuxiliares
         ConnectToCarFailed,
         SendToCarFail,
         ReceiveFromCarFail,
+        BackupWillBeSaved,
     }
 
     public static class ErrorMessage
@@ -107,6 +111,12 @@ namespace TeleBajaUEA.ClassesAuxiliares
                     details = "";
                     return new ErrorText(title, details);
 
+                case ErrorReason.BackupWillBeSaved:
+                    title = "Não se preocupe! Um backup da gravação até o momento" +
+                            "será salvo!";
+                    details = "";
+                    return new ErrorText(title, details);
+
                 default:
                     throw new Exception("ErrorReason '"+
                         Enum.GetName(typeof(ErrorReason), reason) +
@@ -124,6 +134,39 @@ namespace TeleBajaUEA.ClassesAuxiliares
                 Title = pTitle;
                 Details = pDetails;
             }
+        }
+
+        // TODO     talvez fosse melhor encapsular essas mensagens acima também,
+        //      criando mais uma função Show() de três argumentos, mas desta
+        //      vez ao invés de passar "string details", passar a exceção em si
+        //      e usar o nome das exceções para definir as chaves dos enums.
+        //          Nesse caso poderia ser definido um segundo enum, "InnerErrorReason"
+        //      para definir melhor o erro.
+        //          Com essa abordagem seria até mesmo possível mandar dados pelo
+        //      próprio objeto da exceção, campo Data{} (dicionário).
+        //
+        // dar opção de exibir a "stack call"?
+
+        [Serializable]
+        public class ReceiveDataTimeoutException : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return
+                        "O carro demorou muito para responder. Verifique a " + 
+                        "conexão e tente novamente.";
+                }
+            }
+
+            public ReceiveDataTimeoutException() { }
+            public ReceiveDataTimeoutException(string message) : base(message) { }
+            public ReceiveDataTimeoutException(string message, Exception inner) : base(message, inner) { }
+            protected ReceiveDataTimeoutException(
+              System.Runtime.Serialization.SerializationInfo info,
+              System.Runtime.Serialization.StreamingContext context) : base(info, context)
+            { }
         }
 
         [System.Serializable]

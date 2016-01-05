@@ -53,7 +53,12 @@ namespace TeleBajaUEA
                 await Task.Delay(500);
                 return true;
             }
-            catch(Exception e)
+            catch (ErrorMessage.ReceiveDataTimeoutException exception)
+            {
+                ErrorMessage.Show(ErrorType.Error, ErrorReason.ConnectToCarFailed, exception.Message);
+                return false;
+            }
+            catch (Exception e)
             {
                 ErrorMessage.Show(ErrorType.Error, ErrorReason.ConnectToCarFailed, e.Message);
                 return false;
