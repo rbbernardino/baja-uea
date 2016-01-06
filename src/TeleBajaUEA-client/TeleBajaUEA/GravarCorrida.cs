@@ -12,7 +12,7 @@ namespace TeleBajaUEA
     {
         // flag usada para, ao clicar em "encerrar e salvar", alertar o evento
         // form_closing de que já foi salvo
-        private bool closeWithoutConfirmation = false;
+        private bool confirmClose = false;
 
         private Timer timerCheckIncomeData;
         private List<FileSensorsData> dataList;
@@ -63,16 +63,17 @@ namespace TeleBajaUEA
             catch (ErrorMessage.InvalidProtocolException exception)
             {
                 ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);
-                return;
+                ReopenSetup();
             }
             catch (ErrorMessage.ReceiveDataTimeoutException exception)
             {
                 ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);
-                return;
+                ReopenSetup();
             }
             catch (Exception exception)
             {
                 ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);
+                ReopenSetup();
             }
         }
 
@@ -89,17 +90,20 @@ namespace TeleBajaUEA
             catch (ErrorMessage.InvalidProtocolException exception)
             {
                 ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);
+                ReopenSetup();
                 return;
             }
             catch(ErrorMessage.ReceiveDataTimeoutException exception)
             {
                 ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);
                 ErrorMessage.Show(ErrorType.Info, ErrorReason.BackupWillBeSaved);
+                ReopenSetup();
                 return;
             }
             catch (Exception exception)
             {
                 ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);
+                ReopenSetup();
                 return;
             }
         }
@@ -205,7 +209,7 @@ namespace TeleBajaUEA
             // se fechou pelo botao "Encerrar e Salvar" essa flag será true, logo
             // não requer confirmar novamente. De outro modo, só pode ter dado
             // Alt+f4 ou apertado no botão "x"
-            if (!closeWithoutConfirmation)
+            if (!confirmClose)
             {
                 var result = MessageBox.Show(
                     "Tem certeza que deseja sair sem salvar?", // mensagem da janela
@@ -216,29 +220,30 @@ namespace TeleBajaUEA
 
                 e.Cancel = (result == DialogResult.No);
 
+                // Interrompe recebimento de dados
                 if (result == DialogResult.Yes)
-                {
-                    // Interrompe recebimento de dados
                     StopReceiveData();
-
-                    //---------- temporário para teste ---------------------- //
-                    //formTesteMQSQ.Close();
-                }
             }
         }
 
         private void GravarCorrida_FormClosed(object sender, FormClosedEventArgs e)
         {
-            timerCheckIncomeData.Dispose();
-            timerCheckIncomeData = null;
+            if(timerCheckIncomeData != null)
+            {
+                timerCheckIncomeData.Dispose();
+                timerCheckIncomeData = null;
+            }
 
-            timerBackupData.Dispose();
-            timerBackupData = null;
+            if(timerBackupData != null)
+            {
+                timerBackupData.Dispose();
+                timerBackupData = null;
+            }
 
             // Ao encerrar corrida mantém o arquivo de backup para que mesmo
             // o usuário optando por "sair sem salvar", manterá um backup
-            // Mas isso apenas se o usuário quiser
-            if(Program.Settings.KeepBackup)
+            // Mas isso apenas se o usuário configurou nas opções
+            if (Program.Settings.KeepBackup)
                 RaceFile.SaveToBackupDir();
         }
 
@@ -264,6 +269,21 @@ namespace TeleBajaUEA
             }
         }
 
+        private void ReopenSetup()
+        {
+            CarConnection.CloseConnection();
+            CloseNoConfirmation();
+            GravarCorridaSetup corridaSetup = new GravarCorridaSetup(parameters);
+            corridaSetup.Show();
+        }
+
+        // fecha janela de gravação sem confirmar se deseja salvar
+        private void CloseNoConfirmation()
+        {
+            confirmClose = true;
+            CloseOnlyThis();
+        }
+
         private async Task ConfirmaGravarCorrida()
         {
             // Prepara janela para salvar dados em disco (arquivo .tbu)
@@ -283,8 +303,7 @@ namespace TeleBajaUEA
                     case DialogResult.OK:
                         // TODO verificar real necessidade de ser async...
                         await SaveRaceToFile(saveDialog.FileName);
-                        closeWithoutConfirmation = true;
-                        CloseOnlyThis();
+                        CloseNoConfirmation();
                         Program.ShowMenuPrincipal();
                         canContinue = true;
                         break;
@@ -301,8 +320,7 @@ namespace TeleBajaUEA
 
                         if (confirmaNaoSalvar == DialogResult.Yes)
                         {
-                            closeWithoutConfirmation = true;
-                            CloseOnlyThis();
+                            CloseNoConfirmation();
                             Program.ShowMenuPrincipal();
                             canContinue = true;
                         }// else continua no while...

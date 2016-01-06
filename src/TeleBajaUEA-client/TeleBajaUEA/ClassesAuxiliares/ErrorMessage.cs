@@ -63,6 +63,15 @@ namespace TeleBajaUEA.ClassesAuxiliares
                         dialogMsg, "TeleBajaUEA", MessageBoxButtons.OK,
                         MessageBoxIcon.Exclamation);
 
+                case ErrorType.Info:
+                    dialogMsg =
+                        "\t\tATENÇÃO\n\n" +
+                        text.Title + "\n\n" +
+                        text.Details;
+                    return MessageBox.Show(
+                        dialogMsg, "TeleBajaUEA", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
                 default:
                     throw new Exception("ErrorType '" +
                         Enum.GetName(typeof(ErrorType), type) +
@@ -112,7 +121,7 @@ namespace TeleBajaUEA.ClassesAuxiliares
                     return new ErrorText(title, details);
 
                 case ErrorReason.BackupWillBeSaved:
-                    title = "Não se preocupe! Um backup da gravação até o momento" +
+                    title = "Não se preocupe! Um backup da gravação até o momento " +
                             "será salvo!";
                     details = "";
                     return new ErrorText(title, details);

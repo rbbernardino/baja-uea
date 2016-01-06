@@ -88,7 +88,7 @@ namespace TeleBajaUEA
                 textCargAmortecedor.Text = parameters.preCargaAmort1.ToString() + "T";
             }
             else
-                textCargAmortecedor.Text = parameters.preCargaAmort1.ToString() + "T½";
+                textCargAmortecedor.Text = parameters.preCargaAmortMeio.ToString() + "T½";
 
             parameters.rollcenter = int.Parse(textCarRoll.Text);
             parameters.frontToeL = float.Parse(textFrontToeL.Text);

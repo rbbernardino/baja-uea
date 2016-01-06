@@ -18,6 +18,14 @@ namespace TeleBajaUEA
         private char radioClima;
         private char radioPista;
 
+        public GravarCorridaSetup(RaceParameters pParameters)
+        {
+            InitializeComponent();
+            SetTags();
+            parameters = pParameters;
+            SetParameters();
+        }
+
         public GravarCorridaSetup()
         {
             InitializeComponent();
@@ -32,6 +40,105 @@ namespace TeleBajaUEA
             comboPneuBand.SelectedIndex = 0;
             comboCarAmort.SelectedIndex = 0;
             comboCarAmort2.SelectedIndex = 0;
+        }
+
+        private void SetRadioClima(char checkedRadio)
+        {
+            radioClima = checkedRadio;
+            switch (parameters.clima)
+            {
+                case 'C':
+                    radioClimChuvoso.Checked = true;
+                    break;
+                case 'E':
+                    radioClimEnsolarado.Checked = true;
+                    break;
+                case 'N':
+                    radioClimNublado.Checked = true;
+                    break;
+            }
+        }
+
+        private void SetRadioPista(char checkedRadio)
+        {
+            radioPista = checkedRadio;
+            switch (parameters.pista)
+            {
+                case 'M':
+                    radioPistaMolhada.Checked = true;
+                    break;
+                case 'S':
+                    radioPistaSeca.Checked = true;
+                    break;
+                case 'P':
+                    radioPistaParcMolhada.Checked = true;
+                    break;
+            }
+        }
+
+        private void SetCombo(ComboBox combo, int value)
+        {
+            int itemInt;
+            foreach(object item in combo.Items)
+                if(int.TryParse(item.ToString(), out itemInt))
+                    if (itemInt == value)
+                        combo.SelectedItem = item;
+        }
+
+        private void SetCombo(ComboBox combo, string value)
+        {
+            foreach (object item in combo.Items)
+                if (((string)item).Equals(value))
+                    combo.SelectedItem = item;
+        }
+
+        private void SetParameters()
+        {
+            txtPilNome.Text = parameters.pilNome;
+            txtPilPeso.Text = parameters.pilPeso.ToString();
+            txtPilAltura.Text = parameters.pilAltura.ToString();
+
+            txtClimTemp.Text = parameters.climaTemp.ToString();
+
+            SetRadioClima(parameters.clima);
+
+            SetRadioPista(parameters.pista);
+
+            textCarPeso.Text = parameters.carPeso.ToString();
+            textCarComp.Text = parameters.compTotal.ToString();
+            textCarAlt.Text = parameters.altTotal.ToString();
+            textCarAlt.Text = parameters.largTotal.ToString();
+
+            textCarPneuDiaExt.Text = parameters.rodaDiamExterno.ToString();
+            textCarPneuAro.Text = parameters.rodaRaioAro.ToString();
+
+            SetCombo(comboPneuBand, parameters.rodaBandagem);
+
+            textCarPneuPressao.Text = parameters.pneuPressao.ToString();
+            textCarPneuMarca.Text = parameters.pneuMarca;
+            textCarPneuTipo.Text = parameters.pneuTipo.ToString();
+            textCarDistEixo.Text = parameters.distEixo.ToString();
+            textCarBitF.Text = parameters.bitolaF.ToString();
+            textCarBitR.Text = parameters.bitolaR.ToString();
+            textCarVaoF.Text = parameters.vaoLivreF.ToString();
+            textCarVaoR.Text = parameters.vaoLivreR.ToString();
+            textCarAntiDive.Text = parameters.antiDive.ToString();
+            textCarAntiSquat.Text = parameters.antiSquat.ToString();
+            textCarMola.Text = parameters.cteMola.ToString();
+
+            if (parameters.preCargaAmortMeio == true)
+                SetCombo(comboCarAmort2, "½");
+            else
+                SetCombo(comboCarAmort2, "");
+            SetCombo(comboCarAmort, parameters.preCargaAmort1);
+
+            parameters.rollcenter = int.Parse(textCarRoll.Text);
+            parameters.frontToeL = float.Parse(textFrontToeL.Text);
+            parameters.frontToeR = float.Parse(textFrontToeR.Text);
+            parameters.rearToeL = float.Parse(textRearToeL.Text);
+            parameters.rearToeR = float.Parse(textRearToeR.Text);
+            parameters.caster = float.Parse(textCaster.Text);
+            parameters.ackermann = float.Parse(textAckermann.Text);
         }
 
         private void SetTags()
