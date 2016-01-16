@@ -8,28 +8,28 @@
 
 
 //Freio________________________________
-const int leitorTensao0 = 8;           //Pino analógico que o resistor pull up está conectado.
+const int leitorTensao0 = 12;           //Pino analógico que o resistor pull up está conectado.
 float valorLeitorTensao0 = 0;          //Freio=="0". Ou seja, toda variável que tem "0" está relacionada ao acionamento do freio
 float Voltagem0 = 0;
 char estado[] = "ind";                   //ind é a indicação do freio
 char Ativado = 'L';                         //variavel de teste
 
 //Temperatura_________________________
-const int leitorTensao2 = 10;          //Pino analógico que o resistor NTC está conectado.
+const int leitorTensao2 = 11;          //Pino analógico que o resistor NTC está conectado.
 float valorLeitorTensao2 = 0;         //Temperatura=="2". Ou seja, toda variável que tem "2" está relacionada a temperatura.
 float VR2 = 0, R2 = 0;
 int Temp = 0;
 
 
 //Rpm________________________________
-const int leitorTensao3 = 11;         //Pino analógico que o Conversor FT está conectado.
+const int leitorTensao3 = 9;         //Pino analógico que o Conversor FT está conectado.
 float valorLeitorTensao3 = 0;        //Rpm=="3". Ou seja, toda variável que tem "3" está relacionada a RPM
 float VR3 = 0;
 int rpm3 = 0;
 
 
 //Velocidade__________________________
-const int leitorTensao4 = 12;         //Pino analógico que o Conversor FT está conectado.
+const int leitorTensao4 = 8;         //Pino analógico que o Conversor FT está conectado.
 float valorLeitorTensao4 = 0;        //Velocidade=="4". Ou seja, toda variável que tem "4" está relacionada a velocidade
 float VR4 = 0;
 int vel4 = 0;
@@ -65,9 +65,9 @@ void setup()
 	//pinMode(CONN_LED, OUTPUT);
 	//digitalWrite(CONN_LED, LOW);
 
-	//XBSerial.begin(9600);
-	//connectToPC();
-	//waitStart();
+	XBSerial.begin(9600);
+	connectToPC();
+	waitStart();
 }
 
 void connectToPC()
@@ -123,9 +123,9 @@ void loop()
 {
 	ler_dados();
 	print_lcd();
-	//EnviaXBee(); // produz 80ms de delay
-	//delay(70); // 70 + 80 = 150ms
-	delay(150);
+	EnviaXBee(); // produz 80ms de delay
+	delay(70); // 70 + 80 = 150ms
+	//delay(150);
 }
 
 // Lê dados dos sensores e armazena as medições em variáveis
@@ -138,33 +138,48 @@ void ler_dados() {
 	if (Voltagem0 >= 3)           //nível de segurança entre detecção de low e high level
 	{
 		estado[1] = 'o';
-		estado[2] = 'f';
-		estado[3] = 'f';
-		Ativado = 'L';
+		estado[2] = 'n';
+		estado[3] = ' ';
+		Ativado = 'H';
 	}
 	else
 	{
 		estado[1] = 'o';
-		estado[2] = 'n';
-		estado[3] = ' ';
-		Ativado = 'H';
+		estado[2] = 'f';
+		estado[3] = 'f';
+		Ativado = 'L';
 	}
 
 
 	//__________________________________________________________________________________  
 	//Nível de Combustível
 	//Leitor de tensão para Nivel
-	valorLeitorTensao1 = analogRead(leitorTensao1);
-	VR1 = 5 * valorLeitorTensao1 / 1023; //1023 é o valor máximo digital para 5V
-	R1 = ((5 * 2190) / (5 - VR1)) - 2190;    //VALOR EM OHMS =2190 (valor do resistor 2k2 aproximadamente.
-	Nivel = (-100 * (R1 - Rmin)) / (Rmin - Rmax);
-	Vnivel = Nivel;
-	if (Nivel<0)
+	//valorLeitorTensao1 = analogRead(leitorTensao1);
+	//VR1 = 5 * valorLeitorTensao1 / 1023; //1023 é o valor máximo digital para 5V
+	//R1 = ((5 * 2190) / (5 - VR1)) - 2190;    //VALOR EM OHMS =2190 (valor do resistor 2k2 aproximadamente.
+	//Nivel = (-100 * (R1 - Rmin)) / (Rmin - Rmax);
+	//Vnivel = Nivel;
+	//if (Nivel<0)
+	//{
+	//	Vnivel = 0; //devido a variações do próprio sensor... Para casos de erro na medição por vibração do carro, pista irregular, etc...
+	//}
+
+
+	//__________________________________________________________________________________  
+	//Temperatura do Motor   
+	//Leitor de tensão para temperatura
+	valorLeitorTensao2 = analogRead(leitorTensao2);
+	VR2 = 5 * valorLeitorTensao2 / 1023; //1023 é o valor máximo digital para 5V
+	R2 = ((5 * 5622) / (5 - VR2)) - 5622;    //VALOR EM OHMS =5622 (valor do resistor 5k6 aproximadamente.
+	if (R2 >= 4200)
 	{
-		Vnivel = 0; //devido a variações do próprio sensor... Para casos de erro na medição por vibração do carro, pista irregular, etc...
+		Temp = 50;    //para evitar mostrar valores baixos de temperatura, nos quais o sistema não irá atuar, são mostradas as temperaturas acima de 50ºC 
 	}
-
-
+	else
+	{
+		//valores da curva ajustados para o Arduino por meio de interpolação
+		Temp = (((-1.403*0.000000000000001)*pow(R2, 5))) + ((1.75*(0.00000000001))*pow(R2, 4)) - ((8.404*(0.00000001))*pow(R2, 3)) + ((1.998*(0.0001))*pow(R2, 2)) - ((0.2614)*(R2)) + 238.6;
+	}
 
 	//__________________________________________________________________________________  
 	//Rotação do motor 
@@ -173,7 +188,7 @@ void ler_dados() {
 	VR3 = 5 * valorLeitorTensao3 / 1023; //1023 é o valor máximo digital para 5V
 	if (VR3>0.01)
 	{
-		rpm3 = ((3000 * VR3)) / 1.04;//equação que converte tensão em frequencia
+		rpm3 = ((3000 * VR3)) / 3.04;//equação que converte tensão em frequencia
 	}
 	else
 	{

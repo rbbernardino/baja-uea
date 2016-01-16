@@ -55,6 +55,9 @@ namespace TeleBajaUEA
         private readonly Color MAX_SPEED_COLOR = Color.Blue;
         private readonly Color MIN_SPEED_COLOR = Color.Olive;
 
+        // -------------------- Outras Configurações ------------------------//
+        private readonly int POINT_MARKER_SIZE = 5;
+
         // ------------------ Variáveis de controle interno ----------------//
         // variável para controlar o quanto os limites vão variar quando apertar "<" ou ">"
         //private double XIncreaseRate; // TODO verificar essa variável
@@ -236,6 +239,7 @@ namespace TeleBajaUEA
                 // Intervalo entre as linhas de trás/apoio/fundo (grid)
                 chartArea.AxisX.MajorGrid.Interval = xInterval;
             }
+            pointMarker.Size = new Size(POINT_MARKER_SIZE, POINT_MARKER_SIZE);
         }
 
         #endregion

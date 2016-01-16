@@ -46,7 +46,10 @@
             this.btZoomIn = new System.Windows.Forms.Button();
             this.btbtScrollLeft = new System.Windows.Forms.Button();
             this.btScrollRight = new System.Windows.Forms.Button();
+            this.labelY = new System.Windows.Forms.Label();
+            this.pointMarker = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.chartsNew)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pointMarker)).BeginInit();
             this.SuspendLayout();
             // 
             // btVoltar
@@ -143,6 +146,7 @@
             this.chartsNew.SelectionRangeChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.CursorEventArgs>(this.chartsNew_SelectionRangeChanged);
             this.chartsNew.AxisViewChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ViewEventArgs>(this.chartsNew_AxisViewChanged);
             this.chartsNew.CustomizeLegend += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.CustomizeLegendEventArgs>(this.chartsNew_CustomizeLegend);
+            this.chartsNew.Paint += new System.Windows.Forms.PaintEventHandler(this.chartsNew_Paint);
             this.chartsNew.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chartsNew_MouseDown);
             this.chartsNew.MouseEnter += new System.EventHandler(this.chartsNew_MouseEnter);
             this.chartsNew.MouseLeave += new System.EventHandler(this.chartsNew_MouseLeave);
@@ -210,11 +214,31 @@
             this.btScrollRight.UseVisualStyleBackColor = true;
             this.btScrollRight.Click += new System.EventHandler(this.btScrollRight_Click);
             // 
+            // labelY
+            // 
+            this.labelY.AutoSize = true;
+            this.labelY.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.labelY.Location = new System.Drawing.Point(215, 655);
+            this.labelY.Name = "labelY";
+            this.labelY.Size = new System.Drawing.Size(60, 24);
+            this.labelY.TabIndex = 20;
+            this.labelY.Text = "label2";
+            // 
+            // pointMarker
+            // 
+            this.pointMarker.Location = new System.Drawing.Point(357, 541);
+            this.pointMarker.Name = "pointMarker";
+            this.pointMarker.Size = new System.Drawing.Size(10, 10);
+            this.pointMarker.TabIndex = 21;
+            this.pointMarker.TabStop = false;
+            // 
             // AnalisarCorrida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1064, 733);
+            this.Controls.Add(this.pointMarker);
+            this.Controls.Add(this.labelY);
             this.Controls.Add(this.btZoomOut);
             this.Controls.Add(this.btZoomIn);
             this.Controls.Add(this.btVerSetup);
@@ -227,7 +251,9 @@
             this.Name = "AnalisarCorrida";
             this.Text = "Analisar Corrida - TeleBaja UEA";
             ((System.ComponentModel.ISupportInitialize)(this.chartsNew)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pointMarker)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -240,5 +266,7 @@
         private System.Windows.Forms.Button btVerSetup;
         private System.Windows.Forms.Button btZoomIn;
         private System.Windows.Forms.Button btZoomOut;
+        private System.Windows.Forms.Label labelY;
+        private System.Windows.Forms.PictureBox pointMarker;
     }
 }

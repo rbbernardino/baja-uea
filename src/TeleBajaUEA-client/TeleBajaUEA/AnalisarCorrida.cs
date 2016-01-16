@@ -21,6 +21,9 @@ namespace TeleBajaUEA
 
         private Stack<ChartArea> zoomedAreaStack = new Stack<ChartArea>();
 
+        private Point focusedPoint;
+        private bool showPointMark;
+
         // DataSize indica a quantidade de pontos e o valor máximo do eixo X
         private double DataSize { get; }
 
@@ -52,6 +55,10 @@ namespace TeleBajaUEA
             foreach (Control control in this.Controls)
                 control.PreviewKeyDown += new PreviewKeyDownEventHandler(control_PreviewKeyDown);
             chartsNew.MouseWheel += new MouseEventHandler(chartsNew_MouseWheel);
+
+            // oculta marcador de ponto inicialmente
+            pointMarker.Visible = false;
+            focusedPoint = new Point();
         }
 
         void control_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -75,8 +82,106 @@ namespace TeleBajaUEA
         private void chartsNew_MouseMove(object sender, MouseEventArgs e)
         {
             ShowPointToolTip(e);
-
+            ShowPointMark(e);
             //TryMouseScroll(e);   DESATIVADO, ver comentário em AnalisarCorrida.MouseWheel
+        }
+
+        private void ShowPointMark(MouseEventArgs e)
+        {
+            Point mousePos = e.Location;
+
+            var results = chartsNew.HitTest(mousePos.X, mousePos.Y, false,
+                ChartElementType.PlottingArea, ChartElementType.DataPoint,
+                ChartElementType.Gridlines, ChartElementType.StripLines);
+
+            if (results.Length >= 1 && results[0].ChartElementType != ChartElementType.Nothing)
+            {
+                ChartArea chartArea = results[0].ChartArea;
+
+                if (chartArea.AxisX.Maximum < chartArea.AxisX.PixelPositionToValue(mousePos.X))
+                    return;
+
+                double mouseXValue = chartArea.AxisX.PixelPositionToValue(mousePos.X);
+                double mouseYValue = chartArea.AxisY.PixelPositionToValue(mousePos.Y);
+                DataPoint plotPoint = FindPlotPoint(chartArea, mouseXValue, mouseYValue);
+
+                //var plotY = results[0].ChartArea.AxisY.PixelPositionToValue(mousePos.Y);
+                //labelY.Text = results[0].ChartElementType + ": " + plotY.ToString();
+                labelY.Text = "Y: " + plotPoint.ToString();
+
+                focusedPoint.X = (int) chartArea.AxisX.ValueToPixelPosition(plotPoint.XValue);
+                focusedPoint.Y = (int) chartArea.AxisY.ValueToPixelPosition(plotPoint.YValues[0]);
+                showPointMark = true;
+
+                pointMarker.BackColor = chartsNew.Series[chartArea.Name].Color;
+            }
+            else
+            {
+                labelY.Text = "";
+                showPointMark = false;
+            }
+        }
+
+        // recebe: a posição do mouse relativa à ChartArea em que ele se encontra
+        //         juntamente com a Series correspondente.
+        // Retorna: o ponto que mais se aproxima da posição atual do mouse
+        private DataPoint FindPlotPoint(ChartArea chartArea, double mouseX, double mouseY)
+        {
+            Series series = chartsNew.Series[chartArea.Name];
+            double minX = chartArea.AxisX.ScaleView.ViewMinimum;
+            double maxX = chartArea.AxisX.ScaleView.ViewMaximum;
+
+            FileSensorsData searchData = new FileSensorsData();
+            searchData.xValue = (uint) mouseX;
+
+            if ((mouseX > minX) && (mouseX <= maxX))
+            {
+                int plotPointIndex;
+                int searchResultIndex = raceData.DataList.BinarySearch(searchData, new PointXComparer());
+                if (searchResultIndex < 0)
+                {// TODO finalizar lógica de ver qual o mais perto (index ou index-1)
+                    //if(raceData.DataList[~searchResultIndex].xValue - searchData.xValue)
+                    plotPointIndex = ~searchResultIndex;
+                }
+                else
+                    plotPointIndex = searchResultIndex;
+
+                FileSensorsData resultData = raceData.DataList.ElementAt(plotPointIndex);
+
+                DataPoint plotPoint = new DataPoint(series);
+                plotPoint.XValue = resultData.xValue;
+                if (series.Name.Equals("Speed"))
+                    plotPoint.YValues[0] = resultData.speed;
+                else if(series.Name.Equals("RPM"))
+                    plotPoint.YValues[0] = resultData.rpm;
+                else if (series.Name.Equals("Brake"))
+                {
+                    double brakePosition;
+                    if (resultData.breakState)
+                        brakePosition = (BRAKE_MAXIMUM / 2) + (BRAKE_MAXIMUM / 4);
+                    else
+                        brakePosition = (BRAKE_MAXIMUM / 2) - (BRAKE_MAXIMUM / 4);
+
+                    plotPoint.YValues[0] = brakePosition;
+                }
+
+                return plotPoint;
+            }
+            else
+                return new DataPoint(); // TODO tratar melhor esse caso
+        }
+
+        private class PointXComparer : IComparer<FileSensorsData>
+        {
+            public int Compare(FileSensorsData point1, FileSensorsData point2)
+            {
+                if (point1.xValue > point2.xValue)
+                    return 1;
+                if (point1.xValue < point2.xValue)
+                    return -1;
+                else
+                    return 0;
+            }
         }
 
         // obtido a partir de: http://pastebin.com/PzhHtfMu
@@ -283,7 +388,19 @@ namespace TeleBajaUEA
             UpdateButtonsState();
         }
 
-        
+        private void chartsNew_Paint(object sender, PaintEventArgs e)
+        {
+            if (showPointMark)
+            {
+                pointMarker.Location = focusedPoint;
+                pointMarker.Visible = true;
+            }
+            else
+            {
+                pointMarker.Visible = false;
+            }
+        }
+
         // ----------------- O código abaixo está desativado ----------------//
         // ver comentário em AnalisarCorrida.MouseWheel.cs
         private void chartsNew_MouseDown(object sender, MouseEventArgs e)
