@@ -82,7 +82,9 @@ namespace TeleBajaUEA
         private void chartsNew_MouseMove(object sender, MouseEventArgs e)
         {
             ShowPointToolTip(e);
-            ShowPointMark(e);
+            
+            // TODO corrigir posição do pointMark
+            //ShowPointMark(e);
             //TryMouseScroll(e);   DESATIVADO, ver comentário em AnalisarCorrida.MouseWheel
         }
 
@@ -206,11 +208,13 @@ namespace TeleBajaUEA
                         var pointYPixel = result.ChartArea.AxisY.ValueToPixelPosition(prop.YValues[0]);
 
                         // check if the cursor is really close to the point (2 pixels around)
-                        if (Math.Abs(pos.X - pointXPixel) < 2 &&
-                            Math.Abs(pos.Y - pointYPixel) < 2)
+                        if (Math.Abs(pos.X - pointXPixel) < 4 &&
+                            Math.Abs(pos.Y - pointYPixel) < 4)
                         {
-                            toolTipPoint.Show("X=" + prop.XValue + ", Y=" + prop.YValues[0], chartsNew,
+                            toolTipPoint.Show("Y= " + prop.YValues[0], chartsNew,
                                             pos.X, pos.Y - 15);
+                            //toolTipPoint.Show("X=" + prop.XValue + ", Y=" + prop.YValues[0], chartsNew,
+                            //                pos.X, pos.Y - 15);
                         }
                     }
                 }

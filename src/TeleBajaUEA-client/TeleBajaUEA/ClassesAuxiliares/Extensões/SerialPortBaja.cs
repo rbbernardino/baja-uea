@@ -61,6 +61,7 @@ namespace TeleBajaUEA.ClassesAuxiliares
             PortName = pPortName;
         }
 
+        #region eventos (event handlers) {...}
         // acumula dados recebidos na porta serial em um buffer/fila para serem lidos depois
         private void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
@@ -68,7 +69,10 @@ namespace TeleBajaUEA.ClassesAuxiliares
             Read(data, 0, data.Length);
             data.ToList().ForEach(b => receivedDataQueue.Enqueue(b));
         }
+        #endregion
 
+        #region métodos públicos {...}
+        // TODO colocar essa função no CarConnection
         // tenta trocar mensagens com o XBee do carro para checar conexão
         // e sincronizar estados
         public async Task TryHandshake()
@@ -120,6 +124,7 @@ namespace TeleBajaUEA.ClassesAuxiliares
             WriteChar((char)SerialMsg.START);
         }
 
+        // TODO colocar essa função no CarConnection
         // TODO implementar GetNextPacket (total de 10 bytes excluindo o 'B'
         // pode gerar a exceção NextByteTimeoutException
         // lê os dados, armazena em variáveis temporárias e gera um novo objeto SensorsData (newData)
@@ -142,11 +147,13 @@ namespace TeleBajaUEA.ClassesAuxiliares
             else
             {
                 // TODO tratar melhor esse erro
-                MessageBox.Show("ERRO! Esperava BEGIN ('B'), mas recebeu '" + msg + "'");
-                return new SensorsData();
+                //MessageBox.Show("ERRO! Esperava BEGIN ('B'), mas recebeu '" + msg + "'");
+                throw new Exception("Esperava BEGIN('B'), mas recebeu '" + msg + "'. Bytes lidos: " + readbytes);
+                //return new SensorsData();
             }
         }
-
+        #endregion
+        private uint readbytes = 0;
         // pode gerar a exceção NextByteTimeoutException
         private async Task<byte> NextByte()
         {
@@ -164,8 +171,10 @@ namespace TeleBajaUEA.ClassesAuxiliares
 
             // quando sair do while, sucesso, logo desativa o timer
             StopTimeoutTimer();
-            return rcvByte;
 
+            readbytes++; // TODO organizar isso
+
+            return rcvByte;
         }
 
         // TODO acrescentar timeout -> retorna falso ou throw exceção
@@ -186,7 +195,7 @@ namespace TeleBajaUEA.ClassesAuxiliares
             return BitConverter.ToUInt32(intBuffer, 0);
         }
 
-        public async Task<int> NextInt16()
+        private async Task<int> NextInt16()
         {
             intBuffer[0] = intBuffer[1] = intBuffer[2] = intBuffer[3] = 0;
 
@@ -196,12 +205,12 @@ namespace TeleBajaUEA.ClassesAuxiliares
             return BitConverter.ToInt16(intBuffer, 0);
         }
 
-        public async Task<int> NextInt8()
+        private async Task<int> NextInt8()
         {
             return await NextByte();
         }
 
-        public void WriteChar(char c)
+        private void WriteChar(char c)
         {
             Write(c.ToString());
         }

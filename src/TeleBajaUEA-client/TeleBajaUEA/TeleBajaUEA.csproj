@@ -105,23 +105,23 @@
     <Compile Include="AnalisarCorrida.MouseWheel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ClassesAuxiliares\AGauge.cs">
+    <Compile Include="ClassesAuxiliares\Extensões\AGauge.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ClassesAuxiliares\AGauge.Designer.cs">
+    <Compile Include="ClassesAuxiliares\Extensões\AGauge.Designer.cs">
       <DependentUpon>AGauge.cs</DependentUpon>
     </Compile>
     <Compile Include="ClassesAuxiliares\CarConnection.cs" />
     <Compile Include="ClassesAuxiliares\ErrorMessage.cs" />
-    <Compile Include="ClassesAuxiliares\FolderBrowserDialogEx.cs">
+    <Compile Include="ClassesAuxiliares\Extensões\FolderBrowserDialogEx.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ClassesAuxiliares\ProgramSettings.cs" />
-    <Compile Include="ClassesAuxiliares\SerialPortBaja.cs">
+    <Compile Include="ClassesAuxiliares\Extensões\SerialPortBaja.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ClassesAuxiliares\SettingsFile.cs" />
-    <Compile Include="ClassesAuxiliares\WindowsFormsInvokingExtensions.cs" />
+    <Compile Include="ClassesAuxiliares\Extensões\WindowsFormsInvokingExtensions.cs" />
     <Compile Include="AnalisarCorridaSetup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,7 +137,7 @@
     </Compile>
     <Compile Include="RaceDataStructs\SensorsData.cs" />
     <Compile Include="ClassesAuxiliares\RaceFile.cs" />
-    <Compile Include="ClassesAuxiliares\FormPrincipal.cs">
+    <Compile Include="ClassesAuxiliares\Extensões\FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="JanelasSecundarias\Configurações.cs">

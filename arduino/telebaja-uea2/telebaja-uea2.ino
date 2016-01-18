@@ -37,7 +37,7 @@ int vel4 = 0;
 
 //Criando um objeto da classe LiquidCrystal e 
 //inicializando com os pinos da interface.
-LiquidCrystal lcd(39, 41, 43, 45, 47, 49);
+LiquidCrystal lcd(33, 35, 45, 47, 49, 51);
 
 //Comunicação XBee__________________________
 // os valores dessas const devem estar exatamente igual aos da aplicação C#
@@ -72,13 +72,18 @@ void setup()
 
 void connectToPC()
 {
+	lcd.print("aguardando");
+	lcd.setCursor(0, 1);
+	lcd.print("conexao");
+	delay(250);
+
 	XBSerial.print(SND_CONNECT);
 
 	// re-envia CONNECT até receber algo (handshake)
 	while (XBSerial.available() < 1)
 	{
 		XBSerial.print(SND_CONNECT);
-		delay(1500); // taxa de re-envio de 1,5s
+		delay(500); // taxa de re-envio de 0,5s
 	}
 
 	// espera pelo OK do PC para concluir conexao (hanshake)
@@ -87,6 +92,12 @@ void connectToPC()
 	{
 		received_msg = receive_sync();
 	}
+
+	lcd.clear();
+	lcd.setCursor(0, 0);
+	lcd.print("conectado!");
+	delay(250);
+	lcd.clear();
 
 	// ao sair do while envia sinal de que está pronto, esperando START para entrar no loop()
 	XBSerial.print(SND_READY);
