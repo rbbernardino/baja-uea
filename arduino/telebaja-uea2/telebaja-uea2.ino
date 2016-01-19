@@ -39,25 +39,31 @@ int vel4 = 0;
 //inicializando com os pinos da interface.
 LiquidCrystal lcd(33, 35, 45, 47, 49, 51);
 
-//Comunicação XBee__________________________
+// XBee__________________________
+
+// ---------- PROTOCOLO --------------
 // os valores dessas const devem estar exatamente igual aos da aplicação C#
 const char SND_CONNECT = 'C'; // ENVIA 'C' para PC, pedindo para se conectar
 const char RCV_OK = 'K'; // RECEBE do PC indiciando que pode começar o envio
 const char SND_READY = 'R'; // ENVIA 'R' para PC, avisando que está pronto para enviar
 const char RCV_START = 'S'; // RECEBE 'S' para iniciar envio de dados (loop)
-
 const char SND_BEGIN = 'B'; // vai começar envio de dados dos sensores (1 pacote)
 
-const int CONN_LED = 22; // led que indica se está conectado com o pc
-
-SoftwareSerial XBSerial(52, 53); // RX (shield: 2), TX (shield: 3)
-const int XBEE_DELAY = 10; // 10ms de delay entre o envio de cada byte
-
-unsigned long current_millis;
-byte current_millisByte[4];
-
+// ---------- CONSTANTES -------------
 // endereço de destino (SH/SL do XBee do PC)
 String PC_ID = "XBEE_PC";
+const int XBEE_DELAY = 10; // 10ms de delay entre o envio de cada byte para o XBee
+const int XBEE_CMD_DELAY = 10; // parâmetro AT GT do XBee do carro
+
+// ---------- VARIÁVEIS --------------
+SoftwareSerial XBSerial(52, 53); // RX (shield: 2), TX (shield: 3)
+unsigned long current_millis; // para calcular o tempo e sincronizar pacotes
+byte current_millisByte[4];
+
+String rssi_str;
+int rssi_db; // byte do rssi em decibes (-28~-98 dB)
+//unsigned long prev_millis;
+//const int RSSI_RFRSH_INTERVAL = 2000;
 
 void setup()
 {
@@ -72,8 +78,8 @@ void setup()
 	// configura XBee e conecta com o PC
 	XBSerial.begin(9600);
 
-	connectToPC();
-	waitStart();
+	//connectToPC();
+	//waitStart();
 }
 
 void connectToPC()
@@ -82,14 +88,10 @@ void connectToPC()
 	if (!ATrcv_ND_ID(PC_ID))
 		throw_error(2);
 
-	lcd.print("OK!");
-	delay(500);
+	print_lcd_full("Conectado!",
+		"Forca:" + rssi_to_perc(rssi_db) + " " + String(rssi_db) + "dB");
+	delay(3500);
 
-	// TODO força do sinal
-	//lcd.clear();
-	//lcd.print("Forca do sinal:");
-	//lcd.setCursor(1, 0);
-	
 	XBSerial.print(SND_CONNECT);
 
 	print_lcd_full("Aguardando", "inicio...");
@@ -160,13 +162,11 @@ bool ATrcv_ND_ID(String id)
 	String rcv_msg = String();
 
 	// entrar no command mode
-	int wrt = XBSerial.print("+++");
-	if (!ATrcv_ok())
-		throw_error(1);
+	ATcmd();
 
 	// solicita info dos nós conectados (só pode haver 1)
 	XBSerial.print("ATND\r");
-	while (XBSerial.available() < 1);
+	while (!XBSerial.available());
 
 	// Enquanto não estiver conectado com o XBee do PC o comando ATND retorna '\r'
 	// permanece no loop até receber algo mais além de '\r' (fim de linha do XBee)
@@ -184,33 +184,49 @@ bool ATrcv_ND_ID(String id)
 	xbee_ignore_lines(3);
 	rcv_msg = xbee_read_line();
 	xbee_ignore_lines(5);
-	String rssi_str = xbee_read_line();
+	rssi_str = xbee_read_line();
 	xbee_ignore_lines(1); // última linha é sempre em branco ('\r')
 
 	// sair do command mode
 	XBSerial.print("ATCN\r");
-	
-	// quando no command mode, após ATND, retorna linha em branco e OK
-	xbee_ignore_lines(1);
+	xbee_ignore_lines(1); // após ATND, retorna linha em branco e OK
 	if (!ATrcv_ok())
 		throw_error(1);
 	
-	int rssi = rssi_str.toInt(); // TODO exibir  no lcd
-	/* TODO mostrar rssi em porcentagem
-	RSSI:
-	   db >= -50 db = 100% quality
-       db <= -100 db = 0 % quality
-	For example :
-	    High quality : 90 % ~= -55db
-		Medium quality : 50 % ~= -75db
-		Low quality : 30 % ~= -85db
-		Unusable quality : 8 % ~= -96db
-	*/
-	////lcd.print(); while (true);
-	//if((int)tempc != '\r'); // por alguma razao nao retorna OK, mas apenas '\r'
-	//	throw_error(1);
+	rssi_db = -1 * rssi_str.toInt();
 
 	return id == rcv_msg;
+}
+
+void ATrcv_DB()
+{
+	// entrar no command mode
+	ATcmd();
+	
+	// solicita info do RSSI do último pacote
+	XBSerial.print("ATDB\r");
+	while (XBSerial.available() < 3);
+	rssi_str = xbee_read_line();
+
+	// sair do command mode
+	XBSerial.print("ATCN\r");
+	if (!ATrcv_ok())
+		throw_error(1);
+
+	char temp_buf[2];
+	temp_buf[0] = rssi_str.charAt(0);
+	temp_buf[1] = rssi_str.charAt(1);
+
+	rssi_db = -1 * strtol(temp_buf, 0, 16);
+}
+
+void ATcmd() {
+	delay(XBEE_CMD_DELAY * 3);
+	XBSerial.print("+++");
+
+	delay(100);
+	if (!ATrcv_ok())
+		throw_error(1);
 }
 
 String xbee_read_line()
@@ -306,6 +322,37 @@ void print_lcd_full(String line1, String line2)
 	lcd.print(line2);
 }
 
+//	RSSI:
+//		db >= -50 db = 100% quality
+//		db <= -100 db = 0 % quality
+//	For example :
+//		High quality : 90 % ~= -55db
+//		Medium quality : 50 % ~= -75db
+//		Low quality : 30 % ~= -85db
+//		Unusable quality : 8 % ~= -96db
+String rssi_to_perc(int rssi)
+{
+	if (rssi <= -96) return "8%";
+	else if (rssi < -85) return "10%";
+	else if (rssi <= -85) return "30%";
+	else if (rssi <= -75) return "50%";
+	else if (rssi < -50) return "90%";
+	else if (rssi >= -50) return "100%";
+	else return "..."; // nunca ocorre
+}
+
+// 3 chars no max
+String rssi_to_quality(int rssi)
+{
+	if (rssi <= -96) return "!Er";
+	else if (rssi < -85) return "!Lo";
+	else if (rssi <= -85) return "Low";
+	else if (rssi <= -75) return "Med";
+	else if (rssi < -50) return "Hi";
+	else if (rssi >= -50) return "Hi+";
+	else return "..."; // nunca ocorre
+}
+
 void loop()
 {
 	ler_dados();
@@ -322,20 +369,11 @@ void ler_dados() {
 	//Leitor de tensão para freio
 	valorLeitorTensao0 = analogRead(leitorTensao0);
 	Voltagem0 = 5 * valorLeitorTensao0 / 1023; //1023 é o valor máximo digital para 5V
+	
 	if (Voltagem0 >= 3)           //nível de segurança entre detecção de low e high level
-	{
-		estado[1] = 'o';
-		estado[2] = 'n';
-		estado[3] = ' ';
 		Ativado = 'H';
-	}
 	else
-	{
-		estado[1] = 'o';
-		estado[2] = 'f';
-		estado[3] = 'f';
 		Ativado = 'L';
-	}
 
 
 	//__________________________________________________________________________________  
@@ -405,25 +443,32 @@ void print_lcd() {
 	//Exibindo valor das variaveis monitoradas no display.
 	lcd.clear();            //limpa o display do LCD.
 	lcd.print("F:");        //impressao do estado do acionamento (da chave) do freio       
-	lcd.print(estado[1]);
-	lcd.print(estado[2]);
-	//lcd.print(estado[3]); //comentado para exibir todas as variaveis no display ao mesmo tempo
+	if (Ativado == 'H')		 lcd.print("on ");
+	else if (Ativado == 'L') lcd.print("off");
 
-	lcd.print("T:");     //impressao do valor de temperatura       
-	lcd.print(Temp);
+	//impressao do valor de temperatura (3 char)
+	lcd.print("T:" + String(Temp));
+	if (Temp < 100)
+		 lcd.print(" "); // min 50, 2 caracteres + 1 espaço
 
+	// impressao da forca do sinal do último pacote enviado (3 chars)
+	lcd.print("S:");
+	//lcd.print(rssi_db);
+	lcd.print(rssi_to_quality(rssi_db));
 
 	lcd.setCursor(0, 1);  //posiciona o cursor na coluna 0 linha 1 do LCD.
 
-
-	lcd.print("Rpm:");   //impressao do valor de rotação do motor (RPM)       
-	lcd.print(rpm3);
+	//impressao do valor de rotação do motor (RPM) - max 4 chars
+	lcd.print("Rpm:" + String(rpm3));
+	if(rpm3 < 10)		 lcd.print("   ");
+	else if(rpm3 < 100)  lcd.print("  ");
+	else if(rpm3 < 1000) lcd.print(" ");
+	
 	lcd.print(" ");
 
-
-	lcd.print("Vel:");   //impressao do valor da velocidade (km/h)       
+	//impressao do valor da velocidade (km/h), sempre menor que 100
+	lcd.print("Vel:");
 	lcd.print(vel4);
-
 }
 
 // Envia valores lidos pelo XBee para o PC
@@ -457,6 +502,9 @@ void EnviaXBee()
 
 	//vel4 = 50; // TODO: remover, apenas teste!
 	writeInt8(XBSerial, vel4);
+
+	// atualiza qualidade do sinal
+	ATrcv_DB();
 }
 
 // envia um int pequeno (1 bytes) pela porta serial especificada

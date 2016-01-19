@@ -20,7 +20,8 @@ MAC ...E9BB
 SH: 13A200
 SL: 40CAE9BB
 NT: 20 --> 3200ms
-
+CT: 5 (500ms)
+GT: A (10ms)
 
 
 --------
