@@ -1,4 +1,4 @@
-﻿namespace TeleBajaUEA
+﻿namespace TeleBajaUEA.GravacaoDeCorrida
 {
     partial class GravarCorridaConexão
     {

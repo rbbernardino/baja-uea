@@ -5,11 +5,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TeleBajaUEA.ClassesAuxiliares;
 
-namespace TeleBajaUEA
+namespace TeleBajaUEA.GravacaoDeCorrida
 {
     // Configuração de gráficos na na partial class ChartSettings
     public partial class GravarCorrida : FormPrincipal
     {
+        public double PointsCount { get { return (dataList.Count); } }
+        private StatusDaConexao formStatusDaConexao;
+
         // flag usada para, ao clicar em "encerrar e salvar", alertar o evento
         // form_closing de que já foi salvo
         private bool confirmClose = false;
@@ -59,6 +62,9 @@ namespace TeleBajaUEA
 
                 timerCheckIncomeData.Enabled = true;
                 timerBackupData.Enabled = true;
+
+                formStatusDaConexao = new StatusDaConexao(this);
+                formStatusDaConexao.Show();
             }
             catch (ErrorMessage.InvalidProtocolException exception)
             {
@@ -344,6 +350,8 @@ namespace TeleBajaUEA
             timerBackupData.Tick -= new EventHandler(TickBackupData);
 
             CarConnection.CloseConnection();
+
+            formStatusDaConexao.Close();
         }
     }
 

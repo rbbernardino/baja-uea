@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Collections.Concurrent;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace TeleBajaUEA
+namespace TeleBajaUEA.GravacaoDeCorrida
 {
     public partial class GravarCorrida
     {

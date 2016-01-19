@@ -56,54 +56,63 @@ const int XBEE_DELAY = 10; // 10ms de delay entre o envio de cada byte
 unsigned long current_millis;
 byte current_millisByte[4];
 
+// endereço de destino (SH/SL do XBee do PC)
+String PC_ID = "XBEE_PC";
+
 void setup()
 {
 	//Inicializando o LCD e informando o tamanho de 16 colunas e 2 linhas
 	//que é o tamanho do LCD JHD 1602byy usado neste projeto.
 	lcd.begin(16, 2);
+	lcd.print("Iniciando...");
 
-	//pinMode(CONN_LED, OUTPUT);
-	//digitalWrite(CONN_LED, LOW);
+	// espera 2 segundos para o XBee dar boot e o usuário ter um feedback visual
+	delay(2000);
 
+	// configura XBee e conecta com o PC
 	XBSerial.begin(9600);
+
 	connectToPC();
 	waitStart();
 }
 
 void connectToPC()
 {
-	lcd.print("aguardando");
-	lcd.setCursor(0, 1);
-	lcd.print("conexao");
-	delay(250);
+	print_lcd_full("Verificando sinal", "do carro...");
+	if (!ATrcv_ND_ID(PC_ID))
+		throw_error(2);
 
+	lcd.print("OK!");
+	delay(500);
+
+	// TODO força do sinal
+	//lcd.clear();
+	//lcd.print("Forca do sinal:");
+	//lcd.setCursor(1, 0);
+	
 	XBSerial.print(SND_CONNECT);
 
-	// re-envia CONNECT até receber algo (handshake)
-	while (XBSerial.available() < 1)
+	print_lcd_full("Aguardando", "inicio...");
+	
+	// TODO refazer protocolo considerando nova ferramenta (comandos AT)
+	// re-envia CONNECT até receber algo
+	while (!XBSerial.available())
 	{
 		XBSerial.print(SND_CONNECT);
-		delay(500); // taxa de re-envio de 0,5s
+		delay(500); // re-envia a cada meio segundo
 	}
 
-	// espera pelo OK do PC para concluir conexao (hanshake)
+	// se rebeu e for diferente de OK, erro de protocolo
 	char received_msg = receive_sync();
-	while (received_msg != RCV_OK)
-	{
-		received_msg = receive_sync();
-	}
+	if (received_msg != RCV_OK)
+		throw_error(3);
 
-	lcd.clear();
-	lcd.setCursor(0, 0);
-	lcd.print("conectado!");
+	print_lcd_full("Pronto!", "iniciando... ");
 	delay(250);
 	lcd.clear();
 
 	// ao sair do while envia sinal de que está pronto, esperando START para entrar no loop()
 	XBSerial.print(SND_READY);
-
-	// LED indica que está conectado
-	digitalWrite(CONN_LED, HIGH);
 }
 
 void waitStart()
@@ -128,6 +137,173 @@ char receive_sync()
 
 	// ao sair do while terá dado para ler
 	return XBSerial.read();
+}
+
+// funções para troca de mensagens com comando AT
+bool ATrcv_ok()
+{
+	while (XBSerial.available() < 3)
+	{ }
+
+	String msg = String();
+	msg += (char)XBSerial.read();
+	msg += (char)XBSerial.read();
+	msg += (char)XBSerial.read();
+	return (msg == "OK\r");
+}
+
+// envia comando ATND e extrai apenas o "Node Identifier" (ID do XBee) conectado
+// vai esperar até que retorne algo
+bool ATrcv_ND_ID(String id)
+{
+	char rcv_char;
+	String rcv_msg = String();
+
+	// entrar no command mode
+	int wrt = XBSerial.print("+++");
+	if (!ATrcv_ok())
+		throw_error(1);
+
+	// solicita info dos nós conectados (só pode haver 1)
+	XBSerial.print("ATND\r");
+	while (XBSerial.available() < 1);
+
+	// Enquanto não estiver conectado com o XBee do PC o comando ATND retorna '\r'
+	// permanece no loop até receber algo mais além de '\r' (fim de linha do XBee)
+	rcv_char = (char)XBSerial.read();
+	while (rcv_char == '\r') // linha em branco, '\r', retornado se nao conectou ainda
+	{
+		XBSerial.print("ATND\r");
+		while (XBSerial.available() < 1) {}
+		rcv_char = (char)XBSerial.read();
+	}
+	rcv_msg += rcv_char; // como não é \r, só pode ser o 1o char da 1a linha
+
+	// a resposta vem em 11 linhas, o ID é a 4a, logo ignoramos o resto
+	// também vamos guardar a força do sinal do ultimo pacote enviado
+	xbee_ignore_lines(3);
+	rcv_msg = xbee_read_line();
+	xbee_ignore_lines(5);
+	String rssi_str = xbee_read_line();
+	xbee_ignore_lines(1); // última linha é sempre em branco ('\r')
+
+	// sair do command mode
+	XBSerial.print("ATCN\r");
+	
+	// quando no command mode, após ATND, retorna linha em branco e OK
+	xbee_ignore_lines(1);
+	if (!ATrcv_ok())
+		throw_error(1);
+	
+	int rssi = rssi_str.toInt(); // TODO exibir  no lcd
+	/* TODO mostrar rssi em porcentagem
+	RSSI:
+	   db >= -50 db = 100% quality
+       db <= -100 db = 0 % quality
+	For example :
+	    High quality : 90 % ~= -55db
+		Medium quality : 50 % ~= -75db
+		Low quality : 30 % ~= -85db
+		Unusable quality : 8 % ~= -96db
+	*/
+	////lcd.print(); while (true);
+	//if((int)tempc != '\r'); // por alguma razao nao retorna OK, mas apenas '\r'
+	//	throw_error(1);
+
+	return id == rcv_msg;
+}
+
+String xbee_read_line()
+{
+	String line = String();
+	char temp_char;
+	while (true)
+	{
+		// espera até ter o que ler
+		while (!XBSerial.available());
+
+		// verifica se é final de linha, se for vai para a proxima linha
+		temp_char = XBSerial.read();
+		if ((int) temp_char == '\r')
+			break;
+		else
+			line += temp_char;
+	}
+	return line;
+}
+
+void xbee_ignore_lines(int number_of_lines)
+{
+	for (int i = 0; i < number_of_lines; i++)
+	{
+		while (true)
+		{
+			// espera até ter o que ler
+			while (!XBSerial.available());
+
+			// verifica se é final de linha, se for vai para a proxima linha
+			if (XBSerial.read() == '\r')
+				break;
+		}
+
+		// a versão abaixo é para DEBUG, imprime as linhas sendo ignoradas...
+		//lcd.clear();
+		//lcd.print("ln" + String(i));
+		//lcd.setCursor(0, 1);
+		//while (true)
+		//{
+		//	// espera até ter o que ler
+		//	while (!XBSerial.available());
+		//	char c = XBSerial.read();
+		//	// verifica se é final de linha, se for vai para a proxima linha
+		//	if (c == '\r')
+		//		break;
+		//	else
+		//		lcd.print(c);
+		//}
+		//delay(1500);
+	}
+}
+
+void throw_error(int error_id)
+{
+	String ln1 = "!! ERRO " + String(error_id) + " !!";
+	String ln2 = String();
+
+	switch (error_id)
+	{
+		// erro ao tentar entrar no modo command, OK não foi retornado
+		case 1:
+			ln2 = "rcv AT OK fail";
+			break;
+		// ao conetar com outro XBee configurado com ID que não bate com PC_ID
+		case 2:
+			ln2 = "cnct XBee descnh";
+			break;
+		// caso o cliente esteja implementando o protocolo em DESACORDO com o arduino
+		case 3:
+			ln2 = "err de protocolo";
+			break;
+		default:
+			ln2 = "erro descnh...";
+			break;
+	}
+	while(true);
+}
+
+void debug_print(String ln1) { debug_print(ln1, ""); }
+void debug_print(String ln1, String ln2)
+{
+	print_lcd_full(ln1, ln2); while (true);
+}
+
+void print_lcd_full(String line1) { print_lcd_full(line1, ""); }
+void print_lcd_full(String line1, String line2)
+{
+	lcd.clear();
+	lcd.print(line1);
+	lcd.setCursor(0, 1);
+	lcd.print(line2);
 }
 
 void loop()

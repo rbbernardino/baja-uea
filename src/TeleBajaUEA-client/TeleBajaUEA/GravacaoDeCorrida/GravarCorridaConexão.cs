@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TeleBajaUEA.ClassesAuxiliares;
 
-namespace TeleBajaUEA
+namespace TeleBajaUEA.GravacaoDeCorrida
 {
     public partial class GravarCorridaConexão : FormPrincipal
     {

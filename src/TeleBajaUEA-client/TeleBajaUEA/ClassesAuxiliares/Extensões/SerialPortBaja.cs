@@ -10,6 +10,8 @@ namespace TeleBajaUEA.ClassesAuxiliares
 {
     class SerialPortBaja : SerialPort
     {
+        public uint TotalReceivedBytes { get { return byteCount; } }
+
         // tempo em milisegundos até "NextByte()" lance uma exceção se não receber dados
         private readonly double NEXT_BYTE_TIMEOUT = 5000;
         private System.Timers.Timer timeoutTimer;
@@ -49,6 +51,7 @@ namespace TeleBajaUEA.ClassesAuxiliares
         #region Temporary received data buffer / Queue
         private byte[] intBuffer = new byte[4];
         private ConcurrentQueue<byte> receivedDataQueue = new ConcurrentQueue<byte>();
+        private uint byteCount = 0;
         #endregion
 
         public SerialPortBaja() : base()
@@ -67,7 +70,7 @@ namespace TeleBajaUEA.ClassesAuxiliares
         {
             byte[] data = new byte[BytesToRead];
             Read(data, 0, data.Length);
-            data.ToList().ForEach(b => receivedDataQueue.Enqueue(b));
+            data.ToList().ForEach(b => { receivedDataQueue.Enqueue(b); byteCount++; } );
         }
         #endregion
 

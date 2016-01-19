@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using TeleBajaUEA.ClassesAuxiliares;
 using TeleBajaUEA.RaceDataStructs;
 
-namespace TeleBajaUEA
+namespace TeleBajaUEA.GravacaoDeCorrida
 {
     public partial class GravarCorridaSetup : FormPrincipal
     {

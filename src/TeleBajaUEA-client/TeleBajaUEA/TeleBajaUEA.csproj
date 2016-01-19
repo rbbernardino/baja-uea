@@ -93,16 +93,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalisarCorrida.ChartSettings.cs">
+    <Compile Include="AnalisarCorridaPckg\AnalisarCorrida.ChartSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AnalisarCorrida.cs">
+    <Compile Include="AnalisarCorridaPckg\AnalisarCorrida.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AnalisarCorrida.Designer.cs">
+    <Compile Include="AnalisarCorridaPckg\AnalisarCorrida.Designer.cs">
       <DependentUpon>AnalisarCorrida.cs</DependentUpon>
     </Compile>
-    <Compile Include="AnalisarCorrida.MouseWheel.cs">
+    <Compile Include="AnalisarCorridaPckg\AnalisarCorrida.MouseWheel.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ClassesAuxiliares\Extensões\AGauge.cs">
@@ -122,17 +122,23 @@
     </Compile>
     <Compile Include="ClassesAuxiliares\SettingsFile.cs" />
     <Compile Include="ClassesAuxiliares\Extensões\WindowsFormsInvokingExtensions.cs" />
-    <Compile Include="AnalisarCorridaSetup.cs">
+    <Compile Include="AnalisarCorridaPckg\AnalisarCorridaSetup.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AnalisarCorridaSetup.Designer.cs">
+    <Compile Include="AnalisarCorridaPckg\AnalisarCorridaSetup.Designer.cs">
       <DependentUpon>AnalisarCorridaSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GravacaoDeCorrida\StatusDaConexao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GravacaoDeCorrida\StatusDaConexao.Designer.cs">
+      <DependentUpon>StatusDaConexao.cs</DependentUpon>
     </Compile>
     <Compile Include="RaceDataStructs\FileSensorsData.cs" />
     <Compile Include="RaceDataStructs\RaceData.cs" />
     <Compile Include="RaceDataStructs\RaceParameters.cs" />
     <Compile Include="ClassesAuxiliares\RandomDataGenerator.cs" />
-    <Compile Include="GravarCorrida.ChartSettings.cs">
+    <Compile Include="GravacaoDeCorrida\GravarCorrida.ChartSettings.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RaceDataStructs\SensorsData.cs" />
@@ -146,16 +152,16 @@
     <Compile Include="JanelasSecundarias\Configurações.Designer.cs">
       <DependentUpon>Configurações.cs</DependentUpon>
     </Compile>
-    <Compile Include="GravarCorrida.cs">
+    <Compile Include="GravacaoDeCorrida\GravarCorrida.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GravarCorrida.Designer.cs">
+    <Compile Include="GravacaoDeCorrida\GravarCorrida.Designer.cs">
       <DependentUpon>GravarCorrida.cs</DependentUpon>
     </Compile>
-    <Compile Include="GravarCorridaConexão.cs">
+    <Compile Include="GravacaoDeCorrida\GravarCorridaConexão.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GravarCorridaConexão.Designer.cs">
+    <Compile Include="GravacaoDeCorrida\GravarCorridaConexão.Designer.cs">
       <DependentUpon>GravarCorridaConexão.cs</DependentUpon>
     </Compile>
     <Compile Include="MenuPrincipal.cs">
@@ -166,10 +172,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GravarCorridaSetup.cs">
+    <Compile Include="GravacaoDeCorrida\GravarCorridaSetup.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GravarCorridaSetup.Designer.cs">
+    <Compile Include="GravacaoDeCorrida\GravarCorridaSetup.Designer.cs">
       <DependentUpon>GravarCorridaSetup.cs</DependentUpon>
     </Compile>
     <Compile Include="JanelasSecundarias\Sobre.cs">
@@ -178,19 +184,22 @@
     <Compile Include="JanelasSecundarias\Sobre.Designer.cs">
       <DependentUpon>Sobre.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AnalisarCorrida.resx">
+    <EmbeddedResource Include="AnalisarCorridaPckg\AnalisarCorrida.resx">
       <DependentUpon>AnalisarCorrida.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AnalisarCorridaSetup.resx">
+    <EmbeddedResource Include="AnalisarCorridaPckg\AnalisarCorridaSetup.resx">
       <DependentUpon>AnalisarCorridaSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GravacaoDeCorrida\StatusDaConexao.resx">
+      <DependentUpon>StatusDaConexao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="JanelasSecundarias\Configurações.resx">
       <DependentUpon>Configurações.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GravarCorrida.resx">
+    <EmbeddedResource Include="GravacaoDeCorrida\GravarCorrida.resx">
       <DependentUpon>GravarCorrida.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GravarCorridaConexão.resx">
+    <EmbeddedResource Include="GravacaoDeCorrida\GravarCorridaConexão.resx">
       <DependentUpon>GravarCorridaConexão.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -207,7 +216,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="GravarCorridaSetup.resx">
+    <EmbeddedResource Include="GravacaoDeCorrida\GravarCorridaSetup.resx">
       <DependentUpon>GravarCorridaSetup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="JanelasSecundarias\Sobre.resx">

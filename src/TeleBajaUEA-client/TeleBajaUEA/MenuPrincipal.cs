@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using TeleBajaUEA.ClassesAuxiliares;
+using TeleBajaUEA.GravacaoDeCorrida;
 using TeleBajaUEA.RaceDataStructs;
 
 namespace TeleBajaUEA
