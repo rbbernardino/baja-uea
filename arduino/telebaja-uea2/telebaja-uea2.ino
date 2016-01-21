@@ -45,9 +45,13 @@ LiquidCrystal lcd(33, 35, 45, 47, 49, 51);
 // os valores dessas const devem estar exatamente igual aos da aplicação C#
 const char SND_CONNECT = 'C'; // ENVIA 'C' para PC, pedindo para se conectar
 const char RCV_OK = 'K'; // RECEBE do PC indiciando que pode começar o envio
-const char SND_READY = 'R'; // ENVIA 'R' para PC, avisando que está pronto para enviar
-const char RCV_START = 'S'; // RECEBE 'S' para iniciar envio de dados (loop)
+
 const char SND_BEGIN = 'B'; // vai começar envio de dados dos sensores (1 pacote)
+const char SND_END = 'E'; // encerrou envio de dados dos sensores (1 pacote)
+
+const String SND_OK = "OK\r";
+const String RCV_READY = "READY"; // PC pergunta se arduino está pronto
+const String RCV_START = "START"; // PC pede que inicie envio de medicoes
 
 // ---------- CONSTANTES -------------
 // endereço de destino (SH/SL do XBee do PC)
@@ -59,6 +63,9 @@ const int XBEE_CMD_DELAY = 10; // parâmetro AT GT do XBee do carro
 SoftwareSerial XBSerial(52, 53); // RX (shield: 2), TX (shield: 3)
 unsigned long current_millis; // para calcular o tempo e sincronizar pacotes
 byte current_millisByte[4];
+
+bool connected_to_pc;
+bool test_mode; // indica se manda msg p/ PC ou apenas mostra leitura dos sensores
 
 String rssi_str;
 int rssi_db; // byte do rssi em decibes (-28~-98 dB)
@@ -78,56 +85,68 @@ void setup()
 	// configura XBee e conecta com o PC
 	XBSerial.begin(9600);
 
-	//connectToPC();
-	//waitStart();
+	if(connectToPC())
+	{
+		test_mode = false;
+
+		print_lcd_full("Conectado!",
+			"Forca:" + rssi_to_perc(rssi_db) + " " + String(rssi_db) + "dB");
+		delay(3500);
+
+		print_lcd_full("Aguardando", "inicio...");
+
+		waitStart();
+
+		print_lcd_full("Pronto!", "iniciando... ");
+		delay(1500);
+		lcd.clear();
+	}
+	else
+	{
+		print_lcd_full("Sinal nao encon-", "trado!");
+		delay(1500);
+		print_lcd_full("Iniciando no    ", "modo teste...");
+		delay(1500);
+
+		test_mode = true;
+	}
 }
 
-void connectToPC()
+bool connectToPC()
 {
 	print_lcd_full("Verificando sinal", "do carro...");
-	if (!ATrcv_ND_ID(PC_ID))
-		throw_error(2);
-
-	print_lcd_full("Conectado!",
-		"Forca:" + rssi_to_perc(rssi_db) + " " + String(rssi_db) + "dB");
-	delay(3500);
-
-	XBSerial.print(SND_CONNECT);
-
-	print_lcd_full("Aguardando", "inicio...");
-	
-	// TODO refazer protocolo considerando nova ferramenta (comandos AT)
-	// re-envia CONNECT até receber algo
-	while (!XBSerial.available())
+	if (ATrcv_DN(PC_ID)) // verifica nó "XBEE_CARRO" na rede e seta DH, DI (endereço de destino)
 	{
-		XBSerial.print(SND_CONNECT);
-		delay(500); // re-envia a cada meio segundo
+		ATrcv_DB(); // verifica forca do sinal
+		return true;
 	}
-
-	// se rebeu e for diferente de OK, erro de protocolo
-	char received_msg = receive_sync();
-	if (received_msg != RCV_OK)
-		throw_error(3);
-
-	print_lcd_full("Pronto!", "iniciando... ");
-	delay(250);
-	lcd.clear();
-
-	// ao sair do while envia sinal de que está pronto, esperando START para entrar no loop()
-	XBSerial.print(SND_READY);
+	else
+		return false;
 }
 
-void waitStart()
+bool waitStart()
 {
-	char received_msg = receive_sync();
-	while (received_msg != RCV_START)
+	String received_msg = xbee_read_line(); // aguarda prox msg
+	
+	// quando o waitStart() retorna, volta ao setup() que por sua vez, vai para o loop()
+	if (received_msg.equals(RCV_READY))
 	{
-		received_msg = receive_sync();
+		XBSerial.write("OK\r");
+		received_msg = xbee_read_line();  // aguarda prox msg
+
+		if (received_msg.equals(RCV_START))
+			return true;
+		else
+		{
+			throw_error(3);
+			return false;
+		}
 	}
-
-	// se sair do while significa que recebeu START, logo inicia loop de envio de dados
-	// para tal apenas encerra o waitStart(), que volta ao setup() e retornará
-
+	else
+	{
+		throw_error(3);
+		return false;
+	}
 }
 
 // recebe mensagem de forma sincrona
@@ -154,50 +173,39 @@ bool ATrcv_ok()
 	return (msg == "OK\r");
 }
 
-// envia comando ATND e extrai apenas o "Node Identifier" (ID do XBee) conectado
-// vai esperar até que retorne algo
-bool ATrcv_ND_ID(String id)
+// envia comando ATDN para verificar se está conectado com o PC
+// seta flag "connected_to_pc"
+// se os endereços de destino não estiveram setados, esse comando automaticamente seta
+bool ATrcv_DN(String id)
 {
-	char rcv_char;
 	String rcv_msg = String();
 
 	// entrar no command mode
 	ATcmd();
 
-	// solicita info dos nós conectados (só pode haver 1)
-	XBSerial.print("ATND\r");
-	while (!XBSerial.available());
-
-	// Enquanto não estiver conectado com o XBee do PC o comando ATND retorna '\r'
-	// permanece no loop até receber algo mais além de '\r' (fim de linha do XBee)
-	rcv_char = (char)XBSerial.read();
-	while (rcv_char == '\r') // linha em branco, '\r', retornado se nao conectou ainda
-	{
-		XBSerial.print("ATND\r");
-		while (XBSerial.available() < 1) {}
-		rcv_char = (char)XBSerial.read();
-	}
-	rcv_msg += rcv_char; // como não é \r, só pode ser o 1o char da 1a linha
-
-	// a resposta vem em 11 linhas, o ID é a 4a, logo ignoramos o resto
-	// também vamos guardar a força do sinal do ultimo pacote enviado
-	xbee_ignore_lines(3);
+	// verifica conexao
+	XBSerial.print("ATDN" + id + "\r");
 	rcv_msg = xbee_read_line();
-	xbee_ignore_lines(5);
-	rssi_str = xbee_read_line();
-	xbee_ignore_lines(1); // última linha é sempre em branco ('\r')
 
-	// sair do command mode
-	XBSerial.print("ATCN\r");
-	xbee_ignore_lines(1); // após ATND, retorna linha em branco e OK
-	if (!ATrcv_ok())
-		throw_error(1);
-	
-	rssi_db = -1 * rssi_str.toInt();
-
-	return id == rcv_msg;
+	if (rcv_msg.equals("OK"))
+	{
+		connected_to_pc = true;
+		return true;
+	}
+	else if (rcv_msg.equals("ERROR"))
+	{
+		connected_to_pc = false;
+		return false;
+	}
+	else
+	{
+		throw_error(4);
+		return -1; // nunca executa esse "return", está aqui apenas para compilar
+	}
+	// ATDN: sai automaticamente do command mode após resposta
 }
 
+// atualiza variáveis do rssi do último pacote
 void ATrcv_DB()
 {
 	// entrar no command mode
@@ -300,6 +308,10 @@ void throw_error(int error_id)
 		case 3:
 			ln2 = "err de protocolo";
 			break;
+		// caso a resposta de um comando AT dê em algo inesperado
+		case 4:
+			ln2 = "err resp cmd AT";
+			break;
 		default:
 			ln2 = "erro descnh...";
 			break;
@@ -325,6 +337,9 @@ void print_lcd_full(String line1, String line2)
 //	RSSI:
 //		db >= -50 db = 100% quality
 //		db <= -100 db = 0 % quality
+//  Between -50db and -100db:
+//      quality ~= 2 * (db + 100)
+//      RSSI ~= (percentage / 2) - 100
 //	For example :
 //		High quality : 90 % ~= -55db
 //		Medium quality : 50 % ~= -75db
@@ -357,8 +372,9 @@ void loop()
 {
 	ler_dados();
 	print_lcd();
-	EnviaXBee(); // produz 80ms de delay
-	delay(70); // 70 + 80 = 150ms
+	EnviaXBee();
+
+	// delay removido, já que os comandos AT do "EnviaXBee" já produzem mt delay
 	//delay(150);
 }
 
@@ -451,10 +467,20 @@ void print_lcd() {
 	if (Temp < 100)
 		 lcd.print(" "); // min 50, 2 caracteres + 1 espaço
 
-	// impressao da forca do sinal do último pacote enviado (3 chars)
-	lcd.print("S:");
-	//lcd.print(rssi_db);
-	lcd.print(rssi_to_quality(rssi_db));
+	// impressao da forca do sinal - max 5 chars
+	if (test_mode)
+		lcd.print("<off>"); // quando nao conectado ao carro no inicio (setup)
+	else
+	{
+		if (connected_to_pc)
+		{
+			lcd.print("S:");
+			lcd.print(rssi_to_quality(rssi_db)); // rssi do último pacote (3chars)
+			//lcd.print(rssi_db);
+		}
+		else
+			lcd.print("S:err"); // indica que não está conectado
+	}
 
 	lcd.setCursor(0, 1);  //posiciona o cursor na coluna 0 linha 1 do LCD.
 
@@ -479,7 +505,7 @@ void EnviaXBee()
 	// Envia dados para o XBee/PC
 
 	// flag (B)egin para cliente saber que iniciou o envio de um pacote de dados
-	XBSerial.print(SND_BEGIN);
+	XBSerial.print(String(SND_BEGIN) + "\r");
 	delay(XBEE_DELAY);
 
 	// MILLIS
@@ -503,8 +529,12 @@ void EnviaXBee()
 	//vel4 = 50; // TODO: remover, apenas teste!
 	writeInt8(XBSerial, vel4);
 
-	// atualiza qualidade do sinal
-	ATrcv_DB();
+	// indica final do pacote
+	XBSerial.print(String(SND_END) + "\r");
+
+	// verifica se ainda está conectado ao PC e atualiza qualidade do sinal
+	if (ATrcv_DN(PC_ID))
+		ATrcv_DB();
 }
 
 // envia um int pequeno (1 bytes) pela porta serial especificada

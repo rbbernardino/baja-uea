@@ -12,6 +12,7 @@ namespace TeleBajaUEA
     {
         public static bool AvaiablePortExists { get { return SerialPort.GetPortNames().Length > 0; } }
         public static int IncomeByteRate { get; private set; }
+        public static bool ConnectedToCar { get; private set; }
 
         private static event NewDataHandler NewDataArrived;
         private delegate void NewDataHandler(object source, SensorsData newData);
@@ -25,7 +26,7 @@ namespace TeleBajaUEA
         //private static RandomDataGenerator DataGenerator; // TODO TESTE
 
         // TODO fazer await aqui e ali? realmetne necessário async??
-        public async static Task ConnectToCar()
+        public async static Task<bool> ConnectToCar()
         {
             //DataGenerator = new RandomDataGenerator();// TODO TESTE
             //return;// TODO TESTE
@@ -37,7 +38,7 @@ namespace TeleBajaUEA
             if (!portXBee.IsOpen)
                 throw new System.Exception("Porta não pôde ser aberta por razões desconhecidas.");
 
-            await portXBee.TryHandshake();
+            return await portXBee.TryHandshake();
         }
 
         public static void StartListen()

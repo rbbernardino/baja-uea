@@ -1,31 +1,27 @@
----66B9
-CM: 00FEFAF0BF0FF7FFFF
+------------- Ambos XBee ----------------
 HP: 3
 ID: 4A5F
 NH: 1
-NO: 4 (100 - inclui força do sinal no final)
-DH: 4A5F12
-DL: 5F124A
-TO: 40 (ver manual para configurar direitinho)
+TO: C0
 EE: 1
 KY: 5FA4D
-
-XBee PC
-MAC ...66B9
-SH: 13A200
-SL: 40C366B9
-
-XBee Carro
-MAC ...E9BB
-SH: 13A200
-SL: 40CAE9BB
 NT: 20 --> 3200ms
 CT: 5 (500ms)
 GT: A (10ms)
 
+-------------- XBee PC -----------------
+MAC ...66B9
+SH: 13A200   
+SL: 40C366B9
+
+-------------- XBee Carro --------------
+MAC ...E9BB
+SH: 13A200
+SL: 40CAE9BB
+----------------------------------------
 
 --------
 Comandos AT úteis:
 AT DB - força do sinal do último pacote recebido
 AT TP - temperatura (deve ser min -40ºC max 85ºC)
-AT ND - retorna todos os nós conectados
+AT DN[...] - retorna todos os nós conectados dado um NI (node identifier), max 20 chars

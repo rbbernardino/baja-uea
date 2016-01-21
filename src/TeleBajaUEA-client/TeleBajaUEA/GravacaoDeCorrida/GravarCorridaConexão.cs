@@ -55,11 +55,13 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             }
             catch (ErrorMessage.ReceiveDataTimeoutException exception)
             {
+                CarConnection.CloseConnection();
                 ErrorMessage.Show(ErrorType.Error, ErrorReason.ConnectToCarFailed, exception.Message);
                 return false;
             }
             catch (Exception e)
             {
+                CarConnection.CloseConnection();
                 ErrorMessage.Show(ErrorType.Error, ErrorReason.ConnectToCarFailed, e.Message);
                 return false;
             }

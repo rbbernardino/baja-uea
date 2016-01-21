@@ -13,19 +13,28 @@ namespace TeleBajaUEA.ClassesAuxiliares
         public uint TotalReceivedBytes { get { return byteCount; } }
 
         // tempo em milisegundos até "NextByte()" lance uma exceção se não receber dados
-        private readonly double NEXT_BYTE_TIMEOUT = 5000;
+        private readonly double NEXT_BYTE_TIMEOUT = 15000;
         private System.Timers.Timer timeoutTimer;
         private bool timeoutExceeded;
 
+        #region XBee settings and state
+        private readonly int XBEE_CMD_DELAY = 100; // valor do param GT do XBee
+        private readonly char XBEE_LINE_END = '\r';
+        private readonly string XBEE_CAR_ID = "XBEE_CARRO";
+        #endregion
+
         #region Protocol
         //private static SemaphoreSlim canReceiveDataSignal;
+        private readonly string XB_READY = "READY"; // ENVIA: checa se XBee pode iniciar envio
+        private readonly string XB_START = "START"; // ENVIA: pede por inicio do envio de dados
+        private readonly string XB_BEGIN = "B"; // RECEBE: inicio de pacote
+        private readonly string XB_END = "E"; // RECEBE: fim de pacote
 
         private enum SerialMsg
         {
             // recebe da Serial
             CONNECT = 'C',
             READY = 'R',
-            START = 'S',
             BEGIN = 'B',
             //END = 'E',
 
@@ -56,12 +65,15 @@ namespace TeleBajaUEA.ClassesAuxiliares
 
         public SerialPortBaja() : base()
         {
+            NewLine = "" + XBEE_LINE_END;
             DataReceived += port_DataReceived;
         }
 
         public SerialPortBaja(string pPortName) : base()
         {
+            NewLine = "" + XBEE_LINE_END;
             PortName = pPortName;
+            DataReceived += port_DataReceived;
         }
 
         #region eventos (event handlers) {...}
@@ -78,45 +90,32 @@ namespace TeleBajaUEA.ClassesAuxiliares
         // TODO colocar essa função no CarConnection
         // tenta trocar mensagens com o XBee do carro para checar conexão
         // e sincronizar estados
-        public async Task TryHandshake()
+        public async Task<bool> TryHandshake()
         {
-            // começa a ouvir a porta e guardar os dados recebido na queue
-            DataReceived += port_DataReceived;
-
-            char msg = await NextChar();
-            if (msg == (char)SerialMsg.CONNECT)
+            string rcvMsg;
+            if (await ATConnectedToCar())
             {
-                WriteChar((char)SerialMsg.OK);
+                WriteLine(XB_READY);
 
-                // TODO colocar timeout...
-                // ignora todas as mensagens até receber (R)EADY (talvez haja vários (C)onnect)
                 StartTimeoutTimer();
-                msg = await NextChar();
-                while (msg != (char)SerialMsg.READY)
-                {
-                    if (timeoutExceeded)
-                        throw new ErrorMessage.ReceiveDataTimeoutException();
-                    else
-                    {
-                        if (msg != (char)SerialMsg.CONNECT)
-                        {
-                            string errorMsg =
-                                "Erro de protocolo durante Handshake. Esperava '" +
-                                (char)SerialMsg.CONNECT + "', mas recebeu '" + msg + "'";
-                            throw new Exception(errorMsg);
-                        }
-
-                        msg = await NextChar();
-                    }
-                }
+                rcvMsg = await XBReadLine();
                 StopTimeoutTimer();
+
+                if (rcvMsg.Equals("OK"))
+                    return true;
+                else
+                {
+                    string errorMsg =
+                        "Protocolo incorreto (Handshake). Esperava 'OK', " + 
+                        "mas recebeu '" + rcvMsg + "'";
+                    throw new Exception(errorMsg);
+                }
             }
             else
             {
                 string errorMsg =
-                    "Erro de protocolo durante Handshake. Esperava '" +
-                    (char)SerialMsg.CONNECT + "', mas recebeu '" + msg + "'";
-
+                    "Sinal não encontrado, verifique o dispositivo no carro " +
+                    "e tente novamente";
                 throw new Exception(errorMsg);
             }
         }
@@ -124,7 +123,7 @@ namespace TeleBajaUEA.ClassesAuxiliares
         public void StartReceiveData()
         {
             // avisa arduino no carro que pode iniciar envio de mensagens de dados
-            WriteChar((char)SerialMsg.START);
+            WriteLine(XB_START);
         }
 
         // TODO colocar essa função no CarConnection
@@ -133,10 +132,11 @@ namespace TeleBajaUEA.ClassesAuxiliares
         // lê os dados, armazena em variáveis temporárias e gera um novo objeto SensorsData (newData)
         public async Task<SensorsData> GetNextPacket()
         {
-            char msg = await NextChar();
+            bool rcvOK = false;
+            string rcvMsg = await XBReadLine();
 
-            // flag BEGIN usada para garantir que dados estarão sincronizados
-            if (msg == (char)SerialMsg.BEGIN)
+            // flag BEGIN/END usadas para garantir que dados estarão sincronizados
+            if (rcvMsg.Equals(XB_BEGIN))
             {
                 tmpMillis = await NextUInt32();
                 tmpBreakState = await NextChar();
@@ -144,18 +144,72 @@ namespace TeleBajaUEA.ClassesAuxiliares
                 tmpRpm = await NextInt16();
                 tmpSpeed = await NextInt8();
 
+                rcvMsg = await XBReadLine();
+                if (rcvMsg.Equals(XB_END))
+                    rcvOK = true;
+            }
+
+            if (rcvOK)
                 return new SensorsData(tmpMillis, tmpSpeed, tmpTemperature,
                                         tmpRpm, tmpBreakState);
-            }
+            else
+                throw new Exception("Protocolo incorreto. Esperava BEGIN('B'), " +
+                    "mas recebeu '" + rcvMsg);
+        }
+
+        public async Task<bool> ATConnectedToCar()
+        {
+            string rcv_msg = "";
+
+            // entrar no command mode
+            await ATcmd();
+
+            // verifica conexao
+            WriteLine("ATDN" + XBEE_CAR_ID);
+            rcv_msg = await XBReadLine();
+
+            if (rcv_msg.Equals("OK"))
+                return true;
+            else if (rcv_msg.Equals("ERROR"))
+                return false;
             else
             {
-                // TODO tratar melhor esse erro
-                //MessageBox.Show("ERRO! Esperava BEGIN ('B'), mas recebeu '" + msg + "'");
-                throw new Exception("Esperava BEGIN('B'), mas recebeu '" + msg + "'. Bytes lidos: " + readbytes);
-                //return new SensorsData();
+                string errorMsg =
+                    "Resposta do comando ATDN inesperada: \"" + rcv_msg + "\"";
+
+                throw (new Exception(errorMsg));
             }
         }
+
         #endregion
+
+        // TODO considerar acrescentar um timeout quando esperando pelo OK
+        private async Task ATcmd()
+        {
+            await Task.Delay(XBEE_CMD_DELAY);
+            Write("+++");
+
+            // quando entrar no modo de comando do XBee durante o recebimento de
+            // dados, é preciso descartar os dados que estão na fila até a chegada do OK
+            string readLine = await XBReadLine();
+            while (!readLine.Equals("OK"))
+                readLine = await XBReadLine();
+        }
+
+        // lê linha a partir do buffer ConcurrentQueue
+        private async Task<string> XBReadLine()
+        {
+            string line = "";
+
+            char readChar = await NextChar();
+            while (readChar != XBEE_LINE_END)
+            {
+                line += readChar;
+                readChar = await NextChar();
+            }
+            return line;
+        }
+
         private uint readbytes = 0;
         // pode gerar a exceção NextByteTimeoutException
         private async Task<byte> NextByte()
