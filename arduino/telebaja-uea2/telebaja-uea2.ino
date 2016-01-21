@@ -58,10 +58,15 @@ const String RCV_START = "START"; // PC pede que inicie envio de medicoes
 String PC_ID = "XBEE_PC";
 const int XBEE_DELAY = 10; // 10ms de delay entre o envio de cada byte para o XBee
 const int XBEE_CMD_DELAY = 10; // parâmetro AT GT do XBee do carro
+const int CHECK_CONN_INTERVAL = 1000; // verifica sinal do PC a cada 1s
+
+ // flag para indicar se deve ou não checar qualidade do sinal DURANTE a gravação
+const bool CHECK_PC_SIGNAL = true;
 
 // ---------- VARIÁVEIS --------------
 SoftwareSerial XBSerial(52, 53); // RX (shield: 2), TX (shield: 3)
 unsigned long current_millis; // para calcular o tempo e sincronizar pacotes
+unsigned long previous_millis; // para calcular timeouts de timers
 byte current_millisByte[4];
 
 bool connected_to_pc;
@@ -374,8 +379,20 @@ void loop()
 	print_lcd();
 	EnviaXBee();
 
-	// delay removido, já que os comandos AT do "EnviaXBee" já produzem mt delay
-	//delay(150);
+	// verifica se ainda está conectado ao PC e atualiza qualidade do sinal
+	if (CHECK_PC_SIGNAL)
+	{
+		// o current_millis é obtido no EnviaXBee, que é enviado ao PC
+		if (current_millis - previous_millis >= CHECK_CONN_INTERVAL)
+		{
+			if (ATrcv_DN(PC_ID))
+				ATrcv_DB();
+			previous_millis = current_millis;
+		}
+	}
+	else
+		delay(100);
+	
 }
 
 // Lê dados dos sensores e armazena as medições em variáveis
@@ -467,19 +484,22 @@ void print_lcd() {
 	if (Temp < 100)
 		 lcd.print(" "); // min 50, 2 caracteres + 1 espaço
 
-	// impressao da forca do sinal - max 5 chars
-	if (test_mode)
-		lcd.print("<off>"); // quando nao conectado ao carro no inicio (setup)
-	else
+	if (CHECK_PC_SIGNAL)
 	{
-		if (connected_to_pc)
-		{
-			lcd.print("S:");
-			lcd.print(rssi_to_quality(rssi_db)); // rssi do último pacote (3chars)
-			//lcd.print(rssi_db);
-		}
+		// impressao da forca do sinal - max 5 chars
+		if (test_mode)
+			lcd.print("<off>"); // quando nao conectado ao carro no inicio (setup)
 		else
-			lcd.print("S:err"); // indica que não está conectado
+		{
+			if (connected_to_pc)
+			{
+				lcd.print("S:");
+				lcd.print(rssi_to_quality(rssi_db)); // rssi do último pacote (3chars)
+													 //lcd.print(rssi_db);
+			}
+			else
+				lcd.print("S:err"); // indica que não está conectado
+		}
 	}
 
 	lcd.setCursor(0, 1);  //posiciona o cursor na coluna 0 linha 1 do LCD.
@@ -531,10 +551,6 @@ void EnviaXBee()
 
 	// indica final do pacote
 	XBSerial.print(String(SND_END) + "\r");
-
-	// verifica se ainda está conectado ao PC e atualiza qualidade do sinal
-	if (ATrcv_DN(PC_ID))
-		ATrcv_DB();
 }
 
 // envia um int pequeno (1 bytes) pela porta serial especificada
