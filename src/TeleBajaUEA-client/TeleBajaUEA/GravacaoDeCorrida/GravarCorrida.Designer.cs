@@ -45,7 +45,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textFreio = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.imgConnStatus = new System.Windows.Forms.PictureBox();
+            this.labelSemSinal = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chartDinamic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgConnStatus)).BeginInit();
             this.SuspendLayout();
             // 
             // chartDinamic
@@ -121,7 +124,7 @@
             this.aGaugeTemperature.CapText = "Temperatura";
             this.aGaugeTemperature.Center = new System.Drawing.Point(15, 70);
             this.aGaugeTemperature.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aGaugeTemperature.Location = new System.Drawing.Point(163, 481);
+            this.aGaugeTemperature.Location = new System.Drawing.Point(214, 481);
             this.aGaugeTemperature.MaxValue = 300F;
             this.aGaugeTemperature.MinValue = 60F;
             this.aGaugeTemperature.Name = "aGaugeTemperature";
@@ -298,11 +301,34 @@
             this.label5.TabIndex = 25;
             this.label5.Text = "Freio";
             // 
+            // imgConnStatus
+            // 
+            this.imgConnStatus.Image = global::TeleBajaUEA.Properties.Resources.conn_off;
+            this.imgConnStatus.Location = new System.Drawing.Point(87, 481);
+            this.imgConnStatus.Name = "imgConnStatus";
+            this.imgConnStatus.Size = new System.Drawing.Size(85, 85);
+            this.imgConnStatus.TabIndex = 27;
+            this.imgConnStatus.TabStop = false;
+            // 
+            // labelSemSinal
+            // 
+            this.labelSemSinal.AutoSize = true;
+            this.labelSemSinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.labelSemSinal.ForeColor = System.Drawing.Color.DarkRed;
+            this.labelSemSinal.Location = new System.Drawing.Point(83, 569);
+            this.labelSemSinal.Name = "labelSemSinal";
+            this.labelSemSinal.Size = new System.Drawing.Size(90, 20);
+            this.labelSemSinal.TabIndex = 28;
+            this.labelSemSinal.Text = "Sem Sinal!";
+            this.labelSemSinal.Visible = false;
+            // 
             // GravarCorrida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1064, 611);
+            this.Controls.Add(this.labelSemSinal);
+            this.Controls.Add(this.imgConnStatus);
             this.Controls.Add(this.textFreio);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
@@ -321,6 +347,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GravarCorrida_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GravarCorrida_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.chartDinamic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgConnStatus)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -338,5 +365,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textFreio;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.PictureBox imgConnStatus;
+        private System.Windows.Forms.Label labelSemSinal;
     }
 }

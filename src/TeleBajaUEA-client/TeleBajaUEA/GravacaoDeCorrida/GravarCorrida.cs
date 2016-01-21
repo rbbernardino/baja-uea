@@ -91,6 +91,7 @@ namespace TeleBajaUEA.GravacaoDeCorrida
                 timerCheckIncomeData.Tick -= TickCheckIncomeData;
                 SensorsData newData = await CarConnection.GetNextData();
                 await UpdateData(newData);
+                UpdateConnectionStatus();
                 timerCheckIncomeData.Tick += TickCheckIncomeData;
             }
             catch (ErrorMessage.InvalidProtocolException exception)
@@ -202,6 +203,28 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             
             UpdateXLabels();
             chartDinamic.Update();
+        }
+
+        private void UpdateConnectionStatus()
+        {
+            //switch (CarConnection.ConnStatus)
+            //{
+            //    case SignalStrg.Off:
+            //        imgConnStatus.Image = Properties.Resources.conn_off;
+            //        break;
+            //    case SignalStrg.Low:
+            //        imgConnStatus.Image = Properties.Resources.conn_low;
+            //        break;
+            //    case SignalStrg.Medium:
+            //        imgConnStatus.Image = Properties.Resources.conn_med;
+            //        break;
+            //    case SignalStrg.Good:
+            //        imgConnStatus.Image = Properties.Resources.conn_good;
+            //        break;
+            //    case SignalStrg.Excelent:
+            //        imgConnStatus.Image = Properties.Resources.conn_hi;
+            //        break;
+            //}
         }
 
         private void button1_Click(object sender, EventArgs e)

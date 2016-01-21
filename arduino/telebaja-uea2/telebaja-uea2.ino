@@ -376,7 +376,7 @@ String rssi_to_quality(int rssi)
 void loop()
 {
 	ler_dados();
-	print_lcd();
+	print_lcd(); // TODO acrescentar timout para garantir piscar a 60fps?
 	EnviaXBee();
 
 	// verifica se ainda está conectado ao PC e atualiza qualidade do sinal
@@ -390,9 +390,6 @@ void loop()
 			previous_millis = current_millis;
 		}
 	}
-	else
-		delay(100);
-	
 }
 
 // Lê dados dos sensores e armazena as medições em variáveis

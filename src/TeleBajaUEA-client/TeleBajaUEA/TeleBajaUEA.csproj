@@ -260,6 +260,11 @@
     <Content Include="charts-icon.ico" />
     <Content Include="charts-icon_backup.ico" />
     <Content Include="charts-icon_corrida.ico" />
+    <None Include="Resources\conn_hi.png" />
+    <None Include="Resources\conn_good.png" />
+    <None Include="Resources\conn_med.png" />
+    <None Include="Resources\conn_low.png" />
+    <None Include="Resources\conn_off.png" />
     <None Include="Resources\arrow_left-minus.png" />
     <None Include="Resources\arrow_right-plus.png" />
     <None Include="Resources\zoom-out.png" />

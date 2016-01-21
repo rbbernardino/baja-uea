@@ -127,6 +127,21 @@
   <data name="arrow_right_plus" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\arrow_right-plus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="conn_good" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\conn_good.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="conn_hi" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\conn_hi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="conn_low" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\conn_low.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="conn_med" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\conn_med.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="conn_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\conn_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="done" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\done.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
