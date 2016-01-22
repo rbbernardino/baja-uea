@@ -11,6 +11,7 @@ namespace TeleBajaUEA.ClassesAuxiliares
     class SerialPortExt : SerialPort
     {
         public uint TotalReceivedBytes { get { return byteCount; } }
+        public int BytesToReadExt { get { return receivedDataQueue.Count; } }
 
         // tempo em milisegundos até "NextByte()" lance uma exceção se não receber dados
         private readonly double NEXT_BYTE_TIMEOUT = 15000;

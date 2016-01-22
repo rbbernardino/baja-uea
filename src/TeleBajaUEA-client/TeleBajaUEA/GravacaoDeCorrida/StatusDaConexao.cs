@@ -47,7 +47,9 @@ namespace TeleBajaUEA.GravacaoDeCorrida
         {
             labelIncome.Text = currentSpeed + " Pontos/s";
             labelByteRate.Text = CarConnection.IncomeByteRate + " B/s";
-            labelTotalPontos.Text = formGravarCorrida.PointsCount + "Pts";
+            labelTotalPontos.Text = formGravarCorrida.PointsCount + " Pts";
+            labelPacotesPerd.Text = CarConnection.IgnoredDataPacket + " Pac";
+            labelBytesInBuffer.Text = CarConnection.BytesToRead + " B";
         }
 
         private void StatusDaConexao_FormClosing(object sender, FormClosingEventArgs e)

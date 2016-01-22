@@ -13,7 +13,9 @@ namespace TeleBajaUEA
     {
         public static bool AvaiablePortExists { get { return SerialPort.GetPortNames().Length > 0; } }
         public static int IncomeByteRate { get; private set; }
+        public static int BytesToRead { get { return portXBee.BytesToReadExt; } }
         public static bool ConnectedToCar { get; private set; }
+        public static int IgnoredDataPacket { get; private set; }
 
         private static event NewDataHandler NewDataArrived;
         private delegate void NewDataHandler(object source, SensorsData newData);
@@ -113,38 +115,62 @@ namespace TeleBajaUEA
 
         public async static Task<SensorsData> GetNextData()
         {
-            return await GetNextPacket();
+            Tuple<bool, SensorsData> result;
+            do
+            {
+                result = await GetNextPacket();
+            } while (!result.Item1);
+
+            return result.Item2;
+            //return await GetNextPacket();
             //return await DataGenerator.GetNextPacket();// TODO TESTE
         }
 
-        // TODO implementar GetNextPacket (total de 10 bytes excluindo o 'B'
-        // pode gerar a exceção NextByteTimeoutException
+        // TODO implementar um next packet mais específico (total de 10 bytes + '\r')
         // lê os dados, armazena em variáveis temporárias e gera um novo objeto SensorsData (newData)
-        public async static Task<SensorsData> GetNextPacket()
+        public async static Task<Tuple<bool, SensorsData>> GetNextPacket()
         {
-            bool rcvOK = false;
             string rcvMsg = await portXBee.ReadLineExt();
 
-            // flag BEGIN/END usadas para garantir que dados estarão sincronizados
-            if (rcvMsg.Equals(XB_BEGIN))
+            await SyncNextPacket();
+
+            tmpMillis = await portXBee.NextUInt32();
+            tmpBreakState = await portXBee.NextChar();
+            tmpTemperature = await portXBee.NextInt16();
+            tmpRpm = await portXBee.NextInt16();
+            tmpSpeed = await portXBee.NextInt8();
+
+            rcvMsg = await portXBee.ReadLineExt();
+
+            if (rcvMsg.Equals(XB_END))
             {
-                tmpMillis = await portXBee.NextUInt32();
-                tmpBreakState = await portXBee.NextChar();
-                tmpTemperature = await portXBee.NextInt16();
-                tmpRpm = await portXBee.NextInt16();
-                tmpSpeed = await portXBee.NextInt8();
-
-                rcvMsg = await portXBee.ReadLineExt();
-                if (rcvMsg.Equals(XB_END))
-                    rcvOK = true;
+                SensorsData newData = new SensorsData(
+                    tmpMillis, tmpSpeed, tmpTemperature, tmpRpm, tmpBreakState);
+                return Tuple.Create(true, newData);
             }
-
-            if (rcvOK)
-                return new SensorsData(tmpMillis, tmpSpeed, tmpTemperature,
-                                        tmpRpm, tmpBreakState);
             else
-                throw new Exception("Protocolo incorreto. Esperava BEGIN('B'), " +
-                    "mas recebeu '" + rcvMsg);
+            {
+                IgnoredDataPacket++;
+                return Tuple.Create(false, new SensorsData());
+                //throw new Exception("Protocolo incorreto. Esperava END('E'), " +
+                //    "mas recebeu ' " + rcvMsg + " '");
+            }
+        }
+
+        // Espera pelo próximo BEGIN("B\r") para iniciar leitura dos dados
+        // pode ser que  a conexao se perca e seja reestabelecida. Nesse caso,
+        // muito provavelmente o pacote virá quebrado, logo é preciso sincronizar
+        // Outro caso é quando dá o timeout para verificar a qualidade do sinal,
+        // onde o recebimento de dados é interrompido para fazer isso
+        private async static Task SyncNextPacket()
+        {
+            string rcvMsg = await portXBee.ReadLineExt();
+            while (!(rcvMsg).Equals(XB_BEGIN))
+            {
+                if (rcvMsg.Equals(XB_END))
+                    IgnoredDataPacket++;
+                rcvMsg = await portXBee.ReadLineExt();
+            }
         }
 
         public static bool IsPortAvaiable(string pPortName)

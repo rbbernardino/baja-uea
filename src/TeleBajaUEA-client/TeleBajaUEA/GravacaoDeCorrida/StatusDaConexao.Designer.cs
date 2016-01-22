@@ -35,6 +35,10 @@
             this.labelByteRate = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.labelTotalPontos = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.labelPacotesPerd = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.labelBytesInBuffer = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -51,7 +55,7 @@
             // 
             this.labelIncome.AutoSize = true;
             this.labelIncome.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.labelIncome.Location = new System.Drawing.Point(183, 19);
+            this.labelIncome.Location = new System.Drawing.Point(205, 19);
             this.labelIncome.Name = "labelIncome";
             this.labelIncome.Size = new System.Drawing.Size(80, 20);
             this.labelIncome.TabIndex = 1;
@@ -62,7 +66,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.label2.Location = new System.Drawing.Point(12, 54);
+            this.label2.Location = new System.Drawing.Point(16, 89);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(156, 20);
             this.label2.TabIndex = 2;
@@ -72,7 +76,7 @@
             // 
             this.labelByteRate.AutoSize = true;
             this.labelByteRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.labelByteRate.Location = new System.Drawing.Point(183, 54);
+            this.labelByteRate.Location = new System.Drawing.Point(209, 89);
             this.labelByteRate.Name = "labelByteRate";
             this.labelByteRate.Size = new System.Drawing.Size(76, 20);
             this.labelByteRate.TabIndex = 3;
@@ -83,28 +87,74 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.label3.Location = new System.Drawing.Point(12, 83);
+            this.label3.Location = new System.Drawing.Point(13, 50);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(134, 20);
+            this.label3.Size = new System.Drawing.Size(145, 20);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Total de pontos: ";
+            this.label3.Text = "Pontos no gráfico:";
             // 
             // labelTotalPontos
             // 
             this.labelTotalPontos.AutoSize = true;
             this.labelTotalPontos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.labelTotalPontos.Location = new System.Drawing.Point(187, 83);
+            this.labelTotalPontos.Location = new System.Drawing.Point(210, 50);
             this.labelTotalPontos.Name = "labelTotalPontos";
             this.labelTotalPontos.Size = new System.Drawing.Size(75, 20);
             this.labelTotalPontos.TabIndex = 5;
             this.labelTotalPontos.Text = "0000 Pts";
             this.labelTotalPontos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.label4.Location = new System.Drawing.Point(13, 151);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(146, 20);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Pacotes Perdidos:";
+            // 
+            // labelPacotesPerd
+            // 
+            this.labelPacotesPerd.AutoSize = true;
+            this.labelPacotesPerd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.labelPacotesPerd.Location = new System.Drawing.Point(206, 151);
+            this.labelPacotesPerd.Name = "labelPacotesPerd";
+            this.labelPacotesPerd.Size = new System.Drawing.Size(79, 20);
+            this.labelPacotesPerd.TabIndex = 7;
+            this.labelPacotesPerd.Text = "0000 Pac";
+            this.labelPacotesPerd.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.label5.Location = new System.Drawing.Point(16, 118);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(158, 20);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Bytes no \"in buffer\":";
+            // 
+            // labelBytesInBuffer
+            // 
+            this.labelBytesInBuffer.AutoSize = true;
+            this.labelBytesInBuffer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.labelBytesInBuffer.Location = new System.Drawing.Point(206, 118);
+            this.labelBytesInBuffer.Name = "labelBytesInBuffer";
+            this.labelBytesInBuffer.Size = new System.Drawing.Size(93, 20);
+            this.labelBytesInBuffer.TabIndex = 9;
+            this.labelBytesInBuffer.Text = "0000 Bytes";
+            this.labelBytesInBuffer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // StatusDaConexao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(312, 261);
+            this.ClientSize = new System.Drawing.Size(336, 261);
+            this.Controls.Add(this.labelBytesInBuffer);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.labelPacotesPerd);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.labelTotalPontos);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.labelByteRate);
@@ -129,5 +179,9 @@
         private System.Windows.Forms.Label labelByteRate;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label labelTotalPontos;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelPacotesPerd;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelBytesInBuffer;
     }
 }
