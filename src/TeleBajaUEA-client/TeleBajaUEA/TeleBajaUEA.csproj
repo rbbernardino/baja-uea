@@ -117,7 +117,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ClassesAuxiliares\ProgramSettings.cs" />
-    <Compile Include="ClassesAuxiliares\Extensões\SerialPortBaja.cs">
+    <Compile Include="ClassesAuxiliares\Extensões\SerialPortExt.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ClassesAuxiliares\SettingsFile.cs" />
