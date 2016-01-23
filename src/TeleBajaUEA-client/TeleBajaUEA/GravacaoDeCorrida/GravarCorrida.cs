@@ -127,6 +127,10 @@ namespace TeleBajaUEA.GravacaoDeCorrida
                 ErrorMessage.Show(ErrorType.Info, ErrorReason.BackupWillBeSaved);
                 ReopenSetup();
             }
+            catch(ErrorMessage.PortClosedOnReadException exception)
+            {
+                return; // não faz nada, porta foi fechada porque usuário encerrou
+            }
             catch (Exception exception)
             {
                 ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);

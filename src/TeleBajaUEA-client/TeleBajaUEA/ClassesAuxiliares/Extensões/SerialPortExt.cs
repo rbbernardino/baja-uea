@@ -71,10 +71,15 @@ namespace TeleBajaUEA.ClassesAuxiliares
             byte rcvByte;
             while (!receivedDataQueue.TryDequeue(out rcvByte))
             {
-                if (timeoutRcvExceeded)
-                    throw new ErrorMessage.ReceiveDataTimeoutException();
+                if (IsOpen)
+                {
+                    if (timeoutRcvExceeded)
+                        throw new ErrorMessage.ReceiveDataTimeoutException();
+                    else
+                        await Task.Delay(100);
+                }
                 else
-                    await Task.Delay(300);
+                    throw new ErrorMessage.PortClosedOnReadException();
             }
 
             // quando sair do while, sucesso, logo desativa o timer
