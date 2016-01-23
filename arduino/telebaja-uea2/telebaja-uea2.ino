@@ -57,11 +57,11 @@ const String RCV_START = "START"; // PC pede que inicie envio de medicoes
 // ---------- CONSTANTES -------------
 // endereço de destino (SH/SL do XBee do PC)
 String PC_ID = "XBEE_PC";
-const int XBEE_DELAY = 50; // delay entre o envio de cada pacote
+const int XBEE_DELAY = 20; // delay entre o envio de cada pacote
 const int XBEE_CMD_DELAY = 10; // parâmetro AT GT do XBee do carro
-const int CHECK_CONN_INTERVAL = 5000; // verifica sinal do PC a cada 1s
+const int CHECK_CONN_INTERVAL = 6000; // verifica sinal do PC a cada 1s
 
-const int LCD_REFRESH_INTERVAL = 200; // tempo entre cada atualização do LCD
+const int LCD_REFRESH_INTERVAL = 1500; // tempo entre cada atualização do LCD
 
  // flag para indicar se deve ou não checar qualidade do sinal DURANTE a gravação
 const bool CHECK_PC_SIGNAL = true;

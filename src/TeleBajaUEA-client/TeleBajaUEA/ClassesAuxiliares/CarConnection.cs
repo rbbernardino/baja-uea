@@ -17,6 +17,7 @@ namespace TeleBajaUEA
         public static bool AvaiablePortExists { get { return SerialPort.GetPortNames().Length > 0; } }
         public static int IncomeByteRate { get; private set; }
         public static int BytesToRead { get { return portXBee.BytesToReadExt; } }
+        public static uint TotalReceivedBytes { get { return portXBee.TotalReceivedBytes; } }
         public static SignalStrg ConnStatus { get; private set; } = SignalStrg.Off;
         public static int IgnoredDataPacket { get; private set; }
 

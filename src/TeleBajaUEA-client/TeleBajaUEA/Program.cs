@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Deployment.Application;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -44,6 +45,7 @@ namespace TeleBajaUEA
                 Settings = new ProgramSettings();
                 SettingsFile.CreateAppFilesFolder();
                 SettingsFile.SaveToFile(Settings);
+                Directory.CreateDirectory(Settings.BackupPath);
             }
 
             try

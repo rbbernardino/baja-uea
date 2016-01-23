@@ -26,7 +26,7 @@ namespace TeleBajaUEA.GravacaoDeCorrida
 
         private Timer timerCheckConn;
         private readonly int CHECK_CONN_INTERVAL = 5000;
-        private int prevBytesToRead;
+        private uint prevTotalBytes;
 
         // o primeiro Millis será usado como referência (zero) do gráfico no eixo X
         private uint zeroMillis;
@@ -56,14 +56,14 @@ namespace TeleBajaUEA.GravacaoDeCorrida
 
         private void TimerCheckConn_Tick(object sender, EventArgs e)
         {
-            if (prevBytesToRead == CarConnection.BytesToRead)
+            if (prevTotalBytes == CarConnection.TotalReceivedBytes)
             {
                 imgConnStatus.Image = Properties.Resources.conn_off;
                 labelSemSinal.Visible = true;
                 labelForca.Visible = false;
             }
 
-            prevBytesToRead = CarConnection.BytesToRead;
+            prevTotalBytes = CarConnection.TotalReceivedBytes;
         }
 
         private void TickBackupData(object sender, EventArgs e)
