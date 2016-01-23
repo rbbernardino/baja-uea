@@ -14,7 +14,7 @@ namespace TeleBajaUEA.ClassesAuxiliares
         public int BytesToReadExt { get { return receivedDataQueue.Count; } }
 
         // tempo em milisegundos até "NextByte()" lance uma exceção se não receber dados
-        private readonly double NEXT_BYTE_TIMEOUT = 15000;
+        private readonly int DEFAULT_READ_TIMEOUT = 15000;
         private System.Timers.Timer timeoutRcvTimer;
         private bool timeoutRcvExceeded;
 
@@ -47,23 +47,25 @@ namespace TeleBajaUEA.ClassesAuxiliares
 
         // lê linha a partir do buffer ConcurrentQueue
         // considera um char como "NewLine", ao invés de uma string
-        public async Task<string> ReadLineExt()
+        public async Task<string> ReadLineExt() { return await ReadLineExt(DEFAULT_READ_TIMEOUT); }
+        public async Task<string> ReadLineExt(int timeout)
         {
             string line = "";
 
-            char readChar = await NextChar();
+            char readChar = await NextChar(timeout);
             while (readChar != NewLine[0])
             {
                 line += readChar;
-                readChar = await NextChar();
+                readChar = await NextChar(timeout);
             }
             return line;
         }
 
         // lê byte da ConcurrentQueue
-        public async Task<byte> NextByte()
+        public async Task<byte> NextByte() { return await NextByte(DEFAULT_READ_TIMEOUT); }
+        public async Task<byte> NextByte(int timeout)
         {
-            StartTimeoutTimer();
+            StartTimeoutTimer(timeout);
 
             byte rcvByte;
             while (!receivedDataQueue.TryDequeue(out rcvByte))
@@ -80,9 +82,10 @@ namespace TeleBajaUEA.ClassesAuxiliares
             return rcvByte;
         }
 
-        public async Task<char> NextChar()
+        public async Task<char> NextChar() { return await NextChar(DEFAULT_READ_TIMEOUT); }
+        public async Task<char> NextChar(int timeout)
         {
-            return (char) (await NextByte());
+            return (char) (await NextByte(timeout));
         }
 
         public async Task<uint> NextUInt32()
@@ -117,14 +120,21 @@ namespace TeleBajaUEA.ClassesAuxiliares
             Write(c.ToString());
         }
 
+        public void ClearInBuffer()
+        {
+            DiscardInBuffer();
+            receivedDataQueue = new ConcurrentQueue<byte>();
+        }
+
         // TODO verificar se é melhor reutilizar um mesmo timer
         // ou instanciar um novo sempre não impacta muito na performance
-        public void StartTimeoutTimer()
+        private void StartTimeoutTimer() { StartTimeoutTimer(DEFAULT_READ_TIMEOUT); }
+        private void StartTimeoutTimer(int timeout)
         {
             timeoutRcvExceeded = false;
 
             timeoutRcvTimer = new System.Timers.Timer();
-            timeoutRcvTimer.Interval = NEXT_BYTE_TIMEOUT;
+            timeoutRcvTimer.Interval = timeout;
             timeoutRcvTimer.Elapsed += TimeoutTimer_Elapsed;
             timeoutRcvTimer.AutoReset = false;
             timeoutRcvTimer.Enabled = true;

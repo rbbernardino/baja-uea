@@ -20,18 +20,24 @@ namespace TeleBajaUEA
         public static SignalStrg ConnStatus { get; private set; } = SignalStrg.Off;
         public static int IgnoredDataPacket { get; private set; }
 
+        #region communication settings
+        private static int UPDATE_BYTE_RATE_INTERVAL = 1000;
+        private static int CONNECT_RETRY = 10; // número máximo de tentativas para enviar "READY"
+        private static int CONNECT_RETRY_INTERVAL = 1000; // tempo entre cada tentativa de enviar "READY"
+        #endregion
+
         private static event NewDataHandler NewDataArrived;
         private delegate void NewDataHandler(object source, SensorsData newData);
 
         private static SerialPortExt portXBee;
 
         private static Timer timerUpdateByteRate;
-        private static int UPDATE_BYTE_RATE_INTERVAL = 1000;
         private static uint prevReceivedBytes;
 
         #region Protocol
         //private static SemaphoreSlim canReceiveDataSignal;
         private static string XB_READY = "READY"; // ENVIA: checa se XBee pode iniciar envio
+        private static string XB_RESET = "RESET"; // ENVIA: reinicia execução do arduino
         private static string XB_START = "START"; // ENVIA: pede por inicio do envio de dados
         private static string XB_BEGIN = "B"; // RECEBE: inicio de pacote
         private static string XB_END = "E"; // RECEBE: fim de pacote
@@ -192,14 +198,33 @@ namespace TeleBajaUEA
         // para enviar dados
         private async static Task<bool> TryHandshake()
         {
-            string rcvMsg;
+            string rcvMsg = "";
+
+            portXBee.WriteLine(XB_RESET);
+            await Task.Delay(1000);
+            portXBee.ClearInBuffer();
 
             await ATcmd();
             if (await ATConnectedToCar())
             {
-                portXBee.WriteLine(XB_READY);
-
-                rcvMsg = await portXBee.ReadLineExt(); // TODO criar timeout para re-enviar READY
+                bool ready_ok = false;
+                int tryCount = 0;
+                while (!ready_ok)
+                {
+                    portXBee.WriteLine(XB_READY);
+                    try
+                    {
+                        rcvMsg = await portXBee.ReadLineExt(CONNECT_RETRY_INTERVAL);
+                        ready_ok = true;
+                    }
+                    catch (ErrorMessage.ReceiveDataTimeoutException e)
+                    {
+                        if (tryCount > CONNECT_RETRY)
+                            throw (e);
+                        else
+                            tryCount++;
+                    }
+                }
 
                 if (rcvMsg.Equals("OK"))
                     return true;

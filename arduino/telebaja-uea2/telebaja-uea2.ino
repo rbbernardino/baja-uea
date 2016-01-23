@@ -51,14 +51,17 @@ const char SND_END = 'E'; // encerrou envio de dados dos sensores (1 pacote)
 
 const String SND_OK = "OK\r";
 const String RCV_READY = "READY"; // PC pergunta se arduino está pronto
+const String RCV_RESET = "RESET";
 const String RCV_START = "START"; // PC pede que inicie envio de medicoes
 
 // ---------- CONSTANTES -------------
 // endereço de destino (SH/SL do XBee do PC)
 String PC_ID = "XBEE_PC";
-const int XBEE_DELAY = 10; // 10ms de delay entre o envio de cada byte para o XBee
+const int XBEE_DELAY = 50; // delay entre o envio de cada pacote
 const int XBEE_CMD_DELAY = 10; // parâmetro AT GT do XBee do carro
-const int CHECK_CONN_INTERVAL = 1000; // verifica sinal do PC a cada 1s
+const int CHECK_CONN_INTERVAL = 5000; // verifica sinal do PC a cada 1s
+
+const int LCD_REFRESH_INTERVAL = 200; // tempo entre cada atualização do LCD
 
  // flag para indicar se deve ou não checar qualidade do sinal DURANTE a gravação
 const bool CHECK_PC_SIGNAL = true;
@@ -66,7 +69,8 @@ const bool CHECK_PC_SIGNAL = true;
 // ---------- VARIÁVEIS --------------
 SoftwareSerial XBSerial(52, 53); // RX (shield: 2), TX (shield: 3)
 unsigned long current_millis; // para calcular o tempo e sincronizar pacotes
-unsigned long previous_millis; // para calcular timeouts de timers
+unsigned long prev_millis_signal; // prev_millis: para calcular timeouts de timers
+unsigned long prev_millis_lcd;
 byte current_millisByte[4];
 
 bool connected_to_pc;
@@ -91,21 +95,15 @@ void setup()
 	XBSerial.begin(9600);
 
 	// conecta com o PC
-	if(connectToPC())
+	if(connectedToPC())
 	{
 		test_mode = false;
 
 		print_lcd_full("Conectado!",
 			"Forca:" + rssi_to_perc(rssi_db) + " " + String(rssi_db) + "dB");
-		delay(3500);
+		delay(2500);
 
-		print_lcd_full("Aguardando", "inicio...");
-
-		waitStart();
-
-		print_lcd_full("Pronto!", "iniciando... ");
-		delay(1500);
-		lcd.clear();
+		sync_before_start();
 	}
 	else
 	{
@@ -118,7 +116,7 @@ void setup()
 	}
 }
 
-bool connectToPC()
+bool connectedToPC()
 {
 	print_lcd_full("Verificando sinal", "do carro...");
 	if (ATrcv_DN(PC_ID)) // verifica nó "XBEE_CARRO" na rede e seta DH, DI (endereço de destino)
@@ -130,12 +128,25 @@ bool connectToPC()
 		return false;
 }
 
+void sync_before_start() {
+	print_lcd_full("Aguardando", "inicio...");
+
+	waitStart();
+
+	print_lcd_full("Pronto!", "iniciando... ");
+	delay(1500);
+	lcd.clear();
+}
+
 bool waitStart()
 {
 	String received_msg = xbee_read_line(); // aguarda prox msg
 	
+	while (received_msg == RCV_RESET) // sempre apos um RESET vem um READY
+		received_msg = xbee_read_line();
+
 	// quando o waitStart() retorna, volta ao setup() que por sua vez, vai para o loop()
-	if (received_msg.equals(RCV_READY))
+	if (received_msg == RCV_READY)
 	{
 		XBSerial.write("OK\r");
 		received_msg = xbee_read_line();  // aguarda prox msg
@@ -148,250 +159,53 @@ bool waitStart()
 			return false;
 		}
 	}
-	else
+	else if(received_msg == RCV_RESET)
 	{
 		throw_error(3);
 		return false;
 	}
 }
 
-// recebe mensagem de forma sincrona
-char receive_sync()
-{
-	while (XBSerial.available() < 1)
-	{ /* mantém no loop até receber dados */
-	}
-
-	// ao sair do while terá dado para ler
-	return XBSerial.read();
-}
-
-// funções para troca de mensagens com comando AT
-bool ATrcv_ok()
-{
-	while (XBSerial.available() < 3)
-	{ }
-
-	String msg = String();
-	msg += (char)XBSerial.read();
-	msg += (char)XBSerial.read();
-	msg += (char)XBSerial.read();
-	return (msg == "OK\r");
-}
-
-// envia comando ATDN para verificar se está conectado com o PC
-// seta flag "connected_to_pc"
-// se os endereços de destino não estiveram setados, esse comando automaticamente seta
-bool ATrcv_DN(String id)
-{
-	String rcv_msg = String();
-
-	// entrar no command mode
-	ATcmd();
-
-	// verifica conexao
-	XBSerial.print("ATDN" + id + "\r");
-	rcv_msg = xbee_read_line();
-
-	if (rcv_msg.equals("OK"))
-	{
-		connected_to_pc = true;
-		return true;
-	}
-	else if (rcv_msg.equals("ERROR"))
-	{
-		connected_to_pc = false;
-		return false;
-	}
-	else
-	{
-		throw_error(4);
-		return -1; // nunca executa esse "return", está aqui apenas para compilar
-	}
-	// ATDN: sai automaticamente do command mode após resposta
-}
-
-// atualiza variáveis do rssi do último pacote
-void ATrcv_DB()
-{
-	// entrar no command mode
-	ATcmd();
-	
-	// solicita info do RSSI do último pacote
-	XBSerial.print("ATDB\r");
-	while (XBSerial.available() < 3);
-	rssi_str = xbee_read_line();
-
-	// sair do command mode
-	XBSerial.print("ATCN\r");
-	if (!ATrcv_ok())
-		throw_error(1);
-
-	char temp_buf[2];
-	temp_buf[0] = rssi_str.charAt(0);
-	temp_buf[1] = rssi_str.charAt(1);
-
-	rssi_db = -1 * strtol(temp_buf, 0, 16);
-}
-
-void ATcmd() {
-	delay(XBEE_CMD_DELAY * 3);
-	XBSerial.print("+++");
-
-	delay(100);
-	if (!ATrcv_ok())
-		throw_error(1);
-}
-
-String xbee_read_line()
-{
-	String line = String();
-	char temp_char;
-	while (true)
-	{
-		// espera até ter o que ler
-		while (!XBSerial.available());
-
-		// verifica se é final de linha, se for vai para a proxima linha
-		temp_char = XBSerial.read();
-		if ((int) temp_char == '\r')
-			break;
-		else
-			line += temp_char;
-	}
-	return line;
-}
-
-void xbee_ignore_lines(int number_of_lines)
-{
-	for (int i = 0; i < number_of_lines; i++)
-	{
-		while (true)
-		{
-			// espera até ter o que ler
-			while (!XBSerial.available());
-
-			// verifica se é final de linha, se for vai para a proxima linha
-			if (XBSerial.read() == '\r')
-				break;
-		}
-
-		// a versão abaixo é para DEBUG, imprime as linhas sendo ignoradas...
-		//lcd.clear();
-		//lcd.print("ln" + String(i));
-		//lcd.setCursor(0, 1);
-		//while (true)
-		//{
-		//	// espera até ter o que ler
-		//	while (!XBSerial.available());
-		//	char c = XBSerial.read();
-		//	// verifica se é final de linha, se for vai para a proxima linha
-		//	if (c == '\r')
-		//		break;
-		//	else
-		//		lcd.print(c);
-		//}
-		//delay(1500);
-	}
-}
-
-void throw_error(int error_id)
-{
-	String ln1 = "!! ERRO " + String(error_id) + " !!";
-	String ln2 = String();
-
-	switch (error_id)
-	{
-		// erro ao tentar entrar no modo command, OK não foi retornado
-		case 1:
-			ln2 = "rcv AT OK fail";
-			break;
-		// ao conetar com outro XBee configurado com ID que não bate com PC_ID
-		case 2:
-			ln2 = "cnct XBee descnh";
-			break;
-		// caso o cliente esteja implementando o protocolo em DESACORDO com o arduino
-		case 3:
-			ln2 = "err de protocolo";
-			break;
-		// caso a resposta de um comando AT dê em algo inesperado
-		case 4:
-			ln2 = "err resp cmd AT";
-			break;
-		default:
-			ln2 = "erro descnh...";
-			break;
-	}
-	while(true);
-}
-
-void debug_print(String ln1) { debug_print(ln1, ""); }
-void debug_print(String ln1, String ln2)
-{
-	print_lcd_full(ln1, ln2); while (true);
-}
-
-void print_lcd_full(String line1) { print_lcd_full(line1, ""); }
-void print_lcd_full(String line1, String line2)
-{
-	lcd.clear();
-	lcd.print(line1);
-	lcd.setCursor(0, 1);
-	lcd.print(line2);
-}
-
-//	RSSI:
-//		db >= -50 db = 100% quality
-//		db <= -100 db = 0 % quality
-//  Between -50db and -100db:
-//      quality ~= 2 * (db + 100)
-//      RSSI ~= (percentage / 2) - 100
-//	For example :
-//		High quality : 90 % ~= -55db
-//		Medium quality : 50 % ~= -75db
-//		Low quality : 30 % ~= -85db
-//		Unusable quality : 8 % ~= -96db
-String rssi_to_perc(int rssi)
-{
-	if (rssi <= -96) return "8%";
-	else if (rssi < -85) return "10%";
-	else if (rssi <= -85) return "30%";
-	else if (rssi <= -75) return "50%";
-	else if (rssi < -50) return "90%";
-	else if (rssi >= -50) return "100%";
-	else return "..."; // nunca ocorre
-}
-
-// 3 chars no max
-String rssi_to_quality(int rssi)
-{
-	if (rssi <= -96) return "!Er";
-	else if (rssi < -85) return "!Lo";
-	else if (rssi <= -85) return "Low";
-	else if (rssi <= -75) return "Med";
-	else if (rssi < -50) return "Hi";
-	else if (rssi >= -50) return "Hi+";
-	else return "..."; // nunca ocorre
-}
-
 void loop()
 {
 	ler_dados();
-	print_lcd(); // TODO acrescentar timout para garantir piscar a 60fps?
 	EnviaXBee();
+
+	if (current_millis - prev_millis_lcd >= LCD_REFRESH_INTERVAL)
+	{
+		print_lcd();
+		prev_millis_lcd = current_millis;
+	}
+	
+	delay(XBEE_DELAY);
+
+	if (XBSerial.available())
+	{
+		//debug_print("ahhh: " + XBSerial.read());
+		String rcvMsg = xbee_read_line();
+		if (rcvMsg == RCV_RESET)
+		{
+			print_lcd_full("Reiniciando...");
+			delay(1500);
+			sync_before_start();
+		}
+		else // limpa buffer de entrada para nao atrapalhar comandos AT abaixo
+			while (XBSerial.available())
+				XBSerial.read();
+	}
 
 	// verifica se ainda está conectado ao PC e atualiza qualidade do sinal
 	if (CHECK_PC_SIGNAL)
 	{
-		// limpa buffer de entrada
 		while (XBSerial.available())
 			XBSerial.read();
+
 		// o current_millis é obtido no EnviaXBee, que é enviado ao PC
-		if (current_millis - previous_millis >= CHECK_CONN_INTERVAL)
+		if (current_millis - prev_millis_signal >= CHECK_CONN_INTERVAL)
 		{
 			if (ATrcv_DN(PC_ID))
 				ATrcv_DB();
-			previous_millis = current_millis;
+			prev_millis_signal = current_millis;
 		}
 	}
 }
@@ -554,20 +368,212 @@ void EnviaXBee()
 	XBSerial.print(String(SND_END) + "\r");
 }
 
+// recebe mensagem de forma sincrona
+char receive_sync()
+{
+	while (XBSerial.available() < 1)
+	{ /* mantém no loop até receber dados */
+	}
+
+	// ao sair do while terá dado para ler
+	return XBSerial.read();
+}
+
+// funções para troca de mensagens com comando AT
+bool ATrcv_ok()
+{
+	while (XBSerial.available() < 3)
+	{
+	}
+
+	String msg = String();
+	msg += (char)XBSerial.read();
+	msg += (char)XBSerial.read();
+	msg += (char)XBSerial.read();
+	return (msg == "OK\r");
+}
+
+// envia comando ATDN para verificar se está conectado com o PC
+// seta flag "connected_to_pc"
+// se os endereços de destino não estiveram setados, esse comando automaticamente seta
+bool ATrcv_DN(String id)
+{
+	String rcv_msg = String();
+
+	// entrar no command mode
+	ATcmd();
+
+	// verifica conexao
+	XBSerial.print("ATDN" + id + "\r");
+	rcv_msg = xbee_read_line();
+
+	if (rcv_msg.equals("OK"))
+	{
+		connected_to_pc = true;
+		return true;
+	}
+	else if (rcv_msg.equals("ERROR"))
+	{
+		connected_to_pc = false;
+		return false;
+	}
+	else
+	{
+		throw_error(4);
+		return -1; // nunca executa esse "return", está aqui apenas para compilar
+	}
+	// ATDN: sai automaticamente do command mode após resposta
+}
+
+// atualiza variáveis do rssi do último pacote
+void ATrcv_DB()
+{
+	// entrar no command mode
+	ATcmd();
+
+	// solicita info do RSSI do último pacote
+	XBSerial.print("ATDB\r");
+	while (XBSerial.available() < 3);
+	rssi_str = xbee_read_line();
+
+	// sair do command mode
+	XBSerial.print("ATCN\r");
+	if (!ATrcv_ok())
+		throw_error(1);
+
+	char temp_buf[2];
+	temp_buf[0] = rssi_str.charAt(0);
+	temp_buf[1] = rssi_str.charAt(1);
+
+	rssi_db = -1 * strtol(temp_buf, 0, 16);
+}
+
+void ATcmd() {
+	delay(XBEE_CMD_DELAY * 3);
+	XBSerial.print("+++");
+
+	delay(100);
+	if (!ATrcv_ok())
+		throw_error(1);
+}
+
+String xbee_read_line()
+{
+	String line = String();
+	char temp_char;
+	while (true)
+	{
+		// espera até ter o que ler
+		while (!XBSerial.available());
+
+		// verifica se é final de linha, se for vai para a proxima linha
+		temp_char = XBSerial.read();
+		if ((int)temp_char == '\r')
+			break;
+		else
+			line += temp_char;
+	}
+	return line;
+}
+
+void xbee_ignore_lines(int number_of_lines)
+{
+	for (int i = 0; i < number_of_lines; i++)
+	{
+		while (true)
+		{
+			// espera até ter o que ler
+			while (!XBSerial.available());
+
+			// verifica se é final de linha, se for vai para a proxima linha
+			if (XBSerial.read() == '\r')
+				break;
+		}
+	}
+}
+
+void throw_error(int error_id)
+{
+	String ln1 = "!! ERRO " + String(error_id) + " !!";
+	String ln2 = String();
+
+	switch (error_id)
+	{
+		// erro ao tentar entrar no modo command, OK não foi retornado
+	case 1:
+		ln2 = "rcv AT OK fail";
+		break;
+		// ao conetar com outro XBee configurado com ID que não bate com PC_ID
+	case 2:
+		ln2 = "cnct XBee descnh";
+		break;
+		// caso o cliente esteja implementando o protocolo em DESACORDO com o arduino
+	case 3:
+		ln2 = "err de protocolo";
+		break;
+		// caso a resposta de um comando AT dê em algo inesperado
+	case 4:
+		ln2 = "err resp cmd AT";
+		break;
+	default:
+		ln2 = "erro descnh...";
+		break;
+	}
+	while (true);
+}
+
+void debug_print(String ln1) { debug_print(ln1, ""); }
+void debug_print(String ln1, String ln2)
+{
+	print_lcd_full(ln1, ln2); while (true);
+}
+
+void print_lcd_full(String line1) { print_lcd_full(line1, ""); }
+void print_lcd_full(String line1, String line2)
+{
+	lcd.clear();
+	lcd.print(line1);
+	lcd.setCursor(0, 1);
+	lcd.print(line2);
+}
+
+//  Between -50db and -100db:
+//      quality ~= 2 * (db + 100)
+//      RSSI ~= (percentage / 2) - 100
+String rssi_to_perc(int rssi)
+{
+	if (rssi <= -96) return "8%";
+	else if (rssi < -85) return "10%";
+	else if (rssi <= -85) return "30%";
+	else if (rssi <= -75) return "50%";
+	else if (rssi < -50) return "90%";
+	else if (rssi >= -50) return "100%";
+	else return "..."; // nunca ocorre
+}
+
+// 3 chars no max
+String rssi_to_quality(int rssi)
+{
+	if (rssi <= -96) return "!Er";
+	else if (rssi < -85) return "!Lo";
+	else if (rssi <= -85) return "Low";
+	else if (rssi <= -75) return "Med";
+	else if (rssi < -50) return "Hi";
+	else if (rssi >= -50) return "Hi+";
+	else return "..."; // nunca ocorre
+}
+
 // envia um int pequeno (1 bytes) pela porta serial especificada
 void writeInt8(SoftwareSerial pSerial, int num)
 {
 	pSerial.write(lowByte(num)); // envia 1 byte (menos significativo apenas)
-	delay(XBEE_DELAY);
 }
 
 // envia um int completo (2 bytes) pela porta serial especificada
 void writeInt16(SoftwareSerial pSerial, int num)
 {
 	pSerial.write(lowByte(num)); // envia 1 byte (menos significativo apenas)
-	delay(XBEE_DELAY);
 	pSerial.write(highByte(num)); // envia 1 byte (mais significativo apenas)
-	delay(XBEE_DELAY);
 }
 
 void writeLong(SoftwareSerial pSerial, unsigned long num)
