@@ -87,9 +87,10 @@ void setup()
 	// espera 2 segundos para o XBee dar boot e o usuário ter um feedback visual
 	delay(2000);
 
-	// configura XBee e conecta com o PC
+	// configura Serial do XBee
 	XBSerial.begin(9600);
 
+	// conecta com o PC
 	if(connectToPC())
 	{
 		test_mode = false;
@@ -382,6 +383,9 @@ void loop()
 	// verifica se ainda está conectado ao PC e atualiza qualidade do sinal
 	if (CHECK_PC_SIGNAL)
 	{
+		// limpa buffer de entrada
+		while (XBSerial.available())
+			XBSerial.read();
 		// o current_millis é obtido no EnviaXBee, que é enviado ao PC
 		if (current_millis - previous_millis >= CHECK_CONN_INTERVAL)
 		{
@@ -531,20 +535,20 @@ void EnviaXBee()
 	delay(XBEE_DELAY);
 
 	// FREIO
-	//Ativado = 'L'; // TODO: remover, apenas teste!
 	XBSerial.print(Ativado); // envia para XBee o character
 	delay(XBEE_DELAY);
 
 	// TEMPERATURA
-	//Temp = 250; // TODO: remover, apenas teste!
 	writeInt16(XBSerial, Temp);
 
 	// RPM
-	//rpm3 = 2000; // TODO: remover, apenas teste!
 	writeInt16(XBSerial, rpm3);
 
-	//vel4 = 50; // TODO: remover, apenas teste!
+	// VELOCIDADE
 	writeInt8(XBSerial, vel4);
+
+	// RSSI (valor absoluto da qualidade do sinal recebido, precisa negativar no destino)
+	writeInt8(XBSerial, (-1*rssi_db));
 
 	// indica final do pacote
 	XBSerial.print(String(SND_END) + "\r");

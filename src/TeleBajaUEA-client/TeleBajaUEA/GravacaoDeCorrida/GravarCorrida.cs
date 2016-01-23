@@ -207,24 +207,24 @@ namespace TeleBajaUEA.GravacaoDeCorrida
 
         private void UpdateConnectionStatus()
         {
-            //switch (CarConnection.ConnStatus)
-            //{
-            //    case SignalStrg.Off:
-            //        imgConnStatus.Image = Properties.Resources.conn_off;
-            //        break;
-            //    case SignalStrg.Low:
-            //        imgConnStatus.Image = Properties.Resources.conn_low;
-            //        break;
-            //    case SignalStrg.Medium:
-            //        imgConnStatus.Image = Properties.Resources.conn_med;
-            //        break;
-            //    case SignalStrg.Good:
-            //        imgConnStatus.Image = Properties.Resources.conn_good;
-            //        break;
-            //    case SignalStrg.Excelent:
-            //        imgConnStatus.Image = Properties.Resources.conn_hi;
-            //        break;
-            //}
+            switch (CarConnection.ConnStatus)
+            {
+                case SignalStrg.Off:
+                    imgConnStatus.Image = Properties.Resources.conn_off;
+                    break;
+                case SignalStrg.Low:
+                    imgConnStatus.Image = Properties.Resources.conn_low;
+                    break;
+                case SignalStrg.Medium:
+                    imgConnStatus.Image = Properties.Resources.conn_med;
+                    break;
+                case SignalStrg.Good:
+                    imgConnStatus.Image = Properties.Resources.conn_good;
+                    break;
+                case SignalStrg.Excelent:
+                    imgConnStatus.Image = Properties.Resources.conn_hi;
+                    break;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

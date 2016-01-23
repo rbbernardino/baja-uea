@@ -4,9 +4,12 @@ using System.Threading.Tasks;
 using TeleBajaUEA.ClassesAuxiliares;
 using TeleBajaUEA.RaceDataStructs;
 using System;
+using System.Collections.Generic;
 
 namespace TeleBajaUEA
 {
+    public enum SignalStrg { Off, Low, Medium, Good, Excelent }
+
     // Essa classe � um Singleton para manter a conex�o com o Carro
     // Tamb�m encapsula a tradu��o entre Formato bytes XBee ---> Objeto do C#
     public sealed class CarConnection
@@ -14,7 +17,7 @@ namespace TeleBajaUEA
         public static bool AvaiablePortExists { get { return SerialPort.GetPortNames().Length > 0; } }
         public static int IncomeByteRate { get; private set; }
         public static int BytesToRead { get { return portXBee.BytesToReadExt; } }
-        public static bool ConnectedToCar { get; private set; }
+        public static SignalStrg ConnStatus { get; private set; } = SignalStrg.Off;
         public static int IgnoredDataPacket { get; private set; }
 
         private static event NewDataHandler NewDataArrived;
@@ -22,8 +25,8 @@ namespace TeleBajaUEA
 
         private static SerialPortExt portXBee;
 
-        private static int UPDATE_BYTE_RATE_INTERVAL = 1000;
         private static Timer timerUpdateByteRate;
+        private static int UPDATE_BYTE_RATE_INTERVAL = 1000;
         private static uint prevReceivedBytes;
 
         #region Protocol
@@ -81,7 +84,7 @@ namespace TeleBajaUEA
             timerUpdateByteRate = new Timer();
             timerUpdateByteRate.AutoReset = true;
             timerUpdateByteRate.Interval = UPDATE_BYTE_RATE_INTERVAL;
-            timerUpdateByteRate.Elapsed += TimerUpdateByteRate_Elapsed;
+            timerUpdateByteRate.Elapsed += TickUpdateByteRate;
             timerUpdateByteRate.Start();
             prevReceivedBytes = 0;
 
@@ -90,7 +93,7 @@ namespace TeleBajaUEA
             //DataGenerator.StartReceiveData();// TODO TESTE
         }
 
-        private static void TimerUpdateByteRate_Elapsed(object sender, ElapsedEventArgs e)
+        private static void TickUpdateByteRate(object sender, ElapsedEventArgs e)
         {
             uint curReceivedBytes = portXBee.TotalReceivedBytes;
 
@@ -99,7 +102,6 @@ namespace TeleBajaUEA
             prevReceivedBytes = curReceivedBytes;
         }
 
-        // TODO implentar encerrar conexão
         public static void CloseConnection()
         {
             if (portXBee != null && portXBee.IsOpen)
@@ -139,6 +141,8 @@ namespace TeleBajaUEA
             tmpTemperature = await portXBee.NextInt16();
             tmpRpm = await portXBee.NextInt16();
             tmpSpeed = await portXBee.NextInt8();
+
+            ConnStatus = RssiToQuality(-1*(await portXBee.NextInt8()));
 
             rcvMsg = await portXBee.ReadLineExt();
 
@@ -189,11 +193,13 @@ namespace TeleBajaUEA
         private async static Task<bool> TryHandshake()
         {
             string rcvMsg;
+
+            await ATcmd();
             if (await ATConnectedToCar())
             {
                 portXBee.WriteLine(XB_READY);
 
-                rcvMsg = await portXBee.ReadLineExt();
+                rcvMsg = await portXBee.ReadLineExt(); // TODO criar timeout para re-enviar READY
 
                 if (rcvMsg.Equals("OK"))
                     return true;
@@ -214,13 +220,23 @@ namespace TeleBajaUEA
             }
         }
 
+        private static SignalStrg RssiToQuality(int rssi)
+        {
+            if (rssi <= -96) return SignalStrg.Off;
+            else if (rssi <= -85) return SignalStrg.Low;
+            else if (rssi <= -75) return SignalStrg.Medium;
+            else if (rssi < -50) return SignalStrg.Good;
+            else if (rssi >= -50) return SignalStrg.Excelent;
+            else
+                throw (new System.Exception(
+                    "Erro ao atualizar qualidade do sinal, RSSI inválido!"));
+        }
+
         #region funcoes de interface com o XBee
+        // Obs: O XBee sai do command mode automaticamente após um ATDN
         private async static Task<bool> ATConnectedToCar()
         {
             string rcv_msg = "";
-
-            // entrar no command mode
-            await ATcmd();
 
             // verifica conexao
             portXBee.WriteLine("ATDN" + XBEE_CAR_ID);
@@ -240,6 +256,7 @@ namespace TeleBajaUEA
         }
 
         // TODO considerar acrescentar um timeout quando esperando pelo OK
+        // entra no command mode do XBee
         private async static Task ATcmd()
         {
             await Task.Delay(XBEE_CMD_DELAY);
