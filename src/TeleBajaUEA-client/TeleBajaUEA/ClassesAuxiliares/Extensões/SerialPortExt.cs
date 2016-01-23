@@ -14,7 +14,7 @@ namespace TeleBajaUEA.ClassesAuxiliares
         public int BytesToReadExt { get { return receivedDataQueue.Count; } }
 
         // tempo em milisegundos até "NextByte()" lance uma exceção se não receber dados
-        private readonly int DEFAULT_READ_TIMEOUT = 15000;
+        private readonly int DEFAULT_READ_TIMEOUT = 10000;
         private System.Timers.Timer timeoutRcvTimer;
         private bool timeoutRcvExceeded;
 
@@ -47,7 +47,7 @@ namespace TeleBajaUEA.ClassesAuxiliares
 
         // lê linha a partir do buffer ConcurrentQueue
         // considera um char como "NewLine", ao invés de uma string
-        public async Task<string> ReadLineExt() { return await ReadLineExt(DEFAULT_READ_TIMEOUT); }
+        public async Task<string> ReadLineExt() { return await ReadLineExt(0); }
         public async Task<string> ReadLineExt(int timeout)
         {
             string line = "";
@@ -62,10 +62,11 @@ namespace TeleBajaUEA.ClassesAuxiliares
         }
 
         // lê byte da ConcurrentQueue
-        public async Task<byte> NextByte() { return await NextByte(DEFAULT_READ_TIMEOUT); }
+        public async Task<byte> NextByte() { return await NextByte(0); }
         public async Task<byte> NextByte(int timeout)
         {
-            StartTimeoutTimer(timeout);
+            if(timeout != 0)
+                StartTimeoutTimer(timeout);
 
             byte rcvByte;
             while (!receivedDataQueue.TryDequeue(out rcvByte))
@@ -77,12 +78,13 @@ namespace TeleBajaUEA.ClassesAuxiliares
             }
 
             // quando sair do while, sucesso, logo desativa o timer
-            StopTimeoutTimer();
+            if (timeout != 0)
+                StopTimeoutTimer();
 
             return rcvByte;
         }
 
-        public async Task<char> NextChar() { return await NextChar(DEFAULT_READ_TIMEOUT); }
+        public async Task<char> NextChar() { return await NextChar(0); }
         public async Task<char> NextChar(int timeout)
         {
             return (char) (await NextByte(timeout));

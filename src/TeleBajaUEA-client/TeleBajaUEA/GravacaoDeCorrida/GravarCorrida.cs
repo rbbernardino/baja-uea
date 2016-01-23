@@ -24,6 +24,10 @@ namespace TeleBajaUEA.GravacaoDeCorrida
         // TODO criar timer para a cada 5min salvar os dados no arquivo temporario
         private Timer timerBackupData;
 
+        private Timer timerCheckConn;
+        private readonly int CHECK_CONN_INTERVAL = 5000;
+        private int prevBytesToRead;
+
         // o primeiro Millis será usado como referência (zero) do gráfico no eixo X
         private uint zeroMillis;
 
@@ -43,6 +47,23 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             timerBackupData = new Timer();
             timerBackupData.Interval = UPDATE_BACKUP_RATE;
             timerBackupData.Tick += new EventHandler(TickBackupData);
+
+            // Preparar timer que vai detectar quando perder conexao
+            timerCheckConn = new Timer();
+            timerCheckConn.Interval = CHECK_CONN_INTERVAL;
+            timerCheckConn.Tick += new EventHandler(TimerCheckConn_Tick);
+        }
+
+        private void TimerCheckConn_Tick(object sender, EventArgs e)
+        {
+            if (prevBytesToRead == CarConnection.BytesToRead)
+            {
+                imgConnStatus.Image = Properties.Resources.conn_off;
+                labelSemSinal.Visible = true;
+                labelForca.Visible = false;
+            }
+
+            prevBytesToRead = CarConnection.BytesToRead;
         }
 
         private void TickBackupData(object sender, EventArgs e)
@@ -62,6 +83,7 @@ namespace TeleBajaUEA.GravacaoDeCorrida
 
                 timerCheckIncomeData.Enabled = true;
                 timerBackupData.Enabled = true;
+                timerCheckConn.Enabled = true;
 
                 formStatusDaConexao = new StatusDaConexao(this);
                 formStatusDaConexao.Show();
@@ -98,20 +120,17 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             {
                 ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);
                 ReopenSetup();
-                return;
             }
             catch(ErrorMessage.ReceiveDataTimeoutException exception)
             {
                 ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);
                 ErrorMessage.Show(ErrorType.Info, ErrorReason.BackupWillBeSaved);
                 ReopenSetup();
-                return;
             }
             catch (Exception exception)
             {
                 ErrorMessage.Show(ErrorType.Error, ErrorReason.ReceiveFromCarFail, exception.Message);
                 ReopenSetup();
-                return;
             }
         }
 
@@ -224,6 +243,16 @@ namespace TeleBajaUEA.GravacaoDeCorrida
                 case SignalStrg.Excelent:
                     imgConnStatus.Image = Properties.Resources.conn_hi;
                     break;
+            }
+            if(CarConnection.ConnStatus == SignalStrg.Off)
+            {
+                labelSemSinal.Visible = true;
+                labelForca.Visible = false;
+            }
+            else
+            {
+                labelSemSinal.Visible = false;
+                labelForca.Visible = true;
             }
         }
 

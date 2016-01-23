@@ -47,6 +47,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.imgConnStatus = new System.Windows.Forms.PictureBox();
             this.labelSemSinal = new System.Windows.Forms.Label();
+            this.labelForca = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chartDinamic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgConnStatus)).BeginInit();
             this.SuspendLayout();
@@ -322,11 +323,25 @@
             this.labelSemSinal.Text = "Sem Sinal!";
             this.labelSemSinal.Visible = false;
             // 
+            // labelForca
+            // 
+            this.labelForca.AutoSize = true;
+            this.labelForca.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelForca.ForeColor = System.Drawing.Color.Black;
+            this.labelForca.Location = new System.Drawing.Point(84, 569);
+            this.labelForca.Name = "labelForca";
+            this.labelForca.Size = new System.Drawing.Size(95, 16);
+            this.labelForca.TabIndex = 29;
+            this.labelForca.Text = "Força do Sinal";
+            this.labelForca.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.labelForca.Visible = false;
+            // 
             // GravarCorrida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1064, 611);
+            this.Controls.Add(this.labelForca);
             this.Controls.Add(this.labelSemSinal);
             this.Controls.Add(this.imgConnStatus);
             this.Controls.Add(this.textFreio);
@@ -367,5 +382,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.PictureBox imgConnStatus;
         private System.Windows.Forms.Label labelSemSinal;
+        private System.Windows.Forms.Label labelForca;
     }
 }
