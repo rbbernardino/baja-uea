@@ -61,7 +61,7 @@ const int XBEE_DELAY = 20; // delay entre o envio de cada pacote
 const int XBEE_CMD_DELAY = 10; // parâmetro AT GT do XBee do carro
 const int CHECK_CONN_INTERVAL = 6000; // verifica sinal do PC a cada 1s
 
-const int LCD_REFRESH_INTERVAL = 1500; // tempo entre cada atualização do LCD
+const int LCD_REFRESH_INTERVAL = 250; // tempo entre cada atualização do LCD
 
  // flag para indicar se deve ou não checar qualidade do sinal DURANTE a gravação
 const bool CHECK_PC_SIGNAL = true;
@@ -74,7 +74,7 @@ unsigned long prev_millis_lcd;
 byte current_millisByte[4];
 
 bool connected_to_pc;
-bool test_mode; // indica se manda msg p/ PC ou apenas mostra leitura dos sensores
+bool offline_mode; // indica se manda msg p/ PC ou apenas mostra leitura dos sensores
 
 String rssi_str;
 int rssi_db; // byte do rssi em decibes (-28~-98 dB)
@@ -94,10 +94,14 @@ void setup()
 	// configura Serial do XBee
 	XBSerial.begin(9600);
 
+	xbee_setup();
+}
+
+void xbee_setup() {
 	// conecta com o PC
-	if(connectedToPC())
+	if (connectedToPC())
 	{
-		test_mode = false;
+		offline_mode = false;
 
 		print_lcd_full("Conectado!",
 			"Forca:" + rssi_to_perc(rssi_db) + " " + String(rssi_db) + "dB");
@@ -109,10 +113,10 @@ void setup()
 	{
 		print_lcd_full("Sinal nao encon-", "trado!");
 		delay(1500);
-		print_lcd_full("Iniciando no    ", "modo teste...");
+		print_lcd_full("Iniciando no    ", "modo offline...");
 		delay(1500);
 
-		test_mode = true;
+		offline_mode = true;
 	}
 }
 
@@ -169,19 +173,23 @@ bool waitStart()
 void loop()
 {
 	ler_dados();
-	EnviaXBee();
 
+	current_millis = millis();
 	if (current_millis - prev_millis_lcd >= LCD_REFRESH_INTERVAL)
 	{
 		print_lcd();
 		prev_millis_lcd = current_millis;
 	}
 	
+	EnviaXBee();
 	delay(XBEE_DELAY);
 
+	update_state();
+}
+
+void update_state() {
 	if (XBSerial.available())
 	{
-		//debug_print("ahhh: " + XBSerial.read());
 		String rcvMsg = xbee_read_line();
 		if (rcvMsg == RCV_RESET)
 		{
@@ -275,10 +283,13 @@ void ler_dados() {
 	//Leitor de tensão
 	valorLeitorTensao4 = analogRead(leitorTensao4);
 	VR4 = 5 * valorLeitorTensao4 / 1023; //1023 é o valor máximo digital para 5V
-	if (VR4>0.1)
+	if (VR4>0.001)
 	{
-		vel4 = ((3.6 * 2 * 3.1416*VR4)*(0.4));//equação que converte tensão em frequencia
+		vel4 = (0.6*2*3.1416*(((3000 * VR4)) / 3.04)*0.27)/3;
+											  //equação que converte tensão em frequencia
 											  //OBS: a última constante da fórmula acima é o raio da roda do Baja, em metros (1m/s=3.6km/h).
+											  //velocidade=(fator_conversao_m/min_km/h*2*pi*rpm*raio)/qtd_pontos_deteccao_sensor;
+		                                      
 	}
 	else
 	{
@@ -294,27 +305,32 @@ void print_lcd() {
 	if (Ativado == 'H')		 lcd.print("on ");
 	else if (Ativado == 'L') lcd.print("off");
 
+	lcd.print(" ");
+
 	//impressao do valor de temperatura (3 char)
 	lcd.print("T:" + String(Temp));
 	if (Temp < 100)
 		 lcd.print(" "); // min 50, 2 caracteres + 1 espaço
 
+	lcd.print(" ");
+
 	if (CHECK_PC_SIGNAL)
 	{
-		// impressao da forca do sinal - max 5 chars
-		if (test_mode)
-			lcd.print("<off>"); // quando nao conectado ao carro no inicio (setup)
-		else
+		// impressao da forca do sinal - max 4 chars
+		if (connected_to_pc)
 		{
-			if (connected_to_pc)
-			{
-				lcd.print("S:");
-				lcd.print(rssi_to_quality(rssi_db)); // rssi do último pacote (3chars)
-													 //lcd.print(rssi_db);
-			}
+			if (offline_mode)
+				offline_mode = false;
+
+			lcd.print("S:");
+			lcd.print(rssi_to_quality(rssi_db));
+			//lcd.print(rssi_db);
+		}
+		else
+			if (offline_mode)
+				lcd.print("NoSi"); // quando nao conectado ao carro no inicio (setup)
 			else
 				lcd.print("S:err"); // indica que não está conectado
-		}
 	}
 
 	lcd.setCursor(0, 1);  //posiciona o cursor na coluna 0 linha 1 do LCD.
@@ -551,16 +567,16 @@ String rssi_to_perc(int rssi)
 	else return "..."; // nunca ocorre
 }
 
-// 3 chars no max
+// 2 chars no max
 String rssi_to_quality(int rssi)
 {
-	if (rssi <= -96) return "!Er";
-	else if (rssi < -85) return "!Lo";
-	else if (rssi <= -85) return "Low";
-	else if (rssi <= -75) return "Med";
-	else if (rssi < -50) return "Hi";
-	else if (rssi >= -50) return "Hi+";
-	else return "..."; // nunca ocorre
+	if (rssi <= -96) return "!!";
+	else if (rssi < -85) return "!L";
+	else if (rssi <= -85) return "Lo";
+	else if (rssi <= -75) return "Md";
+	else if (rssi < -50) return "H";
+	else if (rssi >= -50) return "H+";
+	else return ".."; // nunca ocorre
 }
 
 // envia um int pequeno (1 bytes) pela porta serial especificada

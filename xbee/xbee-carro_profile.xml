@@ -2,38 +2,35 @@
 
 <data>
   <profile>
-    <description_file>XB2B-WF-2026.xml</description_file>
+    <description_file>XBP9B_8071.xml</description_file>
     <settings>
+      <setting command="CM">00FEFAF0BF0FF7FFFF</setting>
+      <setting command="HP">3</setting>
+      <setting command="ID">4A5F</setting>
+      <setting command="MT">3</setting>
       <setting command="PL">4</setting>
-      <setting command="AH">2</setting>
-      <setting command="CE">2</setting>
-      <setting command="ID">TeleBaja-UEA</setting>
-      <setting command="EE">0</setting>
-      <setting command="PK"></setting>
-      <setting command="IP">1</setting>
-      <setting command="MA">1</setting>
-      <setting command="TM">64</setting>
-      <setting command="TS">258</setting>
-      <setting command="DO">3</setting>
-      <setting command="EQ">devicecloud.digi.com</setting>
-      <setting command="NS">208.67.222.222</setting>
-      <setting command="DL">192.168.0.20</setting>
-      <setting command="NI">0x20</setting>
-      <setting command="KP">0x20</setting>
-      <setting command="KC">0x20</setting>
-      <setting command="KL">0x20</setting>
-      <setting command="C0">2616</setting>
-      <setting command="DE">2616</setting>
-      <setting command="GW">192.168.0.1</setting>
-      <setting command="MK">255.255.255.0</setting>
-      <setting command="MY">192.168.0.10</setting>
+      <setting command="RR">A</setting>
+      <setting command="CE">0</setting>
+      <setting command="BH">0</setting>
+      <setting command="NH">1</setting>
+      <setting command="MR">1</setting>
+      <setting command="NN">3</setting>
+      <setting command="DH">13A200</setting>
+      <setting command="DL">40C366B9</setting>
+      <setting command="TO">C0</setting>
+      <setting command="NI">XBEE_CARRO</setting>
+      <setting command="NT">20</setting>
+      <setting command="NO">4</setting>
+      <setting command="CI">11</setting>
+      <setting command="EE">1</setting>
+      <setting command="KY"></setting>
       <setting command="BD">3</setting>
       <setting command="NB">0</setting>
       <setting command="SB">0</setting>
       <setting command="RO">3</setting>
-      <setting command="FT">7F3</setting>
+      <setting command="FT">13F</setting>
       <setting command="AP">0</setting>
-      <setting command="AO">2</setting>
+      <setting command="AO">0</setting>
       <setting command="D0">1</setting>
       <setting command="D1">0</setting>
       <setting command="D2">0</setting>
@@ -51,7 +48,6 @@
       <setting command="P4">1</setting>
       <setting command="PD">7FFF</setting>
       <setting command="PR">7FFF</setting>
-      <setting command="DS">0</setting>
       <setting command="M0">0</setting>
       <setting command="M1">0</setting>
       <setting command="LT">0</setting>
@@ -60,31 +56,16 @@
       <setting command="IC">0</setting>
       <setting command="IF">1</setting>
       <setting command="IR">0</setting>
-      <setting command="OM">7FFF</setting>
-      <setting command="T0">0</setting>
-      <setting command="T1">0</setting>
-      <setting command="T2">0</setting>
-      <setting command="T3">0</setting>
-      <setting command="T4">0</setting>
-      <setting command="T5">0</setting>
-      <setting command="T6">0</setting>
-      <setting command="T7">0</setting>
-      <setting command="T8">0</setting>
-      <setting command="T9">0</setting>
-      <setting command="Q0">0</setting>
-      <setting command="Q1">0</setting>
-      <setting command="Q2">0</setting>
-      <setting command="Q3">0</setting>
-      <setting command="Q4">0</setting>
-      <setting command="SA">2710</setting>
       <setting command="SM">0</setting>
-      <setting command="SO">100</setting>
-      <setting command="SP">1F4</setting>
-      <setting command="ST">1388</setting>
+      <setting command="SO">2</setting>
+      <setting command="SN">1</setting>
+      <setting command="SP">12C</setting>
+      <setting command="ST">BB8</setting>
       <setting command="WH">0</setting>
       <setting command="CC">2B</setting>
-      <setting command="CT">64</setting>
-      <setting command="GT">3E8</setting>
+      <setting command="CT">5</setting>
+      <setting command="GT">A</setting>
+      <setting command="DD">B0000</setting>
     </settings>
   </profile>
 </data>
