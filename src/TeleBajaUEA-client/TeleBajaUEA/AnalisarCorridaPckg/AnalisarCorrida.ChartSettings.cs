@@ -46,9 +46,16 @@ namespace TeleBajaUEA
         // -------------------- Configurações de Linha ------------------//
         private readonly int LINE_WIDTH = 1;
         private readonly int BRAKE_LINE_WIDTH = 2;
+
+        // Cores
         private readonly Color SPEED_COLOR = Color.Red;
+        private readonly Color SPEED_MARKER_COLOR = Color.LightCoral;
+
         private readonly Color RPM_COLOR = Color.Yellow;
+        private readonly Color RPM_MARKER_COLOR = Color.Gold;
+
         private readonly Color BRAKE_COLOR = Color.Green;
+        private readonly Color BRAKE_MARKER_COLOR = Color.Lime;
 
         private readonly double AUX_SPEED_LINE_WIDTH = 1;
         private readonly Color AVG_SPEED_COLOR = Color.Orange;
@@ -56,7 +63,7 @@ namespace TeleBajaUEA
         private readonly Color MIN_SPEED_COLOR = Color.Olive;
 
         // -------------------- Outras Configurações ------------------------//
-        private readonly int POINT_MARKER_SIZE = 5;
+        // ...
 
         // ------------------ Variáveis de controle interno ----------------//
         // variável para controlar o quanto os limites vão variar quando apertar "<" ou ">"
@@ -83,6 +90,9 @@ namespace TeleBajaUEA
             // configura linhas dos gráficos
             SetSeriesStyle();
             SetLegendsStyle();
+
+            // configura marcadores (seleção de ponto)
+            SetMarkerSeries();
 
             // define valores, intervalos e labels dos eixos
             SetXAxis();
@@ -129,19 +139,44 @@ namespace TeleBajaUEA
         private void SetSeriesStyle()
         {
             // Configurando a plotagem da velocidade
-            chartsNew.Series["Speed"].ChartType = SeriesChartType.FastLine;
             chartsNew.Series["Speed"].Color = SPEED_COLOR;
+            chartsNew.Series["Speed"].MarkerColor = SPEED_COLOR;
             chartsNew.Series["Speed"].BorderWidth = LINE_WIDTH;
 
             // Configurando a plotagem do RPM
-            chartsNew.Series["RPM"].ChartType = SeriesChartType.FastLine;
             chartsNew.Series["RPM"].Color = RPM_COLOR;
+            chartsNew.Series["RPM"].MarkerColor = RPM_COLOR;
             chartsNew.Series["RPM"].BorderWidth = LINE_WIDTH;
 
             // Configurando a plotagem do RPM
-            chartsNew.Series["Brake"].ChartType = SeriesChartType.FastLine;
             chartsNew.Series["Brake"].Color = BRAKE_COLOR;
+            chartsNew.Series["Brake"].MarkerColor = BRAKE_COLOR;
             chartsNew.Series["Brake"].BorderWidth = BRAKE_LINE_WIDTH;
+        }
+
+        private void SetMarkerSeries()
+        {
+            // Cores
+            chartsNew.Series["SpeedMarker"].Color = SPEED_MARKER_COLOR;
+            chartsNew.Series["RPMMarker"].Color = RPM_MARKER_COLOR;
+            chartsNew.Series["BrakeMarker"].Color = BRAKE_MARKER_COLOR;
+
+            // Estilo ou formato
+            chartsNew.Series["SpeedMarker"].MarkerStyle = MarkerStyle.Circle;
+            chartsNew.Series["RPMMarker"].MarkerStyle = MarkerStyle.Circle;
+            chartsNew.Series["BrakeMarker"].MarkerStyle = MarkerStyle.Circle;
+
+            // Tamanho
+            chartsNew.Series["RPMMarker"].BorderWidth = LINE_WIDTH + 3;
+
+            // inicializa com o primeiro ponto
+            lastFocusedPoint["SpeedMarker"] = new DataPoint(0, 0);
+            lastFocusedPoint["RPMMarker"] = new DataPoint(0, 0);
+            lastFocusedPoint["BrakeMarker"] = new DataPoint(0, 0);
+
+            chartsNew.Series["SpeedMarker"].Points.Add(lastFocusedPoint["SpeedMarker"]);
+            chartsNew.Series["RPMMarker"].Points.Add(lastFocusedPoint["RPMMarker"]);
+            chartsNew.Series["BrakeMarker"].Points.Add(lastFocusedPoint["BrakeMarker"]);
         }
 
         private void SetXAxis()
@@ -239,7 +274,6 @@ namespace TeleBajaUEA
                 // Intervalo entre as linhas de trás/apoio/fundo (grid)
                 chartArea.AxisX.MajorGrid.Interval = xInterval;
             }
-            pointMarker.Size = new Size(POINT_MARKER_SIZE, POINT_MARKER_SIZE);
         }
 
         #endregion

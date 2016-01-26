@@ -21,11 +21,10 @@ namespace TeleBajaUEA
 
         private Stack<ChartArea> zoomedAreaStack = new Stack<ChartArea>();
 
-        private Point focusedPoint;
-        private bool showPointMark;
-
         // DataSize indica a quantidade de pontos e o valor máximo do eixo X
         private double DataSize { get; }
+
+        private Dictionary<string, DataPoint> lastFocusedPoint = new Dictionary<string, DataPoint>(3);
 
         enum ScrollDirection
         {
@@ -55,10 +54,6 @@ namespace TeleBajaUEA
             foreach (Control control in this.Controls)
                 control.PreviewKeyDown += new PreviewKeyDownEventHandler(control_PreviewKeyDown);
             chartsNew.MouseWheel += new MouseEventHandler(chartsNew_MouseWheel);
-
-            // oculta marcador de ponto inicialmente
-            pointMarker.Visible = false;
-            focusedPoint = new Point();
         }
 
         void control_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -82,9 +77,9 @@ namespace TeleBajaUEA
         private void chartsNew_MouseMove(object sender, MouseEventArgs e)
         {
             ShowPointToolTip(e);
-            
+
             // TODO corrigir posição do pointMark
-            //ShowPointMark(e);
+            ShowPointMark(e);
             //TryMouseScroll(e);   DESATIVADO, ver comentário em AnalisarCorrida.MouseWheel
         }
 
@@ -99,28 +94,22 @@ namespace TeleBajaUEA
             if (results.Length >= 1 && results[0].ChartElementType != ChartElementType.Nothing)
             {
                 ChartArea chartArea = results[0].ChartArea;
+                string markerName = chartArea.Name + "Marker";
 
                 if (chartArea.AxisX.Maximum < chartArea.AxisX.PixelPositionToValue(mousePos.X))
                     return;
 
+                // obtém posição do mouse em valores do gráfico
                 double mouseXValue = chartArea.AxisX.PixelPositionToValue(mousePos.X);
                 double mouseYValue = chartArea.AxisY.PixelPositionToValue(mousePos.Y);
-                DataPoint plotPoint = FindPlotPoint(chartArea, mouseXValue, mouseYValue);
 
-                //var plotY = results[0].ChartArea.AxisY.PixelPositionToValue(mousePos.Y);
-                //labelY.Text = results[0].ChartElementType + ": " + plotY.ToString();
-                labelY.Text = "Y: " + plotPoint.ToString();
+                // obtém o ponto no gráfico mais próximo à posição do mouse
+                DataPoint focusedPoint = FindPlotPoint(chartArea, mouseXValue, mouseYValue);
 
-                focusedPoint.X = (int) chartArea.AxisX.ValueToPixelPosition(plotPoint.XValue);
-                focusedPoint.Y = (int) chartArea.AxisY.ValueToPixelPosition(plotPoint.YValues[0]);
-                showPointMark = true;
-
-                pointMarker.BackColor = chartsNew.Series[chartArea.Name].Color;
-            }
-            else
-            {
-                labelY.Text = "";
-                showPointMark = false;
+                // atualiza atual ponto sendo destacado
+                chartsNew.Series[markerName].Points.Remove(lastFocusedPoint[markerName]);
+                lastFocusedPoint[markerName] = focusedPoint;
+                chartsNew.Series[markerName].Points.Add(focusedPoint);
             }
         }
 
@@ -392,19 +381,7 @@ namespace TeleBajaUEA
             UpdateButtonsState();
         }
 
-        private void chartsNew_Paint(object sender, PaintEventArgs e)
-        {
-            if (showPointMark)
-            {
-                pointMarker.Location = focusedPoint;
-                pointMarker.Visible = true;
-            }
-            else
-            {
-                pointMarker.Visible = false;
-            }
-        }
-
+        #region DESATIVADO: scroll com mouse wheel {...}
         // ----------------- O código abaixo está desativado ----------------//
         // ver comentário em AnalisarCorrida.MouseWheel.cs
         private void chartsNew_MouseDown(object sender, MouseEventArgs e)
@@ -429,5 +406,6 @@ namespace TeleBajaUEA
         {
             //MouseWheelScroll(e);
         }
+        #endregion
     }
 }
