@@ -76,10 +76,9 @@ namespace TeleBajaUEA
 
         private void chartsNew_MouseMove(object sender, MouseEventArgs e)
         {
-            ShowPointToolTip(e);
-
-            // TODO corrigir posição do pointMark
+            ShowPointToolTip(e); // TODO melhorar feedback de qual ponto está selecionado
             ShowPointMark(e);
+            
             //TryMouseScroll(e);   DESATIVADO, ver comentário em AnalisarCorrida.MouseWheel
         }
 
@@ -122,20 +121,9 @@ namespace TeleBajaUEA
             double minX = chartArea.AxisX.ScaleView.ViewMinimum;
             double maxX = chartArea.AxisX.ScaleView.ViewMaximum;
 
-            FileSensorsData searchData = new FileSensorsData();
-            searchData.xValue = (uint) mouseX;
-
             if ((mouseX > minX) && (mouseX <= maxX))
             {
-                int plotPointIndex;
-                int searchResultIndex = raceData.DataList.BinarySearch(searchData, new PointXComparer());
-                if (searchResultIndex < 0)
-                {// TODO finalizar lógica de ver qual o mais perto (index ou index-1)
-                    //if(raceData.DataList[~searchResultIndex].xValue - searchData.xValue)
-                    plotPointIndex = ~searchResultIndex;
-                }
-                else
-                    plotPointIndex = searchResultIndex;
+                int plotPointIndex = FindPlotPointIndex(mouseX);
 
                 FileSensorsData resultData = raceData.DataList.ElementAt(plotPointIndex);
 
@@ -159,7 +147,45 @@ namespace TeleBajaUEA
                 return plotPoint;
             }
             else
-                return new DataPoint(); // TODO tratar melhor esse caso
+                return new DataPoint(); // TODO tratar melhor esse caso, talvez remover marker?
+        }
+
+        // Função que de fato faz a busca e determina qual o ponto mais próximo
+        // do mouse
+        private int FindPlotPointIndex(double mouseX)
+        {
+            FileSensorsData searchData = new FileSensorsData();
+            searchData.xValue = (uint)mouseX;
+
+            int searchResultIndex = raceData.DataList.BinarySearch(searchData, new PointXComparer());
+
+            // Se o mouse não estiver precisamente em cima de um ponto, é preciso
+            // procurar o ponto mais próximo da posição do mouse
+            if (searchResultIndex < 0)
+            {
+                int resultPointIndex = ~searchResultIndex;
+                if (resultPointIndex > 0)
+                {
+                    // PointXComparer sempre retorna a folha da direita na busca
+                    int rightPointIndex = resultPointIndex;
+                    int leftPointIndex = resultPointIndex - 1;
+
+                    double rightPointX = raceData.DataList[rightPointIndex].xValue;
+                    double leftPointX = raceData.DataList[leftPointIndex].xValue;
+
+                    double rightDist = rightPointX - mouseX;
+                    double leftDist = mouseX - leftPointX;
+
+                    if (rightDist < leftDist)
+                        return rightPointIndex;
+                    else
+                        return leftPointIndex;
+                }
+                else
+                    return resultPointIndex;
+            }
+            else
+                return searchResultIndex;
         }
 
         private class PointXComparer : IComparer<FileSensorsData>
@@ -179,10 +205,12 @@ namespace TeleBajaUEA
         private void ShowPointToolTip(MouseEventArgs e)
         {
             var pos = e.Location;
+
             if (prevPosition.HasValue && pos == prevPosition.Value)
                 return;
             toolTipPoint.RemoveAll();
             prevPosition = pos;
+
             var results = chartsNew.HitTest(pos.X, pos.Y, false,
                                             ChartElementType.DataPoint);
 
@@ -190,17 +218,17 @@ namespace TeleBajaUEA
             {
                 if (result.ChartElementType == ChartElementType.DataPoint)
                 {
-                    var prop = result.Object as DataPoint;
-                    if (prop != null)
+                    var selectedPoint = result.Object as DataPoint;
+                    if (selectedPoint != null)
                     {
-                        var pointXPixel = result.ChartArea.AxisX.ValueToPixelPosition(prop.XValue);
-                        var pointYPixel = result.ChartArea.AxisY.ValueToPixelPosition(prop.YValues[0]);
+                        var pointXPixel = result.ChartArea.AxisX.ValueToPixelPosition(selectedPoint.XValue);
+                        var pointYPixel = result.ChartArea.AxisY.ValueToPixelPosition(selectedPoint.YValues[0]);
 
                         // check if the cursor is really close to the point (2 pixels around)
-                        if (Math.Abs(pos.X - pointXPixel) < 4 &&
-                            Math.Abs(pos.Y - pointYPixel) < 4)
+                        if (Math.Abs(pos.X - pointXPixel) < 2 &&
+                            Math.Abs(pos.Y - pointYPixel) < 2)
                         {
-                            toolTipPoint.Show("Y= " + prop.YValues[0], chartsNew,
+                            toolTipPoint.Show("Y= " + selectedPoint.YValues[0], chartsNew,
                                             pos.X, pos.Y - 15);
                             //toolTipPoint.Show("X=" + prop.XValue + ", Y=" + prop.YValues[0], chartsNew,
                             //                pos.X, pos.Y - 15);

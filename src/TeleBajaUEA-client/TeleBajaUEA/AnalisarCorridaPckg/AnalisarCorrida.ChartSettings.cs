@@ -49,10 +49,10 @@ namespace TeleBajaUEA
 
         // Cores
         private readonly Color SPEED_COLOR = Color.Red;
-        private readonly Color SPEED_MARKER_COLOR = Color.LightCoral;
+        private readonly Color SPEED_MARKER_COLOR = Color.OrangeRed;//Color.LightCoral;
 
         private readonly Color RPM_COLOR = Color.Yellow;
-        private readonly Color RPM_MARKER_COLOR = Color.Gold;
+        private readonly Color RPM_MARKER_COLOR = Color.Orange;//Color.Gold;
 
         private readonly Color BRAKE_COLOR = Color.Green;
         private readonly Color BRAKE_MARKER_COLOR = Color.Lime;
