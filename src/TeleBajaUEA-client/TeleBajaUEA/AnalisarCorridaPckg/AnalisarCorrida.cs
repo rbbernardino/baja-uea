@@ -257,7 +257,7 @@ namespace TeleBajaUEA
                         {
                             toolTipPoint.Show("Y= " + selectedPoint.YValues[0], chartsNew,
                                             pos.X, pos.Y - 15);
-                            //toolTipPoint.Show("X=" + prop.XValue + ", Y=" + prop.YValues[0], chartsNew,
+                            //toolTipPoint.Show("X=" + selectedPoint.XValue + ", Y=" + selectedPoint.YValues[0], chartsNew,
                             //                pos.X, pos.Y - 15);
                         }
                     }
@@ -296,6 +296,9 @@ namespace TeleBajaUEA
 
             // seta a velocidade max/media/min
             CreateStripLines(maxSpeed, avgSpeed, minSpeed);
+            labelMaxSpeed.Text = maxSpeed + " km/h";
+            labelMedSpeed.Text = avgSpeed.ToString("0.00") + " km/h";
+            labelMinSpeed.Text = minSpeed + " km/h";
         }
 
         private void AddPoint(string serie, double x, double y)
@@ -424,9 +427,14 @@ namespace TeleBajaUEA
         // evento chamado ao término de dar zoom após o usuário ter selecionado
         private void chartsNew_SelectionRangeChanged(object sender, CursorEventArgs e)
         {
-            zoomedAreaStack.Push(e.ChartArea);
-            ScaleViewSize = e.ChartArea.AxisX.ScaleView.Size;
-            UpdateCharts();
+            if(e.NewSelectionStart != e.NewSelectionEnd)
+            {
+                zoomedAreaStack.Push(e.ChartArea);
+                ScaleViewSize = e.ChartArea.AxisX.ScaleView.Size;
+                UpdateCharts();
+            }
+            if (e.NewSelectionStart - e.NewSelectionEnd < MIN_SELECTION_RANGE)
+                e.NewSelectionStart = e.NewSelectionEnd;
         }
 
         private void UpdateCharts()

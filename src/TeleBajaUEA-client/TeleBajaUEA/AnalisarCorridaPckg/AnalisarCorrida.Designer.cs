@@ -47,15 +47,21 @@
             this.btVerSetup = new System.Windows.Forms.Button();
             this.btZoomOut = new System.Windows.Forms.Button();
             this.btZoomIn = new System.Windows.Forms.Button();
-            this.btbtScrollLeft = new System.Windows.Forms.Button();
-            this.btScrollRight = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.labelRPM = new System.Windows.Forms.Label();
             this.labelSpeed = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.labelMinSpeed = new System.Windows.Forms.Label();
+            this.labelMedSpeed = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.labelMaxSpeed = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chartsNew)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btVoltar
@@ -189,7 +195,7 @@
             this.btZoomOut.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btZoomOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btZoomOut.Image = global::TeleBajaUEA.Properties.Resources.zoom_out;
-            this.btZoomOut.Location = new System.Drawing.Point(536, 647);
+            this.btZoomOut.Location = new System.Drawing.Point(586, 627);
             this.btZoomOut.Name = "btZoomOut";
             this.btZoomOut.Size = new System.Drawing.Size(40, 40);
             this.btZoomOut.TabIndex = 18;
@@ -201,38 +207,12 @@
             this.btZoomIn.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btZoomIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btZoomIn.Image = global::TeleBajaUEA.Properties.Resources.zoom_in;
-            this.btZoomIn.Location = new System.Drawing.Point(490, 647);
+            this.btZoomIn.Location = new System.Drawing.Point(540, 627);
             this.btZoomIn.Name = "btZoomIn";
             this.btZoomIn.Size = new System.Drawing.Size(40, 40);
             this.btZoomIn.TabIndex = 17;
             this.btZoomIn.UseVisualStyleBackColor = true;
             this.btZoomIn.Click += new System.EventHandler(this.btZoomIn_Click);
-            // 
-            // btbtScrollLeft
-            // 
-            this.btbtScrollLeft.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btbtScrollLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btbtScrollLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.btbtScrollLeft.Image = global::TeleBajaUEA.Properties.Resources.arrow_left_minus;
-            this.btbtScrollLeft.Location = new System.Drawing.Point(444, 642);
-            this.btbtScrollLeft.Name = "btbtScrollLeft";
-            this.btbtScrollLeft.Size = new System.Drawing.Size(40, 48);
-            this.btbtScrollLeft.TabIndex = 12;
-            this.btbtScrollLeft.UseVisualStyleBackColor = true;
-            this.btbtScrollLeft.Click += new System.EventHandler(this.btScrollLeft_Click);
-            // 
-            // btScrollRight
-            // 
-            this.btScrollRight.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btScrollRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btScrollRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.btScrollRight.Image = global::TeleBajaUEA.Properties.Resources.arrow_right_plus;
-            this.btScrollRight.Location = new System.Drawing.Point(582, 642);
-            this.btScrollRight.Name = "btScrollRight";
-            this.btScrollRight.Size = new System.Drawing.Size(40, 48);
-            this.btScrollRight.TabIndex = 11;
-            this.btScrollRight.UseVisualStyleBackColor = true;
-            this.btScrollRight.Click += new System.EventHandler(this.btScrollRight_Click);
             // 
             // groupBox1
             // 
@@ -289,13 +269,89 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Velocidade:";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox2.Controls.Add(this.labelMinSpeed);
+            this.groupBox2.Controls.Add(this.labelMedSpeed);
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.labelMaxSpeed);
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupBox2.Location = new System.Drawing.Point(321, 622);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(197, 96);
+            this.groupBox2.TabIndex = 20;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Velocidade";
+            // 
+            // labelMinSpeed
+            // 
+            this.labelMinSpeed.AutoSize = true;
+            this.labelMinSpeed.Location = new System.Drawing.Point(109, 70);
+            this.labelMinSpeed.Name = "labelMinSpeed";
+            this.labelMinSpeed.Size = new System.Drawing.Size(58, 17);
+            this.labelMinSpeed.TabIndex = 7;
+            this.labelMinSpeed.Text = "00 km/h";
+            this.labelMinSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelMedSpeed
+            // 
+            this.labelMedSpeed.AutoSize = true;
+            this.labelMedSpeed.Location = new System.Drawing.Point(87, 47);
+            this.labelMedSpeed.Name = "labelMedSpeed";
+            this.labelMedSpeed.Size = new System.Drawing.Size(78, 17);
+            this.labelMedSpeed.TabIndex = 6;
+            this.labelMedSpeed.Text = "00,00 km/h";
+            this.labelMedSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label7.Location = new System.Drawing.Point(25, 70);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(56, 17);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Mínima:";
+            // 
+            // labelMaxSpeed
+            // 
+            this.labelMaxSpeed.AutoSize = true;
+            this.labelMaxSpeed.Location = new System.Drawing.Point(107, 25);
+            this.labelMaxSpeed.Name = "labelMaxSpeed";
+            this.labelMaxSpeed.Size = new System.Drawing.Size(58, 17);
+            this.labelMaxSpeed.TabIndex = 3;
+            this.labelMaxSpeed.Text = "00 km/h";
+            this.labelMaxSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label5.Location = new System.Drawing.Point(31, 47);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(50, 17);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Média:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label6.Location = new System.Drawing.Point(19, 24);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(59, 17);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Máxima:";
+            // 
             // AnalisarCorrida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1064, 722);
-            this.Controls.Add(this.btScrollRight);
-            this.Controls.Add(this.btbtScrollLeft);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btZoomOut);
             this.Controls.Add(this.btZoomIn);
@@ -309,6 +365,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartsNew)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -316,8 +374,6 @@
         #endregion
 
         private System.Windows.Forms.Button btVoltar;
-        private System.Windows.Forms.Button btScrollRight;
-        private System.Windows.Forms.Button btbtScrollLeft;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartsNew;
         private System.Windows.Forms.Button btVerSetup;
         private System.Windows.Forms.Button btZoomIn;
@@ -327,5 +383,12 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelSpeed;
         private System.Windows.Forms.Label labelRPM;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label labelMinSpeed;
+        private System.Windows.Forms.Label labelMedSpeed;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label labelMaxSpeed;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }

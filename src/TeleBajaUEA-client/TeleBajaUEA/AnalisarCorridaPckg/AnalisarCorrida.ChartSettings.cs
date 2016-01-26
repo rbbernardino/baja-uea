@@ -63,7 +63,7 @@ namespace TeleBajaUEA
         private readonly Color MIN_SPEED_COLOR = Color.Olive;
 
         // -------------------- Outras Configurações ------------------------//
-        // ...
+        private readonly double MIN_SELECTION_RANGE = 20000;
 
         // ------------------ Variáveis de controle interno ----------------//
         // variável para controlar o quanto os limites vão variar quando apertar "<" ou ">"
@@ -200,6 +200,11 @@ namespace TeleBajaUEA
                 chartArea.AxisX.ScrollBar.Size = 16;
                 chartArea.AxisX.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;
 
+                if(raceData.DataList.Last().xValue >= 20000)
+                {
+                    chartArea.AxisX.ScaleView.MinSizeType = DateTimeIntervalType.Number;
+                    chartArea.AxisX.ScaleView.MinSize = 20000;
+                }
             }
             // o gráfico exibirá a princípio todos os pontos e, então,
             // é dado um zoom inicial do tamanho mínimo predefinido
