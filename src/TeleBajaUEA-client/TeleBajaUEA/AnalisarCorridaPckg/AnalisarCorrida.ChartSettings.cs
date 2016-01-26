@@ -161,22 +161,13 @@ namespace TeleBajaUEA
             chartsNew.Series["RPMMarker"].Color = RPM_MARKER_COLOR;
             chartsNew.Series["BrakeMarker"].Color = BRAKE_MARKER_COLOR;
 
-            // Estilo ou formato
-            chartsNew.Series["SpeedMarker"].MarkerStyle = MarkerStyle.Circle;
-            chartsNew.Series["RPMMarker"].MarkerStyle = MarkerStyle.Circle;
-            chartsNew.Series["BrakeMarker"].MarkerStyle = MarkerStyle.Circle;
-
-            // Tamanho
-            chartsNew.Series["RPMMarker"].BorderWidth = LINE_WIDTH + 3;
-
-            // inicializa com o primeiro ponto
-            lastFocusedPoint["SpeedMarker"] = new DataPoint(0, 0);
-            lastFocusedPoint["RPMMarker"] = new DataPoint(0, 0);
-            lastFocusedPoint["BrakeMarker"] = new DataPoint(0, 0);
-
-            chartsNew.Series["SpeedMarker"].Points.Add(lastFocusedPoint["SpeedMarker"]);
-            chartsNew.Series["RPMMarker"].Points.Add(lastFocusedPoint["RPMMarker"]);
-            chartsNew.Series["BrakeMarker"].Points.Add(lastFocusedPoint["BrakeMarker"]);
+            // Configurações comum a todos
+            foreach (string markerName in new List<string>() { "SpeedMarker", "RPMMarker", "BrakeMarker" })
+            {
+                chartsNew.Series[markerName].MarkerStyle = MarkerStyle.Circle;
+                lastFocusedPoint[markerName] = new DataPoint(0, 0);
+                chartsNew.Series[markerName].Points.Add(lastFocusedPoint[markerName]);
+            }
         }
 
         private void SetXAxis()

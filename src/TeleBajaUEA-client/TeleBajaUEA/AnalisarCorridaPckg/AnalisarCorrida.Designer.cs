@@ -49,16 +49,22 @@
             this.btZoomIn = new System.Windows.Forms.Button();
             this.btbtScrollLeft = new System.Windows.Forms.Button();
             this.btScrollRight = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelRPM = new System.Windows.Forms.Label();
+            this.labelSpeed = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chartsNew)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btVoltar
             // 
-            this.btVoltar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btVoltar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.btVoltar.Location = new System.Drawing.Point(891, 655);
+            this.btVoltar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btVoltar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btVoltar.Location = new System.Drawing.Point(934, 657);
             this.btVoltar.Name = "btVoltar";
-            this.btVoltar.Size = new System.Drawing.Size(135, 51);
+            this.btVoltar.Size = new System.Drawing.Size(78, 35);
             this.btVoltar.TabIndex = 7;
             this.btVoltar.Text = "Fechar";
             this.btVoltar.UseVisualStyleBackColor = true;
@@ -133,7 +139,7 @@
             series2.Legend = "Legend1";
             series2.Name = "RPM";
             series3.ChartArea = "Brake";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
             series3.IsVisibleInLegend = false;
             series3.Legend = "Legend1";
             series3.Name = "Brake";
@@ -168,11 +174,11 @@
             // 
             // btVerSetup
             // 
-            this.btVerSetup.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btVerSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.btVerSetup.Location = new System.Drawing.Point(733, 655);
+            this.btVerSetup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btVerSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btVerSetup.Location = new System.Drawing.Point(829, 657);
             this.btVerSetup.Name = "btVerSetup";
-            this.btVerSetup.Size = new System.Drawing.Size(135, 51);
+            this.btVerSetup.Size = new System.Drawing.Size(99, 35);
             this.btVerSetup.TabIndex = 14;
             this.btVerSetup.Text = "Ver Setup";
             this.btVerSetup.UseVisualStyleBackColor = true;
@@ -183,7 +189,7 @@
             this.btZoomOut.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btZoomOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btZoomOut.Image = global::TeleBajaUEA.Properties.Resources.zoom_out;
-            this.btZoomOut.Location = new System.Drawing.Point(510, 681);
+            this.btZoomOut.Location = new System.Drawing.Point(536, 647);
             this.btZoomOut.Name = "btZoomOut";
             this.btZoomOut.Size = new System.Drawing.Size(40, 40);
             this.btZoomOut.TabIndex = 18;
@@ -195,7 +201,7 @@
             this.btZoomIn.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btZoomIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btZoomIn.Image = global::TeleBajaUEA.Properties.Resources.zoom_in;
-            this.btZoomIn.Location = new System.Drawing.Point(510, 623);
+            this.btZoomIn.Location = new System.Drawing.Point(490, 647);
             this.btZoomIn.Name = "btZoomIn";
             this.btZoomIn.Size = new System.Drawing.Size(40, 40);
             this.btZoomIn.TabIndex = 17;
@@ -208,7 +214,7 @@
             this.btbtScrollLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btbtScrollLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
             this.btbtScrollLeft.Image = global::TeleBajaUEA.Properties.Resources.arrow_left_minus;
-            this.btbtScrollLeft.Location = new System.Drawing.Point(453, 647);
+            this.btbtScrollLeft.Location = new System.Drawing.Point(444, 642);
             this.btbtScrollLeft.Name = "btbtScrollLeft";
             this.btbtScrollLeft.Size = new System.Drawing.Size(40, 48);
             this.btbtScrollLeft.TabIndex = 12;
@@ -221,30 +227,88 @@
             this.btScrollRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btScrollRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
             this.btScrollRight.Image = global::TeleBajaUEA.Properties.Resources.arrow_right_plus;
-            this.btScrollRight.Location = new System.Drawing.Point(571, 647);
+            this.btScrollRight.Location = new System.Drawing.Point(582, 642);
             this.btScrollRight.Name = "btScrollRight";
             this.btScrollRight.Size = new System.Drawing.Size(40, 48);
             this.btScrollRight.TabIndex = 11;
             this.btScrollRight.UseVisualStyleBackColor = true;
             this.btScrollRight.Click += new System.EventHandler(this.btScrollRight_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox1.Controls.Add(this.labelRPM);
+            this.groupBox1.Controls.Add(this.labelSpeed);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupBox1.Location = new System.Drawing.Point(98, 621);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(197, 88);
+            this.groupBox1.TabIndex = 19;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Ponto Selec.";
+            // 
+            // labelRPM
+            // 
+            this.labelRPM.AutoSize = true;
+            this.labelRPM.Location = new System.Drawing.Point(110, 52);
+            this.labelRPM.Name = "labelRPM";
+            this.labelRPM.Size = new System.Drawing.Size(68, 17);
+            this.labelRPM.TabIndex = 4;
+            this.labelRPM.Text = "0000 rpm";
+            this.labelRPM.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // labelSpeed
+            // 
+            this.labelSpeed.AutoSize = true;
+            this.labelSpeed.Location = new System.Drawing.Point(110, 29);
+            this.labelSpeed.Name = "labelSpeed";
+            this.labelSpeed.Size = new System.Drawing.Size(58, 17);
+            this.labelSpeed.TabIndex = 3;
+            this.labelSpeed.Text = "00 km/h";
+            this.labelSpeed.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label2.Location = new System.Drawing.Point(22, 54);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(42, 17);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "RPM:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label1.Location = new System.Drawing.Point(22, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(82, 17);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Velocidade:";
+            // 
             // AnalisarCorrida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1064, 733);
+            this.ClientSize = new System.Drawing.Size(1064, 722);
+            this.Controls.Add(this.btScrollRight);
+            this.Controls.Add(this.btbtScrollLeft);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btZoomOut);
             this.Controls.Add(this.btZoomIn);
             this.Controls.Add(this.btVerSetup);
             this.Controls.Add(this.chartsNew);
-            this.Controls.Add(this.btbtScrollLeft);
-            this.Controls.Add(this.btScrollRight);
             this.Controls.Add(this.btVoltar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AnalisarCorrida";
             this.Text = "Analisar Corrida - TeleBaja UEA";
             ((System.ComponentModel.ISupportInitialize)(this.chartsNew)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -258,5 +322,10 @@
         private System.Windows.Forms.Button btVerSetup;
         private System.Windows.Forms.Button btZoomIn;
         private System.Windows.Forms.Button btZoomOut;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelSpeed;
+        private System.Windows.Forms.Label labelRPM;
     }
 }

@@ -93,7 +93,6 @@ namespace TeleBajaUEA
             if (results.Length >= 1 && results[0].ChartElementType != ChartElementType.Nothing)
             {
                 ChartArea chartArea = results[0].ChartArea;
-                string markerName = chartArea.Name + "Marker";
 
                 if (chartArea.AxisX.Maximum < chartArea.AxisX.PixelPositionToValue(mousePos.X))
                     return;
@@ -102,22 +101,40 @@ namespace TeleBajaUEA
                 double mouseXValue = chartArea.AxisX.PixelPositionToValue(mousePos.X);
                 double mouseYValue = chartArea.AxisY.PixelPositionToValue(mousePos.Y);
 
-                // obtém o ponto no gráfico mais próximo à posição do mouse
-                DataPoint focusedPoint = FindPlotPoint(chartArea, mouseXValue, mouseYValue);
-
+                // obtém os pontos dos Markers cujos X está mais próximo à posição do mouse
+                Dictionary<string, DataPoint> focusedPoints =
+                    FindPlotPoints(chartArea, mouseXValue, mouseYValue);
+                
                 // atualiza atual ponto sendo destacado
-                chartsNew.Series[markerName].Points.Remove(lastFocusedPoint[markerName]);
-                lastFocusedPoint[markerName] = focusedPoint;
-                chartsNew.Series[markerName].Points.Add(focusedPoint);
+                foreach (string chartName in new List<string>(){"Speed", "RPM", "Brake" })
+                {
+                    string markerName = chartName + "Marker";
+
+                    chartsNew.Series[markerName]
+                        .Points.Remove(lastFocusedPoint[markerName]);
+
+                    lastFocusedPoint[markerName] = focusedPoints[chartName];
+
+                    chartsNew.Series[markerName]
+                        .Points.Add(focusedPoints[chartName]);
+                }
+
+                labelSpeed.Text = focusedPoints["Speed"].YValues[0] + " km/h";
+                labelRPM.Text = focusedPoints["RPM"].YValues[0] + " rpm";
+                //if (focusedPoints["Brake"].YValues[0] > BRAKE_MAXIMUM / 2)
+                //    labelBrake.Text = "ON";
+                //else
+                //    labelBrake.Text = "OFF";
             }
         }
 
         // recebe: a posição do mouse relativa à ChartArea em que ele se encontra
         //         juntamente com a Series correspondente.
-        // Retorna: o ponto que mais se aproxima da posição atual do mouse
-        private DataPoint FindPlotPoint(ChartArea chartArea, double mouseX, double mouseY)
+        // Retorna: o conjunto de pontos (1 para cada chart) que mais se aproxima
+        // da posição atual do mouse
+        private Dictionary<string, DataPoint> FindPlotPoints(ChartArea chartArea, double mouseX, double mouseY)
         {
-            Series series = chartsNew.Series[chartArea.Name];
+            Dictionary<string, DataPoint> points = new Dictionary<string, DataPoint>(3);
             double minX = chartArea.AxisX.ScaleView.ViewMinimum;
             double maxX = chartArea.AxisX.ScaleView.ViewMaximum;
 
@@ -127,27 +144,37 @@ namespace TeleBajaUEA
 
                 FileSensorsData resultData = raceData.DataList.ElementAt(plotPointIndex);
 
-                DataPoint plotPoint = new DataPoint(series);
-                plotPoint.XValue = resultData.xValue;
-                if (series.Name.Equals("Speed"))
-                    plotPoint.YValues[0] = resultData.speed;
-                else if(series.Name.Equals("RPM"))
-                    plotPoint.YValues[0] = resultData.rpm;
-                else if (series.Name.Equals("Brake"))
-                {
-                    double brakePosition;
-                    if (resultData.breakState)
-                        brakePosition = (BRAKE_MAXIMUM / 2) + (BRAKE_MAXIMUM / 4);
-                    else
-                        brakePosition = (BRAKE_MAXIMUM / 2) - (BRAKE_MAXIMUM / 4);
+                DataPoint pointSpeed = new DataPoint();
+                pointSpeed.XValue = resultData.xValue;
+                pointSpeed.YValues[0] = resultData.speed;
+                points["Speed"] = pointSpeed;
 
-                    plotPoint.YValues[0] = brakePosition;
-                }
+                DataPoint pointRPM = new DataPoint(chartsNew.Series["RPM"]);
+                pointRPM.XValue = resultData.xValue;
+                pointRPM.YValues[0] = resultData.rpm;
+                points["RPM"] = pointRPM;
 
-                return plotPoint;
+                DataPoint pointBrake = new DataPoint(chartsNew.Series["Brake"]);
+                pointBrake.XValue = resultData.xValue;
+
+                double brakePosition;
+                if (resultData.breakState)
+                    brakePosition = (BRAKE_MAXIMUM / 2) + (BRAKE_MAXIMUM / 4);
+                else
+                    brakePosition = (BRAKE_MAXIMUM / 2) - (BRAKE_MAXIMUM / 4);
+
+                pointBrake.YValues[0] = brakePosition;
+                points["Brake"] = pointBrake;
+
+                return points;
             }
-            else
-                return new DataPoint(); // TODO tratar melhor esse caso, talvez remover marker?
+            else // o codigo abaixo, em teoria, nunca executa, mas por segurança...
+            {
+                points["Speed"] = new DataPoint(0, 0);
+                points["RPM"] = new DataPoint(0, 0);
+                points["Brake"] = new DataPoint(0, 0);
+                return points;
+            }
         }
 
         // Função que de fato faz a busca e determina qual o ponto mais próximo

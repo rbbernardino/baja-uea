@@ -83,7 +83,7 @@
             series2.Legend = "Legend1";
             series2.Name = "RPM";
             series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
             series3.Legend = "Legend1";
             series3.LegendText = "Freio";
             series3.Name = "Brake";
