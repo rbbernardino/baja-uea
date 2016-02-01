@@ -145,18 +145,6 @@ namespace TeleBajaUEA
 
             if ((mouseX > minX) && (mouseX <= maxX))
             {
-                // delimita ainda mais a area de pesquisa de pontos
-                //double gridInterval = chartsNew.ChartAreas[XLabelChartArea].AxisX.MajorGrid.Interval;
-                //double searchMin, searchMax;
-                //for (double pos = minX; pos <= (maxX-gridInterval); pos += gridInterval)
-                //{
-                //    if(mouseX >= pos && mouseX <= pos + gridInterval)
-                //    {
-                //        searchMin = pos;
-                //        searchMax = pos + gridInterval;
-                //    }
-                //}
-
                 int plotPointIndex = FindPointIndex(mouseX, searchMinIndex, searchMaxIndex);
 
                 FileSensorsData resultData = raceData.DataList.ElementAt(plotPointIndex);
@@ -288,7 +276,7 @@ namespace TeleBajaUEA
         {
             // popula gráfico com os pontos
             double brakePosition;
-            double currentSpeed, maxSpeed = 0, minSpeed = 999, avgSpeed = 0;
+            double currentSpeed, maxSpeed = 0, avgSpeed = 0;
 
             foreach (FileSensorsData pointData in raceData.DataList)
             {
@@ -298,8 +286,7 @@ namespace TeleBajaUEA
                 // Velocidade max, media e min
                 currentSpeed = pointData.speed;
                 if (currentSpeed > maxSpeed) maxSpeed = currentSpeed;
-                if (currentSpeed < minSpeed) minSpeed = currentSpeed;
-                avgSpeed += currentSpeed / raceData.DataList.Count;
+                avgSpeed += currentSpeed / PointsCount;
 
                 // RPM
                 AddPoint("RPM", pointData.xValue, pointData.rpm);
@@ -313,11 +300,10 @@ namespace TeleBajaUEA
                 chartsNew.Series["Brake"].Points.AddXY(pointData.xValue, brakePosition);
             }
 
-            // seta a velocidade max/media/min
-            CreateStripLines(maxSpeed, avgSpeed, minSpeed);
+            // seta a velocidade max/media
+            CreateStripLines(maxSpeed, avgSpeed);
             labelMaxSpeed.Text = maxSpeed + " km/h";
             labelMedSpeed.Text = avgSpeed.ToString("0.00") + " km/h";
-            labelMinSpeed.Text = minSpeed + " km/h";
         }
 
         private void AddPoint(string serie, double x, double y)

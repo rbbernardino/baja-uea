@@ -46,11 +46,6 @@ namespace TeleBajaUEA
             rndGenerator = new Random();
         }
 
-        public void StartReceiveData()
-        {
-
-        }
-
         public async Task<SensorsData> GetNextPacket()
         {
             deltaSpeed = RndDeltaSpeed();

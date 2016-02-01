@@ -185,7 +185,7 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             else
             {
                 textFreio.Text = "OFF";
-                textFreio.ForeColor = System.Drawing.Color.DarkRed;
+                textFreio.ForeColor = System.Drawing.Color.Red;
             }
         }
 
@@ -408,6 +408,42 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             CarConnection.CloseConnection();
 
             formStatusDaConexao.Close();
+        }
+
+        private void checkBoxEnabledSeries_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox setCheckBox = sender as CheckBox;
+
+            // padrão de nomes: checkBoxSpeed, checkBoxBrake...
+            string seriesName = setCheckBox.Name.Substring("checkBox".Length);
+
+            if (setCheckBox.Checked)
+                chartDinamic.Series[seriesName].Enabled = true;
+
+            else
+            {
+                if(seriesName == "Speed")
+                {
+                    if (checkBoxRPM.Checked || checkBoxBrake.Checked)
+                        chartDinamic.Series["Speed"].Enabled = false;
+                    else
+                        checkBoxSpeed.Checked = true;
+                }
+                if(seriesName == "RPM")
+                {
+                    if (checkBoxSpeed.Checked || checkBoxBrake.Checked)
+                        chartDinamic.Series["RPM"].Enabled = false;
+                    else
+                        checkBoxRPM.Checked = true;
+                }
+                if(seriesName == "Brake")
+                {
+                    if (checkBoxSpeed.Checked || checkBoxRPM.Checked)
+                        chartDinamic.Series["Brake"].Enabled = false;
+                    else
+                        checkBoxBrake.Checked = true;
+                }
+            }
         }
     }
 

@@ -111,27 +111,23 @@ namespace TeleBajaUEA
         }
 
         // essa função é chamada no analisar corrida ao inserir os pontos
-        private void CreateStripLines(double pMaxSpeed, double pAvgSpeed, double pMinSpeed)
+        private void CreateStripLines(double pMaxSpeed, double pAvgSpeed)
         {
             StripLine maxSpeedLine = new StripLine();
             StripLine avgSpeedLine = new StripLine();
-            StripLine minSpeedLine = new StripLine();
 
-            maxSpeedLine.Interval = avgSpeedLine.Interval = minSpeedLine.Interval = 0;
-            maxSpeedLine.StripWidth = avgSpeedLine.StripWidth = minSpeedLine.StripWidth = AUX_SPEED_LINE_WIDTH;
+            maxSpeedLine.Interval = avgSpeedLine.Interval = 0;
+            maxSpeedLine.StripWidth = avgSpeedLine.StripWidth = AUX_SPEED_LINE_WIDTH;
 
             maxSpeedLine.BackColor = MAX_SPEED_COLOR;
             avgSpeedLine.BackColor = AVG_SPEED_COLOR;
-            minSpeedLine.BackColor = MIN_SPEED_COLOR;
 
             // IntervalOffset é o valor das velocidades max, min e média, que serão setados em AnalisarCorrida
             maxSpeedLine.IntervalOffset = pMaxSpeed;
             avgSpeedLine.IntervalOffset = pAvgSpeed;
-            minSpeedLine.IntervalOffset = pMinSpeed;
 
             chartsNew.ChartAreas["Speed"].AxisY.StripLines.Add(maxSpeedLine);
             chartsNew.ChartAreas["Speed"].AxisY.StripLines.Add(avgSpeedLine);
-            chartsNew.ChartAreas["Speed"].AxisY.StripLines.Add(minSpeedLine);
 
             chartsNew.Update();
         }

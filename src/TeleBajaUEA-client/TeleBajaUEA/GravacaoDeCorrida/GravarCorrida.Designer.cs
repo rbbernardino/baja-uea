@@ -48,8 +48,14 @@
             this.imgConnStatus = new System.Windows.Forms.PictureBox();
             this.labelSemSinal = new System.Windows.Forms.Label();
             this.labelForca = new System.Windows.Forms.Label();
+            this.checkBoxSpeed = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxBrake = new System.Windows.Forms.CheckBox();
+            this.checkBoxRPM = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.chartDinamic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgConnStatus)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // chartDinamic
@@ -205,10 +211,10 @@
             // 
             // btEncerrar
             // 
-            this.btEncerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.btEncerrar.Location = new System.Drawing.Point(860, 538);
+            this.btEncerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btEncerrar.Location = new System.Drawing.Point(916, 564);
             this.btEncerrar.Name = "btEncerrar";
-            this.btEncerrar.Size = new System.Drawing.Size(163, 51);
+            this.btEncerrar.Size = new System.Drawing.Size(136, 35);
             this.btEncerrar.TabIndex = 18;
             this.btEncerrar.Text = "Encerrar e Salvar";
             this.btEncerrar.UseVisualStyleBackColor = true;
@@ -336,11 +342,75 @@
             this.labelForca.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.labelForca.Visible = false;
             // 
+            // checkBoxSpeed
+            // 
+            this.checkBoxSpeed.AutoSize = true;
+            this.checkBoxSpeed.Checked = true;
+            this.checkBoxSpeed.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxSpeed.Location = new System.Drawing.Point(17, 31);
+            this.checkBoxSpeed.Name = "checkBoxSpeed";
+            this.checkBoxSpeed.Size = new System.Drawing.Size(97, 21);
+            this.checkBoxSpeed.TabIndex = 30;
+            this.checkBoxSpeed.Text = "Velocidade";
+            this.checkBoxSpeed.UseVisualStyleBackColor = true;
+            this.checkBoxSpeed.CheckedChanged += new System.EventHandler(this.checkBoxEnabledSeries_CheckedChanged);
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.button1.Location = new System.Drawing.Point(896, 523);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(156, 35);
+            this.button1.TabIndex = 31;
+            this.button1.Text = "Encerrar sem Salvar";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.checkBoxBrake);
+            this.groupBox1.Controls.Add(this.checkBoxRPM);
+            this.groupBox1.Controls.Add(this.checkBoxSpeed);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupBox1.Location = new System.Drawing.Point(721, 481);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(137, 118);
+            this.groupBox1.TabIndex = 32;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Gráficos Visíveis";
+            // 
+            // checkBoxBrake
+            // 
+            this.checkBoxBrake.AutoSize = true;
+            this.checkBoxBrake.Checked = true;
+            this.checkBoxBrake.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxBrake.Location = new System.Drawing.Point(17, 83);
+            this.checkBoxBrake.Name = "checkBoxBrake";
+            this.checkBoxBrake.Size = new System.Drawing.Size(59, 21);
+            this.checkBoxBrake.TabIndex = 32;
+            this.checkBoxBrake.Text = "Freio";
+            this.checkBoxBrake.UseVisualStyleBackColor = true;
+            this.checkBoxBrake.CheckedChanged += new System.EventHandler(this.checkBoxEnabledSeries_CheckedChanged);
+            // 
+            // checkBoxRPM
+            // 
+            this.checkBoxRPM.AutoSize = true;
+            this.checkBoxRPM.Checked = true;
+            this.checkBoxRPM.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxRPM.Location = new System.Drawing.Point(17, 56);
+            this.checkBoxRPM.Name = "checkBoxRPM";
+            this.checkBoxRPM.Size = new System.Drawing.Size(57, 21);
+            this.checkBoxRPM.TabIndex = 31;
+            this.checkBoxRPM.Text = "RPM";
+            this.checkBoxRPM.UseVisualStyleBackColor = true;
+            this.checkBoxRPM.CheckedChanged += new System.EventHandler(this.checkBoxEnabledSeries_CheckedChanged);
+            // 
             // GravarCorrida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1064, 611);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.labelForca);
             this.Controls.Add(this.labelSemSinal);
             this.Controls.Add(this.imgConnStatus);
@@ -363,6 +433,8 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GravarCorrida_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.chartDinamic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgConnStatus)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -383,5 +455,10 @@
         private System.Windows.Forms.PictureBox imgConnStatus;
         private System.Windows.Forms.Label labelSemSinal;
         private System.Windows.Forms.Label labelForca;
+        private System.Windows.Forms.CheckBox checkBoxSpeed;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox checkBoxRPM;
+        private System.Windows.Forms.CheckBox checkBoxBrake;
     }
 }

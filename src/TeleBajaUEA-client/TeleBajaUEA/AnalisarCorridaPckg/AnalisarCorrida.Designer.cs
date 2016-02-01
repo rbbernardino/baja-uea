@@ -34,7 +34,6 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem1 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
             System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem2 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
-            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem3 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -53,9 +52,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.labelMinSpeed = new System.Windows.Forms.Label();
             this.labelMedSpeed = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.labelMaxSpeed = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -120,13 +117,8 @@
             legendItem2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             legendItem2.ImageStyle = System.Windows.Forms.DataVisualization.Charting.LegendImageStyle.Line;
             legendItem2.Name = "med";
-            legendItem3.BorderWidth = 3;
-            legendItem3.Color = System.Drawing.Color.Purple;
-            legendItem3.ImageStyle = System.Windows.Forms.DataVisualization.Charting.LegendImageStyle.Line;
-            legendItem3.Name = "min";
             legend1.CustomItems.Add(legendItem1);
             legend1.CustomItems.Add(legendItem2);
-            legend1.CustomItems.Add(legendItem3);
             legend1.DockedToChartArea = "Speed";
             legend1.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Row;
             legend1.Name = "Legend1";
@@ -272,54 +264,32 @@
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox2.Controls.Add(this.labelMinSpeed);
             this.groupBox2.Controls.Add(this.labelMedSpeed);
-            this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.labelMaxSpeed);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox2.Location = new System.Drawing.Point(321, 622);
+            this.groupBox2.Location = new System.Drawing.Point(312, 621);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(197, 96);
+            this.groupBox2.Size = new System.Drawing.Size(197, 87);
             this.groupBox2.TabIndex = 20;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Velocidade";
             // 
-            // labelMinSpeed
-            // 
-            this.labelMinSpeed.AutoSize = true;
-            this.labelMinSpeed.Location = new System.Drawing.Point(109, 70);
-            this.labelMinSpeed.Name = "labelMinSpeed";
-            this.labelMinSpeed.Size = new System.Drawing.Size(58, 17);
-            this.labelMinSpeed.TabIndex = 7;
-            this.labelMinSpeed.Text = "00 km/h";
-            this.labelMinSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // labelMedSpeed
             // 
             this.labelMedSpeed.AutoSize = true;
-            this.labelMedSpeed.Location = new System.Drawing.Point(87, 47);
+            this.labelMedSpeed.Location = new System.Drawing.Point(83, 52);
             this.labelMedSpeed.Name = "labelMedSpeed";
             this.labelMedSpeed.Size = new System.Drawing.Size(78, 17);
             this.labelMedSpeed.TabIndex = 6;
             this.labelMedSpeed.Text = "00,00 km/h";
             this.labelMedSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label7.Location = new System.Drawing.Point(25, 70);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(56, 17);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "Mínima:";
-            // 
             // labelMaxSpeed
             // 
             this.labelMaxSpeed.AutoSize = true;
-            this.labelMaxSpeed.Location = new System.Drawing.Point(107, 25);
+            this.labelMaxSpeed.Location = new System.Drawing.Point(103, 30);
             this.labelMaxSpeed.Name = "labelMaxSpeed";
             this.labelMaxSpeed.Size = new System.Drawing.Size(58, 17);
             this.labelMaxSpeed.TabIndex = 3;
@@ -330,7 +300,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label5.Location = new System.Drawing.Point(31, 47);
+            this.label5.Location = new System.Drawing.Point(27, 52);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(50, 17);
             this.label5.TabIndex = 1;
@@ -340,7 +310,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label6.Location = new System.Drawing.Point(19, 24);
+            this.label6.Location = new System.Drawing.Point(15, 29);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(59, 17);
             this.label6.TabIndex = 0;
@@ -384,9 +354,7 @@
         private System.Windows.Forms.Label labelSpeed;
         private System.Windows.Forms.Label labelRPM;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label labelMinSpeed;
         private System.Windows.Forms.Label labelMedSpeed;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label labelMaxSpeed;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
