@@ -22,8 +22,10 @@ namespace TeleBajaUEA
         private Stack<ChartArea> zoomedAreaStack = new Stack<ChartArea>();
 
         // DataSize indica a quantidade de pontos e o valor máximo do eixo X
-        private double DataSize { get; }
+        private double LastPointXValue { get; }
+        private int PointsCount { get; }
 
+        private int searchMinIndex, searchMaxIndex;
         private Dictionary<string, DataPoint> lastFocusedPoint = new Dictionary<string, DataPoint>(3);
 
         enum ScrollDirection
@@ -37,12 +39,15 @@ namespace TeleBajaUEA
             InitializeComponent();
 
             // configura a quantidade de pontos e valor máximo do eixo X
-            DataSize = pRaceData.DataList.Last().xValue;
+            LastPointXValue = pRaceData.DataList.Last().xValue;
+            PointsCount = pRaceData.DataList.Count;
             raceData = pRaceData;
 
             AddDataToCharts();
 
             ConfigureCharts();
+
+            UpdatePointSearchLimits();
 
             // ativa ou desativa botões para permitir "andar" para  dir/esq
             UpdateButtonsState();
@@ -78,7 +83,7 @@ namespace TeleBajaUEA
         {
             ShowPointToolTip(e); // TODO melhorar feedback de qual ponto está selecionado
             ShowPointMark(e);
-            
+
             //TryMouseScroll(e);   DESATIVADO, ver comentário em AnalisarCorrida.MouseWheel
         }
 
@@ -127,7 +132,7 @@ namespace TeleBajaUEA
                 //    labelBrake.Text = "OFF";
             }
         }
-
+        bool ok = false;
         // recebe: a posição do mouse relativa à ChartArea em que ele se encontra
         //         juntamente com a Series correspondente.
         // Retorna: o conjunto de pontos (1 para cada chart) que mais se aproxima
@@ -140,7 +145,19 @@ namespace TeleBajaUEA
 
             if ((mouseX > minX) && (mouseX <= maxX))
             {
-                int plotPointIndex = FindPlotPointIndex(mouseX);
+                // delimita ainda mais a area de pesquisa de pontos
+                //double gridInterval = chartsNew.ChartAreas[XLabelChartArea].AxisX.MajorGrid.Interval;
+                //double searchMin, searchMax;
+                //for (double pos = minX; pos <= (maxX-gridInterval); pos += gridInterval)
+                //{
+                //    if(mouseX >= pos && mouseX <= pos + gridInterval)
+                //    {
+                //        searchMin = pos;
+                //        searchMax = pos + gridInterval;
+                //    }
+                //}
+
+                int plotPointIndex = FindPointIndex(mouseX, searchMinIndex, searchMaxIndex);
 
                 FileSensorsData resultData = raceData.DataList.ElementAt(plotPointIndex);
 
@@ -179,12 +196,14 @@ namespace TeleBajaUEA
 
         // Função que de fato faz a busca e determina qual o ponto mais próximo
         // do mouse
-        private int FindPlotPointIndex(double mouseX)
+        private int FindPointIndex(double mouseX) { return FindPointIndex(mouseX, 0, PointsCount); }
+        private int FindPointIndex(double mouseX, int minIndex, int maxIndex)
         {
             FileSensorsData searchData = new FileSensorsData();
             searchData.xValue = (uint)mouseX;
 
-            int searchResultIndex = raceData.DataList.BinarySearch(searchData, new PointXComparer());
+            int searchResultIndex = raceData.DataList
+                .BinarySearch(minIndex, maxIndex - minIndex, searchData, new PointXComparer());
 
             // Se o mouse não estiver precisamente em cima de um ponto, é preciso
             // procurar o ponto mais próximo da posição do mouse
@@ -419,6 +438,7 @@ namespace TeleBajaUEA
             }
         }
 
+        // atualiza labels quando der scroll
         private void chartsNew_AxisViewChanged(object sender, ViewEventArgs e)
         {
             UpdateCharts();
@@ -427,14 +447,15 @@ namespace TeleBajaUEA
         // evento chamado ao término de dar zoom após o usuário ter selecionado
         private void chartsNew_SelectionRangeChanged(object sender, CursorEventArgs e)
         {
-            if(e.NewSelectionStart != e.NewSelectionEnd)
+            if ((e.NewSelectionStart - e.NewSelectionEnd) < e.ChartArea.AxisX.ScaleView.Size / (3 * (X_SUBDIVISIONS + 1)))//MIN_SELECTION_RANGE)
+                e.NewSelectionStart = e.NewSelectionEnd;
+
+            if (e.NewSelectionStart != e.NewSelectionEnd)
             {
                 zoomedAreaStack.Push(e.ChartArea);
                 ScaleViewSize = e.ChartArea.AxisX.ScaleView.Size;
                 UpdateCharts();
             }
-            if (e.NewSelectionStart - e.NewSelectionEnd < MIN_SELECTION_RANGE)
-                e.NewSelectionStart = e.NewSelectionEnd;
         }
 
         private void UpdateCharts()
@@ -442,6 +463,16 @@ namespace TeleBajaUEA
             UpdateMajorGrids();
             UpdateXLabels();
             UpdateButtonsState();
+            UpdatePointSearchLimits();
+        }
+
+        private void UpdatePointSearchLimits()
+        {
+            double viewMin = chartsNew.ChartAreas[XLabelChartArea].AxisX.ScaleView.ViewMinimum;
+            double viewMax = chartsNew.ChartAreas[XLabelChartArea].AxisX.ScaleView.ViewMaximum;
+
+            searchMinIndex = FindPointIndex(viewMin);
+            searchMaxIndex = FindPointIndex(viewMax);
         }
 
         #region DESATIVADO: scroll com mouse wheel {...}

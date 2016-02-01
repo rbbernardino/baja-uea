@@ -77,7 +77,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>charts-icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\icones\charts-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -257,9 +257,9 @@
     <None Include="Resources\seta.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="charts-icon.ico" />
-    <Content Include="charts-icon_backup.ico" />
-    <Content Include="charts-icon_corrida.ico" />
+    <Content Include="Resources\icones\charts-icon.ico" />
+    <Content Include="Resources\icones\charts-icon_backup.ico" />
+    <Content Include="Resources\icones\charts-icon_corrida.ico" />
     <None Include="Resources\conn_hi.png" />
     <None Include="Resources\conn_good.png" />
     <None Include="Resources\conn_med.png" />
@@ -281,13 +281,13 @@
       <Visible>False</Visible>
       <Description>Corrida TeleBajaUEA %28Backup%29</Description>
       <Progid>cicari.btbufile</Progid>
-      <DefaultIcon>charts-icon_backup.ico</DefaultIcon>
+      <DefaultIcon>Resources\icones\charts-icon_backup.ico</DefaultIcon>
     </FileAssociation>
     <FileAssociation Include=".tbu">
       <Visible>False</Visible>
       <Description>Corrida TeleBajaUEA</Description>
       <Progid>cicari.tbufile</Progid>
-      <DefaultIcon>charts-icon_corrida.ico</DefaultIcon>
+      <DefaultIcon>Resources\icones\charts-icon_corrida.ico</DefaultIcon>
     </FileAssociation>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

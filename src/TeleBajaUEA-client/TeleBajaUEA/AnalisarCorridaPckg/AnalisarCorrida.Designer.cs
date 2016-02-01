@@ -150,15 +150,15 @@
             series3.Legend = "Legend1";
             series3.Name = "Brake";
             series4.ChartArea = "Speed";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastPoint;
             series4.Legend = "Legend1";
             series4.Name = "SpeedMarker";
             series5.ChartArea = "RPM";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastPoint;
             series5.Legend = "Legend1";
             series5.Name = "RPMMarker";
             series6.ChartArea = "Brake";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastPoint;
             series6.Legend = "Legend1";
             series6.Name = "BrakeMarker";
             this.chartsNew.Series.Add(series1);

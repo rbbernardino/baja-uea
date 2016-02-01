@@ -176,7 +176,7 @@ namespace TeleBajaUEA
             {
                 // Configurando o X
                 chartArea.AxisX.Minimum = 0;
-                chartArea.AxisX.Maximum = DataSize;
+                chartArea.AxisX.Maximum = LastPointXValue;
                 chartArea.AxisX.Interval = xInterval;
             }
 
@@ -281,8 +281,11 @@ namespace TeleBajaUEA
         private void UpdateMajorGrids()
         {
             foreach(ChartArea chartArea in chartsNew.ChartAreas)
+            {
                 // Intervalo entre as linhas de trás/apoio/fundo (grid)
                 chartArea.AxisX.MajorGrid.Interval = xInterval;
+                chartArea.AxisX.MajorTickMark.Interval = xInterval;
+            }
         }
 
         private void UpdateXLabels()

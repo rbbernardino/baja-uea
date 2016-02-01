@@ -74,7 +74,7 @@ namespace TeleBajaUEA
             if(openDialog.ShowDialog() == DialogResult.OK)
             {
                 RaceData raceData = RaceFile.LoadFromFile(openDialog.FileName);
-                    
+
                 AnalisarCorrida formAnalisarCorrida = new AnalisarCorrida(raceData);
 
                 Hide();
