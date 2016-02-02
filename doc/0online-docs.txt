@@ -1,4 +1,4 @@
-
+﻿
 %%%%%%%%%%-----------------------APLICATIVOS-------------------------%%%%%%%%%%
 ----------------------------
 Nome: draw.io + Google Drive
@@ -84,4 +84,10 @@ descrição:
 link:
 https://drive.google.com/open?id=0B1Ltj3v8SD2tQ3RsWWNxb21wTEU
 
+-------------------------------------------------------------------------------
 
+título: Manual do TeleBajaUEA.gdoc
+aplicativo: Google Docs (Documento)
+
+link:
+https://docs.google.com/document/d/1E9Qt0FRrW04jhIYetdp1vnPUZQwaAJ9VkMRO2KmXVeE/edit?usp=sharing

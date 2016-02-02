@@ -65,7 +65,7 @@
             // 
             this.btVoltar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btVoltar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btVoltar.Location = new System.Drawing.Point(934, 657);
+            this.btVoltar.Location = new System.Drawing.Point(945, 602);
             this.btVoltar.Name = "btVoltar";
             this.btVoltar.Size = new System.Drawing.Size(78, 35);
             this.btVoltar.TabIndex = 7;
@@ -84,7 +84,16 @@
             chartArea1.AxisY.LabelStyle.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             chartArea1.CursorX.IsUserEnabled = true;
             chartArea1.CursorX.IsUserSelectionEnabled = true;
+            chartArea1.InnerPlotPosition.Auto = false;
+            chartArea1.InnerPlotPosition.Height = 100F;
+            chartArea1.InnerPlotPosition.Width = 92.23604F;
+            chartArea1.InnerPlotPosition.X = 6.64694F;
             chartArea1.Name = "Speed";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 33F;
+            chartArea1.Position.Width = 94F;
+            chartArea1.Position.X = 3F;
+            chartArea1.Position.Y = 3F;
             chartArea2.AlignWithChartArea = "Speed";
             chartArea2.AxisX.LabelStyle.Enabled = false;
             chartArea2.AxisX.ScrollBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -93,7 +102,16 @@
             chartArea2.AxisY.LabelStyle.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             chartArea2.CursorX.IsUserEnabled = true;
             chartArea2.CursorX.IsUserSelectionEnabled = true;
+            chartArea2.InnerPlotPosition.Auto = false;
+            chartArea2.InnerPlotPosition.Height = 100F;
+            chartArea2.InnerPlotPosition.Width = 92.23604F;
+            chartArea2.InnerPlotPosition.X = 6.64694F;
             chartArea2.Name = "RPM";
+            chartArea2.Position.Auto = false;
+            chartArea2.Position.Height = 32.5F;
+            chartArea2.Position.Width = 94F;
+            chartArea2.Position.X = 3F;
+            chartArea2.Position.Y = 39F;
             chartArea3.AlignWithChartArea = "Speed";
             chartArea3.AxisX.ScrollBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             chartArea3.AxisX.ScrollBar.ButtonColor = System.Drawing.Color.Silver;
@@ -101,7 +119,17 @@
             chartArea3.AxisY.LabelStyle.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             chartArea3.CursorX.IsUserEnabled = true;
             chartArea3.CursorX.IsUserSelectionEnabled = true;
+            chartArea3.InnerPlotPosition.Auto = false;
+            chartArea3.InnerPlotPosition.Height = 60F;
+            chartArea3.InnerPlotPosition.Width = 92.23604F;
+            chartArea3.InnerPlotPosition.X = 6.64694F;
+            chartArea3.InnerPlotPosition.Y = 30F;
             chartArea3.Name = "Brake";
+            chartArea3.Position.Auto = false;
+            chartArea3.Position.Height = 29.33333F;
+            chartArea3.Position.Width = 94F;
+            chartArea3.Position.X = 3F;
+            chartArea3.Position.Y = 65.5F;
             this.chartsNew.ChartAreas.Add(chartArea1);
             this.chartsNew.ChartAreas.Add(chartArea2);
             this.chartsNew.ChartAreas.Add(chartArea3);
@@ -159,7 +187,7 @@
             this.chartsNew.Series.Add(series4);
             this.chartsNew.Series.Add(series5);
             this.chartsNew.Series.Add(series6);
-            this.chartsNew.Size = new System.Drawing.Size(1040, 629);
+            this.chartsNew.Size = new System.Drawing.Size(1040, 541);
             this.chartsNew.TabIndex = 13;
             this.chartsNew.Text = "5";
             this.chartsNew.SelectionRangeChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.CursorEventArgs>(this.chartsNew_SelectionRangeChanged);
@@ -174,7 +202,7 @@
             // 
             this.btVerSetup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btVerSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btVerSetup.Location = new System.Drawing.Point(829, 657);
+            this.btVerSetup.Location = new System.Drawing.Point(840, 602);
             this.btVerSetup.Name = "btVerSetup";
             this.btVerSetup.Size = new System.Drawing.Size(99, 35);
             this.btVerSetup.TabIndex = 14;
@@ -187,7 +215,7 @@
             this.btZoomOut.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btZoomOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btZoomOut.Image = global::TeleBajaUEA.Properties.Resources.zoom_out;
-            this.btZoomOut.Location = new System.Drawing.Point(586, 627);
+            this.btZoomOut.Location = new System.Drawing.Point(587, 574);
             this.btZoomOut.Name = "btZoomOut";
             this.btZoomOut.Size = new System.Drawing.Size(40, 40);
             this.btZoomOut.TabIndex = 18;
@@ -199,7 +227,7 @@
             this.btZoomIn.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btZoomIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btZoomIn.Image = global::TeleBajaUEA.Properties.Resources.zoom_in;
-            this.btZoomIn.Location = new System.Drawing.Point(540, 627);
+            this.btZoomIn.Location = new System.Drawing.Point(541, 574);
             this.btZoomIn.Name = "btZoomIn";
             this.btZoomIn.Size = new System.Drawing.Size(40, 40);
             this.btZoomIn.TabIndex = 17;
@@ -214,7 +242,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox1.Location = new System.Drawing.Point(98, 621);
+            this.groupBox1.Location = new System.Drawing.Point(99, 568);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(197, 88);
             this.groupBox1.TabIndex = 19;
@@ -269,7 +297,7 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox2.Location = new System.Drawing.Point(312, 621);
+            this.groupBox2.Location = new System.Drawing.Point(313, 568);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(197, 87);
             this.groupBox2.TabIndex = 20;
@@ -320,7 +348,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1064, 722);
+            this.ClientSize = new System.Drawing.Size(1064, 665);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btZoomOut);

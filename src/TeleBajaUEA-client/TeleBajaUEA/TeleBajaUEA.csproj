@@ -28,7 +28,7 @@
     <ProductName>TeleBajaUEA</ProductName>
     <PublisherName>BajaUEA</PublisherName>
     <MinimumRequiredVersion>0.9.1.6</MinimumRequiredVersion>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

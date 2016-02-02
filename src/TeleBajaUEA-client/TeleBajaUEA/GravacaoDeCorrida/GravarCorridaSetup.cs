@@ -174,15 +174,20 @@ namespace TeleBajaUEA.GravacaoDeCorrida
 
         private async void btIniciar_Click(object sender, EventArgs e)
         {
+            //-------------------------------------------------- TESTE-----------//
+            BindParameters();
+            Hide();
+            await RaceFile.CreateTempFile();
+            GravarCorrida formGravarCorrida = new GravarCorrida(parameters);
+            await formGravarCorrida.ConfigureCharts();
+            formGravarCorrida.Show();
+            formGravarCorrida.StartUpdateCharts();
+            return;
+            //----------------------------------------------------------
+
             BindParameters();
             Hide();
             await ShowGravarCorrida();
-
-            //-------------------------------------------------- TESTE-----------//
-            //GravarCorrida formGravarCorrida = new GravarCorrida(parameters);
-            //await formGravarCorrida.ConfigureCharts();
-            //formGravarCorrida.Show();
-            //formGravarCorrida.StartUpdateCharts();
         }
 
         private async Task ShowGravarCorrida()

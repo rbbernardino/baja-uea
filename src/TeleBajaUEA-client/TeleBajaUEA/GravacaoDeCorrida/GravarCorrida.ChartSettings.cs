@@ -107,6 +107,11 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             });
         }
 
+        public void SetSeriesDisabled()
+        {
+            chartDinamic.Series.ToList().ForEach(s => s.Color = Color.Gray);
+        }
+
         private void SetYLabels()
         {
             // TODO automatiza posicionamento das labels com as constantes V V

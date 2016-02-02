@@ -39,10 +39,10 @@ namespace TeleBajaUEA
         private void btGravarCorrida_Click(object sender, EventArgs e)
         {
             // -------------------------------------------
-            //GravarCorridaSetup formSetup2 = new GravarCorridaSetup();
-            //Hide();
-            //formSetup2.Show();
-            //return;
+            GravarCorridaSetup formSetup2 = new GravarCorridaSetup();
+            Hide();
+            formSetup2.Show();
+            return;
             // -------------codigo de TESTE----------------
 
             if (CarConnection.AvaiablePortExists)

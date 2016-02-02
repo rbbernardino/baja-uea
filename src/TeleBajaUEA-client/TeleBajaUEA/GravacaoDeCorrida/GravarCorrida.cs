@@ -82,6 +82,9 @@ namespace TeleBajaUEA.GravacaoDeCorrida
                 await UpdateData(firstData);
 
                 timerCheckIncomeData.Enabled = true;
+                // ---------TESTE---------
+                return; // impede timers de checagem executarem
+                // -----------------------
                 timerBackupData.Enabled = true;
                 timerCheckConn.Enabled = true;
 
@@ -323,6 +326,8 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             {
                 // Interrompe recebimento de dados
                 StopReceiveData();
+
+                SetSeriesDisabled();
 
                 // Desativa janela de Gravar para exibir confirmacao + salvamento
                 Enabled = false;

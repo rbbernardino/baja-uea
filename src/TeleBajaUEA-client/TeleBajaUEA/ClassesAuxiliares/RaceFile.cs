@@ -27,7 +27,7 @@ namespace TeleBajaUEA
         private static string TEMP_FILE_EXTENSION = ".btbu";
         private static string TEMP_BACKUP_FOLDER_PATH
         {
-            get { return Program.Settings.BackupPath + @"\tempBackup\"; }
+            get { return Program.Settings.BackupPath + @"tempBackup\"; }
         }
         private static string TEMP_FILE_PATH { get { return TEMP_BACKUP_FOLDER_PATH + tempFileName; } }
         //get { return SettingsFile.APP_FILES_PATH + tempFileName; } }
