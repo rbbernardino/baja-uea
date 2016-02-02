@@ -327,7 +327,7 @@ namespace TeleBajaUEA.GravacaoDeCorrida
                 // Desativa janela de Gravar para exibir confirmacao + salvamento
                 Enabled = false;
 
-                await ConfirmaGravarCorrida();
+                await PerguntaSalvarCorrida();
             }
         }
 
@@ -344,6 +344,29 @@ namespace TeleBajaUEA.GravacaoDeCorrida
         {
             confirmClose = true;
             CloseOnlyThis();
+        }
+
+        private async Task PerguntaSalvarCorrida()
+        {
+            // Exibe mensagem confirmando se deseja encerrar a gravação de corrida
+            var confirmaSalvar = MessageBox.Show(
+                "Você deseja Salvar essa Corrida?", // mensagem da janela
+                "Encerrar Corrida", // titulo da janela
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button1);
+
+            switch (confirmaSalvar)
+            {
+                case DialogResult.Yes:
+                    await ConfirmaGravarCorrida();
+                    break;
+                
+                case DialogResult.No:
+                    CloseNoConfirmation();
+                    Program.ShowMenuPrincipal();
+                    break;
+            }
         }
 
         private async Task ConfirmaGravarCorrida()
@@ -373,12 +396,7 @@ namespace TeleBajaUEA.GravacaoDeCorrida
                     // cancelou salvamento
                     case DialogResult.Cancel:
                         // Exibe mensagem confirmando se deseja encerrar a gravação de corrida
-                        var confirmaNaoSalvar = MessageBox.Show(
-                            "Tem certeza que deseja encerrar sem salvar?", // mensagem da janela
-                            "Encerrar Corrida", // titulo da janela
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Question,
-                            MessageBoxDefaultButton.Button2);
+                        var confirmaNaoSalvar = ShowConfirmaNaoSalvar();
 
                         if (confirmaNaoSalvar == DialogResult.Yes)
                         {
@@ -391,6 +409,16 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             }
         }
 
+        private DialogResult ShowConfirmaNaoSalvar()
+        {
+            return MessageBox.Show(
+                            "Tem certeza que deseja encerrar sem salvar?", // mensagem da janela
+                            "Encerrar Corrida", // titulo da janela
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question,
+                            MessageBoxDefaultButton.Button2);
+        }
+
         private async Task SaveRaceToFile(string pFileName)
         {
             RaceData raceData = new RaceData(dataList, parameters);
@@ -399,15 +427,22 @@ namespace TeleBajaUEA.GravacaoDeCorrida
 
         private void StopReceiveData()
         {
-            timerCheckIncomeData.Stop();
-            timerCheckIncomeData.Tick -= new EventHandler(TickCheckIncomeData);
+            if(timerCheckIncomeData != null && timerCheckIncomeData.Enabled)
+            {
+                timerCheckIncomeData.Stop();
+                timerCheckIncomeData.Tick -= new EventHandler(TickCheckIncomeData);
+            }
 
-            timerBackupData.Stop();
-            timerBackupData.Tick -= new EventHandler(TickBackupData);
+            if(timerBackupData != null && timerBackupData.Enabled)
+            {
+                timerBackupData.Stop();
+                timerBackupData.Tick -= new EventHandler(TickBackupData);
+            }
 
             CarConnection.CloseConnection();
 
-            formStatusDaConexao.Close();
+            if(formStatusDaConexao != null && formStatusDaConexao.Visible)
+                formStatusDaConexao.Close();
         }
 
         private void checkBoxEnabledSeries_CheckedChanged(object sender, EventArgs e)

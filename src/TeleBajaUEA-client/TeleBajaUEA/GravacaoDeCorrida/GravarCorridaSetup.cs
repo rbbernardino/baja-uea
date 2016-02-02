@@ -177,6 +177,12 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             BindParameters();
             Hide();
             await ShowGravarCorrida();
+
+            //-------------------------------------------------- TESTE-----------//
+            //GravarCorrida formGravarCorrida = new GravarCorrida(parameters);
+            //await formGravarCorrida.ConfigureCharts();
+            //formGravarCorrida.Show();
+            //formGravarCorrida.StartUpdateCharts();
         }
 
         private async Task ShowGravarCorrida()

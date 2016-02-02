@@ -49,7 +49,6 @@
             this.labelSemSinal = new System.Windows.Forms.Label();
             this.labelForca = new System.Windows.Forms.Label();
             this.checkBoxSpeed = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBoxBrake = new System.Windows.Forms.CheckBox();
             this.checkBoxRPM = new System.Windows.Forms.CheckBox();
@@ -212,11 +211,11 @@
             // btEncerrar
             // 
             this.btEncerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btEncerrar.Location = new System.Drawing.Point(916, 564);
+            this.btEncerrar.Location = new System.Drawing.Point(962, 560);
             this.btEncerrar.Name = "btEncerrar";
-            this.btEncerrar.Size = new System.Drawing.Size(136, 35);
+            this.btEncerrar.Size = new System.Drawing.Size(90, 35);
             this.btEncerrar.TabIndex = 18;
-            this.btEncerrar.Text = "Encerrar e Salvar";
+            this.btEncerrar.Text = "Encerrar";
             this.btEncerrar.UseVisualStyleBackColor = true;
             this.btEncerrar.Click += new System.EventHandler(this.btEncerrar_Click);
             // 
@@ -355,16 +354,6 @@
             this.checkBoxSpeed.UseVisualStyleBackColor = true;
             this.checkBoxSpeed.CheckedChanged += new System.EventHandler(this.checkBoxEnabledSeries_CheckedChanged);
             // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.button1.Location = new System.Drawing.Point(896, 523);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(156, 35);
-            this.button1.TabIndex = 31;
-            this.button1.Text = "Encerrar sem Salvar";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.checkBoxBrake);
@@ -410,7 +399,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1064, 611);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.labelForca);
             this.Controls.Add(this.labelSemSinal);
             this.Controls.Add(this.imgConnStatus);
@@ -456,7 +444,6 @@
         private System.Windows.Forms.Label labelSemSinal;
         private System.Windows.Forms.Label labelForca;
         private System.Windows.Forms.CheckBox checkBoxSpeed;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox checkBoxRPM;
         private System.Windows.Forms.CheckBox checkBoxBrake;

@@ -64,7 +64,9 @@ namespace TeleBajaUEA
         }
         #endregion
 
-        //private static RandomDataGenerator DataGenerator; // TODO TESTE
+        // ----------- TESTE apenas------------------------------
+        //private static RandomDataGenerator DataGenerator = new RandomDataGenerator();
+        //------------------------
 
         // TODO fazer await aqui e ali? realmetne necessário async??
         public async static Task<bool> ConnectToCar()
@@ -97,7 +99,6 @@ namespace TeleBajaUEA
 
             // inicia leitura/salvamento dos dados recebidos pela porta USB
             portXBee.WriteLine(XB_START);
-            //DataGenerator.StartReceiveData();// TODO TESTE
         }
 
         private static void TickUpdateByteRate(object sender, ElapsedEventArgs e)
@@ -124,6 +125,10 @@ namespace TeleBajaUEA
 
         public async static Task<SensorsData> GetNextData()
         {
+            // ---------- para TESTE ---------
+            //return await DataGenerator.GetNextPacket();
+            // -----------------------
+
             Tuple<bool, SensorsData> result;
             do
             {
@@ -131,8 +136,6 @@ namespace TeleBajaUEA
             } while (!result.Item1);
 
             return result.Item2;
-            //return await GetNextPacket();
-            //return await DataGenerator.GetNextPacket();// TODO TESTE
         }
 
         // TODO implementar um next packet mais específico (total de 10 bytes + '\r')
