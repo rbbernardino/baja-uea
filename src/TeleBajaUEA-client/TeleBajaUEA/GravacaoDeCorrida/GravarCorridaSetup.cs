@@ -114,11 +114,15 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             textCarPneuAro_front.Text = parameters.rodaRaioAroFront.ToString();
             textCarPneuAro_rear.Text = parameters.rodaRaioAroRear.ToString();
 
-            SetCombo(comboPneuBand, parameters.rodaBandagem);
+            SetCombo(comboPneuBand, parameters.rodaBandagemFront);
+            SetCombo(comboPneuBandRear, parameters.rodaBandagemRear);
 
-            textCarPneuPressao.Text = parameters.pneuPressao.ToString();
-            textCarPneuMarca.Text = parameters.pneuMarca;
-            textCarPneuTipo.Text = parameters.pneuTipo.ToString();
+            textCarPneuPressao.Text = parameters.pneuPressaoFront.ToString();
+            textCarPneuPressaoRear.Text = parameters.pneuPressaoRear.ToString();
+            textCarPneuMarca.Text = parameters.pneuMarcaFront;
+            textCarPneuMarcaRear.Text = parameters.pneuMarcaRear;
+            textCarPneuTipo.Text = parameters.pneuTipoFront.ToString();
+            textCarPneuTipoRear.Text = parameters.pneuTipoRear.ToString();
             textCarDistEixo.Text = parameters.distEixo.ToString();
             textCarBitF.Text = parameters.bitolaF.ToString();
             textCarBitR.Text = parameters.bitolaR.ToString();
@@ -255,10 +259,14 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             parameters.rodaDiamExternoRear = int.Parse(textCarPneuDiaExt_rear.Text);
             parameters.rodaRaioAroFront = int.Parse(textCarPneuAro_front.Text);
             parameters.rodaRaioAroRear = int.Parse(textCarPneuAro_rear.Text);
-            parameters.rodaBandagem = int.Parse(comboPneuBand.SelectedItem.ToString());
-            parameters.pneuPressao = float.Parse(textCarPneuPressao.Text);
-            parameters.pneuMarca = textCarPneuMarca.Text;
-            parameters.pneuTipo = int.Parse(textCarPneuTipo.Text);
+            parameters.rodaBandagemFront = int.Parse(comboPneuBand.SelectedItem.ToString());
+            parameters.rodaBandagemRear = int.Parse(comboPneuBandRear.SelectedItem.ToString());
+            parameters.pneuPressaoFront = float.Parse(textCarPneuPressao.Text);
+            parameters.pneuPressaoRear = float.Parse(textCarPneuPressaoRear.Text);
+            parameters.pneuMarcaFront = textCarPneuMarca.Text;
+            parameters.pneuMarcaFront = textCarPneuMarcaRear.Text;
+            parameters.pneuTipoFront = int.Parse(textCarPneuTipo.Text);
+            parameters.pneuTipoRear = int.Parse(textCarPneuTipoRear.Text);
             parameters.distEixo = int.Parse(textCarDistEixo.Text);
             parameters.bitolaF = int.Parse(textCarBitF.Text);
             parameters.bitolaR = int.Parse(textCarBitR.Text);

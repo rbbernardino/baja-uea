@@ -159,6 +159,18 @@
             this.label8 = new System.Windows.Forms.Label();
             this.textCarPeso = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.label77 = new System.Windows.Forms.Label();
+            this.label78 = new System.Windows.Forms.Label();
+            this.comboPneuBandRear = new System.Windows.Forms.ComboBox();
+            this.label79 = new System.Windows.Forms.Label();
+            this.label80 = new System.Windows.Forms.Label();
+            this.label81 = new System.Windows.Forms.Label();
+            this.label82 = new System.Windows.Forms.Label();
+            this.textCarPneuPressaoRear = new System.Windows.Forms.TextBox();
+            this.textCarPneuTipoRear = new System.Windows.Forms.TextBox();
+            this.textCarPneuMarcaRear = new System.Windows.Forms.TextBox();
+            this.label83 = new System.Windows.Forms.Label();
+            this.label84 = new System.Windows.Forms.Label();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -586,6 +598,7 @@
             this.textAckermann.Size = new System.Drawing.Size(55, 23);
             this.textAckermann.TabIndex = 98;
             this.textAckermann.Text = "000,0";
+            this.textAckermann.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label70
             // 
@@ -616,6 +629,7 @@
             this.textCaster.Size = new System.Drawing.Size(55, 23);
             this.textCaster.TabIndex = 95;
             this.textCaster.Text = "000,0";
+            this.textCaster.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label67
             // 
@@ -646,6 +660,7 @@
             this.textRearCamberR.Size = new System.Drawing.Size(55, 23);
             this.textRearCamberR.TabIndex = 92;
             this.textRearCamberR.Text = "000,0";
+            this.textRearCamberR.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label58
             // 
@@ -666,6 +681,7 @@
             this.textRearCamberL.Size = new System.Drawing.Size(55, 23);
             this.textRearCamberL.TabIndex = 90;
             this.textRearCamberL.Text = "000,0";
+            this.textRearCamberL.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label59
             // 
@@ -716,6 +732,7 @@
             this.textFrontCamberR.Size = new System.Drawing.Size(55, 23);
             this.textFrontCamberR.TabIndex = 85;
             this.textFrontCamberR.Text = "000,0";
+            this.textFrontCamberR.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label63
             // 
@@ -736,6 +753,7 @@
             this.textFrontCamberL.Size = new System.Drawing.Size(55, 23);
             this.textFrontCamberL.TabIndex = 83;
             this.textFrontCamberL.Text = "000,0";
+            this.textFrontCamberL.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label64
             // 
@@ -786,6 +804,7 @@
             this.textRearToeR.Size = new System.Drawing.Size(55, 23);
             this.textRearToeR.TabIndex = 78;
             this.textRearToeR.Text = "000,0";
+            this.textRearToeR.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label53
             // 
@@ -806,6 +825,7 @@
             this.textRearToeL.Size = new System.Drawing.Size(55, 23);
             this.textRearToeL.TabIndex = 76;
             this.textRearToeL.Text = "000,0";
+            this.textRearToeL.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label54
             // 
@@ -856,6 +876,7 @@
             this.textFrontToeR.Size = new System.Drawing.Size(55, 23);
             this.textFrontToeR.TabIndex = 71;
             this.textFrontToeR.Text = "000,0";
+            this.textFrontToeR.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label49
             // 
@@ -876,6 +897,7 @@
             this.textFrontToeL.Size = new System.Drawing.Size(55, 23);
             this.textFrontToeL.TabIndex = 69;
             this.textFrontToeL.Text = "000,0";
+            this.textFrontToeL.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label47
             // 
@@ -926,6 +948,7 @@
             this.textCarRoll.Size = new System.Drawing.Size(55, 23);
             this.textCarRoll.TabIndex = 60;
             this.textCarRoll.Text = "0000";
+            this.textCarRoll.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label46
             // 
@@ -1007,6 +1030,7 @@
             this.textCarMola.Size = new System.Drawing.Size(30, 23);
             this.textCarMola.TabIndex = 53;
             this.textCarMola.Text = "00";
+            this.textCarMola.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label41
             // 
@@ -1037,6 +1061,7 @@
             this.textCarAntiSquat.Size = new System.Drawing.Size(55, 23);
             this.textCarAntiSquat.TabIndex = 50;
             this.textCarAntiSquat.Text = "000,0";
+            this.textCarAntiSquat.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label40
             // 
@@ -1067,6 +1092,7 @@
             this.textCarAntiDive.Size = new System.Drawing.Size(55, 23);
             this.textCarAntiDive.TabIndex = 47;
             this.textCarAntiDive.Text = "000,0";
+            this.textCarAntiDive.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label37
             // 
@@ -1107,6 +1133,7 @@
             this.textCarVaoR.Size = new System.Drawing.Size(55, 23);
             this.textCarVaoR.TabIndex = 43;
             this.textCarVaoR.Text = "0000";
+            this.textCarVaoR.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label34
             // 
@@ -1127,6 +1154,7 @@
             this.textCarVaoF.Size = new System.Drawing.Size(55, 23);
             this.textCarVaoF.TabIndex = 41;
             this.textCarVaoF.Text = "0000";
+            this.textCarVaoF.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label35
             // 
@@ -1152,7 +1180,7 @@
             // 
             this.label30.AutoSize = true;
             this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label30.Location = new System.Drawing.Point(252, 420);
+            this.label30.Location = new System.Drawing.Point(252, 429);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(30, 17);
             this.label30.TabIndex = 38;
@@ -1161,18 +1189,19 @@
             // textCarAlt
             // 
             this.textCarAlt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.textCarAlt.Location = new System.Drawing.Point(194, 416);
+            this.textCarAlt.Location = new System.Drawing.Point(194, 425);
             this.textCarAlt.MaxLength = 4;
             this.textCarAlt.Name = "textCarAlt";
             this.textCarAlt.Size = new System.Drawing.Size(55, 23);
             this.textCarAlt.TabIndex = 37;
             this.textCarAlt.Text = "0000";
+            this.textCarAlt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label31
             // 
             this.label31.AutoSize = true;
             this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label31.Location = new System.Drawing.Point(12, 420);
+            this.label31.Location = new System.Drawing.Point(12, 429);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(85, 17);
             this.label31.TabIndex = 36;
@@ -1182,7 +1211,7 @@
             // 
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label28.Location = new System.Drawing.Point(252, 387);
+            this.label28.Location = new System.Drawing.Point(252, 396);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(30, 17);
             this.label28.TabIndex = 35;
@@ -1191,18 +1220,19 @@
             // textCarLarg
             // 
             this.textCarLarg.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.textCarLarg.Location = new System.Drawing.Point(194, 383);
+            this.textCarLarg.Location = new System.Drawing.Point(194, 392);
             this.textCarLarg.MaxLength = 4;
             this.textCarLarg.Name = "textCarLarg";
             this.textCarLarg.Size = new System.Drawing.Size(55, 23);
             this.textCarLarg.TabIndex = 34;
             this.textCarLarg.Text = "0000";
+            this.textCarLarg.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label29
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label29.Location = new System.Drawing.Point(12, 386);
+            this.label29.Location = new System.Drawing.Point(12, 395);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(98, 17);
             this.label29.TabIndex = 33;
@@ -1212,7 +1242,7 @@
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label27.Location = new System.Drawing.Point(251, 352);
+            this.label27.Location = new System.Drawing.Point(251, 361);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(30, 17);
             this.label27.TabIndex = 32;
@@ -1221,18 +1251,19 @@
             // textCarComp
             // 
             this.textCarComp.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.textCarComp.Location = new System.Drawing.Point(194, 349);
+            this.textCarComp.Location = new System.Drawing.Point(194, 358);
             this.textCarComp.MaxLength = 4;
             this.textCarComp.Name = "textCarComp";
             this.textCarComp.Size = new System.Drawing.Size(55, 23);
             this.textCarComp.TabIndex = 31;
             this.textCarComp.Text = "0000";
+            this.textCarComp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label26
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label26.Location = new System.Drawing.Point(12, 352);
+            this.label26.Location = new System.Drawing.Point(12, 361);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(131, 17);
             this.label26.TabIndex = 30;
@@ -1242,7 +1273,7 @@
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label25.Location = new System.Drawing.Point(290, 320);
+            this.label25.Location = new System.Drawing.Point(290, 329);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(18, 17);
             this.label25.TabIndex = 29;
@@ -1252,7 +1283,7 @@
             // 
             this.label24.AutoSize = true;
             this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label24.Location = new System.Drawing.Point(369, 320);
+            this.label24.Location = new System.Drawing.Point(369, 329);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(30, 17);
             this.label24.TabIndex = 28;
@@ -1261,18 +1292,19 @@
             // textCarBitR
             // 
             this.textCarBitR.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.textCarBitR.Location = new System.Drawing.Point(311, 316);
+            this.textCarBitR.Location = new System.Drawing.Point(311, 325);
             this.textCarBitR.MaxLength = 4;
             this.textCarBitR.Name = "textCarBitR";
             this.textCarBitR.Size = new System.Drawing.Size(55, 23);
             this.textCarBitR.TabIndex = 27;
             this.textCarBitR.Text = "0000";
+            this.textCarBitR.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label23
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label23.Location = new System.Drawing.Point(252, 320);
+            this.label23.Location = new System.Drawing.Point(252, 329);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(30, 17);
             this.label23.TabIndex = 26;
@@ -1281,18 +1313,19 @@
             // textCarBitF
             // 
             this.textCarBitF.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.textCarBitF.Location = new System.Drawing.Point(194, 316);
+            this.textCarBitF.Location = new System.Drawing.Point(194, 325);
             this.textCarBitF.MaxLength = 4;
             this.textCarBitF.Name = "textCarBitF";
             this.textCarBitF.Size = new System.Drawing.Size(55, 23);
             this.textCarBitF.TabIndex = 25;
             this.textCarBitF.Text = "0000";
+            this.textCarBitF.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label22
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label22.Location = new System.Drawing.Point(175, 319);
+            this.label22.Location = new System.Drawing.Point(175, 328);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(16, 17);
             this.label22.TabIndex = 24;
@@ -1302,7 +1335,7 @@
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label21.Location = new System.Drawing.Point(11, 317);
+            this.label21.Location = new System.Drawing.Point(11, 326);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(47, 17);
             this.label21.TabIndex = 23;
@@ -1312,7 +1345,7 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label20.Location = new System.Drawing.Point(252, 287);
+            this.label20.Location = new System.Drawing.Point(252, 296);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(30, 17);
             this.label20.TabIndex = 22;
@@ -1321,18 +1354,19 @@
             // textCarDistEixo
             // 
             this.textCarDistEixo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.textCarDistEixo.Location = new System.Drawing.Point(194, 284);
+            this.textCarDistEixo.Location = new System.Drawing.Point(194, 293);
             this.textCarDistEixo.MaxLength = 4;
             this.textCarDistEixo.Name = "textCarDistEixo";
             this.textCarDistEixo.Size = new System.Drawing.Size(55, 23);
             this.textCarDistEixo.TabIndex = 21;
             this.textCarDistEixo.Text = "0000";
+            this.textCarDistEixo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label19
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label19.Location = new System.Drawing.Point(10, 287);
+            this.label19.Location = new System.Drawing.Point(10, 296);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(143, 17);
             this.label19.TabIndex = 20;
@@ -1340,6 +1374,18 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label84);
+            this.groupBox2.Controls.Add(this.label83);
+            this.groupBox2.Controls.Add(this.textCarPneuTipoRear);
+            this.groupBox2.Controls.Add(this.textCarPneuMarcaRear);
+            this.groupBox2.Controls.Add(this.label82);
+            this.groupBox2.Controls.Add(this.textCarPneuPressaoRear);
+            this.groupBox2.Controls.Add(this.label81);
+            this.groupBox2.Controls.Add(this.label80);
+            this.groupBox2.Controls.Add(this.label79);
+            this.groupBox2.Controls.Add(this.comboPneuBandRear);
+            this.groupBox2.Controls.Add(this.label78);
+            this.groupBox2.Controls.Add(this.label77);
             this.groupBox2.Controls.Add(this.label75);
             this.groupBox2.Controls.Add(this.label76);
             this.groupBox2.Controls.Add(this.textCarPneuAro_rear);
@@ -1364,9 +1410,9 @@
             this.groupBox2.Controls.Add(this.textCarPneuDiaExt_front);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox2.Location = new System.Drawing.Point(15, 21);
+            this.groupBox2.Location = new System.Drawing.Point(15, 10);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(408, 216);
+            this.groupBox2.Size = new System.Drawing.Size(408, 243);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Roda/Pneu";
@@ -1375,7 +1421,7 @@
             // 
             this.label75.AutoSize = true;
             this.label75.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label75.Location = new System.Drawing.Point(309, 70);
+            this.label75.Location = new System.Drawing.Point(313, 67);
             this.label75.Name = "label75";
             this.label75.Size = new System.Drawing.Size(19, 17);
             this.label75.TabIndex = 36;
@@ -1385,7 +1431,7 @@
             // 
             this.label76.AutoSize = true;
             this.label76.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label76.Location = new System.Drawing.Point(310, 33);
+            this.label76.Location = new System.Drawing.Point(314, 30);
             this.label76.Name = "label76";
             this.label76.Size = new System.Drawing.Size(19, 17);
             this.label76.TabIndex = 35;
@@ -1393,18 +1439,19 @@
             // 
             // textCarPneuAro_rear
             // 
-            this.textCarPneuAro_rear.Location = new System.Drawing.Point(264, 67);
+            this.textCarPneuAro_rear.Location = new System.Drawing.Point(268, 64);
             this.textCarPneuAro_rear.MaxLength = 2;
             this.textCarPneuAro_rear.Name = "textCarPneuAro_rear";
             this.textCarPneuAro_rear.Size = new System.Drawing.Size(43, 23);
             this.textCarPneuAro_rear.TabIndex = 34;
             this.textCarPneuAro_rear.Text = "00";
+            this.textCarPneuAro_rear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label74
             // 
             this.label74.AutoSize = true;
             this.label74.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label74.Location = new System.Drawing.Point(242, 70);
+            this.label74.Location = new System.Drawing.Point(246, 67);
             this.label74.Name = "label74";
             this.label74.Size = new System.Drawing.Size(18, 17);
             this.label74.TabIndex = 33;
@@ -1412,18 +1459,19 @@
             // 
             // textCarPneuDiaExt_rear
             // 
-            this.textCarPneuDiaExt_rear.Location = new System.Drawing.Point(264, 29);
+            this.textCarPneuDiaExt_rear.Location = new System.Drawing.Point(268, 26);
             this.textCarPneuDiaExt_rear.MaxLength = 2;
             this.textCarPneuDiaExt_rear.Name = "textCarPneuDiaExt_rear";
             this.textCarPneuDiaExt_rear.Size = new System.Drawing.Size(43, 23);
             this.textCarPneuDiaExt_rear.TabIndex = 32;
             this.textCarPneuDiaExt_rear.Text = "00";
+            this.textCarPneuDiaExt_rear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label73
             // 
             this.label73.AutoSize = true;
             this.label73.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label73.Location = new System.Drawing.Point(242, 32);
+            this.label73.Location = new System.Drawing.Point(246, 29);
             this.label73.Name = "label73";
             this.label73.Size = new System.Drawing.Size(18, 17);
             this.label73.TabIndex = 30;
@@ -1433,7 +1481,7 @@
             // 
             this.label72.AutoSize = true;
             this.label72.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label72.Location = new System.Drawing.Point(152, 70);
+            this.label72.Location = new System.Drawing.Point(152, 67);
             this.label72.Name = "label72";
             this.label72.Size = new System.Drawing.Size(16, 17);
             this.label72.TabIndex = 27;
@@ -1443,7 +1491,7 @@
             // 
             this.label71.AutoSize = true;
             this.label71.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label71.Location = new System.Drawing.Point(152, 31);
+            this.label71.Location = new System.Drawing.Point(152, 28);
             this.label71.Name = "label71";
             this.label71.Size = new System.Drawing.Size(16, 17);
             this.label71.TabIndex = 26;
@@ -1451,27 +1499,29 @@
             // 
             // textCarPneuTipo
             // 
-            this.textCarPneuTipo.Location = new System.Drawing.Point(353, 180);
+            this.textCarPneuTipo.Location = new System.Drawing.Point(343, 178);
             this.textCarPneuTipo.MaxLength = 2;
             this.textCarPneuTipo.Name = "textCarPneuTipo";
             this.textCarPneuTipo.Size = new System.Drawing.Size(43, 23);
             this.textCarPneuTipo.TabIndex = 25;
             this.textCarPneuTipo.Text = "00";
+            this.textCarPneuTipo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // textCarPneuMarca
             // 
-            this.textCarPneuMarca.Location = new System.Drawing.Point(166, 180);
+            this.textCarPneuMarca.Location = new System.Drawing.Point(166, 177);
             this.textCarPneuMarca.MaxLength = 15;
             this.textCarPneuMarca.Name = "textCarPneuMarca";
             this.textCarPneuMarca.Size = new System.Drawing.Size(166, 23);
             this.textCarPneuMarca.TabIndex = 24;
             this.textCarPneuMarca.Text = "marca";
+            this.textCarPneuMarca.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label10.Location = new System.Drawing.Point(26, 177);
+            this.label10.Location = new System.Drawing.Point(26, 174);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(40, 17);
             this.label10.TabIndex = 23;
@@ -1481,7 +1531,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label18.Location = new System.Drawing.Point(224, 149);
+            this.label18.Location = new System.Drawing.Point(230, 144);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(26, 17);
             this.label18.TabIndex = 22;
@@ -1489,18 +1539,19 @@
             // 
             // textCarPneuPressao
             // 
-            this.textCarPneuPressao.Location = new System.Drawing.Point(166, 143);
+            this.textCarPneuPressao.Location = new System.Drawing.Point(173, 140);
             this.textCarPneuPressao.MaxLength = 4;
             this.textCarPneuPressao.Name = "textCarPneuPressao";
             this.textCarPneuPressao.Size = new System.Drawing.Size(55, 23);
             this.textCarPneuPressao.TabIndex = 21;
             this.textCarPneuPressao.Text = "00,0";
+            this.textCarPneuPressao.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label17.Location = new System.Drawing.Point(26, 146);
+            this.label17.Location = new System.Drawing.Point(26, 143);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(64, 17);
             this.label17.TabIndex = 20;
@@ -1510,7 +1561,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label16.Location = new System.Drawing.Point(220, 112);
+            this.label16.Location = new System.Drawing.Point(223, 107);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(19, 17);
             this.label16.TabIndex = 18;
@@ -1520,7 +1571,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label15.Location = new System.Drawing.Point(217, 71);
+            this.label15.Location = new System.Drawing.Point(217, 68);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(19, 17);
             this.label15.TabIndex = 17;
@@ -1530,7 +1581,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label14.Location = new System.Drawing.Point(217, 32);
+            this.label14.Location = new System.Drawing.Point(217, 29);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(19, 17);
             this.label14.TabIndex = 16;
@@ -1540,7 +1591,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label13.Location = new System.Drawing.Point(26, 107);
+            this.label13.Location = new System.Drawing.Point(26, 104);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(80, 17);
             this.label13.TabIndex = 15;
@@ -1550,7 +1601,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label12.Location = new System.Drawing.Point(26, 70);
+            this.label12.Location = new System.Drawing.Point(26, 67);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(87, 17);
             this.label12.TabIndex = 14;
@@ -1564,7 +1615,7 @@
             "8",
             "9",
             "10"});
-            this.comboPneuBand.Location = new System.Drawing.Point(166, 104);
+            this.comboPneuBand.Location = new System.Drawing.Point(172, 101);
             this.comboPneuBand.MaxDropDownItems = 3;
             this.comboPneuBand.MaxLength = 2;
             this.comboPneuBand.Name = "comboPneuBand";
@@ -1573,27 +1624,29 @@
             // 
             // textCarPneuAro_front
             // 
-            this.textCarPneuAro_front.Location = new System.Drawing.Point(171, 67);
+            this.textCarPneuAro_front.Location = new System.Drawing.Point(171, 64);
             this.textCarPneuAro_front.MaxLength = 2;
             this.textCarPneuAro_front.Name = "textCarPneuAro_front";
             this.textCarPneuAro_front.Size = new System.Drawing.Size(43, 23);
             this.textCarPneuAro_front.TabIndex = 12;
             this.textCarPneuAro_front.Text = "00";
+            this.textCarPneuAro_front.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // textCarPneuDiaExt_front
             // 
-            this.textCarPneuDiaExt_front.Location = new System.Drawing.Point(171, 28);
+            this.textCarPneuDiaExt_front.Location = new System.Drawing.Point(171, 25);
             this.textCarPneuDiaExt_front.MaxLength = 2;
             this.textCarPneuDiaExt_front.Name = "textCarPneuDiaExt_front";
             this.textCarPneuDiaExt_front.Size = new System.Drawing.Size(43, 23);
             this.textCarPneuDiaExt_front.TabIndex = 11;
             this.textCarPneuDiaExt_front.Text = "00";
+            this.textCarPneuDiaExt_front.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label11.Location = new System.Drawing.Point(26, 31);
+            this.label11.Location = new System.Drawing.Point(26, 28);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(120, 17);
             this.label11.TabIndex = 9;
@@ -1603,7 +1656,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label8.Location = new System.Drawing.Point(251, 257);
+            this.label8.Location = new System.Drawing.Point(251, 266);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(23, 17);
             this.label8.TabIndex = 7;
@@ -1612,22 +1665,148 @@
             // textCarPeso
             // 
             this.textCarPeso.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.textCarPeso.Location = new System.Drawing.Point(194, 253);
+            this.textCarPeso.Location = new System.Drawing.Point(194, 262);
             this.textCarPeso.MaxLength = 6;
             this.textCarPeso.Name = "textCarPeso";
             this.textCarPeso.Size = new System.Drawing.Size(55, 23);
             this.textCarPeso.TabIndex = 6;
             this.textCarPeso.Text = "200";
+            this.textCarPeso.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label9.Location = new System.Drawing.Point(10, 256);
+            this.label9.Location = new System.Drawing.Point(10, 265);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(108, 17);
             this.label9.TabIndex = 5;
             this.label9.Text = "Massa do Carro";
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label77.Location = new System.Drawing.Point(152, 104);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(16, 17);
+            this.label77.TabIndex = 37;
+            this.label77.Text = "F";
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label78.Location = new System.Drawing.Point(246, 104);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(18, 17);
+            this.label78.TabIndex = 38;
+            this.label78.Text = "R";
+            // 
+            // comboPneuBandRear
+            // 
+            this.comboPneuBandRear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboPneuBandRear.FormattingEnabled = true;
+            this.comboPneuBandRear.Items.AddRange(new object[] {
+            "8",
+            "9",
+            "10"});
+            this.comboPneuBandRear.Location = new System.Drawing.Point(268, 102);
+            this.comboPneuBandRear.MaxDropDownItems = 3;
+            this.comboPneuBandRear.MaxLength = 2;
+            this.comboPneuBandRear.Name = "comboPneuBandRear";
+            this.comboPneuBandRear.Size = new System.Drawing.Size(48, 24);
+            this.comboPneuBandRear.TabIndex = 39;
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label79.Location = new System.Drawing.Point(319, 106);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(19, 17);
+            this.label79.TabIndex = 40;
+            this.label79.Text = "in";
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label80.Location = new System.Drawing.Point(153, 143);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(16, 17);
+            this.label80.TabIndex = 41;
+            this.label80.Text = "F";
+            // 
+            // label81
+            // 
+            this.label81.AutoSize = true;
+            this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label81.Location = new System.Drawing.Point(262, 147);
+            this.label81.Name = "label81";
+            this.label81.Size = new System.Drawing.Size(18, 17);
+            this.label81.TabIndex = 42;
+            this.label81.Text = "R";
+            // 
+            // label82
+            // 
+            this.label82.AutoSize = true;
+            this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label82.Location = new System.Drawing.Point(337, 147);
+            this.label82.Name = "label82";
+            this.label82.Size = new System.Drawing.Size(26, 17);
+            this.label82.TabIndex = 44;
+            this.label82.Text = "psi";
+            // 
+            // textCarPneuPressaoRear
+            // 
+            this.textCarPneuPressaoRear.Location = new System.Drawing.Point(280, 143);
+            this.textCarPneuPressaoRear.MaxLength = 4;
+            this.textCarPneuPressaoRear.Name = "textCarPneuPressaoRear";
+            this.textCarPneuPressaoRear.Size = new System.Drawing.Size(55, 23);
+            this.textCarPneuPressaoRear.TabIndex = 43;
+            this.textCarPneuPressaoRear.Text = "00,0";
+            this.textCarPneuPressaoRear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // textCarPneuTipoRear
+            // 
+            this.textCarPneuTipoRear.Location = new System.Drawing.Point(344, 208);
+            this.textCarPneuTipoRear.MaxLength = 2;
+            this.textCarPneuTipoRear.Name = "textCarPneuTipoRear";
+            this.textCarPneuTipoRear.Size = new System.Drawing.Size(43, 23);
+            this.textCarPneuTipoRear.TabIndex = 46;
+            this.textCarPneuTipoRear.Text = "00";
+            this.textCarPneuTipoRear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // textCarPneuMarcaRear
+            // 
+            this.textCarPneuMarcaRear.Location = new System.Drawing.Point(166, 208);
+            this.textCarPneuMarcaRear.MaxLength = 15;
+            this.textCarPneuMarcaRear.Name = "textCarPneuMarcaRear";
+            this.textCarPneuMarcaRear.Size = new System.Drawing.Size(166, 23);
+            this.textCarPneuMarcaRear.TabIndex = 45;
+            this.textCarPneuMarcaRear.Text = "marca";
+            this.textCarPneuMarcaRear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label83
+            // 
+            this.label83.AutoSize = true;
+            this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label83.Location = new System.Drawing.Point(144, 177);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(16, 17);
+            this.label83.TabIndex = 47;
+            this.label83.Text = "F";
+            // 
+            // label84
+            // 
+            this.label84.AutoSize = true;
+            this.label84.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label84.Location = new System.Drawing.Point(144, 211);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(18, 17);
+            this.label84.TabIndex = 48;
+            this.label84.Text = "R";
             // 
             // GravarCorridaSetup
             // 
@@ -1794,5 +1973,17 @@
         private System.Windows.Forms.Label label73;
         private System.Windows.Forms.Label label72;
         private System.Windows.Forms.Label label71;
+        private System.Windows.Forms.Label label79;
+        private System.Windows.Forms.ComboBox comboPneuBandRear;
+        private System.Windows.Forms.Label label78;
+        private System.Windows.Forms.Label label77;
+        private System.Windows.Forms.Label label80;
+        private System.Windows.Forms.Label label82;
+        private System.Windows.Forms.TextBox textCarPneuPressaoRear;
+        private System.Windows.Forms.Label label81;
+        private System.Windows.Forms.Label label84;
+        private System.Windows.Forms.Label label83;
+        private System.Windows.Forms.TextBox textCarPneuTipoRear;
+        private System.Windows.Forms.TextBox textCarPneuMarcaRear;
     }
 }

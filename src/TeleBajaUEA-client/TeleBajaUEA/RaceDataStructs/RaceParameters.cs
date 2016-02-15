@@ -27,10 +27,14 @@ namespace TeleBajaUEA.RaceDataStructs
         public int rodaDiamExternoRear;
         public int rodaRaioAroFront;
         public int rodaRaioAroRear;
-        public int rodaBandagem;
-        public float pneuPressao;
-        public string pneuMarca;
-        public int pneuTipo;
+        public int rodaBandagemFront;
+        public int rodaBandagemRear;
+        public float pneuPressaoFront;
+        public float pneuPressaoRear;
+        public string pneuMarcaFront;
+        public string pneuMarcaRear;
+        public int pneuTipoFront;
+        public int pneuTipoRear;
 
         // outros
         public int distEixo;

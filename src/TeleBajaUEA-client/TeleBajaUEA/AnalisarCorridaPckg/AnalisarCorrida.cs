@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using TeleBajaUEA.AnalisarCorridaPckg;
 using TeleBajaUEA.RaceDataStructs;
 
 namespace TeleBajaUEA
@@ -200,20 +201,26 @@ namespace TeleBajaUEA
                 int resultPointIndex = ~searchResultIndex;
                 if (resultPointIndex > 0)
                 {
-                    // PointXComparer sempre retorna a folha da direita na busca
-                    int rightPointIndex = resultPointIndex;
-                    int leftPointIndex = resultPointIndex - 1;
-
-                    double rightPointX = raceData.DataList[rightPointIndex].xValue;
-                    double leftPointX = raceData.DataList[leftPointIndex].xValue;
-
-                    double rightDist = rightPointX - mouseX;
-                    double leftDist = mouseX - leftPointX;
-
-                    if (rightDist < leftDist)
-                        return rightPointIndex;
+                    // verifica se índicie retornado é o último ponto+1
+                    if (resultPointIndex == PointsCount)
+                        return resultPointIndex - 1;
                     else
-                        return leftPointIndex;
+                    {
+                        // PointXComparer sempre retorna a folha da direita na busca
+                        int rightPointIndex = resultPointIndex;
+                        int leftPointIndex = resultPointIndex - 1;
+
+                        double rightPointX = raceData.DataList[rightPointIndex].xValue;
+                        double leftPointX = raceData.DataList[leftPointIndex].xValue;
+
+                        double rightDist = rightPointX - mouseX;
+                        double leftDist = mouseX - leftPointX;
+
+                        if (rightDist < leftDist)
+                            return rightPointIndex;
+                        else
+                            return leftPointIndex;
+                    }
                 }
                 else
                     return resultPointIndex;
