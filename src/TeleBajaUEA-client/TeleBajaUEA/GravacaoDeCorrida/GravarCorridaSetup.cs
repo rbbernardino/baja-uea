@@ -109,8 +109,10 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             textCarAlt.Text = parameters.altTotal.ToString();
             textCarAlt.Text = parameters.largTotal.ToString();
 
-            textCarPneuDiaExt.Text = parameters.rodaDiamExterno.ToString();
-            textCarPneuAro.Text = parameters.rodaRaioAro.ToString();
+            textCarPneuDiaExt_front.Text = parameters.rodaDiamExternoFront.ToString();
+            textCarPneuDiaExt_rear.Text = parameters.rodaDiamExternoRear.ToString();
+            textCarPneuAro_front.Text = parameters.rodaRaioAroFront.ToString();
+            textCarPneuAro_rear.Text = parameters.rodaRaioAroRear.ToString();
 
             SetCombo(comboPneuBand, parameters.rodaBandagem);
 
@@ -249,8 +251,10 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             parameters.altTotal = int.Parse(textCarAlt.Text);
             parameters.largTotal = int.Parse(textCarAlt.Text);
 
-            parameters.rodaDiamExterno = int.Parse(textCarPneuDiaExt.Text);
-            parameters.rodaRaioAro = int.Parse(textCarPneuAro.Text);
+            parameters.rodaDiamExternoFront = int.Parse(textCarPneuDiaExt_front.Text);
+            parameters.rodaDiamExternoRear = int.Parse(textCarPneuDiaExt_rear.Text);
+            parameters.rodaRaioAroFront = int.Parse(textCarPneuAro_front.Text);
+            parameters.rodaRaioAroRear = int.Parse(textCarPneuAro_rear.Text);
             parameters.rodaBandagem = int.Parse(comboPneuBand.SelectedItem.ToString());
             parameters.pneuPressao = float.Parse(textCarPneuPressao.Text);
             parameters.pneuMarca = textCarPneuMarca.Text;
