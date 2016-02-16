@@ -133,6 +133,18 @@
             this.textCarDistEixo = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label84 = new System.Windows.Forms.Label();
+            this.label83 = new System.Windows.Forms.Label();
+            this.textCarPneuTipoRear = new System.Windows.Forms.TextBox();
+            this.textCarPneuMarcaRear = new System.Windows.Forms.TextBox();
+            this.label82 = new System.Windows.Forms.Label();
+            this.textCarPneuPressaoRear = new System.Windows.Forms.TextBox();
+            this.label81 = new System.Windows.Forms.Label();
+            this.label80 = new System.Windows.Forms.Label();
+            this.label79 = new System.Windows.Forms.Label();
+            this.comboPneuBandRear = new System.Windows.Forms.ComboBox();
+            this.label78 = new System.Windows.Forms.Label();
+            this.label77 = new System.Windows.Forms.Label();
             this.label75 = new System.Windows.Forms.Label();
             this.label76 = new System.Windows.Forms.Label();
             this.textCarPneuAro_rear = new System.Windows.Forms.TextBox();
@@ -159,18 +171,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.textCarPeso = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.label77 = new System.Windows.Forms.Label();
-            this.label78 = new System.Windows.Forms.Label();
-            this.comboPneuBandRear = new System.Windows.Forms.ComboBox();
-            this.label79 = new System.Windows.Forms.Label();
-            this.label80 = new System.Windows.Forms.Label();
-            this.label81 = new System.Windows.Forms.Label();
-            this.label82 = new System.Windows.Forms.Label();
-            this.textCarPneuPressaoRear = new System.Windows.Forms.TextBox();
-            this.textCarPneuTipoRear = new System.Windows.Forms.TextBox();
-            this.textCarPneuMarcaRear = new System.Windows.Forms.TextBox();
-            this.label83 = new System.Windows.Forms.Label();
-            this.label84 = new System.Windows.Forms.Label();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -220,7 +220,7 @@
             this.btCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.btCancelar.Location = new System.Drawing.Point(789, 531);
             this.btCancelar.Name = "btCancelar";
-            this.btCancelar.Size = new System.Drawing.Size(82, 26);
+            this.btCancelar.Size = new System.Drawing.Size(82, 30);
             this.btCancelar.TabIndex = 5;
             this.btCancelar.Text = "Cancelar";
             this.btCancelar.UseVisualStyleBackColor = true;
@@ -284,6 +284,7 @@
             this.txtPilAltura.Size = new System.Drawing.Size(63, 23);
             this.txtPilAltura.TabIndex = 6;
             this.txtPilAltura.Text = "0,00";
+            this.txtPilAltura.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label5
             // 
@@ -313,6 +314,7 @@
             this.txtPilPeso.Size = new System.Drawing.Size(63, 23);
             this.txtPilPeso.TabIndex = 3;
             this.txtPilPeso.Text = "000,00";
+            this.txtPilPeso.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label2
             // 
@@ -1413,9 +1415,134 @@
             this.groupBox2.Location = new System.Drawing.Point(15, 10);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(408, 243);
-            this.groupBox2.TabIndex = 11;
+            this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Roda/Pneu";
+            // 
+            // label84
+            // 
+            this.label84.AutoSize = true;
+            this.label84.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label84.Location = new System.Drawing.Point(144, 211);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(18, 17);
+            this.label84.TabIndex = 48;
+            this.label84.Text = "R";
+            // 
+            // label83
+            // 
+            this.label83.AutoSize = true;
+            this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label83.Location = new System.Drawing.Point(144, 177);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(16, 17);
+            this.label83.TabIndex = 47;
+            this.label83.Text = "F";
+            // 
+            // textCarPneuTipoRear
+            // 
+            this.textCarPneuTipoRear.Location = new System.Drawing.Point(344, 208);
+            this.textCarPneuTipoRear.MaxLength = 2;
+            this.textCarPneuTipoRear.Name = "textCarPneuTipoRear";
+            this.textCarPneuTipoRear.Size = new System.Drawing.Size(43, 23);
+            this.textCarPneuTipoRear.TabIndex = 12;
+            this.textCarPneuTipoRear.Text = "00";
+            this.textCarPneuTipoRear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // textCarPneuMarcaRear
+            // 
+            this.textCarPneuMarcaRear.Location = new System.Drawing.Point(166, 208);
+            this.textCarPneuMarcaRear.MaxLength = 15;
+            this.textCarPneuMarcaRear.Name = "textCarPneuMarcaRear";
+            this.textCarPneuMarcaRear.Size = new System.Drawing.Size(166, 23);
+            this.textCarPneuMarcaRear.TabIndex = 11;
+            this.textCarPneuMarcaRear.Text = "marca";
+            this.textCarPneuMarcaRear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label82
+            // 
+            this.label82.AutoSize = true;
+            this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label82.Location = new System.Drawing.Point(337, 147);
+            this.label82.Name = "label82";
+            this.label82.Size = new System.Drawing.Size(26, 17);
+            this.label82.TabIndex = 44;
+            this.label82.Text = "psi";
+            // 
+            // textCarPneuPressaoRear
+            // 
+            this.textCarPneuPressaoRear.Location = new System.Drawing.Point(280, 143);
+            this.textCarPneuPressaoRear.MaxLength = 4;
+            this.textCarPneuPressaoRear.Name = "textCarPneuPressaoRear";
+            this.textCarPneuPressaoRear.Size = new System.Drawing.Size(55, 23);
+            this.textCarPneuPressaoRear.TabIndex = 8;
+            this.textCarPneuPressaoRear.Text = "00,0";
+            this.textCarPneuPressaoRear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label81
+            // 
+            this.label81.AutoSize = true;
+            this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label81.Location = new System.Drawing.Point(262, 147);
+            this.label81.Name = "label81";
+            this.label81.Size = new System.Drawing.Size(18, 17);
+            this.label81.TabIndex = 42;
+            this.label81.Text = "R";
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label80.Location = new System.Drawing.Point(153, 143);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(16, 17);
+            this.label80.TabIndex = 41;
+            this.label80.Text = "F";
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label79.Location = new System.Drawing.Point(319, 106);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(19, 17);
+            this.label79.TabIndex = 40;
+            this.label79.Text = "in";
+            // 
+            // comboPneuBandRear
+            // 
+            this.comboPneuBandRear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboPneuBandRear.FormattingEnabled = true;
+            this.comboPneuBandRear.Items.AddRange(new object[] {
+            "8",
+            "9",
+            "10"});
+            this.comboPneuBandRear.Location = new System.Drawing.Point(268, 102);
+            this.comboPneuBandRear.MaxDropDownItems = 3;
+            this.comboPneuBandRear.MaxLength = 2;
+            this.comboPneuBandRear.Name = "comboPneuBandRear";
+            this.comboPneuBandRear.Size = new System.Drawing.Size(48, 24);
+            this.comboPneuBandRear.TabIndex = 6;
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label78.Location = new System.Drawing.Point(246, 104);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(18, 17);
+            this.label78.TabIndex = 38;
+            this.label78.Text = "R";
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label77.Location = new System.Drawing.Point(152, 104);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(16, 17);
+            this.label77.TabIndex = 37;
+            this.label77.Text = "F";
             // 
             // label75
             // 
@@ -1443,7 +1570,7 @@
             this.textCarPneuAro_rear.MaxLength = 2;
             this.textCarPneuAro_rear.Name = "textCarPneuAro_rear";
             this.textCarPneuAro_rear.Size = new System.Drawing.Size(43, 23);
-            this.textCarPneuAro_rear.TabIndex = 34;
+            this.textCarPneuAro_rear.TabIndex = 4;
             this.textCarPneuAro_rear.Text = "00";
             this.textCarPneuAro_rear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1463,7 +1590,7 @@
             this.textCarPneuDiaExt_rear.MaxLength = 2;
             this.textCarPneuDiaExt_rear.Name = "textCarPneuDiaExt_rear";
             this.textCarPneuDiaExt_rear.Size = new System.Drawing.Size(43, 23);
-            this.textCarPneuDiaExt_rear.TabIndex = 32;
+            this.textCarPneuDiaExt_rear.TabIndex = 2;
             this.textCarPneuDiaExt_rear.Text = "00";
             this.textCarPneuDiaExt_rear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1503,7 +1630,7 @@
             this.textCarPneuTipo.MaxLength = 2;
             this.textCarPneuTipo.Name = "textCarPneuTipo";
             this.textCarPneuTipo.Size = new System.Drawing.Size(43, 23);
-            this.textCarPneuTipo.TabIndex = 25;
+            this.textCarPneuTipo.TabIndex = 10;
             this.textCarPneuTipo.Text = "00";
             this.textCarPneuTipo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1513,7 +1640,7 @@
             this.textCarPneuMarca.MaxLength = 15;
             this.textCarPneuMarca.Name = "textCarPneuMarca";
             this.textCarPneuMarca.Size = new System.Drawing.Size(166, 23);
-            this.textCarPneuMarca.TabIndex = 24;
+            this.textCarPneuMarca.TabIndex = 9;
             this.textCarPneuMarca.Text = "marca";
             this.textCarPneuMarca.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1543,7 +1670,7 @@
             this.textCarPneuPressao.MaxLength = 4;
             this.textCarPneuPressao.Name = "textCarPneuPressao";
             this.textCarPneuPressao.Size = new System.Drawing.Size(55, 23);
-            this.textCarPneuPressao.TabIndex = 21;
+            this.textCarPneuPressao.TabIndex = 7;
             this.textCarPneuPressao.Text = "00,0";
             this.textCarPneuPressao.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1620,7 +1747,7 @@
             this.comboPneuBand.MaxLength = 2;
             this.comboPneuBand.Name = "comboPneuBand";
             this.comboPneuBand.Size = new System.Drawing.Size(48, 24);
-            this.comboPneuBand.TabIndex = 13;
+            this.comboPneuBand.TabIndex = 5;
             // 
             // textCarPneuAro_front
             // 
@@ -1628,7 +1755,7 @@
             this.textCarPneuAro_front.MaxLength = 2;
             this.textCarPneuAro_front.Name = "textCarPneuAro_front";
             this.textCarPneuAro_front.Size = new System.Drawing.Size(43, 23);
-            this.textCarPneuAro_front.TabIndex = 12;
+            this.textCarPneuAro_front.TabIndex = 3;
             this.textCarPneuAro_front.Text = "00";
             this.textCarPneuAro_front.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1638,7 +1765,7 @@
             this.textCarPneuDiaExt_front.MaxLength = 2;
             this.textCarPneuDiaExt_front.Name = "textCarPneuDiaExt_front";
             this.textCarPneuDiaExt_front.Size = new System.Drawing.Size(43, 23);
-            this.textCarPneuDiaExt_front.TabIndex = 11;
+            this.textCarPneuDiaExt_front.TabIndex = 1;
             this.textCarPneuDiaExt_front.Text = "00";
             this.textCarPneuDiaExt_front.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1682,131 +1809,6 @@
             this.label9.Size = new System.Drawing.Size(108, 17);
             this.label9.TabIndex = 5;
             this.label9.Text = "Massa do Carro";
-            // 
-            // label77
-            // 
-            this.label77.AutoSize = true;
-            this.label77.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label77.Location = new System.Drawing.Point(152, 104);
-            this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(16, 17);
-            this.label77.TabIndex = 37;
-            this.label77.Text = "F";
-            // 
-            // label78
-            // 
-            this.label78.AutoSize = true;
-            this.label78.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label78.Location = new System.Drawing.Point(246, 104);
-            this.label78.Name = "label78";
-            this.label78.Size = new System.Drawing.Size(18, 17);
-            this.label78.TabIndex = 38;
-            this.label78.Text = "R";
-            // 
-            // comboPneuBandRear
-            // 
-            this.comboPneuBandRear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboPneuBandRear.FormattingEnabled = true;
-            this.comboPneuBandRear.Items.AddRange(new object[] {
-            "8",
-            "9",
-            "10"});
-            this.comboPneuBandRear.Location = new System.Drawing.Point(268, 102);
-            this.comboPneuBandRear.MaxDropDownItems = 3;
-            this.comboPneuBandRear.MaxLength = 2;
-            this.comboPneuBandRear.Name = "comboPneuBandRear";
-            this.comboPneuBandRear.Size = new System.Drawing.Size(48, 24);
-            this.comboPneuBandRear.TabIndex = 39;
-            // 
-            // label79
-            // 
-            this.label79.AutoSize = true;
-            this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label79.Location = new System.Drawing.Point(319, 106);
-            this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(19, 17);
-            this.label79.TabIndex = 40;
-            this.label79.Text = "in";
-            // 
-            // label80
-            // 
-            this.label80.AutoSize = true;
-            this.label80.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label80.Location = new System.Drawing.Point(153, 143);
-            this.label80.Name = "label80";
-            this.label80.Size = new System.Drawing.Size(16, 17);
-            this.label80.TabIndex = 41;
-            this.label80.Text = "F";
-            // 
-            // label81
-            // 
-            this.label81.AutoSize = true;
-            this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label81.Location = new System.Drawing.Point(262, 147);
-            this.label81.Name = "label81";
-            this.label81.Size = new System.Drawing.Size(18, 17);
-            this.label81.TabIndex = 42;
-            this.label81.Text = "R";
-            // 
-            // label82
-            // 
-            this.label82.AutoSize = true;
-            this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label82.Location = new System.Drawing.Point(337, 147);
-            this.label82.Name = "label82";
-            this.label82.Size = new System.Drawing.Size(26, 17);
-            this.label82.TabIndex = 44;
-            this.label82.Text = "psi";
-            // 
-            // textCarPneuPressaoRear
-            // 
-            this.textCarPneuPressaoRear.Location = new System.Drawing.Point(280, 143);
-            this.textCarPneuPressaoRear.MaxLength = 4;
-            this.textCarPneuPressaoRear.Name = "textCarPneuPressaoRear";
-            this.textCarPneuPressaoRear.Size = new System.Drawing.Size(55, 23);
-            this.textCarPneuPressaoRear.TabIndex = 43;
-            this.textCarPneuPressaoRear.Text = "00,0";
-            this.textCarPneuPressaoRear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // textCarPneuTipoRear
-            // 
-            this.textCarPneuTipoRear.Location = new System.Drawing.Point(344, 208);
-            this.textCarPneuTipoRear.MaxLength = 2;
-            this.textCarPneuTipoRear.Name = "textCarPneuTipoRear";
-            this.textCarPneuTipoRear.Size = new System.Drawing.Size(43, 23);
-            this.textCarPneuTipoRear.TabIndex = 46;
-            this.textCarPneuTipoRear.Text = "00";
-            this.textCarPneuTipoRear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // textCarPneuMarcaRear
-            // 
-            this.textCarPneuMarcaRear.Location = new System.Drawing.Point(166, 208);
-            this.textCarPneuMarcaRear.MaxLength = 15;
-            this.textCarPneuMarcaRear.Name = "textCarPneuMarcaRear";
-            this.textCarPneuMarcaRear.Size = new System.Drawing.Size(166, 23);
-            this.textCarPneuMarcaRear.TabIndex = 45;
-            this.textCarPneuMarcaRear.Text = "marca";
-            this.textCarPneuMarcaRear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label83
-            // 
-            this.label83.AutoSize = true;
-            this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label83.Location = new System.Drawing.Point(144, 177);
-            this.label83.Name = "label83";
-            this.label83.Size = new System.Drawing.Size(16, 17);
-            this.label83.TabIndex = 47;
-            this.label83.Text = "F";
-            // 
-            // label84
-            // 
-            this.label84.AutoSize = true;
-            this.label84.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label84.Location = new System.Drawing.Point(144, 211);
-            this.label84.Name = "label84";
-            this.label84.Size = new System.Drawing.Size(18, 17);
-            this.label84.TabIndex = 48;
-            this.label84.Text = "R";
             // 
             // GravarCorridaSetup
             // 

@@ -45,14 +45,12 @@ namespace TeleBajaUEA
             await Task.Run(() => { bFormatter.Serialize(stream, data); });
             stream.Close();
             
-            // TODO serializa dados, abre arquivo e salva
             // TODO encriptografar e colocar senha (mesma senha de logar no programa)
             return true;
         }
 
         public static RaceData LoadFromFile(string FilePath)
         {
-            // TODO abre arquivo e deserializa
             Stream stream = File.Open(FilePath, FileMode.Open);
             BinaryFormatter bFormatter = new BinaryFormatter();
             RaceData data = (RaceData)bFormatter.Deserialize(stream);

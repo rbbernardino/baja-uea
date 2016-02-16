@@ -46,7 +46,7 @@ namespace TeleBajaUEA.RaceDataStructs
         public int rollcenter;
         public float frontToeL, frontToeR;
         public float rearToeL, rearToeR;
-        public float frontCamberL, rearCamberR;
+        public float frontCamberL, frontCamberR, rearCamberL, rearCamberR;
         public float caster;
         public float ackermann;
     }

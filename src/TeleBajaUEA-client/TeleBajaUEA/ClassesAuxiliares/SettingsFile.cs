@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml.Serialization;
+using TeleBajaUEA.RaceDataStructs;
 
 namespace TeleBajaUEA.ClassesAuxiliares
 {
@@ -23,6 +26,8 @@ namespace TeleBajaUEA.ClassesAuxiliares
                     @"TeleBajaUEA\");
             }
         }
+        private readonly static string LAST_PARAMS_FILE_NAME = "lastparams";
+        private static string LAST_PARAMS_FILE_PATH { get { return APP_FILES_PATH + LAST_PARAMS_FILE_NAME; } }
 
         public static void SaveToFile(ProgramSettings pSettings)
         {
@@ -49,6 +54,30 @@ namespace TeleBajaUEA.ClassesAuxiliares
         public static void CreateAppFilesFolder()
         {
             Directory.CreateDirectory(APP_FILES_PATH);
+        }
+
+        public static void SaveLastParams(RaceParameters parameters)
+        {
+            Stream stream = File.Open(LAST_PARAMS_FILE_PATH, FileMode.Create);
+            BinaryFormatter bFormatter = new BinaryFormatter();
+
+            bFormatter.Serialize(stream, parameters);
+            stream.Close();
+        }
+
+        public static bool LoadLastParams(ref RaceParameters parameters)
+        {
+            if (File.Exists(LAST_PARAMS_FILE_PATH))
+            {
+                Stream stream = File.Open(LAST_PARAMS_FILE_PATH, FileMode.Open);
+                BinaryFormatter bFormatter = new BinaryFormatter();
+                parameters = (RaceParameters)bFormatter.Deserialize(stream);
+                stream.Close();
+
+                return true;
+            }
+            else
+                return false;
         }
     }
 }

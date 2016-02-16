@@ -41,7 +41,9 @@ namespace TeleBajaUEA.AnalisarCorridaPckg
         {
             foreach (TextBox text in controls.OfType<TextBox>().ToList())
             {
-                text.BackColor = SystemColors.ControlLight;
+                text.BackColor = SystemColors.Window;
+                text.BorderStyle = BorderStyle.None;
+                text.Location = new Point(text.Location.X, text.Location.Y + 5);
                 text.ReadOnly = true;
             }
 
@@ -100,7 +102,7 @@ namespace TeleBajaUEA.AnalisarCorridaPckg
             textCarPeso.Text = parameters.carPeso.ToString();
             textCarComp.Text = parameters.compTotal.ToString();
             textCarAlt.Text = parameters.altTotal.ToString();
-            textCarAlt.Text = parameters.largTotal.ToString();
+            textCarLarg.Text = parameters.largTotal.ToString();
 
             textCarPneuDiaExt_front.Text = parameters.rodaDiamExternoFront.ToString();
             textCarPneuDiaExt_rear.Text = parameters.rodaDiamExternoRear.ToString();
@@ -111,7 +113,7 @@ namespace TeleBajaUEA.AnalisarCorridaPckg
             txtPneuBandRear.Text = parameters.rodaBandagemRear.ToString();
 
             textCarPneuPressao.Text = parameters.pneuPressaoFront.ToString();
-            textCarPneuPressao.Text = parameters.pneuPressaoFront.ToString();
+            textCarPneuPressaoRear.Text = parameters.pneuPressaoRear.ToString();
             textCarPneuMarcaFront.Text = parameters.pneuMarcaFront;
             textCarPneuMarcaRear.Text = parameters.pneuMarcaRear;
             textCarPneuTipo.Text = parameters.pneuTipoFront.ToString();
@@ -132,13 +134,19 @@ namespace TeleBajaUEA.AnalisarCorridaPckg
 
             txtAmort1.Text = parameters.preCargaAmort1.ToString();
 
-            parameters.rollcenter = int.Parse(textCarRoll.Text);
-            parameters.frontToeL = float.Parse(textFrontToeL.Text);
-            parameters.frontToeR = float.Parse(textFrontToeR.Text);
-            parameters.rearToeL = float.Parse(textRearToeL.Text);
-            parameters.rearToeR = float.Parse(textRearToeR.Text);
-            parameters.caster = float.Parse(textCaster.Text);
-            parameters.ackermann = float.Parse(textAckermann.Text);
+            textCarRoll.Text = parameters.rollcenter.ToString();
+            textFrontToeL.Text = parameters.frontToeL.ToString();
+            textFrontToeR.Text = parameters.frontToeR.ToString();
+            textRearToeL.Text = parameters.rearToeL.ToString();
+            textRearToeR.Text = parameters.rearToeR.ToString();
+
+            textFrontCamberL.Text = parameters.frontCamberL.ToString();
+            textFrontCamberR.Text = parameters.frontCamberR.ToString();
+            textRearCamberL.Text = parameters.rearCamberL.ToString();
+            textRearCamberR.Text = parameters.rearCamberR.ToString();
+
+            textCaster.Text = parameters.caster.ToString();
+            textAckermann.Text = parameters.ackermann.ToString();
         }
 
         private void SetTags()

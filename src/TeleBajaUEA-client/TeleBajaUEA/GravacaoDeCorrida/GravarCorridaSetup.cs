@@ -38,6 +38,7 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             radioClimEnsolarado.Checked = true;
             radioPistaMolhada.Checked = true;
             comboPneuBand.SelectedIndex = 0;
+            comboPneuBandRear.SelectedIndex = 0;
             comboCarAmort.SelectedIndex = 0;
             comboCarAmort2.SelectedIndex = 0;
         }
@@ -107,7 +108,7 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             textCarPeso.Text = parameters.carPeso.ToString();
             textCarComp.Text = parameters.compTotal.ToString();
             textCarAlt.Text = parameters.altTotal.ToString();
-            textCarAlt.Text = parameters.largTotal.ToString();
+            textCarLarg.Text = parameters.largTotal.ToString();
 
             textCarPneuDiaExt_front.Text = parameters.rodaDiamExternoFront.ToString();
             textCarPneuDiaExt_rear.Text = parameters.rodaDiamExternoRear.ToString();
@@ -138,13 +139,19 @@ namespace TeleBajaUEA.GravacaoDeCorrida
                 SetCombo(comboCarAmort2, "");
             SetCombo(comboCarAmort, parameters.preCargaAmort1);
 
-            parameters.rollcenter = int.Parse(textCarRoll.Text);
-            parameters.frontToeL = float.Parse(textFrontToeL.Text);
-            parameters.frontToeR = float.Parse(textFrontToeR.Text);
-            parameters.rearToeL = float.Parse(textRearToeL.Text);
-            parameters.rearToeR = float.Parse(textRearToeR.Text);
-            parameters.caster = float.Parse(textCaster.Text);
-            parameters.ackermann = float.Parse(textAckermann.Text);
+            textCarRoll.Text = parameters.rollcenter.ToString();
+            textFrontToeL.Text = parameters.frontToeL.ToString();
+            textFrontToeR.Text = parameters.frontToeR.ToString();
+            textRearToeL.Text = parameters.rearToeL.ToString();
+            textRearToeR.Text = parameters.rearToeR.ToString();
+
+            textFrontCamberL.Text = parameters.frontCamberL.ToString();
+            textFrontCamberR.Text = parameters.frontCamberR.ToString();
+            textRearCamberL.Text = parameters.rearCamberL.ToString();
+            textRearCamberR.Text = parameters.rearCamberR.ToString();
+
+            textCaster.Text = parameters.caster.ToString();
+            textAckermann.Text = parameters.ackermann.ToString();
         }
 
         private void SetTags()
@@ -183,6 +190,7 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             //-------------------------------------------------- TESTE-----------//
             BindParameters();
             Hide();
+            SettingsFile.SaveLastParams(parameters);
             await RaceFile.CreateTempFile();
             GravarCorrida formGravarCorrida = new GravarCorrida(parameters);
             await formGravarCorrida.ConfigureCharts();
@@ -253,7 +261,7 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             parameters.carPeso = float.Parse(textCarPeso.Text);
             parameters.compTotal = int.Parse(textCarComp.Text);
             parameters.altTotal = int.Parse(textCarAlt.Text);
-            parameters.largTotal = int.Parse(textCarAlt.Text);
+            parameters.largTotal = int.Parse(textCarLarg.Text);
 
             parameters.rodaDiamExternoFront = int.Parse(textCarPneuDiaExt_front.Text);
             parameters.rodaDiamExternoRear = int.Parse(textCarPneuDiaExt_rear.Text);
@@ -264,7 +272,7 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             parameters.pneuPressaoFront = float.Parse(textCarPneuPressao.Text);
             parameters.pneuPressaoRear = float.Parse(textCarPneuPressaoRear.Text);
             parameters.pneuMarcaFront = textCarPneuMarca.Text;
-            parameters.pneuMarcaFront = textCarPneuMarcaRear.Text;
+            parameters.pneuMarcaRear = textCarPneuMarcaRear.Text;
             parameters.pneuTipoFront = int.Parse(textCarPneuTipo.Text);
             parameters.pneuTipoRear = int.Parse(textCarPneuTipoRear.Text);
             parameters.distEixo = int.Parse(textCarDistEixo.Text);
@@ -280,11 +288,18 @@ namespace TeleBajaUEA.GravacaoDeCorrida
                 parameters.preCargaAmortMeio = false;
             else
                 parameters.preCargaAmortMeio = true;
+
             parameters.rollcenter = int.Parse(textCarRoll.Text);
             parameters.frontToeL = float.Parse(textFrontToeL.Text);
             parameters.frontToeR = float.Parse(textFrontToeR.Text);
             parameters.rearToeL = float.Parse(textRearToeL.Text);
             parameters.rearToeR = float.Parse(textRearToeR.Text);
+
+            parameters.frontCamberL = float.Parse(textFrontCamberL.Text);
+            parameters.frontCamberR = float.Parse(textFrontCamberR.Text);
+            parameters.rearCamberL = float.Parse(textRearCamberL.Text);
+            parameters.rearCamberR = float.Parse(textRearCamberR.Text);
+
             parameters.caster = float.Parse(textCaster.Text);
             parameters.ackermann = float.Parse(textAckermann.Text);
         }
