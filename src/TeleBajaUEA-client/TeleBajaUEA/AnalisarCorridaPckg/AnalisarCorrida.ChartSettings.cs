@@ -295,7 +295,7 @@ namespace TeleBajaUEA
             string text;
             for (double currentXLabel = startPointX; currentXLabel <= endPointX; currentXLabel += xInterval)
             {
-                fromPosition = currentXLabel - 5 * (xInterval / 10); // TODO trocar de 10 para UPDATE_RATE...
+                fromPosition = currentXLabel - 5 * (xInterval / 10); // TODO trocar de 10 para UPDATE_RATE... ?
                 toPosition = currentXLabel + 5 * (xInterval / 10);
 
                 // contagem é feita em milisegundos

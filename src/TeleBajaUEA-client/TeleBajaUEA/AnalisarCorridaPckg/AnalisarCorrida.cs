@@ -82,7 +82,7 @@ namespace TeleBajaUEA
 
         private void chartsNew_MouseMove(object sender, MouseEventArgs e)
         {
-            ShowPointToolTip(e); // TODO melhorar feedback de qual ponto está selecionado
+            ShowPointToolTip(e); // TODO melhorar feedback de qual ponto está selecionado??
             ShowPointMark(e);
 
             //TryMouseScroll(e);   DESATIVADO, ver comentário em AnalisarCorrida.MouseWheel

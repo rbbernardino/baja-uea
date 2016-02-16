@@ -65,7 +65,7 @@ namespace TeleBajaUEA
         #endregion
 
         // ----------- TESTE apenas------------------------------
-        private static RandomDataGenerator DataGenerator = new RandomDataGenerator();
+        //private static RandomDataGenerator DataGenerator = new RandomDataGenerator();
         //------------------------
 
         // TODO fazer await aqui e ali? realmetne necessário async??
@@ -123,7 +123,7 @@ namespace TeleBajaUEA
         public async static Task<SensorsData> GetNextData()
         {
             // ---------- para TESTE ---------
-            return await DataGenerator.GetNextPacket();
+            //return await DataGenerator.GetNextPacket();
             // -----------------------
 
             Tuple<bool, SensorsData> result;

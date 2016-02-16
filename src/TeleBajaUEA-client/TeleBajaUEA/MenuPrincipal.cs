@@ -38,17 +38,17 @@ namespace TeleBajaUEA
 
         private void btGravarCorrida_Click(object sender, EventArgs e)
         {
-            // -------------------------------------------
-            RaceParameters parameters2 = new RaceParameters();
-            GravarCorridaSetup formSetup2;
-            if (SettingsFile.LoadLastParams(ref parameters2))
-                formSetup2 = new GravarCorridaSetup(parameters2);
-            else
-                formSetup2 = new GravarCorridaSetup();
-            Hide();
-            formSetup2.Show();
-            return;
             // -------------codigo de TESTE----------------
+            //RaceParameters parameters2 = new RaceParameters();
+            //GravarCorridaSetup formSetup2;
+            //if (SettingsFile.LoadLastParams(ref parameters2))
+            //    formSetup2 = new GravarCorridaSetup(parameters2);
+            //else
+            //    formSetup2 = new GravarCorridaSetup();
+            //Hide();
+            //formSetup2.Show();
+            //return;
+            //// -------------------------------------------
 
             if (CarConnection.AvaiablePortExists)
             {
@@ -58,7 +58,7 @@ namespace TeleBajaUEA
                 {
                     if (CarConnection.IsPortAvaiable(Program.Settings.PortXBee))
                     {
-                        RaceParameters parameters;
+                        RaceParameters parameters = new RaceParameters();
                         GravarCorridaSetup formSetup;
                         if (SettingsFile.LoadLastParams(ref parameters))
                             formSetup = new GravarCorridaSetup(parameters);

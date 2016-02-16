@@ -83,7 +83,7 @@ namespace TeleBajaUEA.GravacaoDeCorrida
 
                 timerCheckIncomeData.Enabled = true;
                 // ---------TESTE---------
-                return; // impede timers de checagem executarem
+                //return; // impede timers de checagem executarem
                 // -----------------------
                 timerBackupData.Enabled = true;
                 timerCheckConn.Enabled = true;

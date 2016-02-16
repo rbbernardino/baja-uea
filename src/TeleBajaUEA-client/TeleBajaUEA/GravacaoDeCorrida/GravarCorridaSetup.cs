@@ -188,15 +188,15 @@ namespace TeleBajaUEA.GravacaoDeCorrida
         private async void btIniciar_Click(object sender, EventArgs e)
         {
             //-------------------------------------------------- TESTE-----------//
-            BindParameters();
-            Hide();
-            SettingsFile.SaveLastParams(parameters);
-            await RaceFile.CreateTempFile();
-            GravarCorrida formGravarCorrida = new GravarCorrida(parameters);
-            await formGravarCorrida.ConfigureCharts();
-            formGravarCorrida.Show();
-            formGravarCorrida.StartUpdateCharts();
-            return;
+            //BindParameters();
+            //Hide();
+            //SettingsFile.SaveLastParams(parameters);
+            //await RaceFile.CreateTempFile();
+            //GravarCorrida formGravarCorrida = new GravarCorrida(parameters);
+            //await formGravarCorrida.ConfigureCharts();
+            //formGravarCorrida.Show();
+            //formGravarCorrida.StartUpdateCharts();
+            //return;
             //----------------------------------------------------------
 
             BindParameters();
@@ -284,7 +284,7 @@ namespace TeleBajaUEA.GravacaoDeCorrida
             parameters.antiSquat = float.Parse(textCarAntiSquat.Text);
             parameters.cteMola = int.Parse(textCarMola.Text);
             parameters.preCargaAmort1 = int.Parse(comboCarAmort.SelectedItem.ToString());
-            if (comboCarAmort2.SelectedItem.ToString() == "") // TODO tratar quando usuário não selecionar nada aqui
+            if (comboCarAmort2.SelectedItem.ToString() == "")
                 parameters.preCargaAmortMeio = false;
             else
                 parameters.preCargaAmortMeio = true;

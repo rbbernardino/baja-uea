@@ -1540,7 +1540,7 @@ namespace TeleBajaUEA
                                            System.Drawing.Drawing2D.MatrixOrder.Append);
 
 
-                    // TODO Alterar labels aqui!!!
+                    // TODO Alterar labels aqui quando necessário
                     if (counter1 >= ScaleNumbersStartScaleLine - 1)
                     {
                         ggr.DrawString(valueText, Font, new SolidBrush(m_ScaleNumbersColor), -boundingBox.Width / 2, -fontBoundY1 - (fontBoundY2 - fontBoundY1 + 1) / 2, StringFormat.GenericTypographic);
