@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://dl.dropbox.com/s/6p6fo0y2pxdqdd1/logo-baja.png?dl=0" align="left" />
+  <img src="https://dl.dropbox.com/s/8bx2xylncyaisph/logo-baja.png?dl=0" align="left" />
 </p>
 
 .
