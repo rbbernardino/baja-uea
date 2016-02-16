@@ -28,8 +28,8 @@
     <ProductName>TeleBajaUEA</ProductName>
     <PublisherName>BajaUEA</PublisherName>
     <MinimumRequiredVersion>0.9.1.6</MinimumRequiredVersion>
-    <ApplicationRevision>2</ApplicationRevision>
-    <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -113,8 +113,20 @@
     </Compile>
     <Compile Include="ClassesAuxiliares\CarConnection.cs" />
     <Compile Include="ClassesAuxiliares\ErrorMessage.cs" />
+    <Compile Include="ClassesAuxiliares\Extensões\DecimalTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ClassesAuxiliares\Extensões\DecimalTextBox.Designer.cs">
+      <DependentUpon>DecimalTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="ClassesAuxiliares\Extensões\FolderBrowserDialogEx.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ClassesAuxiliares\Extensões\IntegerTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ClassesAuxiliares\Extensões\IntegerTextBox.Designer.cs">
+      <DependentUpon>IntegerTextBox.cs</DependentUpon>
     </Compile>
     <Compile Include="ClassesAuxiliares\ProgramSettings.cs" />
     <Compile Include="ClassesAuxiliares\Extensões\SerialPortExt.cs">

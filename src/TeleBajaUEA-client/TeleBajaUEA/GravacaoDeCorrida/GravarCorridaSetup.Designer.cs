@@ -1,4 +1,6 @@
-﻿namespace TeleBajaUEA.GravacaoDeCorrida
+﻿using TeleBajaUEA.ClassesAuxiliares.Extensões;
+
+namespace TeleBajaUEA.GravacaoDeCorrida
 {
     partial class GravarCorridaSetup
     {
@@ -36,10 +38,10 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabDriver = new System.Windows.Forms.TabPage();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtPilAltura = new System.Windows.Forms.TextBox();
+            this.txtPilAltura = new TeleBajaUEA.ClassesAuxiliares.Extensões.IntegerTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtPilPeso = new System.Windows.Forms.TextBox();
+            this.txtPilPeso = new TeleBajaUEA.ClassesAuxiliares.Extensões.DecimalTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtPilNome = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -53,92 +55,92 @@
             this.radioClimNublado = new System.Windows.Forms.RadioButton();
             this.radioClimEnsolarado = new System.Windows.Forms.RadioButton();
             this.label7 = new System.Windows.Forms.Label();
-            this.txtClimTemp = new System.Windows.Forms.TextBox();
+            this.txtClimTemp = new TeleBajaUEA.ClassesAuxiliares.Extensões.IntegerTextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tabCar = new System.Windows.Forms.TabPage();
             this.label69 = new System.Windows.Forms.Label();
-            this.textAckermann = new System.Windows.Forms.TextBox();
+            this.textAckermann = new TeleBajaUEA.ClassesAuxiliares.Extensões.DecimalTextBox();
             this.label70 = new System.Windows.Forms.Label();
             this.label68 = new System.Windows.Forms.Label();
-            this.textCaster = new System.Windows.Forms.TextBox();
+            this.textCaster = new TeleBajaUEA.ClassesAuxiliares.Extensões.DecimalTextBox();
             this.label67 = new System.Windows.Forms.Label();
             this.label57 = new System.Windows.Forms.Label();
-            this.textRearCamberR = new System.Windows.Forms.TextBox();
+            this.textRearCamberR = new TeleBajaUEA.ClassesAuxiliares.Extensões.DecimalTextBox();
             this.label58 = new System.Windows.Forms.Label();
-            this.textRearCamberL = new System.Windows.Forms.TextBox();
+            this.textRearCamberL = new TeleBajaUEA.ClassesAuxiliares.Extensões.DecimalTextBox();
             this.label59 = new System.Windows.Forms.Label();
             this.label60 = new System.Windows.Forms.Label();
             this.label61 = new System.Windows.Forms.Label();
             this.label62 = new System.Windows.Forms.Label();
-            this.textFrontCamberR = new System.Windows.Forms.TextBox();
+            this.textFrontCamberR = new TeleBajaUEA.ClassesAuxiliares.Extensões.DecimalTextBox();
             this.label63 = new System.Windows.Forms.Label();
-            this.textFrontCamberL = new System.Windows.Forms.TextBox();
+            this.textFrontCamberL = new TeleBajaUEA.ClassesAuxiliares.Extensões.DecimalTextBox();
             this.label64 = new System.Windows.Forms.Label();
             this.label65 = new System.Windows.Forms.Label();
             this.label66 = new System.Windows.Forms.Label();
             this.label52 = new System.Windows.Forms.Label();
-            this.textRearToeR = new System.Windows.Forms.TextBox();
+            this.textRearToeR = new TeleBajaUEA.ClassesAuxiliares.Extensões.DecimalTextBox();
             this.label53 = new System.Windows.Forms.Label();
-            this.textRearToeL = new System.Windows.Forms.TextBox();
+            this.textRearToeL = new TeleBajaUEA.ClassesAuxiliares.Extensões.DecimalTextBox();
             this.label54 = new System.Windows.Forms.Label();
             this.label55 = new System.Windows.Forms.Label();
             this.label56 = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
-            this.textFrontToeR = new System.Windows.Forms.TextBox();
+            this.textFrontToeR = new TeleBajaUEA.ClassesAuxiliares.Extensões.DecimalTextBox();
             this.label49 = new System.Windows.Forms.Label();
-            this.textFrontToeL = new System.Windows.Forms.TextBox();
+            this.textFrontToeL = new TeleBajaUEA.ClassesAuxiliares.Extensões.DecimalTextBox();
             this.label47 = new System.Windows.Forms.Label();
             this.label50 = new System.Windows.Forms.Label();
             this.label51 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
-            this.textCarRoll = new System.Windows.Forms.TextBox();
+            this.textCarRoll = new TeleBajaUEA.ClassesAuxiliares.Extensões.IntegerTextBox();
             this.label46 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
             this.comboCarAmort2 = new System.Windows.Forms.ComboBox();
             this.comboCarAmort = new System.Windows.Forms.ComboBox();
             this.label43 = new System.Windows.Forms.Label();
             this.label42 = new System.Windows.Forms.Label();
-            this.textCarMola = new System.Windows.Forms.TextBox();
+            this.textCarMola = new TeleBajaUEA.ClassesAuxiliares.Extensões.IntegerTextBox();
             this.label41 = new System.Windows.Forms.Label();
             this.label39 = new System.Windows.Forms.Label();
-            this.textCarAntiSquat = new System.Windows.Forms.TextBox();
+            this.textCarAntiSquat = new TeleBajaUEA.ClassesAuxiliares.Extensões.DecimalTextBox();
             this.label40 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
-            this.textCarAntiDive = new System.Windows.Forms.TextBox();
+            this.textCarAntiDive = new TeleBajaUEA.ClassesAuxiliares.Extensões.DecimalTextBox();
             this.label37 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
-            this.textCarVaoR = new System.Windows.Forms.TextBox();
+            this.textCarVaoR = new TeleBajaUEA.ClassesAuxiliares.Extensões.IntegerTextBox();
             this.label34 = new System.Windows.Forms.Label();
-            this.textCarVaoF = new System.Windows.Forms.TextBox();
+            this.textCarVaoF = new TeleBajaUEA.ClassesAuxiliares.Extensões.IntegerTextBox();
             this.label35 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
-            this.textCarAlt = new System.Windows.Forms.TextBox();
+            this.textCarAlt = new TeleBajaUEA.ClassesAuxiliares.Extensões.IntegerTextBox();
             this.label31 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
-            this.textCarLarg = new System.Windows.Forms.TextBox();
+            this.textCarLarg = new TeleBajaUEA.ClassesAuxiliares.Extensões.IntegerTextBox();
             this.label29 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
-            this.textCarComp = new System.Windows.Forms.TextBox();
+            this.textCarComp = new TeleBajaUEA.ClassesAuxiliares.Extensões.IntegerTextBox();
             this.label26 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
-            this.textCarBitR = new System.Windows.Forms.TextBox();
+            this.textCarBitR = new TeleBajaUEA.ClassesAuxiliares.Extensões.IntegerTextBox();
             this.label23 = new System.Windows.Forms.Label();
-            this.textCarBitF = new System.Windows.Forms.TextBox();
+            this.textCarBitF = new TeleBajaUEA.ClassesAuxiliares.Extensões.IntegerTextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.textCarDistEixo = new System.Windows.Forms.TextBox();
+            this.textCarDistEixo = new TeleBajaUEA.ClassesAuxiliares.Extensões.IntegerTextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label84 = new System.Windows.Forms.Label();
             this.label83 = new System.Windows.Forms.Label();
-            this.textCarPneuTipoRear = new System.Windows.Forms.TextBox();
+            this.textCarPneuTipoRear = new TeleBajaUEA.ClassesAuxiliares.Extensões.IntegerTextBox();
             this.textCarPneuMarcaRear = new System.Windows.Forms.TextBox();
             this.label82 = new System.Windows.Forms.Label();
-            this.textCarPneuPressaoRear = new System.Windows.Forms.TextBox();
+            this.textCarPneuPressaoRear = new TeleBajaUEA.ClassesAuxiliares.Extensões.DecimalTextBox();
             this.label81 = new System.Windows.Forms.Label();
             this.label80 = new System.Windows.Forms.Label();
             this.label79 = new System.Windows.Forms.Label();
@@ -147,17 +149,17 @@
             this.label77 = new System.Windows.Forms.Label();
             this.label75 = new System.Windows.Forms.Label();
             this.label76 = new System.Windows.Forms.Label();
-            this.textCarPneuAro_rear = new System.Windows.Forms.TextBox();
+            this.textCarPneuAro_rear = new TeleBajaUEA.ClassesAuxiliares.Extensões.IntegerTextBox();
             this.label74 = new System.Windows.Forms.Label();
-            this.textCarPneuDiaExt_rear = new System.Windows.Forms.TextBox();
+            this.textCarPneuDiaExt_rear = new TeleBajaUEA.ClassesAuxiliares.Extensões.IntegerTextBox();
             this.label73 = new System.Windows.Forms.Label();
             this.label72 = new System.Windows.Forms.Label();
             this.label71 = new System.Windows.Forms.Label();
-            this.textCarPneuTipo = new System.Windows.Forms.TextBox();
+            this.textCarPneuTipo = new TeleBajaUEA.ClassesAuxiliares.Extensões.IntegerTextBox();
             this.textCarPneuMarca = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.textCarPneuPressao = new System.Windows.Forms.TextBox();
+            this.textCarPneuPressao = new TeleBajaUEA.ClassesAuxiliares.Extensões.DecimalTextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -165,11 +167,11 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.comboPneuBand = new System.Windows.Forms.ComboBox();
-            this.textCarPneuAro_front = new System.Windows.Forms.TextBox();
-            this.textCarPneuDiaExt_front = new System.Windows.Forms.TextBox();
+            this.textCarPneuAro_front = new TeleBajaUEA.ClassesAuxiliares.Extensões.IntegerTextBox();
+            this.textCarPneuDiaExt_front = new TeleBajaUEA.ClassesAuxiliares.Extensões.IntegerTextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.textCarPeso = new System.Windows.Forms.TextBox();
+            this.textCarPeso = new TeleBajaUEA.ClassesAuxiliares.Extensões.DecimalTextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -283,7 +285,7 @@
             this.txtPilAltura.Name = "txtPilAltura";
             this.txtPilAltura.Size = new System.Drawing.Size(63, 23);
             this.txtPilAltura.TabIndex = 6;
-            this.txtPilAltura.Text = "0,00";
+            this.txtPilAltura.Text = "0";
             this.txtPilAltura.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label5
@@ -313,7 +315,7 @@
             this.txtPilPeso.Name = "txtPilPeso";
             this.txtPilPeso.Size = new System.Drawing.Size(63, 23);
             this.txtPilPeso.TabIndex = 3;
-            this.txtPilPeso.Text = "000,00";
+            this.txtPilPeso.Text = "0";
             this.txtPilPeso.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label2
@@ -479,7 +481,7 @@
             this.txtClimTemp.Name = "txtClimTemp";
             this.txtClimTemp.Size = new System.Drawing.Size(48, 23);
             this.txtClimTemp.TabIndex = 8;
-            this.txtClimTemp.Text = "40";
+            this.txtClimTemp.Text = "0";
             // 
             // label6
             // 
@@ -599,7 +601,7 @@
             this.textAckermann.Name = "textAckermann";
             this.textAckermann.Size = new System.Drawing.Size(55, 23);
             this.textAckermann.TabIndex = 98;
-            this.textAckermann.Text = "000,0";
+            this.textAckermann.Text = "0";
             this.textAckermann.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label70
@@ -630,7 +632,7 @@
             this.textCaster.Name = "textCaster";
             this.textCaster.Size = new System.Drawing.Size(55, 23);
             this.textCaster.TabIndex = 95;
-            this.textCaster.Text = "000,0";
+            this.textCaster.Text = "0";
             this.textCaster.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label67
@@ -661,7 +663,7 @@
             this.textRearCamberR.Name = "textRearCamberR";
             this.textRearCamberR.Size = new System.Drawing.Size(55, 23);
             this.textRearCamberR.TabIndex = 92;
-            this.textRearCamberR.Text = "000,0";
+            this.textRearCamberR.Text = "0";
             this.textRearCamberR.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label58
@@ -682,7 +684,7 @@
             this.textRearCamberL.Name = "textRearCamberL";
             this.textRearCamberL.Size = new System.Drawing.Size(55, 23);
             this.textRearCamberL.TabIndex = 90;
-            this.textRearCamberL.Text = "000,0";
+            this.textRearCamberL.Text = "0";
             this.textRearCamberL.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label59
@@ -733,7 +735,7 @@
             this.textFrontCamberR.Name = "textFrontCamberR";
             this.textFrontCamberR.Size = new System.Drawing.Size(55, 23);
             this.textFrontCamberR.TabIndex = 85;
-            this.textFrontCamberR.Text = "000,0";
+            this.textFrontCamberR.Text = "0";
             this.textFrontCamberR.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label63
@@ -754,7 +756,7 @@
             this.textFrontCamberL.Name = "textFrontCamberL";
             this.textFrontCamberL.Size = new System.Drawing.Size(55, 23);
             this.textFrontCamberL.TabIndex = 83;
-            this.textFrontCamberL.Text = "000,0";
+            this.textFrontCamberL.Text = "0";
             this.textFrontCamberL.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label64
@@ -805,7 +807,7 @@
             this.textRearToeR.Name = "textRearToeR";
             this.textRearToeR.Size = new System.Drawing.Size(55, 23);
             this.textRearToeR.TabIndex = 78;
-            this.textRearToeR.Text = "000,0";
+            this.textRearToeR.Text = "0";
             this.textRearToeR.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label53
@@ -826,7 +828,7 @@
             this.textRearToeL.Name = "textRearToeL";
             this.textRearToeL.Size = new System.Drawing.Size(55, 23);
             this.textRearToeL.TabIndex = 76;
-            this.textRearToeL.Text = "000,0";
+            this.textRearToeL.Text = "0";
             this.textRearToeL.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label54
@@ -877,7 +879,7 @@
             this.textFrontToeR.Name = "textFrontToeR";
             this.textFrontToeR.Size = new System.Drawing.Size(55, 23);
             this.textFrontToeR.TabIndex = 71;
-            this.textFrontToeR.Text = "000,0";
+            this.textFrontToeR.Text = "0";
             this.textFrontToeR.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label49
@@ -898,7 +900,7 @@
             this.textFrontToeL.Name = "textFrontToeL";
             this.textFrontToeL.Size = new System.Drawing.Size(55, 23);
             this.textFrontToeL.TabIndex = 69;
-            this.textFrontToeL.Text = "000,0";
+            this.textFrontToeL.Text = "0";
             this.textFrontToeL.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label47
@@ -949,7 +951,7 @@
             this.textCarRoll.Name = "textCarRoll";
             this.textCarRoll.Size = new System.Drawing.Size(55, 23);
             this.textCarRoll.TabIndex = 60;
-            this.textCarRoll.Text = "0000";
+            this.textCarRoll.Text = "0";
             this.textCarRoll.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label46
@@ -1031,7 +1033,7 @@
             this.textCarMola.Name = "textCarMola";
             this.textCarMola.Size = new System.Drawing.Size(30, 23);
             this.textCarMola.TabIndex = 53;
-            this.textCarMola.Text = "00";
+            this.textCarMola.Text = "0";
             this.textCarMola.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label41
@@ -1062,7 +1064,7 @@
             this.textCarAntiSquat.Name = "textCarAntiSquat";
             this.textCarAntiSquat.Size = new System.Drawing.Size(55, 23);
             this.textCarAntiSquat.TabIndex = 50;
-            this.textCarAntiSquat.Text = "000,0";
+            this.textCarAntiSquat.Text = "0";
             this.textCarAntiSquat.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label40
@@ -1093,7 +1095,7 @@
             this.textCarAntiDive.Name = "textCarAntiDive";
             this.textCarAntiDive.Size = new System.Drawing.Size(55, 23);
             this.textCarAntiDive.TabIndex = 47;
-            this.textCarAntiDive.Text = "000,0";
+            this.textCarAntiDive.Text = "0";
             this.textCarAntiDive.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label37
@@ -1134,7 +1136,7 @@
             this.textCarVaoR.Name = "textCarVaoR";
             this.textCarVaoR.Size = new System.Drawing.Size(55, 23);
             this.textCarVaoR.TabIndex = 43;
-            this.textCarVaoR.Text = "0000";
+            this.textCarVaoR.Text = "0";
             this.textCarVaoR.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label34
@@ -1155,7 +1157,7 @@
             this.textCarVaoF.Name = "textCarVaoF";
             this.textCarVaoF.Size = new System.Drawing.Size(55, 23);
             this.textCarVaoF.TabIndex = 41;
-            this.textCarVaoF.Text = "0000";
+            this.textCarVaoF.Text = "0";
             this.textCarVaoF.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label35
@@ -1196,7 +1198,7 @@
             this.textCarAlt.Name = "textCarAlt";
             this.textCarAlt.Size = new System.Drawing.Size(55, 23);
             this.textCarAlt.TabIndex = 37;
-            this.textCarAlt.Text = "0000";
+            this.textCarAlt.Text = "0";
             this.textCarAlt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label31
@@ -1227,7 +1229,7 @@
             this.textCarLarg.Name = "textCarLarg";
             this.textCarLarg.Size = new System.Drawing.Size(55, 23);
             this.textCarLarg.TabIndex = 34;
-            this.textCarLarg.Text = "0000";
+            this.textCarLarg.Text = "0";
             this.textCarLarg.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label29
@@ -1258,7 +1260,7 @@
             this.textCarComp.Name = "textCarComp";
             this.textCarComp.Size = new System.Drawing.Size(55, 23);
             this.textCarComp.TabIndex = 31;
-            this.textCarComp.Text = "0000";
+            this.textCarComp.Text = "0";
             this.textCarComp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label26
@@ -1299,7 +1301,7 @@
             this.textCarBitR.Name = "textCarBitR";
             this.textCarBitR.Size = new System.Drawing.Size(55, 23);
             this.textCarBitR.TabIndex = 27;
-            this.textCarBitR.Text = "0000";
+            this.textCarBitR.Text = "0";
             this.textCarBitR.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label23
@@ -1320,7 +1322,7 @@
             this.textCarBitF.Name = "textCarBitF";
             this.textCarBitF.Size = new System.Drawing.Size(55, 23);
             this.textCarBitF.TabIndex = 25;
-            this.textCarBitF.Text = "0000";
+            this.textCarBitF.Text = "0";
             this.textCarBitF.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label22
@@ -1361,7 +1363,7 @@
             this.textCarDistEixo.Name = "textCarDistEixo";
             this.textCarDistEixo.Size = new System.Drawing.Size(55, 23);
             this.textCarDistEixo.TabIndex = 21;
-            this.textCarDistEixo.Text = "0000";
+            this.textCarDistEixo.Text = "0";
             this.textCarDistEixo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label19
@@ -1446,7 +1448,7 @@
             this.textCarPneuTipoRear.Name = "textCarPneuTipoRear";
             this.textCarPneuTipoRear.Size = new System.Drawing.Size(43, 23);
             this.textCarPneuTipoRear.TabIndex = 12;
-            this.textCarPneuTipoRear.Text = "00";
+            this.textCarPneuTipoRear.Text = "0";
             this.textCarPneuTipoRear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // textCarPneuMarcaRear
@@ -1463,7 +1465,7 @@
             // 
             this.label82.AutoSize = true;
             this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label82.Location = new System.Drawing.Point(337, 147);
+            this.label82.Location = new System.Drawing.Point(325, 140);
             this.label82.Name = "label82";
             this.label82.Size = new System.Drawing.Size(26, 17);
             this.label82.TabIndex = 44;
@@ -1471,19 +1473,19 @@
             // 
             // textCarPneuPressaoRear
             // 
-            this.textCarPneuPressaoRear.Location = new System.Drawing.Point(280, 143);
+            this.textCarPneuPressaoRear.Location = new System.Drawing.Point(268, 136);
             this.textCarPneuPressaoRear.MaxLength = 4;
             this.textCarPneuPressaoRear.Name = "textCarPneuPressaoRear";
             this.textCarPneuPressaoRear.Size = new System.Drawing.Size(55, 23);
             this.textCarPneuPressaoRear.TabIndex = 8;
-            this.textCarPneuPressaoRear.Text = "00,0";
+            this.textCarPneuPressaoRear.Text = "0";
             this.textCarPneuPressaoRear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label81
             // 
             this.label81.AutoSize = true;
             this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label81.Location = new System.Drawing.Point(262, 147);
+            this.label81.Location = new System.Drawing.Point(250, 140);
             this.label81.Name = "label81";
             this.label81.Size = new System.Drawing.Size(18, 17);
             this.label81.TabIndex = 42;
@@ -1493,7 +1495,7 @@
             // 
             this.label80.AutoSize = true;
             this.label80.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label80.Location = new System.Drawing.Point(153, 143);
+            this.label80.Location = new System.Drawing.Point(151, 140);
             this.label80.Name = "label80";
             this.label80.Size = new System.Drawing.Size(16, 17);
             this.label80.TabIndex = 41;
@@ -1571,7 +1573,7 @@
             this.textCarPneuAro_rear.Name = "textCarPneuAro_rear";
             this.textCarPneuAro_rear.Size = new System.Drawing.Size(43, 23);
             this.textCarPneuAro_rear.TabIndex = 4;
-            this.textCarPneuAro_rear.Text = "00";
+            this.textCarPneuAro_rear.Text = "0";
             this.textCarPneuAro_rear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label74
@@ -1591,7 +1593,7 @@
             this.textCarPneuDiaExt_rear.Name = "textCarPneuDiaExt_rear";
             this.textCarPneuDiaExt_rear.Size = new System.Drawing.Size(43, 23);
             this.textCarPneuDiaExt_rear.TabIndex = 2;
-            this.textCarPneuDiaExt_rear.Text = "00";
+            this.textCarPneuDiaExt_rear.Text = "0";
             this.textCarPneuDiaExt_rear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label73
@@ -1631,7 +1633,7 @@
             this.textCarPneuTipo.Name = "textCarPneuTipo";
             this.textCarPneuTipo.Size = new System.Drawing.Size(43, 23);
             this.textCarPneuTipo.TabIndex = 10;
-            this.textCarPneuTipo.Text = "00";
+            this.textCarPneuTipo.Text = "0";
             this.textCarPneuTipo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // textCarPneuMarca
@@ -1658,7 +1660,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label18.Location = new System.Drawing.Point(230, 144);
+            this.label18.Location = new System.Drawing.Point(228, 141);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(26, 17);
             this.label18.TabIndex = 22;
@@ -1666,12 +1668,12 @@
             // 
             // textCarPneuPressao
             // 
-            this.textCarPneuPressao.Location = new System.Drawing.Point(173, 140);
+            this.textCarPneuPressao.Location = new System.Drawing.Point(171, 137);
             this.textCarPneuPressao.MaxLength = 4;
             this.textCarPneuPressao.Name = "textCarPneuPressao";
             this.textCarPneuPressao.Size = new System.Drawing.Size(55, 23);
             this.textCarPneuPressao.TabIndex = 7;
-            this.textCarPneuPressao.Text = "00,0";
+            this.textCarPneuPressao.Text = "0";
             this.textCarPneuPressao.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label17
@@ -1756,7 +1758,7 @@
             this.textCarPneuAro_front.Name = "textCarPneuAro_front";
             this.textCarPneuAro_front.Size = new System.Drawing.Size(43, 23);
             this.textCarPneuAro_front.TabIndex = 3;
-            this.textCarPneuAro_front.Text = "00";
+            this.textCarPneuAro_front.Text = "0";
             this.textCarPneuAro_front.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // textCarPneuDiaExt_front
@@ -1766,7 +1768,7 @@
             this.textCarPneuDiaExt_front.Name = "textCarPneuDiaExt_front";
             this.textCarPneuDiaExt_front.Size = new System.Drawing.Size(43, 23);
             this.textCarPneuDiaExt_front.TabIndex = 1;
-            this.textCarPneuDiaExt_front.Text = "00";
+            this.textCarPneuDiaExt_front.Text = "0";
             this.textCarPneuDiaExt_front.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label11
@@ -1797,7 +1799,7 @@
             this.textCarPeso.Name = "textCarPeso";
             this.textCarPeso.Size = new System.Drawing.Size(55, 23);
             this.textCarPeso.TabIndex = 6;
-            this.textCarPeso.Text = "200";
+            this.textCarPeso.Text = "0";
             this.textCarPeso.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label9
@@ -1853,114 +1855,113 @@
         private System.Windows.Forms.Button btIniciar;
         private System.Windows.Forms.Button btCancelar;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtPilAltura;
+        private IntegerTextBox txtPilAltura;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtPilPeso;
+        private DecimalTextBox txtPilPeso;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtPilNome;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtClimTemp;
+        private IntegerTextBox txtClimTemp;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupClima;
         private System.Windows.Forms.RadioButton radioClimChuvoso;
         private System.Windows.Forms.RadioButton radioClimNublado;
         private System.Windows.Forms.RadioButton radioClimEnsolarado;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textCarPeso;
+        private DecimalTextBox textCarPeso;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ComboBox comboPneuBand;
-        private System.Windows.Forms.TextBox textCarPneuAro_front;
-        private System.Windows.Forms.TextBox textCarPneuDiaExt_front;
+        private IntegerTextBox textCarPneuAro_front;
+        private IntegerTextBox textCarPneuDiaExt_front;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textCarDistEixo;
+        private IntegerTextBox textCarDistEixo;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.TextBox textCarBitR;
+        private IntegerTextBox textCarBitR;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.TextBox textCarBitF;
+        private IntegerTextBox textCarBitF;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.TextBox textCarAlt;
+        private IntegerTextBox textCarAlt;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.TextBox textCarLarg;
+        private IntegerTextBox textCarLarg;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.TextBox textCarComp;
+        private IntegerTextBox textCarComp;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.TextBox textCarVaoR;
+        private IntegerTextBox textCarVaoR;
         private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.TextBox textCarVaoF;
+        private IntegerTextBox textCarVaoF;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.TextBox textCarAntiDive;
+        private DecimalTextBox textCarAntiDive;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.Label label39;
-        private System.Windows.Forms.TextBox textCarAntiSquat;
+        private DecimalTextBox textCarAntiSquat;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.TextBox textCarMola;
+        private IntegerTextBox textCarMola;
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.ComboBox comboCarAmort2;
         private System.Windows.Forms.ComboBox comboCarAmort;
         private System.Windows.Forms.Label label45;
-        private System.Windows.Forms.TextBox textCarRoll;
+        private IntegerTextBox textCarRoll;
         private System.Windows.Forms.Label label46;
         private System.Windows.Forms.Label label48;
-        private System.Windows.Forms.TextBox textFrontToeR;
+        private DecimalTextBox textFrontToeR;
         private System.Windows.Forms.Label label49;
-        private System.Windows.Forms.TextBox textFrontToeL;
+        private DecimalTextBox textFrontToeL;
         private System.Windows.Forms.Label label47;
         private System.Windows.Forms.Label label50;
         private System.Windows.Forms.Label label51;
         private System.Windows.Forms.Label label52;
-        private System.Windows.Forms.TextBox textRearToeR;
+        private DecimalTextBox textRearToeR;
         private System.Windows.Forms.Label label53;
-        private System.Windows.Forms.TextBox textRearToeL;
+        private DecimalTextBox textRearToeL;
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.Label label56;
         private System.Windows.Forms.Label label57;
-        private System.Windows.Forms.TextBox textRearCamberR;
+        private DecimalTextBox textRearCamberR;
         private System.Windows.Forms.Label label58;
-        private System.Windows.Forms.TextBox textRearCamberL;
+        private DecimalTextBox textRearCamberL;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.Label label60;
         private System.Windows.Forms.Label label61;
         private System.Windows.Forms.Label label62;
-        private System.Windows.Forms.TextBox textFrontCamberR;
+        private DecimalTextBox textFrontCamberR;
         private System.Windows.Forms.Label label63;
-        private System.Windows.Forms.TextBox textFrontCamberL;
+        private DecimalTextBox textFrontCamberL;
         private System.Windows.Forms.Label label64;
         private System.Windows.Forms.Label label65;
         private System.Windows.Forms.Label label66;
         private System.Windows.Forms.Label label68;
-        private System.Windows.Forms.TextBox textCaster;
+        private DecimalTextBox textCaster;
         private System.Windows.Forms.Label label67;
         private System.Windows.Forms.Label label69;
-        private System.Windows.Forms.TextBox textAckermann;
+        private DecimalTextBox textAckermann;
         private System.Windows.Forms.Label label70;
-        private System.Windows.Forms.TextBox textCarPneuTipo;
-        private System.Windows.Forms.TextBox textCarPneuMarca;
+        private IntegerTextBox textCarPneuTipo;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox textCarPneuPressao;
+        private DecimalTextBox textCarPneuPressao;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label labelTítulo;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -1969,9 +1970,9 @@
         private System.Windows.Forms.RadioButton radioPistaMolhada;
         private System.Windows.Forms.Label label75;
         private System.Windows.Forms.Label label76;
-        private System.Windows.Forms.TextBox textCarPneuAro_rear;
+        private IntegerTextBox textCarPneuAro_rear;
         private System.Windows.Forms.Label label74;
-        private System.Windows.Forms.TextBox textCarPneuDiaExt_rear;
+        private IntegerTextBox textCarPneuDiaExt_rear;
         private System.Windows.Forms.Label label73;
         private System.Windows.Forms.Label label72;
         private System.Windows.Forms.Label label71;
@@ -1981,11 +1982,12 @@
         private System.Windows.Forms.Label label77;
         private System.Windows.Forms.Label label80;
         private System.Windows.Forms.Label label82;
-        private System.Windows.Forms.TextBox textCarPneuPressaoRear;
+        private DecimalTextBox textCarPneuPressaoRear;
         private System.Windows.Forms.Label label81;
         private System.Windows.Forms.Label label84;
         private System.Windows.Forms.Label label83;
-        private System.Windows.Forms.TextBox textCarPneuTipoRear;
+        private IntegerTextBox textCarPneuTipoRear;
         private System.Windows.Forms.TextBox textCarPneuMarcaRear;
+        private System.Windows.Forms.TextBox textCarPneuMarca;
     }
 }
